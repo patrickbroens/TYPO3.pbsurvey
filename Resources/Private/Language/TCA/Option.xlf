@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z"
+		  product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="title" xml:space="preserve">
+				<source>Option</source>
+			</trans-unit>
+			<trans-unit id="field.checked" xml:space="preserve">
+				<source>Checked</source>
+			</trans-unit>
+			<trans-unit id="field.points" xml:space="preserve">
+				<source>Points</source>
+			</trans-unit>
+			<trans-unit id="field.value" xml:space="preserve">
+				<source>Value</source>
+			</trans-unit>
+			<trans-unit id="predefined.-1.1" xml:space="preserve">
+				<source>Strongly Agree</source>
+			</trans-unit>
+			<trans-unit id="predefined.-1.2" xml:space="preserve">
+				<source>Agree</source>
+			</trans-unit>
+			<trans-unit id="predefined.-1.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-1.4" xml:space="preserve">
+				<source>Disagree</source>
+			</trans-unit>
+			<trans-unit id="predefined.-1.5" xml:space="preserve">
+				<source>Strongly Disagree</source>
+			</trans-unit>
+			<trans-unit id="predefined.-2.1" xml:space="preserve">
+				<source>Much Better</source>
+			</trans-unit>
+			<trans-unit id="predefined.-2.2" xml:space="preserve">
+				<source>Better</source>
+			</trans-unit>
+			<trans-unit id="predefined.-2.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-2.4" xml:space="preserve">
+				<source>Worse</source>
+			</trans-unit>
+			<trans-unit id="predefined.-2.5" xml:space="preserve">
+				<source>Much Worse</source>
+			</trans-unit>
+			<trans-unit id="predefined.-3.1" xml:space="preserve">
+				<source>Very Easy</source>
+			</trans-unit>
+			<trans-unit id="predefined.-3.2" xml:space="preserve">
+				<source>Easy</source>
+			</trans-unit>
+			<trans-unit id="predefined.-3.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-3.4" xml:space="preserve">
+				<source>Difficult</source>
+			</trans-unit>
+			<trans-unit id="predefined.-3.5" xml:space="preserve">
+				<source>Very Difficult</source>
+			</trans-unit>
+			<trans-unit id="predefined.-4.1" xml:space="preserve">
+				<source>Very Effective</source>
+			</trans-unit>
+			<trans-unit id="predefined.-4.2" xml:space="preserve">
+				<source>Effective</source>
+			</trans-unit>
+			<trans-unit id="predefined.-4.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-4.4" xml:space="preserve">
+				<source>Ineffective</source>
+			</trans-unit>
+			<trans-unit id="predefined.-4.5" xml:space="preserve">
+				<source>Very Ineffective</source>
+			</trans-unit>
+			<trans-unit id="predefined.-5.1" xml:space="preserve">
+				<source>Excellent</source>
+			</trans-unit>
+			<trans-unit id="predefined.-5.2" xml:space="preserve">
+				<source>Good</source>
+			</trans-unit>
+			<trans-unit id="predefined.-5.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-5.4" xml:space="preserve">
+				<source>Fair</source>
+			</trans-unit>
+			<trans-unit id="predefined.-5.5" xml:space="preserve">
+				<source>Poor</source>
+			</trans-unit>
+			<trans-unit id="predefined.-6.1" xml:space="preserve">
+				<source>Very Fast</source>
+			</trans-unit>
+			<trans-unit id="predefined.-6.2" xml:space="preserve">
+				<source>Fast</source>
+			</trans-unit>
+			<trans-unit id="predefined.-6.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-6.4" xml:space="preserve">
+				<source>Slow</source>
+			</trans-unit>
+			<trans-unit id="predefined.-6.5" xml:space="preserve">
+				<source>Very Slow</source>
+			</trans-unit>
+			<trans-unit id="predefined.-7.1" xml:space="preserve">
+				<source>Very Good</source>
+			</trans-unit>
+			<trans-unit id="predefined.-7.2" xml:space="preserve">
+				<source>Good</source>
+			</trans-unit>
+			<trans-unit id="predefined.-7.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-7.4" xml:space="preserve">
+				<source>Bad</source>
+			</trans-unit>
+			<trans-unit id="predefined.-7.5" xml:space="preserve">
+				<source>Very Bad</source>
+			</trans-unit>
+			<trans-unit id="predefined.-8.1" xml:space="preserve">
+				<source>Very Important</source>
+			</trans-unit>
+			<trans-unit id="predefined.-8.2" xml:space="preserve">
+				<source>Important</source>
+			</trans-unit>
+			<trans-unit id="predefined.-8.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-8.4" xml:space="preserve">
+				<source>Unimportant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-8.5" xml:space="preserve">
+				<source>Very Unimportant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-9.1" xml:space="preserve">
+				<source>Very Likely</source>
+			</trans-unit>
+			<trans-unit id="predefined.-9.2" xml:space="preserve">
+				<source>Likely</source>
+			</trans-unit>
+			<trans-unit id="predefined.-9.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-9.4" xml:space="preserve">
+				<source>Unlikely</source>
+			</trans-unit>
+			<trans-unit id="predefined.-9.5" xml:space="preserve">
+				<source>Very Unlikely</source>
+			</trans-unit>
+			<trans-unit id="predefined.-10.1" xml:space="preserve">
+				<source>Very Relevant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-10.2" xml:space="preserve">
+				<source>Relevant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-10.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-10.4" xml:space="preserve">
+				<source>Irrelevant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-10.5" xml:space="preserve">
+				<source>Very Irrelevant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-11.1" xml:space="preserve">
+				<source>Very Appropriate</source>
+			</trans-unit>
+			<trans-unit id="predefined.-11.2" xml:space="preserve">
+				<source>Appropriate</source>
+			</trans-unit>
+			<trans-unit id="predefined.-11.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-11.4" xml:space="preserve">
+				<source>Inappropriate</source>
+			</trans-unit>
+			<trans-unit id="predefined.-11.5" xml:space="preserve">
+				<source>Very Inappropriate</source>
+			</trans-unit>
+			<trans-unit id="predefined.-12.1" xml:space="preserve">
+				<source>Very Satisfied</source>
+			</trans-unit>
+			<trans-unit id="predefined.-12.2" xml:space="preserve">
+				<source>Satisfied</source>
+			</trans-unit>
+			<trans-unit id="predefined.-12.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-12.4" xml:space="preserve">
+				<source>Dissatisfied</source>
+			</trans-unit>
+			<trans-unit id="predefined.-12.5" xml:space="preserve">
+				<source>Very Dissatisfied</source>
+			</trans-unit>
+			<trans-unit id="predefined.-13.1" xml:space="preserve">
+				<source>Very Significant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-13.2" xml:space="preserve">
+				<source>Significant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-13.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-13.4" xml:space="preserve">
+				<source>Insignificant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-13.5" xml:space="preserve">
+				<source>Very Insignificant</source>
+			</trans-unit>
+			<trans-unit id="predefined.-14.1" xml:space="preserve">
+				<source>Very Useful</source>
+			</trans-unit>
+			<trans-unit id="predefined.-14.2" xml:space="preserve">
+				<source>Useful</source>
+			</trans-unit>
+			<trans-unit id="predefined.-14.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-14.4" xml:space="preserve">
+				<source>Useless</source>
+			</trans-unit>
+			<trans-unit id="predefined.-14.5" xml:space="preserve">
+				<source>Very Useless</source>
+			</trans-unit>
+			<trans-unit id="predefined.-15.1" xml:space="preserve">
+				<source>Very Friendly</source>
+			</trans-unit>
+			<trans-unit id="predefined.-15.2" xml:space="preserve">
+				<source>Friendly</source>
+			</trans-unit>
+			<trans-unit id="predefined.-15.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-15.4" xml:space="preserve">
+				<source>Unfriendly</source>
+			</trans-unit>
+			<trans-unit id="predefined.-15.5" xml:space="preserve">
+				<source>Very Unfriendly</source>
+			</trans-unit>
+			<trans-unit id="predefined.-16.1" xml:space="preserve">
+				<source>Very Small</source>
+			</trans-unit>
+			<trans-unit id="predefined.-16.2" xml:space="preserve">
+				<source>Small</source>
+			</trans-unit>
+			<trans-unit id="predefined.-16.3" xml:space="preserve">
+				<source>Neutral</source>
+			</trans-unit>
+			<trans-unit id="predefined.-16.4" xml:space="preserve">
+				<source>Large</source>
+			</trans-unit>
+			<trans-unit id="predefined.-16.5" xml:space="preserve">
+				<source>Very Large</source>
+			</trans-unit>
+			<trans-unit id="predefined.-17.1" xml:space="preserve">
+				<source>Below Average</source>
+			</trans-unit>
+			<trans-unit id="predefined.-17.2" xml:space="preserve">
+				<source>Average</source>
+			</trans-unit>
+			<trans-unit id="predefined.-17.3" xml:space="preserve">
+				<source>Above Average</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="title" xml:space="preserve">
+				<source>Conditions</source>
+			</trans-unit>
+			<trans-unit id="field.name" xml:space="preserve">
+				<source>Group name</source>
+			</trans-unit>
+			<trans-unit id="field.rules" xml:space="preserve">
+				<source>Rules</source>
+			</trans-unit>
+			<trans-unit id="customControls.warning.page.title" xml:space="preserve">
+				<source>No page available in front of this page</source>
+			</trans-unit>
+			<trans-unit id="customControls.warning.page.body" xml:space="preserve">
+				<source>No rules can be configured. There are no pages available in front of this page.</source>
+			</trans-unit>
+			<trans-unit id="customControls.warning.question.title" xml:space="preserve">
+				<source>No questions available in front of this page</source>
+			</trans-unit>
+			<trans-unit id="customControls.warning.question.body" xml:space="preserve">
+				<source>No rules can be configured. There are no questions available in front of this page.</source>
+			</trans-unit>
+			<trans-unit id="customControls.warning.save.title" xml:space="preserve">
+				<source>Save the Page record</source>
+			</trans-unit>
+			<trans-unit id="customControls.warning.save.body" xml:space="preserve">
+				<source>Before you can configure any rules, you need to save the Page record first.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

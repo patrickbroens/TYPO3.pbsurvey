@@ -1,0 +1,35 @@
+{
+	"name": "patrickbroens/pbsurvey",
+	"type": "typo3-cms-extension",
+	"description": "Take surveys from the visitors of your website. The results can be exported to a csv-file to analyze in Microsoft Excel or the statistical program SPSS or it's open source concurrent PSPP.",
+	"keywords": [
+		"TYPO3",
+		"survey",
+		"questionnaire"
+	],
+	"authors": [
+		{
+			"name": "Patrick Broens",
+			"email": "patrick.broens@typo3.org",
+			"homepage": "https://github.com/patrickbroens"
+		}
+	],
+	"version": "2.0.0",
+	"require": {
+		"typo3/cms-core": "*"
+	},
+	"replace": {
+		"pbsurvey": "self.version",
+		"typo3-ter/pbsurvey": "self.version"
+	},
+	"autoload": {
+		"psr-4": {
+			"PatrickBroens\\Pbsurvey\\": "Classes/"
+		}
+	},
+	"homepage": "https://github.com/patrickbroens/TYPO3.pbsurvey",
+	"license": "GPL-2.0+",
+	"support": {
+		"issues": "https://github.com/patrickbroens/TYPO3.pbsurvey/issues"
+	}
+}

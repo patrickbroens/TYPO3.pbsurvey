@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="title" xml:space="preserve">
+				<source>Scoring page</source>
+			</trans-unit>
+			<trans-unit id="field.score" xml:space="preserve">
+				<source>Maximum score</source>
+			</trans-unit>
+			<trans-unit id="field.page" xml:space="preserve">
+				<source>Redirect to page</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

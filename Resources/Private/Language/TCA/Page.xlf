@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="title" xml:space="preserve">
+				<source>Survey Page</source>
+			</trans-unit>
+			<trans-unit id="field.condition_groups" xml:space="preserve">
+				<source>Conditions</source>
+			</trans-unit>
+			<trans-unit id="field.introduction" xml:space="preserve">
+				<source>Introduction</source>
+			</trans-unit>
+			<trans-unit id="field.title" xml:space="preserve">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="field.items" xml:space="preserve">
+				<source>Questions</source>
+			</trans-unit>
+			<trans-unit id="tab.conditions" xml:space="preserve">
+				<source>Conditions</source>
+			</trans-unit>
+			<trans-unit id="tab.items" xml:space="preserve">
+				<source>Questions</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

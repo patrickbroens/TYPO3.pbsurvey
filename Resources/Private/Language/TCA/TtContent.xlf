@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="CType.pbsurvey" xml:space="preserve">
+				<source>Survey</source>
+			</trans-unit>
+			<trans-unit id="field.accessLevel" xml:space="preserve">
+				<source>Respondent Access Level</source>
+			</trans-unit>
+			<trans-unit id="field.accessLevel.0" xml:space="preserve">
+				<source>Multiple Response</source>
+			</trans-unit>
+			<trans-unit id="field.accessLevel.1" xml:space="preserve">
+				<source>Single Response</source>
+			</trans-unit>
+			<trans-unit id="field.accessLevel.2" xml:space="preserve">
+				<source>Single Response (Not Updateable)</source>
+			</trans-unit>
+			<trans-unit id="field.accessLevel.3" xml:space="preserve">
+				<source>Single Response (Not Updateable after finish)</source>
+			</trans-unit>
+			<trans-unit id="field.anonymousMode" xml:space="preserve">
+				<source>Anonymous check</source>
+			</trans-unit>
+			<trans-unit id="field.anonymousMode.0" xml:space="preserve">
+				<source>IP-address</source>
+			</trans-unit>
+			<trans-unit id="field.anonymousMode.1" xml:space="preserve">
+				<source>Cookie</source>
+			</trans-unit>
+			<trans-unit id="field.cancelPage" xml:space="preserve">
+				<source>Cancel Button Page</source>
+			</trans-unit>
+			<trans-unit id="field.captcha" xml:space="preserve">
+				<source>Show Captcha before entering survey</source>
+			</trans-unit>
+			<trans-unit id="field.completionAction" xml:space="preserve">
+				<source>Completion Action</source>
+			</trans-unit>
+			<trans-unit id="field.completionAction.0" xml:space="preserve">
+				<source>Close the browser</source>
+			</trans-unit>
+			<trans-unit id="field.completionAction.1" xml:space="preserve">
+				<source>Display Message</source>
+			</trans-unit>
+			<trans-unit id="field.completionAction.2" xml:space="preserve">
+				<source>Redirect to another page</source>
+			</trans-unit>
+			<trans-unit id="field.completionAction.3" xml:space="preserve">
+				<source>Redirect to scoring pages</source>
+			</trans-unit>
+			<trans-unit id="field.completionCloseButton" xml:space="preserve">
+				<source>Close Button</source>
+			</trans-unit>
+			<trans-unit id="field.completionContinueButton" xml:space="preserve">
+				<source>Continue Button</source>
+			</trans-unit>
+			<trans-unit id="field.completionPage" xml:space="preserve">
+				<source>Completion Page</source>
+			</trans-unit>
+			<trans-unit id="field.cookieLifetime" xml:space="preserve">
+				<source>Cookie lifetime (in days)</source>
+			</trans-unit>
+			<trans-unit id="field.daysForUpdate" xml:space="preserve">
+				<source>Days for Update</source>
+			</trans-unit>
+			<trans-unit id="field.enteringStage" xml:space="preserve">
+				<source>Begin stage when restarting</source>
+			</trans-unit>
+			<trans-unit id="field.enteringStage.0" xml:space="preserve">
+				<source>At the beginning of the survey</source>
+			</trans-unit>
+			<trans-unit id="field.enteringStage.1" xml:space="preserve">
+				<source>At the point where user left the survey</source>
+			</trans-unit>
+			<trans-unit id="field.firstColumnWidth" xml:space="preserve">
+				<source>First column width for matrix questions (percentage)</source>
+			</trans-unit>
+			<trans-unit id="field.mailBody" xml:space="preserve">
+				<source>Message</source>
+			</trans-unit>
+			<trans-unit id="field.mailCc" xml:space="preserve">
+				<source>Cc</source>
+			</trans-unit>
+			<trans-unit id="field.mailFromAddress" xml:space="preserve">
+				<source>From: Email Address</source>
+			</trans-unit>
+			<trans-unit id="field.mailFromName" xml:space="preserve">
+				<source>From: Name</source>
+			</trans-unit>
+			<trans-unit id="field.mailSendType" xml:space="preserve">
+				<source>Send mail</source>
+			</trans-unit>
+			<trans-unit id="field.mailSendType.0" xml:space="preserve">
+				<source>No mail</source>
+			</trans-unit>
+			<trans-unit id="field.mailSendType.1" xml:space="preserve">
+				<source>Send: Question / Answer</source>
+			</trans-unit>
+			<trans-unit id="field.mailSendType.2" xml:space="preserve">
+				<source>Send: Default message</source>
+			</trans-unit>
+			<trans-unit id="field.mailSubject" xml:space="preserve">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="field.mailTo" xml:space="preserve">
+				<source>To</source>
+			</trans-unit>
+			<trans-unit id="field.maximumResponses" xml:space="preserve">
+				<source>Maximum Responses</source>
+			</trans-unit>
+			<trans-unit id="field.navigationBack" xml:space="preserve">
+				<source>Back Button</source>
+			</trans-unit>
+			<trans-unit id="field.navigationBack.0" xml:space="preserve">
+				<source>Do not display</source>
+			</trans-unit>
+			<trans-unit id="field.navigationBack.1" xml:space="preserve">
+				<source>Display</source>
+			</trans-unit>
+			<trans-unit id="field.navigationCancel" xml:space="preserve">
+				<source>Cancel Button</source>
+			</trans-unit>
+			<trans-unit id="field.navigationCancel.0" xml:space="preserve">
+				<source>Do not display</source>
+			</trans-unit>
+			<trans-unit id="field.navigationCancel.1" xml:space="preserve">
+				<source>Close browser</source>
+			</trans-unit>
+			<trans-unit id="field.navigationCancel.2" xml:space="preserve">
+				<source>Redirect to end of survey</source>
+			</trans-unit>
+			<trans-unit id="field.navigationCancel.3" xml:space="preserve">
+				<source>Redirect to custom page (entered below)</source>
+			</trans-unit>
+			<trans-unit id="field.numberingPage" xml:space="preserve">
+				<source>Page Numbering</source>
+			</trans-unit>
+			<trans-unit id="field.numberingPage.0" xml:space="preserve">
+				<source>Do not display page numbers</source>
+			</trans-unit>
+			<trans-unit id="field.numberingPage.1" xml:space="preserve">
+				<source>Display progress as a progress bar</source>
+			</trans-unit>
+			<trans-unit id="field.numberingPage.2" xml:space="preserve">
+				<source>Display progress in 'Page X of Y' format</source>
+			</trans-unit>
+			<trans-unit id="field.numberingPage.3" xml:space="preserve">
+				<source>Display page number on each page</source>
+			</trans-unit>
+			<trans-unit id="field.numberingQuestion" xml:space="preserve">
+				<source>Question Numbering</source>
+			</trans-unit>
+			<trans-unit id="field.numberingQuestion.0" xml:space="preserve">
+				<source>Do not display question numbers</source>
+			</trans-unit>
+			<trans-unit id="field.numberingQuestion.1" xml:space="preserve">
+				<source>Number questions within entire questionaire</source>
+			</trans-unit>
+			<trans-unit id="field.numberingQuestion.2" xml:space="preserve">
+				<source>Number questions within each page</source>
+			</trans-unit>
+			<trans-unit id="field.responsesPerUser" xml:space="preserve">
+				<source>Responses per user</source>
+			</trans-unit>
+			<trans-unit id="field.scoring" xml:space="preserve">
+				<source>Scoring</source>
+			</trans-unit>
+			<trans-unit id="field.storageFolder" xml:space="preserve">
+				<source>Storage folder</source>
+			</trans-unit>
+			<trans-unit id="field.validation" xml:space="preserve">
+				<source>Form validation</source>
+			</trans-unit>
+			<trans-unit id="field.validation.0" xml:space="preserve">
+				<source>Client-side Javascript</source>
+			</trans-unit>
+			<trans-unit id="field.validation.1" xml:space="preserve">
+				<source>Server-side PHP</source>
+			</trans-unit>
+			<trans-unit id="field.validation.2" xml:space="preserve">
+				<source>Both Server-side and Client-side</source>
+			</trans-unit>
+			<trans-unit id="tab.storage" xml:space="preserve">
+				<source>Storage</source>
+			</trans-unit>
+			<trans-unit id="tab.mail" xml:space="preserve">
+				<source>Mail</source>
+			</trans-unit>
+			<trans-unit id="tab.completion" xml:space="preserve">
+				<source>Completion</source>
+			</trans-unit>
+			<trans-unit id="tab.navigation" xml:space="preserve">
+				<source>Navigation</source>
+			</trans-unit>
+			<trans-unit id="tab.numbering" xml:space="preserve">
+				<source>Numbering</source>
+			</trans-unit>
+			<trans-unit id="tab.scoring" xml:space="preserve">
+				<source>Scoring</source>
+			</trans-unit>
+			<trans-unit id="tab.other" xml:space="preserve">
+				<source>Other</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

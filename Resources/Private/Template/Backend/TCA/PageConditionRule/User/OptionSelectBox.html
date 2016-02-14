@@ -1,0 +1,28 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<div class="form-control-wrap">
+	<select name="{name}" onchange="{onChange}" class="form-control form-control-adapt">
+		<f:if condition="{hasAdditional}">
+			<option>
+				<f:translate key="LLL:EXT:pbsurvey/Resources/Private/Language/TCA/PageConditionRule.xlf:field.item_option.0" />
+			</option>
+		</f:if>
+		<f:for each="{options}" as="option">
+			<option value="{option.uid}"{f:if(condition: '{option.uid} == {selectedValue}', then: ' selected')}>
+				<f:if condition="{optionsPredefined}">
+					<f:then>
+						<f:translate key="LLL:EXT:pbsurvey/Resources/Private/Language/TCA/PageConditionRule.xlf:field.item_option.{option.value}" />
+					</f:then>
+					<f:else>
+						<f:format.crop maxCharacters="50">{option.value}</f:format.crop>
+					</f:else>
+				</f:if>
+			</option>
+		</f:for>
+	</select>
+</div>
+
+</html>

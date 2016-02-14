@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="pbsurvey.title" xml:space="preserve">
+				<source>Survey</source>
+			</trans-unit>
+			<trans-unit id="pbsurvey.description" xml:space="preserve">
+				<source>Collect information from visitors using extensive surveys</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,23 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<div class="form-control-wrap">
+	<select name="{name}" onchange="{onChange}" class="form-control form-control-adapt">
+		<option>
+			<f:translate key="LLL:EXT:pbsurvey/Resources/Private/Language/TCA/PageConditionRule.xlf:field.item.0" />
+		</option>
+		<f:for each="{pages}" as="page" iteration="pageIterator">
+			<optgroup label="{f:translate(key: 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/PageConditionRule.xlf:user.item.page')} {pageIterator.cycle}">
+				<f:for each="{page.items}" as="item">
+					<option value="{item.uid}"{f:if(condition: '{item.uid} == {selectedValue}', then: ' selected')}>
+						<f:format.crop maxCharacters="50">{item.question}</f:format.crop>
+					</option>
+				</f:for>
+			</optgroup>
+		</f:for>
+	</select>
+</div>
+
+</html>

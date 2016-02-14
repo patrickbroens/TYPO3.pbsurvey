@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="title" xml:space="preserve">
+				<source>Row</source>
+			</trans-unit>
+			<trans-unit id="field.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

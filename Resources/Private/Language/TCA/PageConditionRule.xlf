@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="title" xml:space="preserve">
+				<source>Rule</source>
+			</trans-unit>
+			<trans-unit id="field.item" xml:space="preserve">
+				<source>Question</source>
+			</trans-unit>
+			<trans-unit id="field.item.0" xml:space="preserve">
+				<source>-- Select a question --</source>
+			</trans-unit>
+			<trans-unit id="field.item_option" xml:space="preserve">
+				<source>Answer</source>
+			</trans-unit>
+			<trans-unit id="field.item_option.0" xml:space="preserve">
+				<source>-- None --</source>
+			</trans-unit>
+			<trans-unit id="field.item_option_additional" xml:space="preserve">
+				<source>Additional</source>
+			</trans-unit>
+			<trans-unit id="field.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="field.operator" xml:space="preserve">
+				<source>Operator</source>
+			</trans-unit>
+			<trans-unit id="field.operator.empty" xml:space="preserve">
+				<source>-- Select an operator --</source>
+			</trans-unit>
+			<trans-unit id="field.operator.equal" xml:space="preserve">
+				<source>Equals to</source>
+			</trans-unit>
+			<trans-unit id="field.operator.notEqual" xml:space="preserve">
+				<source>Not Equal to</source>
+			</trans-unit>
+			<trans-unit id="field.operator.contains" xml:space="preserve">
+				<source>Contains</source>
+			</trans-unit>
+			<trans-unit id="field.operator.notContains" xml:space="preserve">
+				<source>Does Not Contain</source>
+			</trans-unit>
+			<trans-unit id="field.operator.greater" xml:space="preserve">
+				<source>Is Greater Than</source>
+			</trans-unit>
+			<trans-unit id="field.operator.greaterEqual" xml:space="preserve">
+				<source>Is Greater Or Equal Than</source>
+			</trans-unit>
+			<trans-unit id="field.operator.less" xml:space="preserve">
+				<source>Is Less Than</source>
+			</trans-unit>
+			<trans-unit id="field.operator.lessEqual" xml:space="preserve">
+				<source>Is Less Or Equal Than</source>
+			</trans-unit>
+			<trans-unit id="field.operator.set" xml:space="preserve">
+				<source>Provided An Answer</source>
+			</trans-unit>
+			<trans-unit id="field.operator.notSet" xml:space="preserve">
+				<source>Did Not Provide An Answer</source>
+			</trans-unit>
+			<trans-unit id="user.item.page" xml:space="preserve">
+				<source>Page</source>
+			</trans-unit>
+			<trans-unit id="customControls.warning.save.title" xml:space="preserve">
+				<source>Save the Page record</source>
+			</trans-unit>
+			<trans-unit id="customControls.warning.save.body" xml:space="preserve">
+				<source>Before you can configure any rules, you need to save the Page record first.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

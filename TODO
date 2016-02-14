@@ -1,0 +1,85 @@
+Upgrade wizard
+==============
+
+Change plugin to regular content element
+
+FlexForm to regular tt_content fields:
+
+sDEF - pages => storage_folder
+sDEF - template_file => REMOVED
+
+sMAIL - YNemail => survey_mail_send_type
+sMAIL - Subject => survey_mail_subject
+sMAIL - FromEmail => survey_mail_from_address
+sMAIL - FromName => survey_mail_from_name
+sMAIL - ToEmail => survey_mail_to
+sMAIL - CcEmail => survey_mail_cc
+sMAIL - MessageBox => survey_mail_body
+
+sACCESS - captcha => survey_captcha
+sACCESS - access_level => survey_access_level
+sACCESS - entering_stage => survey_entering_stage
+sACCESS - anonymous_mode => survey_anonymous_mode
+sACCESS - cookie_lifetime => survey_cookie_lifetime
+
+sCOMPLETION - completion_action => survey_completion_action
+sCOMPLETION - completion_url => survey_completion_page
+sCOMPLETION - close_button => survey_completion_close_button
+sCOMPLETION - continue_button => survey_completion_continue_button
+
+sNAVIGATION - navigation_back => survey_navigation_back
+sNAVIGATION - navigation_cancel => survey_navigation_cancel
+sNAVIGATION - cancel_url => survey_cancel_page
+
+sNUMBERING - page_numbering => survey_numbering_page
+sNUMBERING - question_numbering => survey_numbering_question
+
+sSCORING => This is a sheet with sections
+These sections need to be transformed to tx_survey_score records and attached to the survey_scoring field
+
+sOTHER - maximum_responses => survey_maximum_responses
+sOTHER - responses_per_user => survey_responses_per_user
+sOTHER - days_for_update => survey_days_for_update
+sOTHER - validation => survey_validation
+sOTHER - first_column_width => survey_first_column_width
+
+Icons
+=====
+
+Design new icons for the CType (+ New Content Element Wizard), score, item, answer and result
+
+tx_pbsurvey_item
+================
+
+Field changes
+
+answers - Changed to IRRE
+conditions => condition_groups - Changed to IRRE
+rows - Changed to IRRE
+image - Changed to IRRE
+images - Changed to IRRE
+
+answers_allow_additional => answers_additional_allow
+answers_text_additional => answers_additional_text
+answers_type_additional => answers_additional_type
+
+beginning_number => number_start
+ending_number => number_end
+total_number => number_total
+
+default_date => date_default
+maximum_date => date_maximum
+minimum_date => date_minimum
+
+default_value_num => value_default_numeric
+default_value_tf => value_default_true_false
+default_value_txt => value_default_text
+default_value_yn => value_default_yes_no
+
+maximum_length => length_maximum
+
+maximum_value => value_maximum
+minimum_value => value_minimum
+
+options_maximum_responses => options_responses_maximum
+options_minimum_responses => options_responses_minimum

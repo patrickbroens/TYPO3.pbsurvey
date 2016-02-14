@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="title" xml:space="preserve">
+				<source>Survey Item</source>
+			</trans-unit>
+			<trans-unit id="field.answers" xml:space="preserve">
+				<source>Enter the Answers</source>
+			</trans-unit>
+			<trans-unit id="field.answers_additional_allow" xml:space="preserve">
+				<source>Allow additional answer</source>
+			</trans-unit>
+			<trans-unit id="field.answers_additional_text" xml:space="preserve">
+				<source>Additional Answer</source>
+			</trans-unit>
+			<trans-unit id="field.answers_additional_type" xml:space="preserve">
+				<source>Additional Answer Input Type</source>
+			</trans-unit>
+			<trans-unit id="field.answers_additional_type.0" xml:space="preserve">
+				<source>Textbox</source>
+			</trans-unit>
+			<trans-unit id="field.answers_additional_type.1" xml:space="preserve">
+				<source>Textarea</source>
+			</trans-unit>
+			<trans-unit id="field.answers_none" xml:space="preserve">
+				<source>Add -none- value to answers</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group" xml:space="preserve">
+				<source>Select answers from a predefined group (or "Custom" to add them manually)</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.0" xml:space="preserve">
+				<source>Custom</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-1" xml:space="preserve">
+				<source>Agree - Disagree</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-2" xml:space="preserve">
+				<source>Better - Worse</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-3" xml:space="preserve">
+				<source>Easy - Difficult</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-4" xml:space="preserve">
+				<source>Effective - Ineffective</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-5" xml:space="preserve">
+				<source>Excellent - Poor</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-6" xml:space="preserve">
+				<source>Fast - Slow</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-7" xml:space="preserve">
+				<source>Good - Bad</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-8" xml:space="preserve">
+				<source>Important - Unimportant</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-9" xml:space="preserve">
+				<source>Likely - Unlikely</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-10" xml:space="preserve">
+				<source>Relevant - Irrelevant</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-11" xml:space="preserve">
+				<source>Appropriate - Inappropriate</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-12" xml:space="preserve">
+				<source>Satisfied - Dissatisfied</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-13" xml:space="preserve">
+				<source>Significant - Insignificant</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-14" xml:space="preserve">
+				<source>Useful - Useless</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-15" xml:space="preserve">
+				<source>Friendly - Unfriendly</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-16" xml:space="preserve">
+				<source>Small - Large</source>
+			</trans-unit>
+			<trans-unit id="field.answers_predefined_group.-17" xml:space="preserve">
+				<source>Below Average - Above Average</source>
+			</trans-unit>
+			<trans-unit id="field.date_default" xml:space="preserve">
+				<source>Default value</source>
+			</trans-unit>
+			<trans-unit id="field.date_maximum" xml:space="preserve">
+				<source>Maximum value</source>
+			</trans-unit>
+			<trans-unit id="field.display_type" xml:space="preserve">
+				<source>Display Type</source>
+			</trans-unit>
+			<trans-unit id="field.display_type.0" xml:space="preserve">
+				<source>Dropdown</source>
+			</trans-unit>
+			<trans-unit id="field.display_type.1" xml:space="preserve">
+				<source>Radio Buttons - Horizontal</source>
+			</trans-unit>
+			<trans-unit id="field.display_type.2" xml:space="preserve">
+				<source>Radio Buttons - Vertical</source>
+			</trans-unit>
+			<trans-unit id="field.email" xml:space="preserve">
+				<source>Is E-mail Address</source>
+			</trans-unit>
+			<trans-unit id="field.heading" xml:space="preserve">
+				<source>Enter the heading</source>
+			</trans-unit>
+			<trans-unit id="field.html" xml:space="preserve">
+				<source>Enter the HTML</source>
+			</trans-unit>
+			<trans-unit id="field.image" xml:space="preserve">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="field.image_alignment" xml:space="preserve">
+				<source>Image alignment</source>
+			</trans-unit>
+			<trans-unit id="field.image_alignment.0" xml:space="preserve">
+				<source>Default</source>
+			</trans-unit>
+			<trans-unit id="field.image_alignment.1" xml:space="preserve">
+				<source>Left</source>
+			</trans-unit>
+			<trans-unit id="field.image_alignment.2" xml:space="preserve">
+				<source>Center</source>
+			</trans-unit>
+			<trans-unit id="field.image_alignment.3" xml:space="preserve">
+				<source>Right</source>
+			</trans-unit>
+			<trans-unit id="field.image_height" xml:space="preserve">
+				<source>Maximum image height</source>
+			</trans-unit>
+			<trans-unit id="field.image_width" xml:space="preserve">
+				<source>Maximum image width</source>
+			</trans-unit>
+			<trans-unit id="field.images" xml:space="preserve">
+				<source>Images</source>
+			</trans-unit>
+			<trans-unit id="field.length_maximum" xml:space="preserve">
+				<source>Maximum length</source>
+			</trans-unit>
+			<trans-unit id="field.message" xml:space="preserve">
+				<source>Enter the message</source>
+			</trans-unit>
+			<trans-unit id="field.negative_first" xml:space="preserve">
+				<source>Negative value (false/no) first in order</source>
+			</trans-unit>
+			<trans-unit id="field.number_end" xml:space="preserve">
+				<source>Ending number</source>
+			</trans-unit>
+			<trans-unit id="field.number_start" xml:space="preserve">
+				<source>Beginning number</source>
+			</trans-unit>
+			<trans-unit id="field.number_total" xml:space="preserve">
+				<source>Answer total</source>
+			</trans-unit>
+			<trans-unit id="field.options_alignment" xml:space="preserve">
+				<source>Answer Alignment</source>
+			</trans-unit>
+			<trans-unit id="field.options_alignment.0" xml:space="preserve">
+				<source>Vertical</source>
+			</trans-unit>
+			<trans-unit id="field.options_alignment.1" xml:space="preserve">
+				<source>Horizontal</source>
+			</trans-unit>
+			<trans-unit id="field.options_random" xml:space="preserve">
+				<source>Random Order</source>
+			</trans-unit>
+			<trans-unit id="field.options_required" xml:space="preserve">
+				<source>Required</source>
+			</trans-unit>
+			<trans-unit id="field.options_responses_maximum" xml:space="preserve">
+				<source>Maximum Number of Responses</source>
+			</trans-unit>
+			<trans-unit id="field.options_responses_minimum" xml:space="preserve">
+				<source>Minimum Number of Responses</source>
+			</trans-unit>
+			<trans-unit id="field.options_row_heading_width" xml:space="preserve">
+				<source>Row Heading Width</source>
+			</trans-unit>
+			<trans-unit id="field.question" xml:space="preserve">
+				<source>Question</source>
+			</trans-unit>
+			<trans-unit id="field.question_alias" xml:space="preserve">
+				<source>Question Alias</source>
+			</trans-unit>
+			<trans-unit id="field.question_subtext" xml:space="preserve">
+				<source>Question Subtext</source>
+			</trans-unit>
+			<trans-unit id="field.question_type" xml:space="preserve">
+				<source>Question Type</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.0" xml:space="preserve">
+				<source>Choice - Database Dropdown</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.1" xml:space="preserve">
+				<source>Choice - Multiple Answers (Checkboxes)</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.2" xml:space="preserve">
+				<source>Choice - One Answer (Dropdown)</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.3" xml:space="preserve">
+				<source>Choice - One Answer (Option Buttons)</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.4" xml:space="preserve">
+				<source>Choice - True/False</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.5" xml:space="preserve">
+				<source>Choice - Yes/No</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.6" xml:space="preserve">
+				<source>Matrix - Multiple Answers per Row (Checkboxes)</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.7" xml:space="preserve">
+				<source>Matrix - Multiple Answers per Row (Textboxes)</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.8" xml:space="preserve">
+				<source>Matrix - One Answer per Row (Option Buttons)</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.9" xml:space="preserve">
+				<source>Matrix - Rating Scale (Numeric)</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.10" xml:space="preserve">
+				<source>Open Ended - Comments Box</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.11" xml:space="preserve">
+				<source>Open Ended - Constant Sum</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.12" xml:space="preserve">
+				<source>Open Ended - Date</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.13" xml:space="preserve">
+				<source>Open Ended - Number</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.14" xml:space="preserve">
+				<source>Open Ended - One Line</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.15" xml:space="preserve">
+				<source>Open Ended - One or More Lines</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.16" xml:space="preserve">
+				<source>Open Ended - Ranking</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.17" xml:space="preserve">
+				<source>Presentation - Heading</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.18" xml:space="preserve">
+				<source>Presentation - Horizontal Rule (HR)</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.19" xml:space="preserve">
+				<source>Presentation - HTML</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.20" xml:space="preserve">
+				<source>Presentation - Image</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.21" xml:space="preserve">
+				<source>Presentation - Message</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.23" xml:space="preserve">
+				<source>Choice - Multiple Answers (Selectbox)</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.24" xml:space="preserve">
+				<source>Choice - Image rating</source>
+			</trans-unit>
+			<trans-unit id="field.question_type.99" xml:space="preserve">
+				<source>Call User Defined Hook</source>
+			</trans-unit>
+			<trans-unit id="field.rows" xml:space="preserve">
+				<source>Row Names</source>
+			</trans-unit>
+			<trans-unit id="field.selectbox_height" xml:space="preserve">
+				<source>Selectbox height</source>
+			</trans-unit>
+			<trans-unit id="field.styleclass" xml:space="preserve">
+				<source>Additional CSS style</source>
+			</trans-unit>
+			<trans-unit id="field.textarea_height" xml:space="preserve">
+				<source>Textarea height</source>
+			</trans-unit>
+			<trans-unit id="field.textarea_width" xml:space="preserve">
+				<source>Textarea width</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_numeric" xml:space="preserve">
+				<source>Default value</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_text" xml:space="preserve">
+				<source>Default value</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_true_false" xml:space="preserve">
+				<source>Default value</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_true_false.0" xml:space="preserve">
+				<source>--None--</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_true_false.1" xml:space="preserve">
+				<source>False</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_true_false.2" xml:space="preserve">
+				<source>True</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_yes_no" xml:space="preserve">
+				<source>Default value</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_yes_no.0" xml:space="preserve">
+				<source>--None--</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_yes_no.1" xml:space="preserve">
+				<source>No</source>
+			</trans-unit>
+			<trans-unit id="field.value_default_yes_no.2" xml:space="preserve">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="field.value_maximum" xml:space="preserve">
+				<source>Maximum value</source>
+			</trans-unit>
+			<trans-unit id="field.value_minimum" xml:space="preserve">
+				<source>Minimum value</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
