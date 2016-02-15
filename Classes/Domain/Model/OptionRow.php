@@ -15,9 +15,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
  */
 
 /**
- * Row
+ * Option row
  */
-class Row extends AbstractModel
+class OptionRow extends AbstractModel
 {
     /**
      * The name

@@ -74,7 +74,7 @@ class PageConditionGroupRepository extends AbstractRepository
         $pageConditionGroup->fill($record);
 
         if (in_array('PageConditionRule', $loadObjects)) {
-            $pageConditionGroup->addAnswers($this->getPageConditionRules($pageConditionGroup, $loadObjects));
+            $pageConditionGroup->addRules($this->getPageConditionRules($pageConditionGroup, $loadObjects));
         }
 
         return $pageConditionGroup;

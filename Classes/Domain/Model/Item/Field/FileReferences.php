@@ -17,45 +17,45 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 
 /**
- * Images trait
+ * FileReferences trait
  */
-trait Images
+trait FileReferences
 {
     /**
-     * The images file references
+     * The file references
      *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference[]
      */
-    protected $images;
+    protected $fileReferences;
 
     /**
-     * Check if the item contains images
+     * Check if the item contains file references
      *
-     * @return bool true when images are available
+     * @return bool true when file references are available
      */
-    public function hasImages()
+    public function hasFileReferences()
     {
-        return !empty($this->images);
+        return !empty($this->fileReferences);
     }
 
     /**
-     * Get the images file references
+     * Get the file references
      *
      * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference[]
      */
-    public function getImages()
+    public function getFileReferences()
     {
-        return $this->images;
+        return $this->fileReferences;
     }
 
     /**
-     * Add an image file reference
+     * Add a file reference
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image The image file reference
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference The file reference
      */
-    public function addImage(FileReference $image)
+    public function addFileReference(FileReference $fileReference)
     {
-        $this->images[] = $image;
+        $this->fileReferences[] = $fileReference;
     }
 
     /**

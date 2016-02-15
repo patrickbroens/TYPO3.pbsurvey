@@ -78,12 +78,10 @@ CREATE TABLE tx_pbsurvey_item (
 	l18n_parent int(11) DEFAULT '0' NOT NULL,
 	l18n_diffsource mediumblob NOT NULL,
 
-	answers int(11) DEFAULT '0' NOT NULL,
 	answers_additional_allow tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	answers_additional_text tinytext NOT NULL,
 	answers_additional_type tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	answers_none tinyint(3) unsigned DEFAULT '0' NOT NULL,
-	answers_predefined_group int(11) DEFAULT '0' NOT NULL,
 
 	date_default int(11) DEFAULT '0' NOT NULL,
 	date_maximum int(11) DEFAULT '0',
@@ -93,11 +91,13 @@ CREATE TABLE tx_pbsurvey_item (
 
 	email tinyint(3) unsigned DEFAULT '0' NOT NULL,
 
+	file_reference int(11) DEFAULT '0' NOT NULL,
+	file_references int(11) DEFAULT '0' NOT NULL,
+
 	heading tinytext NOT NULL,
 
 	html text NOT NULL,
 
-	image blob NOT NULL,
 	image_alignment tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	image_height int(11) DEFAULT '0',
 	image_width int(11) DEFAULT '0',
@@ -113,7 +113,10 @@ CREATE TABLE tx_pbsurvey_item (
 	number_start int(11) DEFAULT '0',
 	number_total int(11) DEFAULT '0',
 
+	option_rows text NOT NULL,
+	options int(11) DEFAULT '0' NOT NULL,
 	options_alignment int(11) unsigned DEFAULT '0' NOT NULL,
+	options_predefined_group int(11) DEFAULT '0' NOT NULL,
 	options_random tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	options_required tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	options_responses_maximum int(11) DEFAULT '0' NOT NULL,
@@ -126,8 +129,6 @@ CREATE TABLE tx_pbsurvey_item (
 	question_alias tinytext NOT NULL,
 	question_subtext text NOT NULL,
 	question_type int(11) unsigned DEFAULT '0' NOT NULL,
-
-	rows text NOT NULL,
 
 	selectbox_height int(11) DEFAULT '0',
 
@@ -212,6 +213,32 @@ CREATE TABLE tx_pbsurvey_option_predefined_group (
 
 	PRIMARY KEY (uid),
 	KEY pid (pid)
+);
+
+#
+# Table structure for table 'tx_pbsurvey_option_row'
+#
+CREATE TABLE tx_pbsurvey_option_row (
+	uid int(11) unsigned NOT NULL auto_increment,
+	pid int(11) unsigned DEFAULT '0' NOT NULL,
+
+	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
+
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+
+	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+
+	parentid int(11) unsigned DEFAULT '0' NOT NULL,
+
+	name int(11) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY pid (pid),
+	KEY parentid (parentid)
 );
 
 #
@@ -326,32 +353,6 @@ CREATE TABLE tx_pbsurvey_result (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid)
-);
-
-#
-# Table structure for table 'tx_pbsurvey_row'
-#
-CREATE TABLE tx_pbsurvey_row (
-	uid int(11) unsigned NOT NULL auto_increment,
-	pid int(11) unsigned DEFAULT '0' NOT NULL,
-
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-	parentid int(11) unsigned DEFAULT '0' NOT NULL,
-
-	name int(11) unsigned DEFAULT '0' NOT NULL,
-
-	PRIMARY KEY (uid),
-	KEY pid (pid),
-	KEY parentid (parentid)
 );
 
 #

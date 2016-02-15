@@ -16,7 +16,7 @@ namespace PatrickBroens\Pbsurvey\Hook;
 
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use PatrickBroens\Pbsurvey\Wizard\AnswerWizard;
+use PatrickBroens\Pbsurvey\Wizard\OptionWizard;
 
 /**
  * Class that hooks into DataHandler and listens for updates to records
@@ -39,16 +39,16 @@ class ProcessDataMap
     {
         if (
             $table === 'tx_pbsurvey_item'
-            && isset($fields['answers_predefined_group'])
-            && (int)$fields['answers_predefined_group'] !== 0
+            && isset($fields['options_predefined_group'])
+            && (int)$fields['options_predefined_group'] !== 0
         ) {
             // Get the uid of the record when the current operation is 'new'
             $uid = $status === 'new' ? (int)$dataHandler->substNEWwithIDs[$uid] : (int)$uid;
 
-            $predefinedGroup = (int)$fields['answers_predefined_group'];
+            $predefinedGroup = (int)$fields['options_predefined_group'];
 
-            $answerWizard = GeneralUtility::makeInstance(AnswerWizard::class);
-            $answerWizard->process($uid, $predefinedGroup);
+            $optionWizard = GeneralUtility::makeInstance(OptionWizard::class);
+            $optionWizard->process($uid, $predefinedGroup);
         }
     }
 }

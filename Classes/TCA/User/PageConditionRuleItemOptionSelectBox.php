@@ -69,7 +69,7 @@ class PageConditionRuleItemOptionSelectBox extends ItemControl
     {
         $this->view->setTemplate('OptionSelectBox');
         $this->view->assignMultiple([
-            'options' => $item->getAnswers(),
+            'options' => $item->getOptions(),
             'optionsPredefined' => $item->isPredefinedOptions(),
             'hasAdditional' => $item->isAdditionalAllowed(),
             'selectedValue' => (int)$parameters['itemFormElValue'],

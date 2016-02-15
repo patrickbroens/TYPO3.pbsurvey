@@ -18,9 +18,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Repository\OptionPredefinedGroupRepository;
 
 /**
- * Fills the select box for predefined answers in TCA ItemsProcFunc
+ * Fills the select box for predefined options in TCA ItemsProcFunc
  */
-class AnswersPredefinedSelectBox
+class OptionsPredefinedSelectBox
 {
     /**
      * Add the predefined option groups to select box

@@ -14,8 +14,8 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\Answers;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\AnswersAdditionalText;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\Options;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\OptionsResponses;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\Question;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\QuestionSubtext;
@@ -45,12 +45,12 @@ class ItemType1 extends Choice
     ];
 
     /**
-     * TRAIT: Answers
+     * TRAIT: Options
      *
      * FIELDS:
-     * $answers
+     * $options
      */
-    use Answers;
+    use Options;
 
     /**
      * TRAIT: AnswersAdditionalText

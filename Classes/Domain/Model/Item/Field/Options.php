@@ -19,45 +19,45 @@ use \PatrickBroens\Pbsurvey\Domain\Model\Option;
 /**
  * Answers trait
  */
-trait Answers
+trait Options
 {
     /**
-     * The answers
+     * The options
      *
      * @var \PatrickBroens\Pbsurvey\Domain\Model\Option[]
      */
-    protected $answers;
+    protected $options;
 
     /**
-     * Get the answers
+     * Get the options
      *
      * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[]
      */
-    public function getAnswers()
+    public function getOptions()
     {
-        return $this->answers;
+        return $this->options;
     }
 
     /**
      * Add an answer
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Option $answer The answer
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Option $option The option
      */
-    public function addAnswer(Option $answer)
+    public function addOption(Option $option)
     {
-        $this->answers[] = $answer;
+        $this->options[] = $option;
     }
 
     /**
-     * Add answers
+     * Add options
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Option[] $answers The answers
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Option[] $answers The options
      */
-    public function addAnswers(array $answers)
+    public function addOptions(array $options)
     {
-        foreach ($answers as $answer) {
-            if ($answer instanceof \PatrickBroens\Pbsurvey\Domain\Model\Option) {
-                $this->addAnswer($answer);
+        foreach ($options as $option) {
+            if ($option instanceof \PatrickBroens\Pbsurvey\Domain\Model\Option) {
+                $this->addOption($option);
             }
         }
     }

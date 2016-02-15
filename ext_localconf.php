@@ -45,11 +45,11 @@ $recordTypes = [
     'option',
     'option-predefined',
     'option-predefined-group',
+    'option_row',
     'page',
     'page-condition-group',
     'page-condition-rule',
     'result',
-    'row',
     'score'
 ];
 

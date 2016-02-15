@@ -15,17 +15,17 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use PatrickBroens\Pbsurvey\Domain\Model\Row;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
 
 /**
- * Row repository
+ * Option row repository
  */
-class RowRepository extends AbstractRepository
+class OptionRowRepository extends AbstractRepository
 {
     /**
      * @param int $itemUid The uid of the survey item
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Row[]
+     * @return \PatrickBroens\Pbsurvey\Domain\Model\OptionRow[]
      */
     public function findByItem($itemUid, $loadObjects = [])
     {
@@ -36,7 +36,7 @@ class RowRepository extends AbstractRepository
                 uid,
                 name
             ',
-            'tx_pbsurvey_row',
+            'tx_pbsurvey_option_row',
             '
                 parentid = ' . (int)$itemUid . '
                 AND hidden = 0
@@ -52,7 +52,7 @@ class RowRepository extends AbstractRepository
         }
 
         while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $rows[] = $this->setRowFromRecord($record, $loadObjects);
+            $rows[] = $this->setOptionRowFromRecord($record, $loadObjects);
         }
 
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
@@ -61,15 +61,15 @@ class RowRepository extends AbstractRepository
     }
 
     /**
-     * Set an row from a database record
+     * Set an option row from a database record
      *
      * @param array $record The database record
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Row The row
+     * @return \PatrickBroens\Pbsurvey\Domain\Model\OptionRow The option row
      */
-    protected function setRowFromRecord($record, $loadObjects)
+    protected function setOptionRowFromRecord($record, $loadObjects)
     {
-        $option = GeneralUtility::makeInstance(Row::class);
+        $option = GeneralUtility::makeInstance(OptionRow::class);
         $option->fill($record);
 
         return $option;

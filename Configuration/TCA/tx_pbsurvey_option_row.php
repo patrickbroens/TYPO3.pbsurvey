@@ -5,10 +5,10 @@ return [
         'delete' => 'deleted',
         'label' => 'name',
         'sortby' => 'sorting',
-        'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Row.xlf:title',
+        'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/OptionRow.xlf:title',
         'tstamp' => 'tstamp',
         'typeicon_classes' => [
-            'default' => 'mimetypes-x-tx_pbsurvey_row'
+            'default' => 'mimetypes-x-tx_pbsurvey_option_row'
         ],
 
     ],
@@ -32,7 +32,7 @@ return [
     'columns' => [
         'name' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Row.xlf:field.name',
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/OptionRow.xlf:field.name',
             'config' => [
                 'type' => 'input',
                 'size' => 40,

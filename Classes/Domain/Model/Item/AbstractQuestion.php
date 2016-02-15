@@ -97,8 +97,8 @@ class AbstractQuestion extends AbstractItem
     {
         $hasOptions = false;
 
-        if (method_exists($this, 'getAnswers')) {
-            $hasOptions = !empty($this->getAnswers());
+        if (method_exists($this, 'getOptions')) {
+            $hasOptions = !empty($this->getOptions());
         }
 
         return $hasOptions;

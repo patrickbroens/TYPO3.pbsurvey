@@ -10,7 +10,7 @@ return [
         'label' => 'question',
         'label_alt' => 'question_type',
         'languageField' => 'sys_language_uid',
-        'requestUpdate' => 'answers_predefined_group',
+        'requestUpdate' => 'options_predefined_group',
         'sortby' => 'sorting',
         'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:title',
         'transOrigDiffSourceField' => 'l18n_diffsource',
@@ -26,32 +26,33 @@ return [
     ],
     'interface' => [
         'showRecordFieldList' => '
-            answers,
             answers_additional_allow,
             answers_additional_text,
             answers_additional_type,
             answers_none,
-            answers_predefined_group,
             date_default,
             date_maximum,
             date_minimum,
             display_type,
             email,
+            file_reference,
+            file_references,
             heading,
             hidden,
             html,
-            image,
             image_alignment,
             image_height,
             image_width,
-            images,
             length_maximum,
             message,
             negative_first,
             number_end,
             number_start,
             number_total,
+            option_rows,
+            options,
             options_alignment,
+            options_predefined_group,
             options_random,
             options_required,
             options_responses_maximum,
@@ -61,7 +62,6 @@ return [
             question_alias,
             question_subtext,
             question_type,
-            rows,
             selectbox_height,
             styleclass,
             textarea_height,
@@ -75,24 +75,6 @@ return [
         '
     ],
     'columns' => [
-        'answers' => [
-            'l10n_mode' => 'prefixLangTitle',
-            'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers',
-            'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_pbsurvey_option',
-                'foreign_field' => 'parentid',
-                'foreign_label' => 'value',
-                'maxitems' => 999,
-                'minitems' => 1,
-                'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1
-                ]
-            ]
-        ],
         'answers_additional_allow' => [
             'l10n_mode' => 'exclude',
             'exclude' => false,
@@ -137,76 +119,6 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => '1'
-            ]
-        ],
-        'answers_predefined_group' => [
-            'l10n_mode' => 'exclude',
-            'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [
-                    [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.0',
-                        0
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-1',
-                        -1
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-2',
-                        -2
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-3',
-                        -3
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-4',
-                        -4
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-5',
-                        -5
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-6',
-                        -6
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-7',
-                        -7
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-8',
-                        -8
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-9',
-                        -9
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-10',
-                        -10
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-11',
-                        -11
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-12',
-                        -12
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-13',
-                        -13
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-14',
-                        -14
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-15',
-                        -15
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-16',
-                        -16
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_predefined_group.-17',
-                        -17
-                    ]
-                ],
-                'itemsProcFunc' => \PatrickBroens\Pbsurvey\TCA\ItemsProcFunc\AnswersPredefinedSelectBox::class . '->getItems',
-                'size' => 1,
-                'minitems' => 0,
-                'maxitems' => 1
             ]
         ],
         'date_default' => [
@@ -278,37 +190,10 @@ return [
                 'type' => 'check'
             ]
         ],
-        'heading' => [
-            'l10n_mode' => 'prefixLangTitle',
-            'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.heading',
-            'config' => [
-                'type' => 'input',
-                'size' => 30
-            ]
-        ],
-        'hidden' => [
+        'file_reference' => [
             'l10n_mode' => 'mergeIfNotBlank',
             'exclude' => true,
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
-            'config' => [
-                'type' => 'check',
-                'default' => 1
-            ]
-        ],
-        'html' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.html',
-            'config' => [
-                'type' => 'text',
-                'cols' => 30,
-                'rows' => 5
-            ]
-        ],
-        'image' => [
-            'l10n_mode' => 'mergeIfNotBlank',
-            'exclude' => true,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image',
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.file_reference',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'image',
                 [
@@ -358,57 +243,10 @@ return [
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
             )
         ],
-        'image_alignment' => [
-            'l10n_mode' => 'exclude',
-            'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment',
-            'config' => [
-                'type' => 'select',
-                'items' => [
-                    [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment.0',
-                        0
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment.1',
-                        1
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment.2',
-                        2
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment.3',
-                        3
-                    ]
-                ],
-                'size' => 1,
-                'maxitems' => 1
-            ]
-        ],
-        'image_height' => [
-            'l10n_mode' => 'exclude',
-            'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_height',
-            'config' => [
-                'type' => 'input',
-                'size' => 3,
-                'eval' => 'int',
-                'checkbox' => 0
-            ]
-        ],
-        'image_width' => [
-            'l10n_mode' => 'exclude',
-            'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_width',
-            'config' => [
-                'type' => 'input',
-                'size' => 3,
-                'eval' => 'int',
-                'checkbox' => 0
-            ]
-        ],
-        'images' => [
+        'file_references' => [
             'l10n_mode' => 'mergeIfNotBlank',
             'exclude' => true,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.images',
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.file_references',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'image',
                 [
@@ -456,6 +294,80 @@ return [
                 ],
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
             )
+        ],
+        'heading' => [
+            'l10n_mode' => 'prefixLangTitle',
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.heading',
+            'config' => [
+                'type' => 'input',
+                'size' => 30
+            ]
+        ],
+        'hidden' => [
+            'l10n_mode' => 'mergeIfNotBlank',
+            'exclude' => true,
+            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
+            'config' => [
+                'type' => 'check',
+                'default' => 1
+            ]
+        ],
+        'html' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.html',
+            'config' => [
+                'type' => 'text',
+                'cols' => 30,
+                'rows' => 5
+            ]
+        ],
+        'image_alignment' => [
+            'l10n_mode' => 'exclude',
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment',
+            'config' => [
+                'type' => 'select',
+                'items' => [
+                    [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment.0',
+                        0
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment.1',
+                        1
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment.2',
+                        2
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_alignment.3',
+                        3
+                    ]
+                ],
+                'size' => 1,
+                'maxitems' => 1
+            ]
+        ],
+        'image_height' => [
+            'l10n_mode' => 'exclude',
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_height',
+            'config' => [
+                'type' => 'input',
+                'size' => 3,
+                'eval' => 'int',
+                'checkbox' => 0
+            ]
+        ],
+        'image_width' => [
+            'l10n_mode' => 'exclude',
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.image_width',
+            'config' => [
+                'type' => 'input',
+                'size' => 3,
+                'eval' => 'int',
+                'checkbox' => 0
+            ]
         ],
         'length_maximum' => [
             'l10n_mode' => 'exclude',
@@ -519,6 +431,41 @@ return [
                 'checkbox' => 0
             ]
         ],
+        'option_rows' => [
+            'l10n_mode' => 'prefixLangTitle',
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.option_rows',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_pbsurvey_option_row',
+                'foreign_field' => 'parentid',
+                'foreign_label' => 'name',
+                'maxitems' => 99,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'expandSingle' => 1,
+                    'useSortable' => 1
+                ]
+            ]
+        ],
+        'options' => [
+            'l10n_mode' => 'prefixLangTitle',
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_pbsurvey_option',
+                'foreign_field' => 'parentid',
+                'foreign_label' => 'value',
+                'maxitems' => 999,
+                'minitems' => 1,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'expandSingle' => 1,
+                    'useSortable' => 1
+                ]
+            ]
+        ],
         'options_alignment' => [
             'l10n_mode' => 'exclude',
             'exclude' => false,
@@ -535,6 +482,76 @@ return [
                     ]
                 ],
                 'size' => 1,
+                'maxitems' => 1
+            ]
+        ],
+        'options_predefined_group' => [
+            'l10n_mode' => 'exclude',
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.0',
+                        0
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-1',
+                        -1
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-2',
+                        -2
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-3',
+                        -3
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-4',
+                        -4
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-5',
+                        -5
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-6',
+                        -6
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-7',
+                        -7
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-8',
+                        -8
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-9',
+                        -9
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-10',
+                        -10
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-11',
+                        -11
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-12',
+                        -12
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-13',
+                        -13
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-14',
+                        -14
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-15',
+                        -15
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-16',
+                        -16
+                    ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.options_predefined_group.-17',
+                        -17
+                    ]
+                ],
+                'itemsProcFunc' => \PatrickBroens\Pbsurvey\TCA\ItemsProcFunc\OptionsPredefinedSelectBox::class . '->getItems',
+                'size' => 1,
+                'minitems' => 0,
                 'maxitems' => 1
             ]
         ],
@@ -741,23 +758,6 @@ return [
                 'default' => 1,
             ]
         ],
-        'rows' => [
-            'l10n_mode' => 'prefixLangTitle',
-            'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.rows',
-            'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_pbsurvey_row',
-                'foreign_field' => 'parentid',
-                'foreign_label' => 'name',
-                'maxitems' => 99,
-                'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1
-                ]
-            ]
-        ],
         'selectbox_height' => [
             'l10n_mode' => 'exclude',
             'exclude' => false,
@@ -941,8 +941,8 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                answers_predefined_group,
-                answers;;3;;1-1-1,
+                options_predefined_group,
+                options;;3;;1-1-1,
                 answers_additional_text;;4;;,
                 options_responses_minimum;;;;1-1-1,
                 options_responses_maximum,
@@ -955,8 +955,8 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                answers_predefined_group,
-                answers;;11;;1-1-1,
+                options_predefined_group,
+                options;;11;;1-1-1,
                 styleclass
             '
         ],
@@ -966,8 +966,8 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                answers_predefined_group,
-                answers;;3;;1-1-1,
+                options_predefined_group,
+                options;;3;;1-1-1,
                 answers_additional_text;;4;;,
                 styleclass
             '
@@ -1000,9 +1000,9 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                rows;;;;1-1-1,
-                answers_predefined_group,
-                answers;;;;1-1-1,
+                option_rows;;;;1-1-1,
+                options_predefined_group,
+                options;;;;1-1-1,
                 styleclass
             '
         ],
@@ -1012,9 +1012,9 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                rows;;;;1-1-1,
-                answers_predefined_group,
-                answers;;;;1-1-1,
+                option_rows;;;;1-1-1,
+                options_predefined_group,
+                options;;;;1-1-1,
                 styleclass
             '
         ],
@@ -1024,9 +1024,9 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                rows;;;;1-1-1,
-                answers_predefined_group,
-                answers;;;;1-1-1,
+                option_rows;;;;1-1-1,
+                options_predefined_group,
+                options;;;;1-1-1,
                 styleclass
             '
         ],
@@ -1036,7 +1036,7 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                rows;;;;1-1-1,
+                option_rows;;;;1-1-1,
                 number_start;;;;1-1-1,
                 number_end,
                 styleclass
@@ -1058,7 +1058,7 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                rows;;10;;1-1-1,
+                option_rows;;10;;1-1-1,
                 number_total;;;;1-1-1,
                 styleclass
             '
@@ -1101,7 +1101,7 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                rows;;;;1-1-1,
+                option_rows;;;;1-1-1,
                 options_responses_minimum;;;;1-1-1,
                 options_responses_maximum,
                 length_maximum,
@@ -1114,7 +1114,7 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                rows;;;;1-1-1,
+                option_rows;;;;1-1-1,
                 styleclass
             '
         ],
@@ -1145,7 +1145,7 @@ return [
             'showitem' => '
                 sys_language_uid;;1;;,
                 question_type;;;;1-1-1,
-                image;;7;;1-1-1,
+                file_reference;;7;;1-1-1,
                 styleclass
             '
         ],
@@ -1163,8 +1163,8 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                answers_predefined_group,
-                answers;;10;;1-1-1,
+                options_predefined_group,
+                options;;10;;1-1-1,
                 selectbox_height,
                 options_responses_minimum;;;;1-1-1,
                 options_responses_maximum,
@@ -1177,7 +1177,7 @@ return [
                 question_type;;;;1-1-1,
                 question;;2;;1-1-1,
                 question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                images;;7;;1-1-1,
+                file_references;;7;;1-1-1,
                 number_start;;;;1-1-1,
                 number_end,
                 styleclass

@@ -14,37 +14,35 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-
 /**
- * Image trait
+ * FileReference trait
  */
 trait Image
 {
     /**
-     * The image
+     * The file reference
      *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
-    protected $image;
+    protected $fileReference;
 
     /**
-     * Get the image file reference
+     * Get the file reference
      *
-     * @return FileReference
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
-    public function getImage()
+    public function getFileReference()
     {
-        return $this->image;
+        return $this->fileReference;
     }
 
     /**
-     * Set the image
+     * Set the file reference
      *
-     * @param FileReference $image The file reference
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image The file reference
      */
-    public function setImage(FileReference $image)
+    public function setFileReference(\TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference)
     {
-        $this->image = $image;
+        $this->fileReference = $fileReference;
     }
 }

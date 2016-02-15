@@ -6,9 +6,6 @@
 			<trans-unit id="title" xml:space="preserve">
 				<source>Survey Item</source>
 			</trans-unit>
-			<trans-unit id="field.answers" xml:space="preserve">
-				<source>Enter the Answers</source>
-			</trans-unit>
 			<trans-unit id="field.answers_additional_allow" xml:space="preserve">
 				<source>Allow additional answer</source>
 			</trans-unit>
@@ -26,63 +23,6 @@
 			</trans-unit>
 			<trans-unit id="field.answers_none" xml:space="preserve">
 				<source>Add -none- value to answers</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group" xml:space="preserve">
-				<source>Select answers from a predefined group (or "Custom" to add them manually)</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.0" xml:space="preserve">
-				<source>Custom</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-1" xml:space="preserve">
-				<source>Agree - Disagree</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-2" xml:space="preserve">
-				<source>Better - Worse</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-3" xml:space="preserve">
-				<source>Easy - Difficult</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-4" xml:space="preserve">
-				<source>Effective - Ineffective</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-5" xml:space="preserve">
-				<source>Excellent - Poor</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-6" xml:space="preserve">
-				<source>Fast - Slow</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-7" xml:space="preserve">
-				<source>Good - Bad</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-8" xml:space="preserve">
-				<source>Important - Unimportant</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-9" xml:space="preserve">
-				<source>Likely - Unlikely</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-10" xml:space="preserve">
-				<source>Relevant - Irrelevant</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-11" xml:space="preserve">
-				<source>Appropriate - Inappropriate</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-12" xml:space="preserve">
-				<source>Satisfied - Dissatisfied</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-13" xml:space="preserve">
-				<source>Significant - Insignificant</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-14" xml:space="preserve">
-				<source>Useful - Useless</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-15" xml:space="preserve">
-				<source>Friendly - Unfriendly</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-16" xml:space="preserve">
-				<source>Small - Large</source>
-			</trans-unit>
-			<trans-unit id="field.answers_predefined_group.-17" xml:space="preserve">
-				<source>Below Average - Above Average</source>
 			</trans-unit>
 			<trans-unit id="field.date_default" xml:space="preserve">
 				<source>Default value</source>
@@ -105,14 +45,17 @@
 			<trans-unit id="field.email" xml:space="preserve">
 				<source>Is E-mail Address</source>
 			</trans-unit>
+			<trans-unit id="field.file_reference" xml:space="preserve">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="field.file_references" xml:space="preserve">
+				<source>Images</source>
+			</trans-unit>
 			<trans-unit id="field.heading" xml:space="preserve">
 				<source>Enter the heading</source>
 			</trans-unit>
 			<trans-unit id="field.html" xml:space="preserve">
 				<source>Enter the HTML</source>
-			</trans-unit>
-			<trans-unit id="field.image" xml:space="preserve">
-				<source>Image</source>
 			</trans-unit>
 			<trans-unit id="field.image_alignment" xml:space="preserve">
 				<source>Image alignment</source>
@@ -135,9 +78,6 @@
 			<trans-unit id="field.image_width" xml:space="preserve">
 				<source>Maximum image width</source>
 			</trans-unit>
-			<trans-unit id="field.images" xml:space="preserve">
-				<source>Images</source>
-			</trans-unit>
 			<trans-unit id="field.length_maximum" xml:space="preserve">
 				<source>Maximum length</source>
 			</trans-unit>
@@ -156,6 +96,12 @@
 			<trans-unit id="field.number_total" xml:space="preserve">
 				<source>Answer total</source>
 			</trans-unit>
+			<trans-unit id="field.option_rows" xml:space="preserve">
+				<source>Row Names</source>
+			</trans-unit>
+			<trans-unit id="field.options" xml:space="preserve">
+				<source>Enter the Answers</source>
+			</trans-unit>
 			<trans-unit id="field.options_alignment" xml:space="preserve">
 				<source>Answer Alignment</source>
 			</trans-unit>
@@ -164,6 +110,63 @@
 			</trans-unit>
 			<trans-unit id="field.options_alignment.1" xml:space="preserve">
 				<source>Horizontal</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group" xml:space="preserve">
+				<source>Select answers from a predefined group (or "Custom" to add them manually)</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.0" xml:space="preserve">
+				<source>Custom</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-1" xml:space="preserve">
+				<source>Agree - Disagree</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-2" xml:space="preserve">
+				<source>Better - Worse</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-3" xml:space="preserve">
+				<source>Easy - Difficult</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-4" xml:space="preserve">
+				<source>Effective - Ineffective</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-5" xml:space="preserve">
+				<source>Excellent - Poor</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-6" xml:space="preserve">
+				<source>Fast - Slow</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-7" xml:space="preserve">
+				<source>Good - Bad</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-8" xml:space="preserve">
+				<source>Important - Unimportant</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-9" xml:space="preserve">
+				<source>Likely - Unlikely</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-10" xml:space="preserve">
+				<source>Relevant - Irrelevant</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-11" xml:space="preserve">
+				<source>Appropriate - Inappropriate</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-12" xml:space="preserve">
+				<source>Satisfied - Dissatisfied</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-13" xml:space="preserve">
+				<source>Significant - Insignificant</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-14" xml:space="preserve">
+				<source>Useful - Useless</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-15" xml:space="preserve">
+				<source>Friendly - Unfriendly</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-16" xml:space="preserve">
+				<source>Small - Large</source>
+			</trans-unit>
+			<trans-unit id="field.options_predefined_group.-17" xml:space="preserve">
+				<source>Below Average - Above Average</source>
 			</trans-unit>
 			<trans-unit id="field.options_random" xml:space="preserve">
 				<source>Random Order</source>
@@ -266,9 +269,6 @@
 			</trans-unit>
 			<trans-unit id="field.question_type.99" xml:space="preserve">
 				<source>Call User Defined Hook</source>
-			</trans-unit>
-			<trans-unit id="field.rows" xml:space="preserve">
-				<source>Row Names</source>
 			</trans-unit>
 			<trans-unit id="field.selectbox_height" xml:space="preserve">
 				<source>Selectbox height</source>

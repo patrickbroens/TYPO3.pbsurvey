@@ -119,8 +119,8 @@ class ItemRepository extends AbstractRepository
         $item = GeneralUtility::makeInstance($itemClassName);
         $item->fill($record);
 
-        if (in_array('Option', $loadObjects) && method_exists($item, 'addAnswers')) {
-            $item->addAnswers($this->getOptions($item, $loadObjects));
+        if (in_array('Option', $loadObjects) && method_exists($item, 'addOptions')) {
+            $item->addOptions($this->getOptions($item, $loadObjects));
         }
 
         if (in_array('Row', $loadObjects) && method_exists($item, 'addRows')) {

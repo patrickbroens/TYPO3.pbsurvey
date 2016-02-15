@@ -20,9 +20,9 @@ use PatrickBroens\Pbsurvey\Domain\Repository\OptionRepository;
 use PatrickBroens\Pbsurvey\Domain\Repository\ItemRepository;
 
 /**
- * The answer wizard
+ * The option wizard
  */
-class AnswerWizard
+class OptionWizard
 {
     /**
      * The option repository
@@ -68,30 +68,30 @@ class AnswerWizard
         $this->optionRepository->deleteByParentId($uid);
 
         if ($predefinedGroup < 0) {
-            $amountOfOptions = $this->setPredefinedAnswersFromConfiguration($predefinedGroup, $uid);
+            $amountOfOptions = $this->setPredefinedOptionsFromConfiguration($predefinedGroup, $uid);
         } else {
-            $amountOfOptions = $this->setPredefinedAnswersFromRecords($predefinedGroup, $uid);
+            $amountOfOptions = $this->setPredefinedOptionsFromRecords($predefinedGroup, $uid);
         }
 
         $this->itemRepository->updateFields(
             $uid,
             [
-                'answers' => $amountOfOptions,
-                'answers_predefined_group' => 0
+                'options' => $amountOfOptions,
+                'options_predefined_group' => 0
             ]
         );
     }
 
     /**
-     * Add predefined answers from configuration
+     * Add predefined options from configuration
      *
      * @param int $predefinedGroup The chosen predefined group
      * @param int $parentId The parent id of the options
      * @return int The amount of answers added
      */
-    protected function setPredefinedAnswersFromConfiguration($predefinedGroup, $parentId)
+    protected function setPredefinedOptionsFromConfiguration($predefinedGroup, $parentId)
     {
-        $optionGroupsAnswersAmount = [
+        $optionGroupsOptionsAmount = [
             -1 => 5,
             -2 => 5,
             -3 => 5,
@@ -113,9 +113,9 @@ class AnswerWizard
 
         $languageFile = 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Option.xlf';
 
-        $answersAmount = $optionGroupsAnswersAmount[$predefinedGroup];
+        $optionAmount = $optionGroupsOptionsAmount[$predefinedGroup];
 
-        for ($count = 1; $count <= $answersAmount; $count++) {
+        for ($count = 1; $count <= $optionAmount; $count++) {
             $this->optionRepository->insert(
                 $parentId,
                 $this->getLanguageService()->sL($languageFile . ':predefined.' . $predefinedGroup . '.' . $count),
@@ -123,21 +123,21 @@ class AnswerWizard
             );
         }
 
-        return $answersAmount;
+        return $optionAmount;
     }
 
     /**
-     * Add predefined answers from records
+     * Add predefined options from records
      *
      * @param int $predefinedGroup The chosen predefined group
      * @param int $parentId The parent id of the options
      * @return int The amount of answers added
      */
-    protected function setPredefinedAnswersFromRecords($predefinedGroup, $parentId)
+    protected function setPredefinedOptionsFromRecords($predefinedGroup, $parentId)
     {
         $predefinedOptions = $this->optionPredefinedRepository->findByPredefinedOptionGroup($predefinedGroup);
 
-        $answersAmount = count($predefinedOptions);
+        $optionAmount = count($predefinedOptions);
 
         /** @var $predefinedOption \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined */
         $sorting = 1;
@@ -150,7 +150,7 @@ class AnswerWizard
             $sorting++;
         }
 
-        return $answersAmount;
+        return $optionAmount;
     }
 
     /**

@@ -53,11 +53,10 @@ tx_pbsurvey_item
 
 Field changes
 
-answers - Changed to IRRE
-conditions => condition_groups - Changed to IRRE
-rows - Changed to IRRE
-image - Changed to IRRE
-images - Changed to IRRE
+answers => options - Changed to IRRE
+rows => option_rows - Changed to IRRE
+image => file_reference - Changed to IRRE
+images => file_references - Changed to IRRE
 
 answers_allow_additional => answers_additional_allow
 answers_text_additional => answers_additional_text
@@ -83,3 +82,8 @@ minimum_value => value_minimum
 
 options_maximum_responses => options_responses_maximum
 options_minimum_responses => options_responses_minimum
+
+tx_pbsurvey_page
+================
+
+conditions => condition_groups - Changed to IRRE
