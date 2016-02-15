@@ -18,19 +18,6 @@ return [
             score
         '
     ],
-    'types' => [
-        '1' => [
-            'showitem' => '
-                score,
-                page
-            '
-        ]
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
-        ]
-    ],
     'columns' => [
         'page' => [
             'exclude' => false,
@@ -53,6 +40,14 @@ return [
                 'size' => 20,
                 'eval' => 'required, int'
             ]
+        ]
+    ],
+    'types' => [
+        1 => [
+            'showitem' => '
+                score,
+                page
+            '
         ]
     ]
 ];

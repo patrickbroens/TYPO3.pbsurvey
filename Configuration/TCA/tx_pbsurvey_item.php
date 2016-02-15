@@ -10,7 +10,7 @@ return [
         'label' => 'question',
         'label_alt' => 'question_type',
         'languageField' => 'sys_language_uid',
-        'requestUpdate' => 'options_predefined_group',
+        'requestUpdate' => 'answers_additional_allow, answers_additional_type, options_predefined_group',
         'sortby' => 'sorting',
         'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:title',
         'transOrigDiffSourceField' => 'l18n_diffsource',
@@ -87,6 +87,7 @@ return [
             'l10n_mode' => 'prefixLangTitle',
             'exclude' => false,
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_additional_text',
+            'displayCond' => 'FIELD:answers_additional_allow:=:1',
             'config' => [
                 'type' => 'input',
                 'size' => 30
@@ -96,6 +97,7 @@ return [
             'l10n_mode' => 'exclude',
             'exclude' => false,
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_additional_type',
+            'displayCond' => 'FIELD:answers_additional_allow:=:1',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -784,6 +786,7 @@ return [
             'l10n_mode' => 'exclude',
             'exclude' => false,
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.textarea_height',
+            'displayCond' => 'FIELD:answers_additional_type:=:1',
             'config' => [
                 'type' => 'input',
                 'size' => 3,
@@ -796,6 +799,7 @@ return [
             'l10n_mode' => 'exclude',
             'exclude' => false,
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.textarea_width',
+            'displayCond' => 'FIELD:answers_additional_type:=:1',
             'config' => [
                 'type' => 'input',
                 'size' => 3,
@@ -935,324 +939,382 @@ return [
         ]
     ],
     'types' => [
-        '1' => [
+        1 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                options_predefined_group,
-                options;;3;;1-1-1,
-                answers_additional_text;;4;;,
-                options_responses_minimum;;;;1-1-1,
-                options_responses_maximum,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    options_predefined_group,
+                    options;;3,
+                    answers_additional_allow;;4,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.responses,
+                    --palette--;;12,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '2' => [
+        2 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                options_predefined_group,
-                options;;11;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    options_predefined_group,
+                    options;;11,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '3' => [
+        3 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                options_predefined_group,
-                options;;3;;1-1-1,
-                answers_additional_text;;4;;,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    options_predefined_group,
+                    options;;3,
+                    answers_additional_allow;;4,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '4' => [
+        4 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                value_default_true_false;;9;;1-1-1,
-                display_type,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    --palette--;;9,
+                    display_type,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '5' => [
+        5 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                value_default_yes_no;;9;;1-1-1,
-                display_type,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    --palette--;;13,
+                    display_type,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '6' => [
+        6 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                option_rows;;;;1-1-1,
-                options_predefined_group,
-                options;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    option_rows,
+                    options_predefined_group,
+                    options,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '7' => [
+        7 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                option_rows;;;;1-1-1,
-                options_predefined_group,
-                options;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    option_rows,
+                    options_predefined_group,
+                    options,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '8' => [
+        8 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                option_rows;;;;1-1-1,
-                options_predefined_group,
-                options;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    option_rows,
+                    options_predefined_group,
+                    options,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '9' => [
+        9 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                option_rows;;;;1-1-1,
-                number_start;;;;1-1-1,
-                number_end,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    options,
+                    number_start,
+                    number_end,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '10' => [
+        10 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                value_default_text;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    value_default_text,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '11' => [
+        11 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                option_rows;;10;;1-1-1,
-                number_total;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    option_rows;;10,
+                    number_total,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '12' => [
+        12 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                date_default;;5;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    date_default;;5,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '13' => [
+        13 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                value_default_numeric;;6;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    value_default_numeric;;6,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '14' => [
+        14 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                value_default_text;;;;1-1-1,
-                email,
-                length_maximum,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    value_default_text,
+                    email,
+                    length_maximum,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '15' => [
+        15 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                option_rows;;;;1-1-1,
-                options_responses_minimum;;;;1-1-1,
-                options_responses_maximum,
-                length_maximum,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    option_rows,
+                    --palette--;;12,
+                    length_maximum,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '16' => [
+        16 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                option_rows;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    option_rows,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '17' => [
+        17 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                heading;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.presentation,
+                    heading,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '18' => [
+        18 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '19' => [
+        19 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                html;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.presentation,
+                    html,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '20' => [
+        20 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                file_reference;;7;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.image,
+                    file_reference;;7,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '21' => [
+        21 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                message;;;;1-1-1,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.presentation,
+                    message,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '23' => [
+        23 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                options_predefined_group,
-                options;;10;;1-1-1,
-                selectbox_height,
-                options_responses_minimum;;;;1-1-1,
-                options_responses_maximum,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    options_predefined_group,
+                    options;;10,
+                    selectbox_height,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.responses,
+                    --palette--;;12,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '24' => [
+        24 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1,
-                question;;2;;1-1-1,
-                question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
-                file_references;;7;;1-1-1,
-                number_start;;;;1-1-1,
-                number_end,
-                styleclass
+                    sys_language_uid;;1,
+                    question_type,
+                    question;;2,
+                    question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
+                    file_references;;7,
+                    number_start,
+                    number_end,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
+                    styleclass
             '
         ],
-        '99' => [
+        99 => [
             'showitem' => '
-                sys_language_uid;;1;;,
-                question_type;;;;1-1-1
+                sys_language_uid;;1,
+                question_type
             '
         ]
     ],
     'palettes' => [
-        '1' => [
+        1 => [
             'showitem' => '
                 hidden,
                 l18n_parent
             '
         ],
-        '2' => [
+        2 => [
             'showitem' => '
                 options_required,
                 question_alias
             '
         ],
-        '3' => [
+        3 => [
             'showitem' => '
                 options_random,
                 options_alignment
             '
         ],
-        '4' => [
+        4 => [
             'showitem' => '
-                answers_additional_allow,
+                answers_additional_text,
                 answers_additional_type,
                 textarea_width,
                 textarea_height
             '
         ],
-        '5' => [
+        5 => [
             'showitem' => '
                 date_minimum,
                 date_maximum
             '
         ],
-        '6' => [
+        6 => [
             'showitem' => '
                 value_minimum,
                 value_maximum,
                 length_maximum
             '
         ],
-        '7' => [
+        7 => [
             'showitem' => '
                 image_height,
                 image_width,
                 image_alignment
             '
         ],
-        '9' => [
+        9 => [
             'showitem' => '
+                value_default_true_false,
                 negative_first,
                 answers_none
             '
         ],
-        '10' => [
+        10 => [
             'showitem' => '
                 options_random
             '
         ],
-        '11' => [
+        11 => [
             'showitem' => '
                 options_random,
                 answers_none
             '
-        ]
+        ],
+        12 => [
+            'showitem' => '
+                options_responses_minimum,
+                options_responses_maximum
+            '
+        ],
+        13 => [
+            'showitem' => '
+                value_default_yes_no,
+                negative_first,
+                answers_none
+            '
+        ],
     ]
 ];

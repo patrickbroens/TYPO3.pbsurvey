@@ -142,20 +142,20 @@ return [
         ]
     ],
     'types' => [
-        '1' => [
+        1 => [
             'showitem' => '
-                    sys_language_uid;;1;;,
-                    title;;;;1-1-1,
+                    sys_language_uid;;1,
+                    title,
                     introduction;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
                  --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Page.xlf:tab.conditions,
-                    condition_groups;;;;1-1-1,
+                    condition_groups,
                  --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Page.xlf:tab.items,
                     items
             '
         ]
     ],
     'palettes' => [
-        '1' => [
+        1 => [
             'showitem' => '
                 hidden,
                 l18n_parent

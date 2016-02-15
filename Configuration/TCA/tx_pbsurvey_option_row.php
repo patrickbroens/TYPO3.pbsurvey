@@ -17,18 +17,6 @@ return [
             name
         '
     ],
-    'types' => [
-        '1' => [
-            'showitem' => '
-                name
-            '
-        ]
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
-        ]
-    ],
     'columns' => [
         'name' => [
             'exclude' => false,
@@ -38,6 +26,13 @@ return [
                 'size' => 40,
                 'eval' => 'required'
             ]
+        ]
+    ],
+    'types' => [
+        1 => [
+            'showitem' => '
+                name
+            '
         ]
     ]
 ];

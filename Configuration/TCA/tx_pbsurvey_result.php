@@ -100,9 +100,18 @@ return [
         ],
     ],
     'types' => [
-        '0' => ['showitem' => 'hidden;;1;;1-1-1,user,ip,finished,begintstamp,endtstamp,language_uid,answers,history']
-    ],
-    'palettes' => [
-        '1' => ['showitem' => '']
+        1 => [
+            'showitem' => '
+                hidden;;1,
+                user,
+                ip,
+                finished,
+                begintstamp,
+                endtstamp,
+                language_uid,
+                answers,
+                history
+            '
+        ]
     ]
 ];

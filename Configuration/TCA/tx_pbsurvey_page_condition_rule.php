@@ -78,14 +78,14 @@ return [
         ],
     ],
     'types' => [
-        '1' => [
+        1 => [
             'showitem' => '
-                item;;1;;
+                item;;1
             '
         ]
     ],
     'palettes' => [
-        '1' => [
+        1 => [
             'showitem' => '
                 operator,
                 item_option,

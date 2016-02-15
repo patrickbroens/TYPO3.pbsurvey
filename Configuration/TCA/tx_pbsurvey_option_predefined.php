@@ -27,15 +27,10 @@ return [
         ]
     ],
     'types' => [
-        '1' => [
+        1 => [
             'showitem' => '
                 label
             '
-        ]
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
         ]
     ]
 ];

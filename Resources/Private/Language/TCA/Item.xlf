@@ -318,6 +318,24 @@
 			<trans-unit id="field.value_minimum" xml:space="preserve">
 				<source>Minimum value</source>
 			</trans-unit>
+			<trans-unit id="tab.image" xml:space="preserve">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tab.option" xml:space="preserve">
+				<source>Answer</source>
+			</trans-unit>
+			<trans-unit id="tab.options" xml:space="preserve">
+				<source>Answers</source>
+			</trans-unit>
+			<trans-unit id="tab.presentation" xml:space="preserve">
+				<source>Presentation</source>
+			</trans-unit>
+			<trans-unit id="tab.responses" xml:space="preserve">
+				<source>Responses</source>
+			</trans-unit>
+			<trans-unit id="tab.styles" xml:space="preserve">
+				<source>Styles</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

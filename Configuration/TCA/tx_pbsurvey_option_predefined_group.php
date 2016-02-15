@@ -44,16 +44,11 @@ return [
         ]
     ],
     'types' => [
-        '1' => [
+        1 => [
             'showitem' => '
                 name,
                 options
             '
-        ]
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
         ]
     ]
 ];

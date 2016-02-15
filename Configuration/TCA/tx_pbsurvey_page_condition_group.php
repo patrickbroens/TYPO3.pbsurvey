@@ -45,16 +45,11 @@ return [
         ]
     ],
     'types' => [
-        '1' => [
+        1 => [
             'showitem' => '
                 name,
                 rules
             '
-        ]
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
         ]
     ]
 ];

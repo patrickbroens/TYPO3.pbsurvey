@@ -48,17 +48,19 @@ return [
         ]
     ],
     'types' => [
-        '1' => [
+        1 => [
+            'showitem' => '
+                --palette--;;1
+            '
+        ]
+    ],
+    'palettes' => [
+        1 => [
             'showitem' => '
                 value,
                 points,
                 checked
             '
-        ]
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
         ]
     ]
 ];
