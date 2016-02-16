@@ -45,14 +45,6 @@ class ItemType1 extends Choice
     ];
 
     /**
-     * TRAIT: Options
-     *
-     * FIELDS:
-     * $options
-     */
-    use Options;
-
-    /**
      * TRAIT: AnswersAdditionalText
      *
      * FIELDS:
@@ -63,6 +55,14 @@ class ItemType1 extends Choice
      * $textareaWidth
      */
     use AnswersAdditionalText;
+
+    /**
+     * TRAIT: Options
+     *
+     * FIELDS:
+     * $options
+     */
+    use Options;
 
     /**
      * TRAIT: OptionsReponses

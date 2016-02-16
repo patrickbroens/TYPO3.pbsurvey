@@ -17,52 +17,83 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
 use PatrickBroens\Pbsurvey\Domain\Repository\ItemRepository;
+use PatrickBroens\Pbsurvey\Memoization\PageMemoizationCache;
 
 /**
  * Page repository
  */
 class PageRepository extends AbstractRepository
 {
+    /**
+     * The page runtime cache
+     *
+     * @var \PatrickBroens\Pbsurvey\Memoization\PageMemoizationCache
+     */
+    protected $pageMemoizationCache;
+
+    /**
+     * Constructor
+     *
+     * Set the page run time cache
+     */
+    public function __construct()
+    {
+        $this->pageMemoizationCache = GeneralUtility::makeInstance(PageMemoizationCache::class);
+    }
+
+    /**
+     * Find pages before a page
+     *
+     * @param int $pageUid The page uid
+     * @param array $loadObjects
+     * @return \PatrickBroens\Pbsurvey\Domain\Model\Page[]
+     */
     public function findBeforePage($pageUid, $loadObjects = [])
     {
         $pages = [];
 
-        $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
-            '
-                p1.uid,
-                p1.condition_groups,
-                p1.introduction,
-                p1.items,
-                p1.title
-            ',
-            '
-                tx_pbsurvey_page AS p1,
-                (
-                    SELECT tx_pbsurvey_page.pid,tx_pbsurvey_page.sorting
-                    FROM tx_pbsurvey_page
-                    WHERE tx_pbsurvey_page.uid = ' . (int)$pageUid . '
-                ) AS p2
-            ',
-            '
-                p1.sorting < p2.sorting
-                AND p1.pid = p2.pid
-                AND p1.hidden = 0
-                AND p1.deleted = 0
-            ',
-            '',
-            'p1.sorting ASC'
-        );
+        if ($this->pageMemoizationCache->hasPagesBeforePage($pageUid, $loadObjects)) {
+            $pages = $this->pageMemoizationCache->getPagesBeforePage($pageUid, $loadObjects);
+        } else {
+            $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
+                '
+                    p1.uid,
+                    p1.condition_groups,
+                    p1.introduction,
+                    p1.items,
+                    p1.title
+                ',
+                '
+                    tx_pbsurvey_page AS p1,
+                    (
+                        SELECT tx_pbsurvey_page.pid,tx_pbsurvey_page.sorting
+                        FROM tx_pbsurvey_page
+                        WHERE tx_pbsurvey_page.uid = ' . (int)$pageUid . '
+                    ) AS p2
+                ',
+                '
+                    p1.sorting < p2.sorting
+                    AND p1.pid = p2.pid
+                    AND p1.hidden = 0
+                    AND p1.deleted = 0
+                ',
+                '',
+                'p1.sorting ASC'
+            );
 
-        if ($this->getDatabaseConnection()->sql_error()) {
+            if ($this->getDatabaseConnection()->sql_error()) {
+                $this->getDatabaseConnection()->sql_free_result($databaseResource);
+                return $pages;
+            }
+
+            while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
+                $pages[] = $this->setPageFromRecord($record, $loadObjects);
+            }
+
             $this->getDatabaseConnection()->sql_free_result($databaseResource);
-            return $pages;
-        }
 
-        while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $pages[] = $this->setPageFromRecord($record, $loadObjects);
+            $this->pageMemoizationCache->storePagesBeforePage($pageUid, $pages, $loadObjects);
         }
-
-        $this->getDatabaseConnection()->sql_free_result($databaseResource);
 
         return $pages;
     }
@@ -77,44 +108,50 @@ class PageRepository extends AbstractRepository
     {
         $pages = [];
 
-        $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
-            '
-                p1.uid,
-                p1.condition_groups,
-                p1.introduction,
-                p1.items,
-                p1.title
-            ',
-            '
-                tx_pbsurvey_page AS p1,
-                (
-                    SELECT tx_pbsurvey_page.pid, tx_pbsurvey_page.sorting
-                    FROM tx_pbsurvey_page_condition_group
-                    JOIN tx_pbsurvey_page
-                    ON tx_pbsurvey_page.uid = tx_pbsurvey_page_condition_group.parentid
-                    WHERE tx_pbsurvey_page_condition_group.uid = ' . (int)$groupUid . '
-                ) AS p2
-            ',
-            '
-                p1.sorting < p2.sorting
-                AND p1.pid = p2.pid
-                AND p1.hidden = 0
-                AND p1.deleted = 0
-            ',
-            '',
-            'p1.sorting ASC'
-        );
+        if ($this->pageMemoizationCache->hasPagesBeforePageByConditionGroup($groupUid, $loadObjects)) {
+            $pages = $this->pageMemoizationCache->getPagesBeforePageByConditionGroup($groupUid, $loadObjects);
+        } else {
+            $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
+                '
+                    p1.uid,
+                    p1.condition_groups,
+                    p1.introduction,
+                    p1.items,
+                    p1.title
+                ',
+                '
+                    tx_pbsurvey_page AS p1,
+                    (
+                        SELECT tx_pbsurvey_page.pid, tx_pbsurvey_page.sorting
+                        FROM tx_pbsurvey_page_condition_group
+                        JOIN tx_pbsurvey_page
+                        ON tx_pbsurvey_page.uid = tx_pbsurvey_page_condition_group.parentid
+                        WHERE tx_pbsurvey_page_condition_group.uid = ' . (int)$groupUid . '
+                    ) AS p2
+                ',
+                '
+                    p1.sorting < p2.sorting
+                    AND p1.pid = p2.pid
+                    AND p1.hidden = 0
+                    AND p1.deleted = 0
+                ',
+                '',
+                'p1.sorting ASC'
+            );
 
-        if ($this->getDatabaseConnection()->sql_error()) {
+            if ($this->getDatabaseConnection()->sql_error()) {
+                $this->getDatabaseConnection()->sql_free_result($databaseResource);
+                return $pages;
+            }
+
+            while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
+                $pages[] = $this->setPageFromRecord($record, $loadObjects);
+            }
+
             $this->getDatabaseConnection()->sql_free_result($databaseResource);
-            return $pages;
-        }
 
-        while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $pages[] = $this->setPageFromRecord($record, $loadObjects);
+            $this->pageMemoizationCache->storePagesBeforePageByConditionGroup($groupUid, $pages, $loadObjects);
         }
-
-        $this->getDatabaseConnection()->sql_free_result($databaseResource);
 
         return $pages;
     }

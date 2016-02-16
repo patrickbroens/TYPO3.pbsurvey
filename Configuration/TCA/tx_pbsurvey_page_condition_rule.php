@@ -35,7 +35,8 @@ return [
             'displayCond' => [
                 'AND' => [
                     'REC:NEW:false',
-                    'FIELD:item:REQ:true'
+                    'FIELD:item:REQ:true',
+                    'FIELD:operator:REQ:true'
                 ]
             ],
             'config' => [

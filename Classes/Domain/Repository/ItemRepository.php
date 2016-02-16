@@ -16,6 +16,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\Item;
+use PatrickBroens\Pbsurvey\Memoization\ItemMemoizationCache;
 
 /**
  * Item repository
@@ -23,9 +24,28 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item;
 class ItemRepository extends AbstractRepository
 {
     /**
+     * The item runtime cache
+     *
+     * Some items are needed multiple times within runtime
+     *
+     * @var \PatrickBroens\Pbsurvey\Memoization\ItemMemoizationCache
+     */
+    protected $itemMemoizationCache;
+
+    /**
+     * Constructor
+     *
+     * Set the item runtime cache
+     */
+    public function __construct()
+    {
+        $this->itemMemoizationCache = GeneralUtility::makeInstance(ItemMemoizationCache::class);
+    }
+
+    /**
      * Find an item by its uid
      *
-     * Checks if it is in session item cache,
+     * Checks if it is in item runtime cache,
      * otherwise will be loaded from database
      *
      * @param int $pageUid The uid of the survey page
@@ -36,18 +56,23 @@ class ItemRepository extends AbstractRepository
     {
         $item = null;
 
-        $record = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
-            '*',
-            'tx_pbsurvey_item',
-            '
-                uid = ' . (int)$itemUid . '
-                AND hidden = 0
-                AND deleted = 0
-            '
-        );
+        if ($this->itemMemoizationCache->hasByUid($itemUid, $loadObjects)) {
+            $item = $this->itemMemoizationCache->getByUid($itemUid, $loadObjects);
+        } else {
+            $record = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
+                '*',
+                'tx_pbsurvey_item',
+                '
+                    uid = ' . (int)$itemUid . '
+                    AND hidden = 0
+                    AND deleted = 0
+                '
+            );
 
-        if ($record !== null) {
-            $item = $this->setItemFromRecord($record, $loadObjects);
+            if ($record) {
+                $item = $this->setItemFromRecord($record, $loadObjects);
+                $this->itemMemoizationCache->storeByUid($item->getUid(), $item, $loadObjects);
+            }
         }
 
         return $item;
@@ -62,28 +87,34 @@ class ItemRepository extends AbstractRepository
     {
         $items = [];
 
-        $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
-            '*',
-            'tx_pbsurvey_item',
-            '
-                parentid = ' . (int)$pageUid . '
-                AND hidden = 0
-                AND deleted = 0
-            ',
-            '',
-            'sorting ASC'
-        );
+        if ($this->itemMemoizationCache->hasByPage($pageUid, $loadObjects)) {
+            $items = $this->itemMemoizationCache->getByPage($pageUid, $loadObjects);
+        } else {
+            $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
+                '*',
+                'tx_pbsurvey_item',
+                '
+                    parentid = ' . (int)$pageUid . '
+                    AND hidden = 0
+                    AND deleted = 0
+                ',
+                '',
+                'sorting ASC'
+            );
 
-        if ($this->getDatabaseConnection()->sql_error()) {
+            if ($this->getDatabaseConnection()->sql_error()) {
+                $this->getDatabaseConnection()->sql_free_result($databaseResource);
+                return $items;
+            }
+
+            while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
+                $items[] = $this->setItemFromRecord($record, $loadObjects);
+            }
+
             $this->getDatabaseConnection()->sql_free_result($databaseResource);
-            return $items;
-        }
 
-        while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $items[] = $this->setItemFromRecord($record, $loadObjects);
+            $this->itemMemoizationCache->storeByPage($pageUid, $items, $loadObjects);
         }
-
-        $this->getDatabaseConnection()->sql_free_result($databaseResource);
 
         return $items;
     }
