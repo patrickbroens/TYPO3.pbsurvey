@@ -1,7 +1,7 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
-    /*
+/*
  * This file is part of the TYPO3 CMS project.
  *
  * It is free software; you can redistribute it and/or modify it under
@@ -15,36 +15,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Default value for true/false question trait
+ * Number total trait
  */
-trait DisplayType
+trait NumberTotalTrait
 {
     /**
-     * Display Type
-     *
-     * Can be dropdown, radio buttons horizontal/vertical
+     * Answer total
      *
      * @var int
      */
-    protected $displayType;
+    protected $numberTotal;
 
     /**
-     * Get the display type
+     * Get the total number
      *
      * @return int
      */
-    public function getDisplayType()
+    public function getNumberTotal()
     {
-        return $this->displayType;
+        return $this->numberTotal;
     }
 
     /**
-     * Set the display type
+     * Set the total number
      *
-     * @param int $displayType the type
+     * @param int $numberTotal The total number
      */
-    public function setDisplayType($displayType)
+    public function setNumberTotal($numberTotal)
     {
-        $this->displayType = (int)$displayType;
+        $this->numberTotal = (int)$numberTotal;
     }
 }

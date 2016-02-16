@@ -1,7 +1,7 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
-/*
+    /*
  * This file is part of the TYPO3 CMS project.
  *
  * It is free software; you can redistribute it and/or modify it under
@@ -15,34 +15,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Maximum length trait
+ * Default value for yes/no question trait
  */
-trait LengthMaximum
+trait ValueDefaultYesNoTrait
 {
     /**
-     * The maximum length
+     * Negative value (false/no) first in order
      *
      * @var int
      */
-    protected $lengthMaximum;
+    protected $valueDefaultYesNo;
 
     /**
-     * Get the maximum length
+     * Get the default value
      *
      * @return int
      */
-    public function getLengthMaximum()
+    public function getValueDefaultYesNo()
     {
-        return $this->lengthMaximum;
+        return $this->valueDefaultYesNo;
     }
 
     /**
-     * Set the maximum length
+     * Set the default value
      *
-     * @param int $lengthMaximum The value
+     * @param int $valueDefaultYesNo the value
      */
-    public function setLangthMaximum($lengthMaximum)
+    public function setOptionsRandom($valueDefaultYesNo)
     {
-        $this->lengthMaximum = (int)$lengthMaximum;
+        $this->valueDefaultYesNo = (int)$valueDefaultYesNo;
     }
 }

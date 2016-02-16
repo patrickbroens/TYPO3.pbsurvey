@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -17,7 +17,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
 /**
  * Value numeric trait
  */
-trait ValueNumeric
+trait ValueNumericTrait
 {
     /**
      * The default numeric value

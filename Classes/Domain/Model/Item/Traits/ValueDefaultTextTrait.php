@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,34 +15,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Heading trait
+ * Value default text trait
  */
-trait Heading
+trait ValueDefaultTextTrait
 {
     /**
-     * The heading
+     * The default value
      *
      * @var string
      */
-    protected $heading;
+    protected $valueDefaultText;
 
     /**
-     * Get the heading
+     * Get the default value
      *
      * @return string
      */
-    public function getHeading()
+    public function getValueDefaultText()
     {
-        return $this->heading;
+        return $this->valueDefaultText;
     }
 
     /**
-     * Set the heading
+     * Set the default value
      *
-     * @param string $heading The heading
+     * @param string $valueDefaultText The value
      */
-    public function setHeading($heading)
+    public function setValueDefaultText($valueDefaultText)
     {
-        $this->heading = (string)$heading;
+        $this->valueDefaultText = (string)$valueDefaultText;
     }
 }

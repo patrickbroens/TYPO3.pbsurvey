@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,34 +15,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Number total trait
+ * Selectbox height total trait
  */
-trait NumberTotal
+trait SelectboxHeightTrait
 {
     /**
-     * Answer total
+     * The height of the selectbox
      *
      * @var int
      */
-    protected $numberTotal;
+    protected $selectboxHeight;
 
     /**
-     * Get the total number
+     * Get the height of the selectbox
      *
      * @return int
      */
-    public function getNumberTotal()
+    public function getSelectboxHeight()
     {
-        return $this->numberTotal;
+        return $this->selectboxHeight;
     }
 
     /**
-     * Set the total number
+     * Set the height of the selectbox
      *
-     * @param int $numberTotal The total number
+     * @param int $selectboxHeight The height
      */
-    public function setNumberTotal($numberTotal)
+    public function setSelectboxHeight($selectboxHeight)
     {
-        $this->numberTotal = (int)$numberTotal;
+        $this->selectboxHeight = (int)$selectboxHeight;
     }
 }

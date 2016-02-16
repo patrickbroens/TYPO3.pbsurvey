@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -19,7 +19,7 @@ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 /**
  * FileReferences trait
  */
-trait FileReferences
+trait FileReferencesTrait
 {
     /**
      * The file references

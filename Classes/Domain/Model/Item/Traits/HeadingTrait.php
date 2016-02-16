@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,34 +15,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Message trait
+ * Heading trait
  */
-trait Message
+trait HeadingTrait
 {
     /**
-     * The message
+     * The heading
      *
      * @var string
      */
-    protected $message;
+    protected $heading;
 
     /**
-     * Get the message
+     * Get the heading
      *
      * @return string
      */
-    public function getMessage()
+    public function getHeading()
     {
-        return $this->message;
+        return $this->heading;
     }
 
     /**
-     * Set the message
+     * Set the heading
      *
-     * @param string $message The message
+     * @param string $heading The heading
      */
-    public function setMessage($message)
+    public function setHeading($heading)
     {
-        $this->message = (string)$message;
+        $this->heading = (string)$heading;
     }
 }

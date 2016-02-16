@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -19,7 +19,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Option;
 /**
  * Answers trait
  */
-trait Options
+trait OptionsTrait
 {
     /**
      * The options

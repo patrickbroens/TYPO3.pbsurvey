@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
     /*
  * This file is part of the TYPO3 CMS project.
@@ -15,34 +15,36 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Default value for yes/no question trait
+ * Default value for true/false question trait
  */
-trait ValueDefaultYesNo
+trait DisplayTypeTrait
 {
     /**
-     * Negative value (false/no) first in order
+     * Display Type
+     *
+     * Can be dropdown, radio buttons horizontal/vertical
      *
      * @var int
      */
-    protected $valueDefaultYesNo;
+    protected $displayType;
 
     /**
-     * Get the default value
+     * Get the display type
      *
      * @return int
      */
-    public function getValueDefaultYesNo()
+    public function getDisplayType()
     {
-        return $this->valueDefaultYesNo;
+        return $this->displayType;
     }
 
     /**
-     * Set the default value
+     * Set the display type
      *
-     * @param int $valueDefaultYesNo the value
+     * @param int $displayType the type
      */
-    public function setOptionsRandom($valueDefaultYesNo)
+    public function setDisplayType($displayType)
     {
-        $this->valueDefaultYesNo = (int)$valueDefaultYesNo;
+        $this->displayType = (int)$displayType;
     }
 }

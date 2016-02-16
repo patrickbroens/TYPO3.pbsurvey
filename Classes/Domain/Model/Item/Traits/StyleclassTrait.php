@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,34 +15,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Question subtext trait
+ * Styleclass trait
  */
-trait QuestionSubtext
+trait StyleclassTrait
 {
     /**
-     * The question subtext
+     * The style class
      *
      * @var string
      */
-    protected $questionSubtext;
+    protected $styleclass;
 
     /**
-     * Get the question subtext
+     * Get the style class
      *
      * @return string
      */
-    public function getQuestionSubtext()
+    public function getStyleclass()
     {
-        return $this->questionSubtext;
+        return $this->styleclass;
     }
 
     /**
-     * Set the question subtext
+     * Set the style class
      *
-     * @param string $questionSubtext The question subtext
+     * @param string $styleclass The style class
      */
-    public function setQuestionSubtext($questionSubtext)
+    public function setStyleclass($styleclass)
     {
-        $this->questionSubtext = (string)$questionSubtext;
+        $this->styleclass = (string)$styleclass;
     }
 }

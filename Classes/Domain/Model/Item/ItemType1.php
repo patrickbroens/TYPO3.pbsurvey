@@ -14,12 +14,12 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\AnswersAdditionalText;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\Options;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\OptionsResponses;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\Question;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\QuestionSubtext;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Field\Styleclass;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersAdditionalTextTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsResponsesTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\QuestionTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\QuestionSubtextTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\StyleclassTrait;
 
 /**
  * Item type 1
@@ -54,7 +54,7 @@ class ItemType1 extends Choice
      * $textareaHeight
      * $textareaWidth
      */
-    use AnswersAdditionalText;
+    use AnswersAdditionalTextTrait;
 
     /**
      * TRAIT: Options
@@ -62,7 +62,7 @@ class ItemType1 extends Choice
      * FIELDS:
      * $options
      */
-    use Options;
+    use OptionsTrait;
 
     /**
      * TRAIT: OptionsReponses
@@ -71,7 +71,7 @@ class ItemType1 extends Choice
      * $optionsResponsesMaximum
      * $optionsResponsesMinimum
      */
-    use OptionsResponses;
+    use OptionsResponsesTrait;
 
     /**
      * TRAIT: Question
@@ -81,7 +81,7 @@ class ItemType1 extends Choice
      * $question
      * $questionAlias
      */
-    use Question;
+    use QuestionTrait;
 
     /**
      * TRAIT QuestionSubtext
@@ -89,7 +89,7 @@ class ItemType1 extends Choice
      * FIELDS:
      * $questionSubtext
      */
-    use QuestionSubtext;
+    use QuestionSubtextTrait;
 
     /**
      * TRAIT: Styleclass
@@ -97,5 +97,5 @@ class ItemType1 extends Choice
      * FIELDS:
      * $styleclass
      */
-    use Styleclass;
+    use StyleclassTrait;
 }

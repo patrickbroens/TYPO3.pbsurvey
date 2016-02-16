@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,34 +15,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Selectbox height total trait
+ * Email trait
  */
-trait SelectboxHeight
+trait EmailTrait
 {
     /**
-     * The height of the selectbox
+     * The email address
      *
-     * @var int
+     * @var string
      */
-    protected $selectboxHeight;
+    protected $email;
 
     /**
-     * Get the height of the selectbox
+     * Get the email address
      *
-     * @return int
+     * @return string
      */
-    public function getSelectboxHeight()
+    public function getEmail()
     {
-        return $this->selectboxHeight;
+        return $this->email;
     }
 
     /**
-     * Set the height of the selectbox
+     * Set the email address
      *
-     * @param int $selectboxHeight The height
+     * @param string $email The email address
      */
-    public function setSelectboxHeight($selectboxHeight)
+    public function setEmail($email)
     {
-        $this->selectboxHeight = (int)$selectboxHeight;
+        $this->email = (string)$email;
     }
 }

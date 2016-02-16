@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,34 +15,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Email trait
+ * Message trait
  */
-trait Email
+trait MessageTrait
 {
     /**
-     * The email address
+     * The message
      *
      * @var string
      */
-    protected $email;
+    protected $message;
 
     /**
-     * Get the email address
+     * Get the message
      *
      * @return string
      */
-    public function getEmail()
+    public function getMessage()
     {
-        return $this->email;
+        return $this->message;
     }
 
     /**
-     * Set the email address
+     * Set the message
      *
-     * @param string $email The email address
+     * @param string $message The message
      */
-    public function setEmail($email)
+    public function setMessage($message)
     {
-        $this->email = (string)$email;
+        $this->message = (string)$message;
     }
 }

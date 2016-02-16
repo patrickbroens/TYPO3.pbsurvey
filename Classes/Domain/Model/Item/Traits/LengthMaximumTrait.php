@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,34 +15,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  */
 
 /**
- * Value default text trait
+ * Maximum length trait
  */
-trait ValueDefaultText
+trait LengthMaximumTrait
 {
     /**
-     * The default value
+     * The maximum length
      *
-     * @var string
+     * @var int
      */
-    protected $valueDefaultText;
+    protected $lengthMaximum;
 
     /**
-     * Get the default value
+     * Get the maximum length
      *
-     * @return string
+     * @return int
      */
-    public function getValueDefaultText()
+    public function getLengthMaximum()
     {
-        return $this->valueDefaultText;
+        return $this->lengthMaximum;
     }
 
     /**
-     * Set the default value
+     * Set the maximum length
      *
-     * @param string $valueDefaultText The value
+     * @param int $lengthMaximum The value
      */
-    public function setValueDefaultText($valueDefaultText)
+    public function setLangthMaximum($lengthMaximum)
     {
-        $this->valueDefaultText = (string)$valueDefaultText;
+        $this->lengthMaximum = (int)$lengthMaximum;
     }
 }
