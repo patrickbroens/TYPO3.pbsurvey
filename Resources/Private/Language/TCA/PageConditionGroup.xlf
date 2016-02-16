@@ -4,13 +4,13 @@
 		<header/>
 		<body>
 			<trans-unit id="title" xml:space="preserve">
-				<source>Conditions</source>
+				<source>Condition group (OR)</source>
 			</trans-unit>
 			<trans-unit id="field.name" xml:space="preserve">
 				<source>Group name</source>
 			</trans-unit>
 			<trans-unit id="field.rules" xml:space="preserve">
-				<source>Rules</source>
+				<source>Rules (AND)</source>
 			</trans-unit>
 			<trans-unit id="customControls.warning.page.title" xml:space="preserve">
 				<source>No page available in front of this page</source>
@@ -29,6 +29,12 @@
 			</trans-unit>
 			<trans-unit id="customControls.warning.save.body" xml:space="preserve">
 				<source>Before you can configure any rules, you need to save the Page record first.</source>
+			</trans-unit>
+			<trans-unit id="labelUserFunc.or" xml:space="preserve">
+				<source>Or</source>
+			</trans-unit>
+			<trans-unit id="labelUserFunc.warning" xml:space="preserve">
+				<source>The group name has not been set!</source>
 			</trans-unit>
 		</body>
 	</file>

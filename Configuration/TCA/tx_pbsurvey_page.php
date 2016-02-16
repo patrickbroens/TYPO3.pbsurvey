@@ -37,9 +37,10 @@ return [
                 'foreign_label' => 'name',
                 'maxitems' => 999,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1,
+                    'collapseAll' => true,
+                    'expandSingle' => true,
+                    'useSortable' => true,
+                    'newRecordLinkAddTitle' => true,
                     'enabledControls' => [
                         'new' => false
                     ]
@@ -82,9 +83,9 @@ return [
                 'foreign_label' => 'question',
                 'maxitems' => 999,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1
+                    'collapseAll' => true,
+                    'expandSingle' => true,
+                    'useSortable' => true
                 ]
             ]
         ],

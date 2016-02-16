@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Field;
  * The TYPO3 project - inspiring people to share!
  */
 
-use \PatrickBroens\Pbsurvey\Domain\Model\Option;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
 
 /**
  * Answers trait
@@ -27,6 +27,23 @@ trait Options
      * @var \PatrickBroens\Pbsurvey\Domain\Model\Option[]
      */
     protected $options;
+
+    /**
+     * Get an option by its uid
+     *
+     * @param int $optionUid The option uid
+     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Option The option
+     */
+    public function getOptionByUid($optionUid)
+    {
+        $option = null;
+
+        if (isset($this->options[$optionUid])) {
+            $option = $this->options[$optionUid];
+        }
+
+        return $option;
+    }
 
     /**
      * Get the options
@@ -45,7 +62,7 @@ trait Options
      */
     public function addOption(Option $option)
     {
-        $this->options[] = $option;
+        $this->options[$option->getUid()] = $option;
     }
 
     /**

@@ -89,6 +89,23 @@ class AbstractQuestion extends AbstractItem
     }
 
     /**
+     * Check if the item contains an option (answers)
+     *
+     * @param int $optionUid The option uid
+     * @return bool true when options are available
+     */
+    public function hasOption($optionUid)
+    {
+        $hasOption = false;
+
+        if (method_exists($this, 'getOptionByUid')) {
+            $hasOption = !empty($this->getOptionByUid($optionUid));
+        }
+
+        return $hasOption;
+    }
+
+    /**
      * Check if the item contains options (answers)
      *
      * @return bool true when options are available

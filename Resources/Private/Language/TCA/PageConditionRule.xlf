@@ -4,7 +4,7 @@
 		<header/>
 		<body>
 			<trans-unit id="title" xml:space="preserve">
-				<source>Rule</source>
+				<source>Rule (AND)</source>
 			</trans-unit>
 			<trans-unit id="field.item" xml:space="preserve">
 				<source>Question</source>
@@ -68,6 +68,12 @@
 			</trans-unit>
 			<trans-unit id="customControls.warning.save.body" xml:space="preserve">
 				<source>Before you can configure any rules, you need to save the Page record first.</source>
+			</trans-unit>
+			<trans-unit id="labelUserFunc.and" xml:space="preserve">
+				<source>And</source>
+			</trans-unit>
+			<trans-unit id="labelUserFunc.warning" xml:space="preserve">
+				<source>This rule has not been filled properly!</source>
 			</trans-unit>
 		</body>
 	</file>

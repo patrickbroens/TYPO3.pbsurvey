@@ -29,7 +29,7 @@ return [
                 'size' => 1,
                 'maxitems' => 1,
                 'minitems' => 1,
-                'show_thumbs' => 1
+                'show_thumbs' => true
             ]
         ],
         'score' => [

@@ -444,9 +444,9 @@ return [
                 'foreign_label' => 'name',
                 'maxitems' => 99,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1
+                    'collapseAll' => true,
+                    'expandSingle' => true,
+                    'useSortable' => true
                 ]
             ]
         ],
@@ -462,9 +462,9 @@ return [
                 'maxitems' => 999,
                 'minitems' => 1,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1
+                    'collapseAll' => true,
+                    'expandSingle' => true,
+                    'useSortable' => true
                 ]
             ]
         ],

@@ -24,22 +24,8 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item;
 /**
  * Abstract to control survey pages
  */
-class PageControl
+class PageControl extends Control
 {
-    /**
-     * The template root paths
-     *
-     * @var array
-     */
-    protected static $templateRootPaths = [];
-
-    /**
-     * The view
-     *
-     * @var StandaloneView
-     */
-    protected $view;
-
     /**
      * The page repository
      *
@@ -50,12 +36,13 @@ class PageControl
     /**
      * Constructor
      *
-     * Set the page repository and the view
+     * Set the page repository
      */
     public function __construct()
     {
-        $this->setView(static::$templateRootPaths);
         $this->pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+
+        parent::__construct();
     }
 
     /**
@@ -94,26 +81,5 @@ class PageControl
         $this->view->setTemplate('SaveWarning');
 
         return $this->view->render();
-    }
-
-    /**
-     * Set the view
-     *
-     * @param array $templateRootPaths The template root paths
-     */
-    protected function setView($templateRootPaths)
-    {
-        $this->view = GeneralUtility::makeInstance(StandaloneView::class);
-        $this->view->setTemplateRootPaths($templateRootPaths);
-    }
-
-    /**
-     * Get the language service
-     *
-     * @return LanguageService
-     */
-    protected function getLanguageService()
-    {
-        return $GLOBALS['LANG'];
     }
 }

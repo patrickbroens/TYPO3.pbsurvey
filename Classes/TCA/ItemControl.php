@@ -15,30 +15,13 @@ namespace PatrickBroens\Pbsurvey\TCA;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
-use TYPO3\CMS\Lang\LanguageService;
 use PatrickBroens\Pbsurvey\Domain\Repository\ItemRepository;
-use PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 /**
  * Abstract to control survey items
  */
-class ItemControl
+class ItemControl extends Control
 {
-    /**
-     * The template root paths
-     *
-     * @var array
-     */
-    protected static $templateRootPaths = [];
-
-    /**
-     * The view
-     *
-     * @var StandaloneView
-     */
-    protected $view;
-
     /**
      * The item repository
      *
@@ -49,32 +32,12 @@ class ItemControl
     /**
      * Constructor
      *
-     * Set the item repository and the view
+     * Set the item repository
      */
     public function __construct()
     {
-        $this->setView(static::$templateRootPaths);
         $this->itemRepository = GeneralUtility::makeInstance(ItemRepository::class);
-    }
 
-    /**
-     * Set the view
-     *
-     * @param array $templateRootPaths The template root paths
-     */
-    protected function setView($templateRootPaths)
-    {
-        $this->view = GeneralUtility::makeInstance(StandaloneView::class);
-        $this->view->setTemplateRootPaths($templateRootPaths);
-    }
-
-    /**
-     * Get the language service
-     *
-     * @return LanguageService
-     */
-    protected function getLanguageService()
-    {
-        return $GLOBALS['LANG'];
+        parent::__construct();
     }
 }

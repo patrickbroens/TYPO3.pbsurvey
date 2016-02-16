@@ -4,6 +4,7 @@ return [
         'delete' => 'deleted',
         'hideTable' => true,
         'label' => 'name',
+        'formattedLabel_userFunc' => \PatrickBroens\Pbsurvey\TCA\LabelUserFunc\PageConditionGroup::class . '->render',
         'sortby' => 'sorting',
         'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/PageConditionGroup.xlf:title',
         'typeicon_classes' => [
@@ -36,10 +37,13 @@ return [
                 'foreign_field' => 'parentid',
                 'foreign_label' => 'label',
                 'maxitems' => 999,
+                'minitems' => 1,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1
+                    'collapseAll' => false,
+                    'expandSingle' => false,
+                    'useSortable' => true,
+                    'newRecordLinkAddTitle' => true,
+                    'levelLinksPosition' => 'bottom'
                 ]
             ]
         ]

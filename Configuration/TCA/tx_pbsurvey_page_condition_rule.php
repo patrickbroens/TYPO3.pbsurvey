@@ -4,6 +4,7 @@ return [
         'delete' => 'deleted',
         'hideTable' => true,
         'label' => 'item',
+        'formattedLabel_userFunc' => \PatrickBroens\Pbsurvey\TCA\LabelUserFunc\PageConditionRule::class . '->render',
         'requestUpdate' => 'item, operator',
         'sortby' => 'sorting',
         'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/PageConditionRule.xlf:title',

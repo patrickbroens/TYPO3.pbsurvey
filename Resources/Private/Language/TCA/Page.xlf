@@ -7,7 +7,7 @@
 				<source>Survey Page</source>
 			</trans-unit>
 			<trans-unit id="field.condition_groups" xml:space="preserve">
-				<source>Conditions</source>
+				<source>Condition groups (OR)</source>
 			</trans-unit>
 			<trans-unit id="field.introduction" xml:space="preserve">
 				<source>Introduction</source>

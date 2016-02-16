@@ -1,0 +1,45 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<f:if condition="{isFilled}">
+	<f:then>
+		<f:format.case>
+			<f:translate key="LLL:EXT:pbsurvey/Resources/Private/Language/TCA/PageConditionRule.xlf:labelUserFunc.and" />:
+		</f:format.case>
+		<b>
+			<f:format.crop maxCharacters="50" respectWordBoundaries="true">
+				[{question}]
+			</f:format.crop>
+		</b>
+		<i>
+			<f:translate key="LLL:EXT:pbsurvey/Resources/Private/Language/TCA/PageConditionRule.xlf:field.operator.{operator}" />
+		</i>
+		<f:if condition="{optionNeeded}">
+			<b>
+				<f:if condition="{option}">
+					<f:then>
+						<f:format.crop maxCharacters="50" respectWordBoundaries="true">
+							[{option}]
+						</f:format.crop>
+					</f:then>
+					<f:else>
+						<f:format.crop maxCharacters="50" respectWordBoundaries="true">
+							"{additional}"
+						</f:format.crop>
+					</f:else>
+				</f:if>
+			</b>
+		</f:if>
+	</f:then>
+	<f:else>
+		<strong>
+			<f:format.case>
+				<f:translate key="LLL:EXT:pbsurvey/Resources/Private/Language/TCA/PageConditionRule.xlf:labelUserFunc.warning" />
+			</f:format.case>
+		</strong>
+	</f:else>
+</f:if>
+
+</html>

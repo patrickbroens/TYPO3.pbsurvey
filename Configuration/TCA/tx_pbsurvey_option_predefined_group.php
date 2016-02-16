@@ -36,9 +36,9 @@ return [
                 'foreign_label' => 'label',
                 'maxitems' => 999,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1
+                    'collapseAll' => true,
+                    'expandSingle' => true,
+                    'useSortable' => true
                 ]
             ]
         ]
