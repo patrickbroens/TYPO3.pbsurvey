@@ -15,35 +15,21 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersAdditionalTrait;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsAlignmentTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersNoneTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsRandomTrait;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsResponsesTrait;
 
 /**
- * Item type 1: Choice - Multiple Answers (Checkboxes)
+ * Item type 2: Choice - One Answer (Dropdown)
  */
-class ItemType1 extends AbstractChoice
+class ItemType2 extends AbstractChoice
 {
     /**
-     * TRAIT: AnswersAdditionalTrait
+     * TRAIT: AnswersNoneTrait
      *
      * FIELDS:
-     * $answersAdditionalAllow
-     * $answersAdditionalText
-     * $answersAdditionalType
-     * $textareaHeight
-     * $textareaWidth
+     * $anwersNone
      */
-    use AnswersAdditionalTrait;
-
-    /**
-     * TRAIT: OptionsAlignmentTrait
-     *
-     * FIELDS:
-     * $optionsAlignment
-     */
-    use OptionsAlignmentTrait;
+    use AnswersNoneTrait;
 
     /**
      * TRAIT: OptionsRandomTrait
@@ -52,15 +38,6 @@ class ItemType1 extends AbstractChoice
      * $optionsRandom
      */
     use OptionsRandomTrait;
-
-    /**
-     * TRAIT: OptionsResponsesTrait
-     *
-     * FIELDS:
-     * $optionsResponsesMaximum
-     * $optionsResponsesMinimum
-     */
-    use OptionsResponsesTrait;
 
     /**
      * The allowed condition operator groups

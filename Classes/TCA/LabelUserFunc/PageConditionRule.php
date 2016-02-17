@@ -14,6 +14,8 @@ namespace PatrickBroens\Pbsurvey\TCA\LabelUserFunc;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 use PatrickBroens\Pbsurvey\TCA\ItemControl;
 
 /**
@@ -66,17 +68,17 @@ class PageConditionRule extends ItemControl
         $optionUid = $parameters['row']['item_option'];
         $additionalText = $parameters['row']['item_option_additional'];
 
-        $item = $this->itemRepository->findByUid($itemUid, ['Option']);
+        $item = $this->itemRepository->findByUid($itemUid, ['Option', 'FileReference']);
 
-        if ($item && $item->isQuestion()) {
+        if ($item && ($item instanceof AbstractQuestion)) {
             $question = $item->getQuestion();
 
             if ($operatorId !== '') {
                 $operator = static::$operators[$operatorId];
 
                 if (!in_array($operatorId, ['set', 'notset'])) {
-                    if ($item->hasOption($optionUid)) {
-                        $option = $item->getOptionByUid($optionUid);
+                    if (($item instanceof AbstractChoice) && $item->hasOption($optionUid)) {
+                        $option = $item->getOption($optionUid);
                         $optionValue = $option->getValue();
 
                     } elseif (empty($item->isAdditionalAllowed())) {

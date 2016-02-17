@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,11 +14,25 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
+
 /**
- * Date trait
+ * Item type 12: Open Ended - Date
  */
-trait DateTrait
+class ItemType12 extends AbstractOpenEnded
 {
+    /**
+     * The allowed condition operator groups
+     *
+     * @var array
+     */
+    protected static $allowedConditionOperatorGroups = [
+        'equality',
+        'containment',
+        'mathematical',
+        'provision'
+    ];
+
     /**
      * Default date
      *

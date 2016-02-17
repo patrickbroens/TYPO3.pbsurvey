@@ -3,6 +3,7 @@ return [
     'ctrl' => [
         'crdate' => 'crdate',
         'delete' => 'deleted',
+        'hideTable' => true,
         'label' => 'name',
         'sortby' => 'sorting',
         'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/OptionRow.xlf:title',

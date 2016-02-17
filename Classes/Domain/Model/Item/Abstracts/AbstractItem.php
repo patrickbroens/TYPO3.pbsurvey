@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,35 +14,37 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\AbstractModel;
+
 /**
- * Selectbox height total trait
+ * Item abstract
  */
-trait SelectboxHeightTrait
+abstract class AbstractItem extends AbstractModel
 {
     /**
-     * The height of the selectbox
+     * The question type
      *
      * @var int
      */
-    protected $selectboxHeight;
+    protected $questionType;
 
     /**
-     * Get the height of the selectbox
+     * Get the question type
      *
      * @return int
      */
-    public function getSelectboxHeight()
+    public function getQuestionType()
     {
-        return $this->selectboxHeight;
+        return $this->questionType;
     }
 
     /**
-     * Set the height of the selectbox
+     * Set the question type
      *
-     * @param int $selectboxHeight The height
+     * @param int $questionType The question type
      */
-    public function setSelectboxHeight($selectboxHeight)
+    public function setQuestionType($questionType)
     {
-        $this->selectboxHeight = (int)$selectboxHeight;
+        $this->questionType = (int)$questionType;
     }
 }

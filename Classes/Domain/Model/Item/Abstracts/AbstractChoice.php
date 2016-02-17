@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -17,9 +17,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
 
 /**
- * Answers trait
+ * Choice question abstract
  */
-trait OptionsTrait
+abstract class AbstractChoice extends AbstractQuestion
 {
     /**
      * The options
@@ -29,16 +29,37 @@ trait OptionsTrait
     protected $options;
 
     /**
+     * Check if option exists
+     *
+     * @param int $optionUid The option uid
+     * @return bool true if option exists
+     */
+    public function hasOption($optionUid)
+    {
+        return isset($this->options[$optionUid]);
+    }
+
+    /**
+     * Check if the item contains options (answers)
+     *
+     * @return bool true when options are available
+     */
+    public function hasOptions()
+    {
+        return !empty($this->options);
+    }
+
+    /**
      * Get an option by its uid
      *
      * @param int $optionUid The option uid
      * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Option The option
      */
-    public function getOptionByUid($optionUid)
+    public function getOption($optionUid)
     {
         $option = null;
 
-        if (isset($this->options[$optionUid])) {
+        if ($this->hasOption($optionUid)) {
             $option = $this->options[$optionUid];
         }
 
@@ -56,7 +77,7 @@ trait OptionsTrait
     }
 
     /**
-     * Add an answer
+     * Add an option
      *
      * @param \PatrickBroens\Pbsurvey\Domain\Model\Option $option The option
      */
@@ -68,7 +89,7 @@ trait OptionsTrait
     /**
      * Add options
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Option[] $answers The options
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Option[] $options The options
      */
     public function addOptions(array $options)
     {

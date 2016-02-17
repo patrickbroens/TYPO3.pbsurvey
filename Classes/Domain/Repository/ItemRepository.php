@@ -15,7 +15,10 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Resource\FileRepository;
 use PatrickBroens\Pbsurvey\Domain\Model\Item;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractFileReference;
 use PatrickBroens\Pbsurvey\Memoization\ItemMemoizationCache;
 
 /**
@@ -50,7 +53,7 @@ class ItemRepository extends AbstractRepository
      *
      * @param int $pageUid The uid of the survey page
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Item
+     * @return \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem
      */
     public function findByUid($itemUid, $loadObjects = [])
     {
@@ -81,7 +84,7 @@ class ItemRepository extends AbstractRepository
     /**
      * @param int $pageUid The uid of the survey page
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Item[]
+     * @return \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[]
      */
     public function findByPage($pageUid, $loadObjects = [])
     {
@@ -141,17 +144,21 @@ class ItemRepository extends AbstractRepository
      *
      * @param array $record The database record
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Item The item
+     * @return \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem The item
      */
     protected function setItemFromRecord($record, $loadObjects)
     {
-        $itemClassName = 'PatrickBroens\Pbsurvey\Domain\Model\Item\ItemType' . (int)$record['question_type'];
+        $itemClassName = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['pbsurvey']['items'][(int)$record['question_type']];
 
         $item = GeneralUtility::makeInstance($itemClassName);
         $item->fill($record);
 
-        if (in_array('Option', $loadObjects) && method_exists($item, 'addOptions')) {
+        if (in_array('Option', $loadObjects) && ($item instanceof AbstractChoice)) {
             $item->addOptions($this->getOptions($item, $loadObjects));
+        }
+
+        if (in_array('FileReference', $loadObjects) && is_callable([$itemClassName, 'addFileReferences'])) {
+            $item->addFileReferences($this->getFileReferences($item, $loadObjects));
         }
 
         if (in_array('Row', $loadObjects) && method_exists($item, 'addRows')) {
@@ -162,11 +169,11 @@ class ItemRepository extends AbstractRepository
     }
 
     /**
-     * Get the item rows
+     * Get the item options
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item $item The item
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[] The item rows
+     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[] The item options
      */
     protected function getOptions($item, $loadObjects) {
         $optionRepository = GeneralUtility::makeInstance(OptionRepository::class);
@@ -174,14 +181,26 @@ class ItemRepository extends AbstractRepository
     }
 
     /**
+     * Get the item file references
+     *
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
+     * @param array $loadObjects The nested models which should be loaded
+     * @return \TYPO3\CMS\Core\Resource\FileReference[] The item file references
+     */
+    protected function getFileReferences($item, $loadObjects) {
+        $fileRepository = GeneralUtility::makeInstance(FileRepository::class);
+        return $fileRepository->findByRelation('tx_pbsurvey_item', 'file_references', $item->getUid());
+    }
+
+    /**
      * Get the item rows
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item $item The item
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
      * @param array $loadObjects The nested models which should be loaded
      * @return \PatrickBroens\Pbsurvey\Domain\Model\Row[] The item rows
      */
     protected function getRows($item, $loadObjects) {
-        $rowRepository = GeneralUtility::makeInstance(RowRepository::class);
+        $rowRepository = GeneralUtility::makeInstance(OptionRowRepository::class);
         return $rowRepository->findByItem($item->getUid(), $loadObjects);
     }
 }

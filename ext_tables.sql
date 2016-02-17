@@ -234,7 +234,7 @@ CREATE TABLE tx_pbsurvey_option_row (
 
 	parentid int(11) unsigned DEFAULT '0' NOT NULL,
 
-	name int(11) unsigned DEFAULT '0' NOT NULL,
+	name tinytext NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY pid (pid),

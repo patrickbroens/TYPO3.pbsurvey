@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,11 +14,42 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\LengthMaximumTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\ValueDefaultTextTrait;
+
 /**
- * Email trait
+ * Item type 14: Open Ended - One Line
  */
-trait EmailTrait
+class ItemType14 extends AbstractOpenEnded
 {
+    /**
+     * TRAIT: LengthMaximumTrait
+     *
+     * FIELDS:
+     * $valueDefaultText
+     */
+    use LengthMaximumTrait;
+
+    /**
+     * TRAIT: ValueDefaultTextTrait
+     *
+     * FIELDS:
+     * $valueDefaultText
+     */
+    use ValueDefaultTextTrait;
+
+    /**
+     * The allowed condition operator groups
+     *
+     * @var array
+     */
+    protected static $allowedConditionOperatorGroups = [
+        'equality',
+        'containment',
+        'provision'
+    ];
+
     /**
      * The email address
      *

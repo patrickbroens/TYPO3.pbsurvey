@@ -1,7 +1,7 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
-    /*
+/*
  * This file is part of the TYPO3 CMS project.
  *
  * It is free software; you can redistribute it and/or modify it under
@@ -14,11 +14,29 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractBoolean;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\DisplayTypeTrait;
+
 /**
- * Default value for yes/no question trait
+ * Item type 5: Choice - Yes/No
  */
-trait ValueDefaultYesNoTrait
+class ItemType5 extends AbstractBoolean
 {
+    /**
+     * TRAIT: DisplayTypeTrait
+     *
+     * FIELDS:
+     * $displayType
+     */
+    use DisplayTypeTrait;
+
+    /**
+     * The language label
+     *
+     * @var string
+     */
+    protected static $languageLabel = 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.value_default_yes_no.';
+
     /**
      * Negative value (false/no) first in order
      *
@@ -41,7 +59,7 @@ trait ValueDefaultYesNoTrait
      *
      * @param int $valueDefaultYesNo the value
      */
-    public function setOptionsRandom($valueDefaultYesNo)
+    public function setValueDefaultYesNo($valueDefaultYesNo)
     {
         $this->valueDefaultYesNo = (int)$valueDefaultYesNo;
     }

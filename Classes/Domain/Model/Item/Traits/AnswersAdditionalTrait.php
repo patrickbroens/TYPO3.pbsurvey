@@ -15,9 +15,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  */
 
 /**
- * Answers additional text trait
+ * Answers additional trait
  */
-trait AnswersAdditionalTextTrait
+trait AnswersAdditionalTrait
 {
     /**
      * Allow additional answer

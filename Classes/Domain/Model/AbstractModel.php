@@ -15,12 +15,13 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Lang\LanguageService;
 use PatrickBroens\Pbsurvey\Utility\Reflection;
 
 /**
- * Abstract
+ * Model abstract
  */
-class AbstractModel
+abstract class AbstractModel
 {
     /**
      * The uid
@@ -72,5 +73,15 @@ class AbstractModel
                 $this->{$property->name} = $record[$databaseField];
             }
         }
+    }
+
+    /**
+     * Get the language service
+     *
+     * @return LanguageService
+     */
+    protected function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
     }
 }

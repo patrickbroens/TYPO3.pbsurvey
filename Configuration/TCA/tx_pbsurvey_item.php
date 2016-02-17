@@ -120,7 +120,7 @@ return [
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.answers_none',
             'config' => [
                 'type' => 'check',
-                'default' => '1'
+                'default' => 1
             ]
         ],
         'date_default' => [
@@ -1057,7 +1057,7 @@ return [
                     question;;2,
                     question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
                 --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
-                    options,
+                    option_rows,
                     number_start,
                     number_end,
                 --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,

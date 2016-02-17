@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
 
 /**
@@ -39,7 +39,7 @@ class Page extends AbstractModel
     /**
      * The items
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Model\Item[]
+     * @var \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[]
      */
     protected $items = [];
 
@@ -88,7 +88,7 @@ class Page extends AbstractModel
     public function addConditionGroups(array $conditionGroups)
     {
         foreach ($conditionGroups as $conditionGroup) {
-            if ($conditionGroup instanceof \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup) {
+            if ($conditionGroup instanceof PageConditionGroup) {
                 $this->addItem($conditionGroup);
             }
         }
@@ -137,10 +137,9 @@ class Page extends AbstractModel
     /**
      * Add an item
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item $item The item
-     * @TODO: Do check on instance
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
      */
-    public function addItem($item)
+    public function addItem(AbstractItem $item)
     {
         $this->items[] = $item;
     }
@@ -148,15 +147,14 @@ class Page extends AbstractModel
     /**
      * Add an array of items
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item[] $items The items
-     * @TODO: Do check on instance
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[] $items The items
      */
     public function addItems(array $items)
     {
         foreach ($items as $item) {
-            //if ($item instanceof \PatrickBroens\Pbsurvey\Domain\Model\Item) {
+            if ($item instanceof AbstractItem) {
                 $this->addItem($item);
-            //}
+            }
         }
     }
 

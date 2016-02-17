@@ -1,7 +1,7 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
-    /*
+/*
  * This file is part of the TYPO3 CMS project.
  *
  * It is free software; you can redistribute it and/or modify it under
@@ -14,11 +14,29 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractBoolean;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\DisplayTypeTrait;
+
 /**
- * Default value for true/false question trait
+ * Item type 4: Choice - True/False
  */
-trait ValueDefaultTrueFalseTrait
+class ItemType4 extends AbstractBoolean
 {
+    /**
+     * TRAIT: DisplayTypeTrait
+     *
+     * FIELDS:
+     * $displayType
+     */
+    use DisplayTypeTrait;
+
+    /**
+     * The language label
+     *
+     * @var string
+     */
+    protected static $languageLabel = 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.value_default_true_false.';
+
     /**
      * Negative value (false/no) first in order
      *
@@ -41,7 +59,7 @@ trait ValueDefaultTrueFalseTrait
      *
      * @param int $valueDefaultTrueFalse the value
      */
-    public function setOptionsRandom($valueDefaultTrueFalse)
+    public function setValueDefaultTrueFalse($valueDefaultTrueFalse)
     {
         $this->valueDefaultTrueFalse = (int)$valueDefaultTrueFalse;
     }

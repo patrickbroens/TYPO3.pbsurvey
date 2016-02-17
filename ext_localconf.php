@@ -64,7 +64,7 @@ foreach ($recordTypes as $recordType) {
 }
 
 /**
- * Add the icons for item types to the icon registry
+ * Register the item class names and add icons to the icon registry for all item types
  */
 $itemsAmount = 24;
 
@@ -76,6 +76,9 @@ for ($itemNumber = 1; $itemNumber <= $itemsAmount; $itemNumber++) {
             'source' => 'EXT:pbsurvey/Resources/Public/Icons/TCA/Item/' . $itemNumber . '.gif'
         ]
     );
+
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['pbsurvey']['items'][$itemNumber] =
+        'PatrickBroens\Pbsurvey\Domain\Model\Item\ItemType' . $itemNumber;
 }
 
 // Include TS configuration

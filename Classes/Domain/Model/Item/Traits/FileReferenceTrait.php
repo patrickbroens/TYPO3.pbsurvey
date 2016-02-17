@@ -14,35 +14,166 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Resource\FileReference;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+
 /**
- * FileReference trait
+ * File reference trait
  */
 trait FileReferenceTrait
 {
     /**
-     * The file reference
+     * The file references
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Core\Resource\FileReference[]
      */
-    protected $fileReference;
+    protected $fileReferences;
 
     /**
-     * Get the file reference
+     * Check if a file reference exists
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @param int $fileReferenceUid The file reference uid
+     * @return bool true if file reference exists
      */
-    public function getFileReference()
+    public function hasFileReference($fileReferenceUid)
     {
-        return $this->fileReference;
+        return isset($this->fileReferences[$fileReferenceUid]);
     }
 
     /**
-     * Set the file reference
+     * Check if option exists
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image The file reference
+     * In this case an option is a file reference
+     *
+     * @param int $fileReferenceUid The file reference uid
+     * @return bool true if file reference exists
      */
-    public function setFileReference(\TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference)
+    public function hasOption($fileReferenceUid)
     {
-        $this->fileReference = $fileReference;
+        return $this->hasFileReference($fileReferenceUid);
     }
+
+    /**
+     * Check if the item contains file references
+     *
+     * @return bool true when file references are available
+     */
+    public function hasFileReferences()
+    {
+        return !empty($this->fileReferences);
+    }
+
+    /**
+     * Check if the item contains options (answers)
+     *
+     * In this case an option is a file reference
+     *
+     * @return bool true when options are available
+     */
+    public function hasOptions()
+    {
+        return $this->hasFileReferences();
+    }
+
+    /**
+     * Get a file reference by its uid
+     *
+     * @param int $fileReferenceUid The file reference uid
+     * @return null|\TYPO3\CMS\Core\Resource\FileReference The option
+     */
+    public function getFileReference($fileReferenceUid)
+    {
+        $fileReference = null;
+
+        if ($this->hasFileReference($fileReferenceUid)) {
+            $fileReference = $this->fileReferences[$fileReferenceUid];
+        }
+
+        return $fileReference;
+    }
+
+    /**
+     * Get an option by its uid
+     *
+     * In this case an option is a file reference
+     *
+     * @param int $fileReferenceUid The file reference uid
+     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Option The option
+     */
+    public function getOption($fileReferenceUid)
+    {
+        $option = null;
+
+        if ($this->hasOption($fileReferenceUid)) {
+            $fileReference = $this->fileReferences[$fileReferenceUid];
+
+            $name = $fileReference->getName();
+            $title = $fileReference->getTitle();
+
+            $option = GeneralUtility::makeInstance(Option::class);
+            $option->setUid($fileReferenceUid);
+            $option->setValue($title ?: $name);
+        }
+
+        return $option;
+    }
+
+    /**
+     * Get the file references
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference[]
+     */
+    public function getFileReferences()
+    {
+        return $this->fileReferences;
+    }
+
+    /**
+     * Get the options
+     *
+     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[]
+     */
+    public function getOptions()
+    {
+        $options = [];
+
+        foreach ($this->fileReferences as $fileReference) {
+            $options[] = $this->getOption($fileReference->getUid());
+        }
+
+        return $options;
+    }
+
+    /**
+     * Add a file reference
+     *
+     * @param \TYPO3\CMS\Core\Resource\FileReference $fileReference The file reference
+     */
+    public function addFileReference(FileReference $fileReference)
+    {
+        $this->fileReferences[$fileReference->getUid()] = $fileReference;
+    }
+
+    /**
+     * Add file references
+     *
+     * @param \TYPO3\CMS\Core\Resource\FileReference[] $images The images file references
+     */
+    public function addFileReferences(array $fileReferences)
+    {
+        foreach ($fileReferences as $fileReference) {
+            if ($fileReference instanceof FileReference) {
+                $this->addFileReference($fileReference);
+            }
+        }
+    }
+
+
+
+
+
+
+
+
 }

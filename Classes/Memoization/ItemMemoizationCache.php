@@ -83,7 +83,7 @@ class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param int $itemUid The uid of the survey item
      * @param array $loadObjects The nested models which should be loaded
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Item Item when in cache
+     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem Item when in cache
      */
     public function getByUid($itemUid, array $loadObjects)
     {
@@ -103,7 +103,7 @@ class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param int $itemUid The uid of the survey page
      * @param array $loadObjects The nested models which should be loaded
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Item[] Items when in cache
+     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[] Items when in cache
      */
     public function getByPage($pageUid, array $loadObjects)
     {
@@ -122,7 +122,7 @@ class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      * Store an item in the cache
      *
      * @param int $itemUid The uid of the survey item
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item $item The item
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
      * @param array $loadObjects The nested models which should be loaded
      */
     public function storeByUid($itemUid, $item, array $loadObjects)
@@ -144,7 +144,7 @@ class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      * Store items in the cache by their survey page
      *
      * @param int $itemUid The uid of the survey item
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item[] $items The items
+     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[] $items The items
      * @param array $loadObjects The nested models which should be loaded
      */
     public function storeByPage($pageUid, $items, array $loadObjects)

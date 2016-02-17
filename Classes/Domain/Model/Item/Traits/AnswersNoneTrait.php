@@ -24,7 +24,7 @@ trait AnswersNoneTrait
      *
      * @var bool
      */
-    protected $anwersNone;
+    protected $answersNone;
 
     /**
      * Check if the none value should be added
@@ -33,7 +33,7 @@ trait AnswersNoneTrait
      */
     public function addNone()
     {
-        return $this->anwersNone;
+        return $this->answersNone;
     }
 
     /**

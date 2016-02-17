@@ -15,35 +15,31 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersAdditionalTrait;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsAlignmentTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsRandomTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsResponsesTrait;
 
 /**
- * Item type 1: Choice - Multiple Answers (Checkboxes)
+ * Item type 23: Choice - Multiple Answers (Selectbox)
  */
-class ItemType1 extends AbstractChoice
+class ItemType23 extends AbstractChoice
 {
     /**
-     * TRAIT: AnswersAdditionalTrait
+     * The allowed condition operator groups
      *
-     * FIELDS:
-     * $answersAdditionalAllow
-     * $answersAdditionalText
-     * $answersAdditionalType
-     * $textareaHeight
-     * $textareaWidth
+     * @var array
      */
-    use AnswersAdditionalTrait;
+    protected static $allowedConditionOperatorGroups = [
+        'equality',
+        'containment',
+        'provision'
+    ];
 
     /**
-     * TRAIT: OptionsAlignmentTrait
+     * The height of the selectbox
      *
-     * FIELDS:
-     * $optionsAlignment
+     * @var int
      */
-    use OptionsAlignmentTrait;
+    protected $selectboxHeight;
 
     /**
      * TRAIT: OptionsRandomTrait
@@ -63,13 +59,22 @@ class ItemType1 extends AbstractChoice
     use OptionsResponsesTrait;
 
     /**
-     * The allowed condition operator groups
+     * Get the height of the selectbox
      *
-     * @var array
+     * @return int
      */
-    protected static $allowedConditionOperatorGroups = [
-        'equality',
-        'containment',
-        'provision'
-    ];
+    public function getSelectboxHeight()
+    {
+        return $this->selectboxHeight;
+    }
+
+    /**
+     * Set the height of the selectbox
+     *
+     * @param int $selectboxHeight The height
+     */
+    public function setSelectboxHeight($selectboxHeight)
+    {
+        $this->selectboxHeight = (int)$selectboxHeight;
+    }
 }

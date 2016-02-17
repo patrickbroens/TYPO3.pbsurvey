@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,35 +14,37 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractPresentation;
+
 /**
- * Styleclass trait
+ * Item type 19: Presentation - HTML
  */
-trait StyleclassTrait
+class ItemType19 extends AbstractPresentation
 {
     /**
-     * The style class
+     * The html
      *
      * @var string
      */
-    protected $styleclass;
+    protected $html;
 
     /**
-     * Get the style class
+     * Get the html
      *
      * @return string
      */
-    public function getStyleclass()
+    public function getHtml()
     {
-        return $this->styleclass;
+        return $this->html;
     }
 
     /**
-     * Set the style class
+     * Set the html
      *
-     * @param string $styleclass The style class
+     * @param string $html The html
      */
-    public function setStyleclass($styleclass)
+    public function setHtml($html)
     {
-        $this->styleclass = (string)$styleclass;
+        $this->html = (string)$html;
     }
 }

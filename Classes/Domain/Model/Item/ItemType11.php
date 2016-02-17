@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,11 +14,43 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsRandomTrait;
+
 /**
- * Number total trait
+ * Item type 11: Open Ended - Constant Sum
  */
-trait NumberTotalTrait
+class ItemType11 extends AbstractOpenEnded
 {
+    /**
+     * TRAIT: OptionsRandomTrait
+     *
+     * FIELDS:
+     * $optionsRandom
+     */
+    use OptionsRandomTrait;
+
+    /**
+     * TRAIT: OptionRowsTrait
+     *
+     * FIELDS:
+     * $optionRows
+     */
+    use OptionRowsTrait;
+
+    /**
+     * The allowed condition operator groups
+     *
+     * @var array
+     */
+    protected static $allowedConditionOperatorGroups = [
+        'equality',
+        'containment',
+        'mathematical',
+        'provision'
+    ];
+
     /**
      * Answer total
      *

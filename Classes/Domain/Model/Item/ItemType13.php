@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,11 +14,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\LengthMaximumTrait;
+
 /**
- * Value numeric trait
+ * Item type 13: Open Ended - Number
  */
-trait ValueNumericTrait
+class ItemType13 extends AbstractOpenEnded
 {
+    /**
+     * TRAIT: LengthMaximumTrait
+     *
+     * FIELDS:
+     * $lengthMaximum
+     */
+    use LengthMaximumTrait;
+
+    /**
+     * The allowed condition operator groups
+     *
+     * @var array
+     */
+    protected static $allowedConditionOperatorGroups = [
+        'equality',
+        'containment',
+        'mathematical',
+        'provision'
+    ];
+
     /**
      * The default numeric value
      *

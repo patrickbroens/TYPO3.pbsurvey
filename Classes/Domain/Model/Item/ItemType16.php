@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,35 +14,19 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
+
 /**
- * HTML trait
+ * Item type 16: Open Ended - Ranking
  */
-trait HtmlTrait
+class ItemType16 extends AbstractOpenEnded
 {
     /**
-     * The html
+     * TRAIT: OptionRowsTrait
      *
-     * @var string
+     * FIELDS:
+     * $optionRows
      */
-    protected $html;
-
-    /**
-     * Get the html
-     *
-     * @return string
-     */
-    public function getHtml()
-    {
-        return $this->html;
-    }
-
-    /**
-     * Set the html
-     *
-     * @param string $html The html
-     */
-    public function setHtml($html)
-    {
-        $this->html = (string)$html;
-    }
+    use OptionRowsTrait;
 }

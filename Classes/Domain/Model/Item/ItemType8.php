@@ -14,17 +14,12 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\AbstractModel;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
 
 /**
- * Presentation abstract
+ * Item type 8: Matrix - One Answer per Row (Option Buttons)
  */
-class AbstractPresentation extends AbstractModel
+class ItemType8 extends AbstractMatrix
 {
-    /**
-     * Question or presentation?
-     *
-     * @var bool
-     */
-    protected static $presentationType = true;
+
 }

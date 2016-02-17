@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,35 +14,37 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
+
 /**
- * Message trait
+ * Style abstract
  */
-trait MessageTrait
+abstract class AbstractStyle extends AbstractItem
 {
     /**
-     * The message
+     * The style class
      *
      * @var string
      */
-    protected $message;
+    protected $styleclass;
 
     /**
-     * Get the message
+     * Get the style class
      *
      * @return string
      */
-    public function getMessage()
+    public function getStyleclass()
     {
-        return $this->message;
+        return $this->styleclass;
     }
 
     /**
-     * Set the message
+     * Set the style class
      *
-     * @param string $message The message
+     * @param string $styleclass The style class
      */
-    public function setMessage($message)
+    public function setStyleclass($styleclass)
     {
-        $this->message = (string)$message;
+        $this->styleclass = (string)$styleclass;
     }
 }

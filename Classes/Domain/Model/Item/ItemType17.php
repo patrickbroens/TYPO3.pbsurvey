@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,35 +14,37 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractPresentation;
+
 /**
- * Question subtext trait
+ * Item type 17: Presentation - Heading
  */
-trait QuestionSubtextTrait
+class ItemType17 extends AbstractPresentation
 {
     /**
-     * The question subtext
+     * The heading
      *
      * @var string
      */
-    protected $questionSubtext;
+    protected $heading;
 
     /**
-     * Get the question subtext
+     * Get the heading
      *
      * @return string
      */
-    public function getQuestionSubtext()
+    public function getHeading()
     {
-        return $this->questionSubtext;
+        return $this->heading;
     }
 
     /**
-     * Set the question subtext
+     * Set the heading
      *
-     * @param string $questionSubtext The question subtext
+     * @param string $heading The heading
      */
-    public function setQuestionSubtext($questionSubtext)
+    public function setHeading($heading)
     {
-        $this->questionSubtext = (string)$questionSubtext;
+        $this->heading = (string)$heading;
     }
 }

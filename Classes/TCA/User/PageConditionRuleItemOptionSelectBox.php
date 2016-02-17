@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\TCA\User;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\TCA\ItemControl;
 
@@ -48,9 +49,9 @@ class PageConditionRuleItemOptionSelectBox extends ItemControl
         $operator = (string)reset($parameters['row']['operator']);
 
         if ($itemUid && !empty($operator) && !in_array($operator, ['set', 'notset'])) {
-            $item = $this->itemRepository->findByUid($itemUid, ['Option']);
+            $item = $this->itemRepository->findByUid($itemUid, ['Option', 'FileReference']);
 
-            if ($item->isChoice() && $item->hasOptions()) {
+            if (($item instanceof AbstractChoice) && $item->hasOptions()) {
                 $content = $this->renderSelectBox($item, $parameters);
             }
         }
@@ -61,16 +62,15 @@ class PageConditionRuleItemOptionSelectBox extends ItemControl
     /**
      * Render the select box
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item The item
+     * @param AbstractChoice The item
      * @param array $parameters Parameters from the record
      * @return string The selectbox markup
      */
-    protected function renderSelectBox($item, $parameters)
+    protected function renderSelectBox(AbstractChoice $item, $parameters)
     {
         $this->view->setTemplate('OptionSelectBox');
         $this->view->assignMultiple([
             'options' => $item->getOptions(),
-            'optionsPredefined' => $item->isPredefinedOptions(),
             'hasAdditional' => $item->isAdditionalAllowed(),
             'selectedValue' => (int)$parameters['itemFormElValue'],
             'name' => $parameters['itemFormElName'],

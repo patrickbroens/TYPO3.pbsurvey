@@ -14,6 +14,8 @@ namespace PatrickBroens\Pbsurvey\TCA\User;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\TCA\ItemControl;
 
@@ -50,7 +52,13 @@ class PageConditionRuleItemOptionAdditionalInput extends ItemControl
         if ($itemUid && !empty($operator) && !in_array($operator, ['set', 'notset'])) {
             $item = $this->itemRepository->findByUid($itemUid);
 
-            if ($item->isOpenEnded() || ($item->isChoice() && $item->isAdditionalAllowed())) {
+            if (
+                ($item instanceof AbstractOpenEnded)
+                || (
+                    ($item instanceof AbstractChoice)
+                    && $item->isAdditionalAllowed()
+                )
+            ) {
                 $content = $this->renderInput($parameters);
             }
         }

@@ -14,34 +14,37 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\AbstractModel;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractPresentation;
 
 /**
- * Abstract
+ * Item type 21: Presentation - Message
  */
-class AbstractItem extends AbstractModel
+class ItemType21 extends AbstractPresentation
 {
     /**
-     * The type
+     * The message
      *
-     * @var int
+     * @var string
      */
-    protected static $type = 1;
+    protected $message;
 
     /**
-     * Question or presentation?
+     * Get the message
      *
-     * @var bool
+     * @return string
      */
-    protected static $presentationType = true;
-
-    /**
-     * Check if this item is a question or a presentation
-     *
-     * @return bool
-     */
-    public function isQuestion()
+    public function getMessage()
     {
-        return static::$presentationType === false;
+        return $this->message;
+    }
+
+    /**
+     * Set the message
+     *
+     * @param string $message The message
+     */
+    public function setMessage($message)
+    {
+        $this->message = (string)$message;
     }
 }

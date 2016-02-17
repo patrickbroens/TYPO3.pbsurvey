@@ -29,6 +29,17 @@ trait OptionRowsTrait
     protected $optionRows;
 
     /**
+     * Check if option row exists
+     *
+     * @param int $optionRowUid The option row uid
+     * @return bool true if option row exists
+     */
+    public function hasOptionRow($optionRowUid)
+    {
+        return isset($this->optionRows[$optionRowUid]);
+    }
+
+    /**
      * Check if the item contains option rows
      *
      * @return bool true when option rows are available
@@ -36,6 +47,23 @@ trait OptionRowsTrait
     public function hasOptionRows()
     {
         return !empty($this->optionRows);
+    }
+
+    /**
+     * Get an option row by its uid
+     *
+     * @param int $optionRowUid The option row uid
+     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\OptionRow The option row
+     */
+    public function getOptionRow($optionRowUid)
+    {
+        $optionRow = null;
+
+        if ($this->hasOptionRow($optionRowUid)) {
+            $optionRow = $this->optionRows[$optionRowUid];
+        }
+
+        return $optionRow;
     }
 
     /**
@@ -55,7 +83,7 @@ trait OptionRowsTrait
      */
     public function addOptionRow(OptionRow $optionRow)
     {
-        $this->optionRows[] = $optionRow;
+        $this->optionRows[$optionRow->getUid()] = $optionRow;
     }
 
     /**
@@ -66,7 +94,7 @@ trait OptionRowsTrait
     public function addOptionRows(array $optionRows)
     {
         foreach ($optionRows as $optionRow) {
-            if ($row instanceof \PatrickBroens\Pbsurvey\Domain\Model\OptionRow) {
+            if ($optionRow instanceof OptionRow) {
                 $this->addOptionRow($optionRow);
             }
         }

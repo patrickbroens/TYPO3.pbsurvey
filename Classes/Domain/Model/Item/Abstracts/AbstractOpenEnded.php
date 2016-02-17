@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
+namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,9 +15,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  */
 
 /**
- * Open ended question
+ * Open ended question abstract
  */
-class OpenEnded extends AbstractQuestion
+abstract class AbstractOpenEnded extends AbstractQuestion
 {
     /**
      * Open ended question

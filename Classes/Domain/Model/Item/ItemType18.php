@@ -14,15 +14,12 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractPresentation;
+
 /**
- * Choice question
+ * Item type 18: Presentation - Horizontal Rule (HR)
  */
-class Choice extends AbstractQuestion
+class ItemType18 extends AbstractPresentation
 {
-    /**
-     * Choice question
-     *
-     * @var bool
-     */
-    protected static $choice = true;
+
 }

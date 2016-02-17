@@ -19,7 +19,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Lang\LanguageService;
 use PatrickBroens\Pbsurvey\Domain\Repository\PageRepository;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
-use PatrickBroens\Pbsurvey\Domain\Model\Item;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 
 /**
  * Abstract to control survey pages
@@ -58,10 +58,12 @@ class PageControl extends Control
         /** @var Page $page */
         foreach ($pagesBeforeCurrentPage as $page) {
             if ($page->hasItems()) {
-
-                /** @var Item $item */
+                /** @var AbstractQuestion $item */
                 foreach($page->getItems() as $item) {
-                    if ($item->isQuestion()) {
+                    if (
+                        $item instanceof AbstractQuestion
+                        && !empty($item->getAllowedConditionOperatorGroups())
+                    ) {
                         $questionAmount++;
                     }
                 }
