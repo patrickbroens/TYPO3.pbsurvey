@@ -1,0 +1,5 @@
+configuration.pbsurvey {
+	templateRootPath = EXT:pbsurvey/Resources/Private/Template/Frontend/
+	partialRootPath = EXT:pbsurvey/Resources/Private/Partial/Frontend/
+	layoutRootPath = EXT:pbsurvey/Resources/Private/Layout/Frontend/
+}

@@ -1,0 +1,16 @@
+tt_content.pbsurvey = USER
+tt_content.pbsurvey {
+	userFunc = PatrickBroens\Pbsurvey\Controller\Dispatcher->execute
+
+	templateRootPaths {
+		0 = {$configuration.pbsurvey.templateRootPath}
+	}
+
+	partialRootPaths {
+		0 = {$configuration.pbsurvey.partialRootPath}
+	}
+
+	layoutRootPaths {
+		0 = {$configuration.pbsurvey.layoutRootPath}
+	}
+}
