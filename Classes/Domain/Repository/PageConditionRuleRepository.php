@@ -74,7 +74,7 @@ class PageConditionRuleRepository extends AbstractRepository
     protected function setPageConditionRuleFromRecord($record, $loadObjects)
     {
         $pageConditionRule = GeneralUtility::makeInstance(PageConditionRule::class);
-        $pageConditionRule->fill($record);
+        $pageConditionRule->populate($record);
 
         return $pageConditionRule;
     }

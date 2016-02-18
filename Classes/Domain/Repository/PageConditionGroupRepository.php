@@ -73,7 +73,7 @@ class PageConditionGroupRepository extends AbstractRepository
     {
         /** @var PageConditionGroup $pageConditionGroup */
         $pageConditionGroup = GeneralUtility::makeInstance(PageConditionGroup::class);
-        $pageConditionGroup->fill($record);
+        $pageConditionGroup->populate($record);
 
         if (in_array('PageConditionRule', $loadObjects)) {
             $pageConditionGroup->addRules($this->getPageConditionRules($pageConditionGroup, $loadObjects));

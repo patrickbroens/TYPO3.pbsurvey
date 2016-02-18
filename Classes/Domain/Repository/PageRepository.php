@@ -168,7 +168,7 @@ class PageRepository extends AbstractRepository
     {
         /** @var Page $page */
         $page = GeneralUtility::makeInstance(Page::class);
-        $page->fill($record);
+        $page->populate($record);
 
         if (in_array('Item', $loadObjects)) {
             $page->addItems($this->getItems($page, $loadObjects));

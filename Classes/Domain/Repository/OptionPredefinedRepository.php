@@ -92,7 +92,7 @@ class OptionPredefinedRepository extends AbstractRepository
     {
         /** @var \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined $predefinedOption */
         $predefinedOption = GeneralUtility::makeInstance(OptionPredefined::class);
-        $predefinedOption->fill($record);
+        $predefinedOption->populate($record);
 
         return $predefinedOption;
     }

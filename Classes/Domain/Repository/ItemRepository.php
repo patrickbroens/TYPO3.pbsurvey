@@ -154,17 +154,26 @@ class ItemRepository extends AbstractRepository
         $itemClassName = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['pbsurvey']['items'][(int)$record['question_type']];
 
         $item = GeneralUtility::makeInstance($itemClassName);
-        $item->fill($record);
+        $item->populate($record);
 
-        if (in_array('Option', $loadObjects) && ($item instanceof AbstractChoice)) {
+        if (
+            in_array('Option', $loadObjects)
+            && ($item instanceof AbstractChoice)
+        ) {
             $item->addOptions($this->getOptions($item, $loadObjects));
         }
 
-        if (in_array('FileReference', $loadObjects) && is_callable([$itemClassName, 'addFileReferences'])) {
+        if (
+            in_array('FileReference', $loadObjects)
+            && is_callable([$itemClassName, 'addFileReferences'])
+        ) {
             $item->addFileReferences($this->getFileReferences($item, $loadObjects));
         }
 
-        if (in_array('Row', $loadObjects) && method_exists($item, 'addRows')) {
+        if (
+            in_array('Row', $loadObjects)
+            && is_callable([$itemClassName, 'addRows'])
+        ) {
             $item->addRows($this->getRows($item, $loadObjects));
         }
 

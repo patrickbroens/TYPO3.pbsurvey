@@ -72,7 +72,7 @@ class OptionPredefinedGroupRepository extends AbstractRepository
     {
         /** @var OptionPredefinedGroup $predefinedOptionGroup */
         $predefinedOptionGroup = GeneralUtility::makeInstance(OptionPredefinedGroup::class);
-        $predefinedOptionGroup->fill($record);
+        $predefinedOptionGroup->populate($record);
 
         if (in_array('OptionPredefined', $loadObjects)) {
             $predefinedOptionGroup->addOptions($this->getOptions($predefinedOptionGroup, $loadObjects));

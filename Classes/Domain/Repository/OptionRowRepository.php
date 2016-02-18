@@ -70,7 +70,7 @@ class OptionRowRepository extends AbstractRepository
     protected function setOptionRowFromRecord($record, $loadObjects)
     {
         $option = GeneralUtility::makeInstance(OptionRow::class);
-        $option->fill($record);
+        $option->populate($record);
 
         return $option;
     }

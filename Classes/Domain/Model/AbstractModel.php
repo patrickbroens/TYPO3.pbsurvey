@@ -51,11 +51,11 @@ abstract class AbstractModel
     }
 
     /**
-     * Fill the model based on the database record
+     * Populate the model based on the database record
      *
      * @param array $record The database record
      */
-    public function fill(array $record)
+    public function populate(array $record)
     {
         $reflection = GeneralUtility::makeInstance(Reflection::class, get_class($this));
         $properties = $reflection->getProperties(\ReflectionProperty::IS_PROTECTED);
@@ -68,9 +68,13 @@ abstract class AbstractModel
                 $type = 'array';
             }
 
-            if (isset($record[$databaseField]) && $type !== 'array') {
-                settype($record[$databaseField], $type);
-                $this->{$property->name} = $record[$databaseField];
+            if (
+                isset($record[$databaseField])
+                && $type !== 'array'
+                && is_callable([$this, 'set' . ucfirst($property->name)])
+            ) {
+                $method = 'set' . ucfirst($property->name);
+                $this->$method($record[$databaseField]);
             }
         }
     }
