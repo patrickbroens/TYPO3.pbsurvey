@@ -21,7 +21,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\ImageConfigurationTrait;
 /**
  * Item type 20: Presentation - Image
  */
-class ItemType20 extends AbstractPresentation
+class PresentationImage extends AbstractPresentation
 {
     /**
      * TRAIT: FileReferenceTrait

@@ -20,7 +20,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\DisplayTypeTrait;
 /**
  * Item type 5: Choice - Yes/No
  */
-class ItemType5 extends AbstractBoolean
+class ChoiceYesNo extends AbstractBoolean
 {
     /**
      * TRAIT: DisplayTypeTrait

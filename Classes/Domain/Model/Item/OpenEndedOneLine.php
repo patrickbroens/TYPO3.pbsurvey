@@ -15,29 +15,29 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsRandomTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\LengthMaximumTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\ValueDefaultTextTrait;
 
 /**
- * Item type 11: Open Ended - Constant Sum
+ * Item type 14: Open Ended - One Line
  */
-class ItemType11 extends AbstractOpenEnded
+class OpenEndedOneLine extends AbstractOpenEnded
 {
     /**
-     * TRAIT: OptionsRandomTrait
+     * TRAIT: LengthMaximumTrait
      *
      * FIELDS:
-     * $optionsRandom
+     * $valueDefaultText
      */
-    use OptionsRandomTrait;
+    use LengthMaximumTrait;
 
     /**
-     * TRAIT: OptionRowsTrait
+     * TRAIT: ValueDefaultTextTrait
      *
      * FIELDS:
-     * $optionRows
+     * $valueDefaultText
      */
-    use OptionRowsTrait;
+    use ValueDefaultTextTrait;
 
     /**
      * The allowed condition operator groups
@@ -47,34 +47,33 @@ class ItemType11 extends AbstractOpenEnded
     protected static $allowedConditionOperatorGroups = [
         'equality',
         'containment',
-        'mathematical',
         'provision'
     ];
 
     /**
-     * Answer total
+     * The email address
      *
-     * @var int
+     * @var string
      */
-    protected $numberTotal;
+    protected $email;
 
     /**
-     * Get the total number
+     * Get the email address
      *
-     * @return int
+     * @return string
      */
-    public function getNumberTotal()
+    public function getEmail()
     {
-        return $this->numberTotal;
+        return $this->email;
     }
 
     /**
-     * Set the total number
+     * Set the email address
      *
-     * @param int $numberTotal The total number
+     * @param string $email The email address
      */
-    public function setNumberTotal($numberTotal)
+    public function setEmail($email)
     {
-        $this->numberTotal = (int)$numberTotal;
+        $this->email = (string)$email;
     }
 }

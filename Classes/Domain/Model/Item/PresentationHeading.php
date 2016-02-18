@@ -17,34 +17,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractPresentation;
 
 /**
- * Item type 21: Presentation - Message
+ * Item type 17: Presentation - Heading
  */
-class ItemType21 extends AbstractPresentation
+class PresentationHeading extends AbstractPresentation
 {
     /**
-     * The message
+     * The heading
      *
      * @var string
      */
-    protected $message;
+    protected $heading;
 
     /**
-     * Get the message
+     * Get the heading
      *
      * @return string
      */
-    public function getMessage()
+    public function getHeading()
     {
-        return $this->message;
+        return $this->heading;
     }
 
     /**
-     * Set the message
+     * Set the heading
      *
-     * @param string $message The message
+     * @param string $heading The heading
      */
-    public function setMessage($message)
+    public function setHeading($heading)
     {
-        $this->message = (string)$message;
+        $this->heading = (string)$heading;
     }
 }

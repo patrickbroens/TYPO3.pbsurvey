@@ -20,7 +20,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\LengthMaximumTrait;
 /**
  * Item type 13: Open Ended - Number
  */
-class ItemType13 extends AbstractOpenEnded
+class OpenEndedNumber extends AbstractOpenEnded
 {
     /**
      * TRAIT: LengthMaximumTrait

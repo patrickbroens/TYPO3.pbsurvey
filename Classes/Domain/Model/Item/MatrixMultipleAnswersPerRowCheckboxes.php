@@ -17,9 +17,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
 
 /**
- * Item type 8: Matrix - One Answer per Row (Option Buttons)
+ * Item type 6: Matrix - Multiple Answers per Row (Checkboxes)
  */
-class ItemType8 extends AbstractMatrix
+class MatrixMultipleAnswersPerRowCheckboxes extends AbstractMatrix
 {
 
 }

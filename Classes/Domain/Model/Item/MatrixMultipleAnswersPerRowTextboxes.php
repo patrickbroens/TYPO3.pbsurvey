@@ -19,7 +19,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
 /**
  * Item type 7: Matrix - Multiple Answers per Row (Textboxes)
  */
-class ItemType7 extends AbstractMatrix
+class MatrixMultipleAnswersPerRowTextboxes extends AbstractMatrix
 {
 
 }

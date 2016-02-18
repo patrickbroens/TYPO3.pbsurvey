@@ -15,41 +15,29 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\FileReferenceTrait;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\ImageConfigurationTrait;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\NumberTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersNoneTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsRandomTrait;
 
 /**
- * Item type 24: Choice - Image rating
+ * Item type 2: Choice - One Answer (Dropdown)
  */
-class ItemType24 extends AbstractChoice
+class ChoiceOneAnswerDropdown extends AbstractChoice
 {
     /**
-     * TRAIT: FileReferenceTrait
+     * TRAIT: AnswersNoneTrait
      *
      * FIELDS:
-     * $fileReferences
+     * $anwersNone
      */
-    use FileReferenceTrait;
+    use AnswersNoneTrait;
 
     /**
-     * TRAIT: ImageConfigurationTrait
+     * TRAIT: OptionsRandomTrait
      *
      * FIELDS:
-     * $imageAlignment
-     * $imageHeight
-     * $imageWidth
+     * $optionsRandom
      */
-    use ImageConfigurationTrait;
-
-    /**
-     * TRAIT: NumberTrait
-     *
-     * FIELDS:
-     * $numberEnd
-     * $numberStart
-     */
-    use NumberTrait;
+    use OptionsRandomTrait;
 
     /**
      * The allowed condition operator groups

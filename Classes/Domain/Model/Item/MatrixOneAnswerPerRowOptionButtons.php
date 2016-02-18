@@ -14,12 +14,12 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
 
 /**
- * Item type 99: Call User Defined Hook
+ * Item type 8: Matrix - One Answer per Row (Option Buttons)
  */
-class ItemType24 extends AbstractItem
+class MatrixOneAnswerPerRowOptionButtons extends AbstractMatrix
 {
 
 }

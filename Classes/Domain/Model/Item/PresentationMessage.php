@@ -17,34 +17,34 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractPresentation;
 
 /**
- * Item type 19: Presentation - HTML
+ * Item type 21: Presentation - Message
  */
-class ItemType19 extends AbstractPresentation
+class PresentationMessage extends AbstractPresentation
 {
     /**
-     * The html
+     * The message
      *
      * @var string
      */
-    protected $html;
+    protected $message;
 
     /**
-     * Get the html
+     * Get the message
      *
      * @return string
      */
-    public function getHtml()
+    public function getMessage()
     {
-        return $this->html;
+        return $this->message;
     }
 
     /**
-     * Set the html
+     * Set the message
      *
-     * @param string $html The html
+     * @param string $message The message
      */
-    public function setHtml($html)
+    public function setMessage($message)
     {
-        $this->html = (string)$html;
+        $this->message = (string)$message;
     }
 }

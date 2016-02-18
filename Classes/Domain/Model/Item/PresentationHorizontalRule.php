@@ -19,7 +19,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractPresentation;
 /**
  * Item type 18: Presentation - Horizontal Rule (HR)
  */
-class ItemType18 extends AbstractPresentation
+class PresentationHorizontalRule extends AbstractPresentation
 {
 
 }

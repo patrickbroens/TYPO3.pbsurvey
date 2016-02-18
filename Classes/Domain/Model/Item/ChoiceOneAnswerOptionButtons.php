@@ -22,7 +22,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsRandomTrait;
 /**
  * Item type 3: Choice - One Answer (Option Buttons)
  */
-class ItemType3 extends AbstractChoice
+class ChoiceOneAnswerOptionButtons extends AbstractChoice
 {
     /**
      * TRAIT: AnswersAdditionalTrait

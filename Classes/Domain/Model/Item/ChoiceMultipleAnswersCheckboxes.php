@@ -15,21 +15,35 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersNoneTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersAdditionalTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsAlignmentTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsRandomTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsResponsesTrait;
 
 /**
- * Item type 2: Choice - One Answer (Dropdown)
+ * Item type 1: Choice - Multiple Answers (Checkboxes)
  */
-class ItemType2 extends AbstractChoice
+class ChoiceMultipleAnswersCheckboxes extends AbstractChoice
 {
     /**
-     * TRAIT: AnswersNoneTrait
+     * TRAIT: AnswersAdditionalTrait
      *
      * FIELDS:
-     * $anwersNone
+     * $answersAdditionalAllow
+     * $answersAdditionalText
+     * $answersAdditionalType
+     * $textareaHeight
+     * $textareaWidth
      */
-    use AnswersNoneTrait;
+    use AnswersAdditionalTrait;
+
+    /**
+     * TRAIT: OptionsAlignmentTrait
+     *
+     * FIELDS:
+     * $optionsAlignment
+     */
+    use OptionsAlignmentTrait;
 
     /**
      * TRAIT: OptionsRandomTrait
@@ -38,6 +52,15 @@ class ItemType2 extends AbstractChoice
      * $optionsRandom
      */
     use OptionsRandomTrait;
+
+    /**
+     * TRAIT: OptionsResponsesTrait
+     *
+     * FIELDS:
+     * $optionsResponsesMaximum
+     * $optionsResponsesMinimum
+     */
+    use OptionsResponsesTrait;
 
     /**
      * The allowed condition operator groups

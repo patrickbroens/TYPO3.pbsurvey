@@ -14,19 +14,12 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 
 /**
- * Item type 16: Open Ended - Ranking
+ * Item type 99: Call User Defined Hook
  */
-class ItemType16 extends AbstractOpenEnded
+class CallUserDefinedHook extends AbstractItem
 {
-    /**
-     * TRAIT: OptionRowsTrait
-     *
-     * FIELDS:
-     * $optionRows
-     */
-    use OptionRowsTrait;
+
 }

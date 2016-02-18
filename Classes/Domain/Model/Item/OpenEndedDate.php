@@ -19,7 +19,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
 /**
  * Item type 12: Open Ended - Date
  */
-class ItemType12 extends AbstractOpenEnded
+class OpenEndedDate extends AbstractOpenEnded
 {
     /**
      * The allowed condition operator groups

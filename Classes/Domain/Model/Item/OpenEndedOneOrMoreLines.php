@@ -22,7 +22,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsResponsesTrait;
 /**
  * Item type 15: Open Ended - One or More Lines
  */
-class ItemType15 extends AbstractOpenEnded
+class OpenEndedOneOrMoreLines extends AbstractOpenEnded
 {
     /**
      * TRAIT: LengthMaximumTrait

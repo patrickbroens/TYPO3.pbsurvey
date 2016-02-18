@@ -14,12 +14,19 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
 
 /**
- * Item type 6: Matrix - Multiple Answers per Row (Checkboxes)
+ * Item type 16: Open Ended - Ranking
  */
-class ItemType6 extends AbstractMatrix
+class OpenEndedRanking extends AbstractOpenEnded
 {
-
+    /**
+     * TRAIT: OptionRowsTrait
+     *
+     * FIELDS:
+     * $optionRows
+     */
+    use OptionRowsTrait;
 }

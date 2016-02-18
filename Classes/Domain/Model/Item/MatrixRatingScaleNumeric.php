@@ -22,7 +22,7 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\NumberTrait;
 /**
  * Item type 9: Matrix - Rating Scale (Numeric)
  */
-class ItemType9 extends AbstractMatrix
+class MatrixRatingScaleNumeric extends AbstractMatrix
 {
     /**
      * TRAIT: NumberTrait

@@ -14,30 +14,37 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\ValueDefaultTextTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractPresentation;
 
 /**
- * Item type 10: Open Ended - Comments Box
+ * Item type 19: Presentation - HTML
  */
-class ItemType10 extends AbstractOpenEnded
+class PresentationHtml extends AbstractPresentation
 {
     /**
-     * TRAIT: ValueDefaultTextTrait
+     * The html
      *
-     * FIELDS:
-     * $valueDefaultText
+     * @var string
      */
-    use ValueDefaultTextTrait;
+    protected $html;
 
     /**
-     * The allowed condition operator groups
+     * Get the html
      *
-     * @var array
+     * @return string
      */
-    protected static $allowedConditionOperatorGroups = [
-        'equality',
-        'containment',
-        'provision'
-    ];
+    public function getHtml()
+    {
+        return $this->html;
+    }
+
+    /**
+     * Set the html
+     *
+     * @param string $html The html
+     */
+    public function setHtml($html)
+    {
+        $this->html = (string)$html;
+    }
 }
