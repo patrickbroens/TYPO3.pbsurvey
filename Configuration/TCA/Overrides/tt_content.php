@@ -86,19 +86,6 @@ $extraTtContentColumns = [
             'default' => 1
         ]
     ],
-    'pbsurvey_completion_page' => [
-        'exclude' => true,
-        'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/TtContent.xlf:field.completionPage',
-        'config' => [
-            'type' => 'group',
-            'internal_type' => 'db',
-            'allowed' => 'pages',
-            'size' => 1,
-            'maxitems' => 1,
-            'minitems' => 0,
-            'show_thumbs' => 1
-        ]
-    ],
     'pbsurvey_completion_close_button' => [
         'exclude' => true,
         'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/TtContent.xlf:field.completionCloseButton',
@@ -111,6 +98,19 @@ $extraTtContentColumns = [
         'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/TtContent.xlf:field.completionContinueButton',
         'config' => [
             'type' => 'check'
+        ]
+    ],
+    'pbsurvey_completion_page' => [
+        'exclude' => true,
+        'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/TtContent.xlf:field.completionPage',
+        'config' => [
+            'type' => 'group',
+            'internal_type' => 'db',
+            'allowed' => 'pages',
+            'size' => 1,
+            'maxitems' => 1,
+            'minitems' => 0,
+            'show_thumbs' => 1
         ]
     ],
     'pbsurvey_cookie_lifetime' => [
@@ -137,7 +137,7 @@ $extraTtContentColumns = [
     'pbsurvey_entering_stage' => [
         'exclude' => true,
         'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/TtContent.xlf:field.enteringStage',
-        'displayCond' => 'FIELD:pbsurvey_entering_stage:IN:1,3',
+        'displayCond' => 'FIELD:pbsurvey_access_level:IN:1,3',
         'config' => [
             'type' => 'select',
             'items' => [
@@ -156,9 +156,19 @@ $extraTtContentColumns = [
         'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/TtContent.xlf:field.firstColumnWidth',
         'config' => [
             'type' => 'input',
-            'size' => 4,
-            'eval' => 'int',
-            'default' => 20
+            'size' => 3,
+            'eval' => 'trim, int',
+            'range' => [
+                'lower' => 0,
+                'upper' => 100
+            ],
+            'default' => 20,
+            'wizards' => [
+                'slider' => [
+                    'type' => 'slider',
+                    'step' => 1,
+                ]
+            ]
         ]
     ],
     'pbsurvey_mail_body' => [
