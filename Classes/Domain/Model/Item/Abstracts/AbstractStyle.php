@@ -14,8 +14,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
-
 /**
  * Style abstract
  */

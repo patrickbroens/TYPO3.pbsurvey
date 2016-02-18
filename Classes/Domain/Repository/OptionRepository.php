@@ -25,7 +25,7 @@ class OptionRepository extends AbstractRepository
     /**
      * @param int $itemUid The uid of the survey item
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[]
+     * @return Option[]
      */
     public function findByItem($itemUid, $loadObjects = [])
     {
@@ -102,7 +102,7 @@ class OptionRepository extends AbstractRepository
      *
      * @param array $record The database record
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option The option
+     * @return Option The option
      */
     protected function setOptionFromRecord($record, $loadObjects)
     {

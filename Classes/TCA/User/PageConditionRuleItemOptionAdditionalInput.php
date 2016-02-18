@@ -14,9 +14,10 @@ namespace PatrickBroens\Pbsurvey\TCA\User;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Backend\Form\Element\UserElement;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\TCA\ItemControl;
 
 /**
@@ -39,7 +40,7 @@ class PageConditionRuleItemOptionAdditionalInput extends ItemControl
      * This depends on the chosen question in the condition rule
      *
      * @param array $parameters Parameters from the record
-     * @param \TYPO3\CMS\Backend\Form\Element\UserElement $formObject
+     * @param UserElement $formObject
      * @return string The user element markup
      */
     public function render($parameters, $formObject)

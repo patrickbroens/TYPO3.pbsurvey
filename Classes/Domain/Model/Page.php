@@ -15,7 +15,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
-use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
 
 /**
  * Page
@@ -25,7 +24,7 @@ class Page extends AbstractModel
     /**
      * The condition groups
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup[]
+     * @var PageConditionGroup[]
      */
     protected $conditionGroups;
 
@@ -39,7 +38,7 @@ class Page extends AbstractModel
     /**
      * The items
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[]
+     * @var AbstractItem[]
      */
     protected $items = [];
 
@@ -63,7 +62,7 @@ class Page extends AbstractModel
     /**
      * Get the condition groups
      *
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup[]
+     * @return PageConditionGroup[]
      */
     public function getConditionGroups()
     {
@@ -73,7 +72,7 @@ class Page extends AbstractModel
     /**
      * Add a condition group
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup $conditionGroup The condition group
+     * @param PageConditionGroup $conditionGroup The condition group
      */
     public function addConditionGroup(PageConditionGroup $conditionGroup)
     {
@@ -83,11 +82,12 @@ class Page extends AbstractModel
     /**
      * Add condition groups
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup[] $conditionGroups The condition groups
+     * @param PageConditionGroup[] $conditionGroups The condition groups
      */
     public function addConditionGroups(array $conditionGroups)
     {
         foreach ($conditionGroups as $conditionGroup) {
+            /** @var $conditionGroup AbstractItem */
             if ($conditionGroup instanceof PageConditionGroup) {
                 $this->addItem($conditionGroup);
             }
@@ -137,7 +137,7 @@ class Page extends AbstractModel
     /**
      * Add an item
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
+     * @param AbstractItem $item The item
      */
     public function addItem(AbstractItem $item)
     {
@@ -147,7 +147,7 @@ class Page extends AbstractModel
     /**
      * Add an array of items
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[] $items The items
+     * @param AbstractItem[] $items The items
      */
     public function addItems(array $items)
     {

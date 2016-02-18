@@ -15,10 +15,13 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
 use PatrickBroens\Pbsurvey\Domain\Model\Item;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractFileReference;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
 use PatrickBroens\Pbsurvey\Memoization\ItemMemoizationCache;
 
 /**
@@ -31,7 +34,7 @@ class ItemRepository extends AbstractRepository
      *
      * Some items are needed multiple times within runtime
      *
-     * @var \PatrickBroens\Pbsurvey\Memoization\ItemMemoizationCache
+     * @var ItemMemoizationCache
      */
     protected $itemMemoizationCache;
 
@@ -51,9 +54,9 @@ class ItemRepository extends AbstractRepository
      * Checks if it is in item runtime cache,
      * otherwise will be loaded from database
      *
-     * @param int $pageUid The uid of the survey page
+     * @param int $itemUid The uid of the survey item
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem
+     * @return AbstractItem
      */
     public function findByUid($itemUid, $loadObjects = [])
     {
@@ -84,7 +87,7 @@ class ItemRepository extends AbstractRepository
     /**
      * @param int $pageUid The uid of the survey page
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[]
+     * @return AbstractItem[]
      */
     public function findByPage($pageUid, $loadObjects = [])
     {
@@ -144,7 +147,7 @@ class ItemRepository extends AbstractRepository
      *
      * @param array $record The database record
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem The item
+     * @return AbstractItem The item
      */
     protected function setItemFromRecord($record, $loadObjects)
     {
@@ -171,9 +174,9 @@ class ItemRepository extends AbstractRepository
     /**
      * Get the item options
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
+     * @param AbstractItem $item The item
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[] The item options
+     * @return Option[] The item options
      */
     protected function getOptions($item, $loadObjects) {
         $optionRepository = GeneralUtility::makeInstance(OptionRepository::class);
@@ -183,9 +186,9 @@ class ItemRepository extends AbstractRepository
     /**
      * Get the item file references
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
+     * @param AbstractItem $item The item
      * @param array $loadObjects The nested models which should be loaded
-     * @return \TYPO3\CMS\Core\Resource\FileReference[] The item file references
+     * @return FileReference[] The item file references
      */
     protected function getFileReferences($item, $loadObjects) {
         $fileRepository = GeneralUtility::makeInstance(FileRepository::class);
@@ -195,9 +198,9 @@ class ItemRepository extends AbstractRepository
     /**
      * Get the item rows
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
+     * @param AbstractItem $item The item
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Row[] The item rows
+     * @return OptionRow[] The item rows
      */
     protected function getRows($item, $loadObjects) {
         $rowRepository = GeneralUtility::makeInstance(OptionRowRepository::class);

@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\TCA\ItemsProcFunc;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
 use PatrickBroens\Pbsurvey\TCA\ItemControl;
@@ -91,6 +92,7 @@ class PageConditionRuleOperatorSelectBox extends ItemControl
     {
         $operators = [];
 
+        /** @var AbstractQuestion $item */
         $item = $this->itemRepository->findByUid($itemUid);
 
         if ($item) {

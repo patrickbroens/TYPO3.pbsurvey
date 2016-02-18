@@ -14,10 +14,11 @@ namespace PatrickBroens\Pbsurvey\Wizard;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined;
 use PatrickBroens\Pbsurvey\Domain\Repository\OptionPredefinedRepository;
 use PatrickBroens\Pbsurvey\Domain\Repository\OptionRepository;
 use PatrickBroens\Pbsurvey\Domain\Repository\ItemRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * The option wizard
@@ -27,21 +28,21 @@ class OptionWizard
     /**
      * The option repository
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Repository\OptionRepository
+     * @var OptionRepository
      */
     protected $optionRepository;
 
     /**
      * The item repository
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Repository\ItemRepository
+     * @var ItemRepository
      */
     protected $itemRepository;
 
     /**
      * The predefined options repository
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Repository\OptionPredefinedRepository
+     * @var OptionPredefinedRepository
      */
     protected $optionPredefinedRepository;
 
@@ -139,7 +140,7 @@ class OptionWizard
 
         $optionAmount = count($predefinedOptions);
 
-        /** @var $predefinedOption \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined */
+        /** @var $predefinedOption OptionPredefined */
         $sorting = 1;
         foreach($predefinedOptions as $predefinedOption) {
             $this->optionRepository->insert(

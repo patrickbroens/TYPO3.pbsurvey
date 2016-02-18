@@ -14,6 +14,8 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Database\DatabaseConnection;
+
 /**
  * Abstract repository
  */
@@ -22,7 +24,7 @@ class AbstractRepository
     /**
      * Get the database instance
      *
-     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     * @return DatabaseConnection
      */
     protected function getDatabaseConnection()
     {

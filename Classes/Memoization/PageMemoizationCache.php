@@ -14,7 +14,9 @@ namespace PatrickBroens\Pbsurvey\Memoization;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\Domain\Model\Page;
 
 /**
  * Page memoization cache
@@ -28,7 +30,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * TCA 'user' type and itemProcFunc sometimes need the same page(s) from the database within runtime
  * so we store it in the memoization cache, or runtime cache.
  */
-class PageMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
+class PageMemoizationCache implements SingletonInterface
 {
     /**
      * Storage of pages before a page
@@ -83,7 +85,7 @@ class PageMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param int $pageUid The uid of the survey page
      * @param array $loadObjects The nested models which should be loaded
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Page[] Pages when in cache
+     * @return null|Page[] Pages when in cache
      */
     public function getPagesBeforePage($pageUid, array $loadObjects)
     {
@@ -103,7 +105,7 @@ class PageMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param int $conditionGroupUid The uid of the condition group
      * @param array $loadObjects The nested models which should be loaded
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Page[] Pages when in cache
+     * @return null|Page[] Pages when in cache
      */
     public function getPagesBeforePageByConditionGroup($conditionGroupUid, array $loadObjects)
     {
@@ -122,7 +124,7 @@ class PageMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      * Store pages in the cache
      *
      * @param int $pageUid The uid of the survey page
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Page[] $pagesBeforePage The pages before a page
+     * @param Page[] $pagesBeforePage The pages before a page
      * @param array $loadObjects The nested models which should be loaded
      */
     public function storePagesBeforePage($pageUid, $pagesBeforePage, array $loadObjects)
@@ -144,7 +146,7 @@ class PageMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      * Store pages in the cache which are before a certain page based on a condition group
      *
      * @param int $conditionGroupUid The uid of the condition group
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Page[] $pagesBeforePageByConditionGroup The pages before a page
+     * @param Page[] $pagesBeforePageByConditionGroup The pages before a page
      * @param array $loadObjects The nested models which should be loaded
      */
     public function storePagesBeforePageByConditionGroup($conditionGroupUid, $pagesBeforePageByConditionGroup, array $loadObjects)

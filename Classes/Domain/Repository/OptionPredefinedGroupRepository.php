@@ -15,8 +15,8 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined;
 use PatrickBroens\Pbsurvey\Domain\Model\OptionPredefinedGroup;
-use PatrickBroens\Pbsurvey\Domain\Repository\OptionPredefinedRepository;
 
 /**
  * Predefined option group repository
@@ -27,7 +27,7 @@ class OptionPredefinedGroupRepository extends AbstractRepository
      * Get the predefined option groups
      *
      * @param array $loadObjects The nested objects which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefinedGroup[] The predefined option groups
+     * @return OptionPredefinedGroup[] The predefined option groups
      */
     public function findAll($loadObjects = [])
     {
@@ -66,11 +66,11 @@ class OptionPredefinedGroupRepository extends AbstractRepository
      *
      * @param array $record The database record
      * @param array $loadObjects The nested objects which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefinedGroup The predefined option group
+     * @return OptionPredefinedGroup The predefined option group
      */
     protected function setPredefinedOptionGroupFromRecord($record, $loadObjects)
     {
-        /** @var \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefinedGroup $predefinedOptionGroup */
+        /** @var OptionPredefinedGroup $predefinedOptionGroup */
         $predefinedOptionGroup = GeneralUtility::makeInstance(OptionPredefinedGroup::class);
         $predefinedOptionGroup->fill($record);
 
@@ -84,9 +84,9 @@ class OptionPredefinedGroupRepository extends AbstractRepository
     /**
      * Get the group options
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefinedGroup $predefinedOptionGroup The predefined option group
+     * @param OptionPredefinedGroup $predefinedOptionGroup The predefined option group
      * @param array $loadObjects The nested objects which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined[] The group options
+     * @return OptionPredefined[] The group options
      */
     protected function getOptions(OptionPredefinedGroup $predefinedOptionGroup, array $loadObjects) {
         $optionPredefinedRepository = GeneralUtility::makeInstance(OptionPredefinedRepository::class);

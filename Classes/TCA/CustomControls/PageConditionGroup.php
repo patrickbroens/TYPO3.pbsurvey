@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\TCA\CustomControls;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Backend\Form\Container\InlineControlContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -37,7 +38,7 @@ class PageConditionGroup extends PageControl
      * Render custom controls
      *
      * @param array $parameters The parameters
-     * @param \TYPO3\CMS\Backend\Form\Container\InlineControlContainer $inlineControlContainer The inline control container
+     * @param InlineControlContainer $inlineControlContainer The inline control container
      * @return string
      */
     public function render($parameters, $inlineControlContainer)

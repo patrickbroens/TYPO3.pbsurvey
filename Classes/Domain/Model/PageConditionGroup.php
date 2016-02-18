@@ -14,8 +14,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
-
 /**
  * Page condition group
  */
@@ -24,7 +22,7 @@ class PageConditionGroup extends AbstractModel
     /**
      * The condition rules
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule[]
+     * @var PageConditionRule[]
      */
     protected $rules;
 
@@ -48,7 +46,7 @@ class PageConditionGroup extends AbstractModel
     /**
      * Get the rules
      *
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule[]
+     * @return PageConditionRule[]
      */
     public function getRule()
     {
@@ -58,7 +56,7 @@ class PageConditionGroup extends AbstractModel
     /**
      * Add a rule
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule $rule The rule
+     * @param PageConditionRule $rule The rule
      */
     public function addRule(PageConditionRule $rule)
     {
@@ -68,12 +66,12 @@ class PageConditionGroup extends AbstractModel
     /**
      * Add rules
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule[] $rule The rules
+     * @param PageConditionRule[] $rules The rules
      */
     public function addRules(array $rules)
     {
         foreach ($rules as $rule) {
-            if ($rule instanceof \PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule) {
+            if ($rule instanceof PageConditionRule) {
                 $this->addRule($rule);
             }
         }

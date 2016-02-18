@@ -15,6 +15,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
 
 /**
@@ -25,7 +26,7 @@ class PageConditionRuleRepository extends AbstractRepository
     /**
      * @param int $pageConditionGroupUid The uid of the page condition group
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup[]
+     * @return PageConditionGroup[]
      */
     public function findByPageConditionGroup($pageConditionGroupUid, $loadObjects = [])
     {
@@ -68,7 +69,7 @@ class PageConditionRuleRepository extends AbstractRepository
      *
      * @param array $record The database record
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule The page condition rule
+     * @return PageConditionRule The page condition rule
      */
     protected function setPageConditionRuleFromRecord($record, $loadObjects)
     {

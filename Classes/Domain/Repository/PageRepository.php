@@ -15,8 +15,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
-use PatrickBroens\Pbsurvey\Domain\Repository\ItemRepository;
+use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
 use PatrickBroens\Pbsurvey\Memoization\PageMemoizationCache;
 
 /**
@@ -27,7 +28,7 @@ class PageRepository extends AbstractRepository
     /**
      * The page runtime cache
      *
-     * @var \PatrickBroens\Pbsurvey\Memoization\PageMemoizationCache
+     * @var PageMemoizationCache
      */
     protected $pageMemoizationCache;
 
@@ -46,7 +47,7 @@ class PageRepository extends AbstractRepository
      *
      * @param int $pageUid The page uid
      * @param array $loadObjects
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Page[]
+     * @return Page[]
      */
     public function findBeforePage($pageUid, $loadObjects = [])
     {
@@ -102,7 +103,7 @@ class PageRepository extends AbstractRepository
      *
      * @var int $groupUid The uid of the page condition group
      * @param array $loadObjects The nested objects which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Page[] The pages
+     * @return Page[] The pages
      */
     public function findBeforePageByConditionGroup($groupUid, $loadObjects = [])
     {
@@ -161,11 +162,11 @@ class PageRepository extends AbstractRepository
      *
      * @param array $record The database record
      * @param array $loadObjects The nested objects which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Page The page
+     * @return Page The page
      */
     protected function setPageFromRecord($record, $loadObjects)
     {
-        /** @var \PatrickBroens\Pbsurvey\Domain\Model\Page $page */
+        /** @var Page $page */
         $page = GeneralUtility::makeInstance(Page::class);
         $page->fill($record);
 
@@ -183,9 +184,9 @@ class PageRepository extends AbstractRepository
     /**
      * Get the page items
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Page $page The page
+     * @param Page $page The page
      * @param array $loadObjects The nested objects which should be loaded
-     * @return array The page items
+     * @return AbstractItem[] The page items
      */
     protected function getItems($page, $loadObjects) {
         $itemRepository = GeneralUtility::makeInstance(ItemRepository::class);
@@ -195,9 +196,9 @@ class PageRepository extends AbstractRepository
     /**
      * Get the page condition groups
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Page $page The page
+     * @param Page $page The page
      * @param array $loadObjects The nested objects which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup[] The page condition groups
+     * @return PageConditionGroup[] The page condition groups
      */
     protected function getConditionGroups($page, $loadObjects) {
         $pageConditionGroupRepository = GeneralUtility::makeInstance(PageConditionGroupRepository::class);

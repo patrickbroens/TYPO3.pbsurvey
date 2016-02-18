@@ -32,7 +32,7 @@ class ProcessDataMap
      * @param string $table The table the record belongs to
      * @param mixed $uid The record's uid, [integer] or [string] (like 'NEW...')
      * @param array $fields The record's data
-     * @param \TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler TYPO3 main data handler class
+     * @param DataHandler $dataHandler TYPO3 main data handler class
      * @return void
      */
     public function processDatamap_afterDatabaseOperations($status, $table, $uid, &$fields, DataHandler &$dataHandler)

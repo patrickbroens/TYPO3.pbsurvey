@@ -27,7 +27,7 @@ class OptionPredefinedRepository extends AbstractRepository
      *
      * @var int $predefinedOptionGroupUid The id of the parent option group
      * @param array $loadObjects The nested objects which should be loaded
-     * @return array The predefined options
+     * @return OptionPredefined[] The predefined options
      */
     public function findByPredefinedOptionGroup($predefinedOptionGroupUid, $loadObjects = [])
     {
@@ -86,7 +86,7 @@ class OptionPredefinedRepository extends AbstractRepository
      *
      * @param array $record The database record
      * @param array $loadObjects The nested objects which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined The predefined option
+     * @return OptionPredefined The predefined option
      */
     protected function setPredefinedOptionFromRecord($record, $loadObjects)
     {

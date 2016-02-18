@@ -14,7 +14,9 @@ namespace PatrickBroens\Pbsurvey\Memoization;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 
 /**
  * Item memoization cache
@@ -28,7 +30,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * TCA 'user' type and itemProcFunc sometimes need the same item(s) from the database within runtime
  * so we store it in the memoization cache, or runtime cache.
  */
-class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
+class ItemMemoizationCache implements SingletonInterface
 {
     /**
      * Stored items by uid
@@ -64,7 +66,7 @@ class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Check if items are in cache by their page
      *
-     * @param int $itemUid The uid of the survey page
+     * @param int $pageUid The uid of the survey page
      * @param array $loadObjects The nested models which should be loaded
      * @return bool
      */
@@ -83,7 +85,7 @@ class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param int $itemUid The uid of the survey item
      * @param array $loadObjects The nested models which should be loaded
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem Item when in cache
+     * @return null|AbstractItem Item when in cache
      */
     public function getByUid($itemUid, array $loadObjects)
     {
@@ -101,9 +103,9 @@ class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Get items from the cache by their survey page
      *
-     * @param int $itemUid The uid of the survey page
+     * @param int $pageUid The uid of the survey page
      * @param array $loadObjects The nested models which should be loaded
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[] Items when in cache
+     * @return null|AbstractItem[] Items when in cache
      */
     public function getByPage($pageUid, array $loadObjects)
     {
@@ -122,7 +124,7 @@ class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
      * Store an item in the cache
      *
      * @param int $itemUid The uid of the survey item
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem $item The item
+     * @param AbstractItem $item The item
      * @param array $loadObjects The nested models which should be loaded
      */
     public function storeByUid($itemUid, $item, array $loadObjects)
@@ -143,8 +145,8 @@ class ItemMemoizationCache implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Store items in the cache by their survey page
      *
-     * @param int $itemUid The uid of the survey item
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem[] $items The items
+     * @param int $pageUid The uid of the survey item
+     * @param AbstractItem[] $items The items
      * @param array $loadObjects The nested models which should be loaded
      */
     public function storeByPage($pageUid, $items, array $loadObjects)

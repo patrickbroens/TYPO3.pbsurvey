@@ -14,8 +14,10 @@ namespace PatrickBroens\Pbsurvey\TCA\User;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\Domain\Model\Page;
 use PatrickBroens\Pbsurvey\TCA\PageControl;
+use TYPO3\CMS\Backend\Form\Element\UserElement;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Fills the select box for questions in the condition rules in TCA ItemsProcFunc
@@ -37,7 +39,7 @@ class PageConditionRuleItemSelectBox extends PageControl
      * This can only be questions which are in front of the page
      *
      * @param array $parameters Parameters from the record
-     * @param \TYPO3\CMS\Backend\Form\Element\UserElement $formObject
+     * @param UserElement $formObject
      * @return string The user element markup
      */
     public function render($parameters, $formObject)
@@ -64,7 +66,7 @@ class PageConditionRuleItemSelectBox extends PageControl
     /**
      * Render the select box
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Page[] The pages
+     * @param Page[] The pages
      * @param array $parameters Parameters from the record
      * @return string The selectbox markup
      */

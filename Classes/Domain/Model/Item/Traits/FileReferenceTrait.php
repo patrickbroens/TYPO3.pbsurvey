@@ -26,7 +26,7 @@ trait FileReferenceTrait
     /**
      * The file references
      *
-     * @var \TYPO3\CMS\Core\Resource\FileReference[]
+     * @var FileReference[]
      */
     protected $fileReferences;
 
@@ -80,7 +80,7 @@ trait FileReferenceTrait
      * Get a file reference by its uid
      *
      * @param int $fileReferenceUid The file reference uid
-     * @return null|\TYPO3\CMS\Core\Resource\FileReference The option
+     * @return null|FileReference The option
      */
     public function getFileReference($fileReferenceUid)
     {
@@ -99,7 +99,7 @@ trait FileReferenceTrait
      * In this case an option is a file reference
      *
      * @param int $fileReferenceUid The file reference uid
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Option The option
+     * @return null|Option The option
      */
     public function getOption($fileReferenceUid)
     {
@@ -122,7 +122,7 @@ trait FileReferenceTrait
     /**
      * Get the file references
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference[]
+     * @return FileReference[]
      */
     public function getFileReferences()
     {
@@ -132,7 +132,7 @@ trait FileReferenceTrait
     /**
      * Get the options
      *
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[]
+     * @return Option[]
      */
     public function getOptions()
     {
@@ -148,7 +148,7 @@ trait FileReferenceTrait
     /**
      * Add a file reference
      *
-     * @param \TYPO3\CMS\Core\Resource\FileReference $fileReference The file reference
+     * @param FileReference $fileReference The file reference
      */
     public function addFileReference(FileReference $fileReference)
     {
@@ -158,7 +158,7 @@ trait FileReferenceTrait
     /**
      * Add file references
      *
-     * @param \TYPO3\CMS\Core\Resource\FileReference[] $images The images file references
+     * @param FileReference[] $fileReferences The images file references
      */
     public function addFileReferences(array $fileReferences)
     {

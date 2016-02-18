@@ -16,7 +16,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersNoneTrait;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\NegativeFirstTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
 
 /**
@@ -122,7 +121,7 @@ abstract class AbstractBoolean extends AbstractChoice
      * Since the type has predefined options, we construct it here
      *
      * @param int $optionUid The option uid
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Option The option
+     * @return null|Option The option
      */
     public function getOption($optionUid)
     {
@@ -144,7 +143,7 @@ abstract class AbstractBoolean extends AbstractChoice
      *
      * Since the type has predefined options, we collect them here
      *
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[]
+     * @return Option[]
      */
     public function getOptions()
     {

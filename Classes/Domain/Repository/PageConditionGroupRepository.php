@@ -16,6 +16,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
+use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
 
 /**
  * Page condition group repository
@@ -25,7 +26,7 @@ class PageConditionGroupRepository extends AbstractRepository
     /**
      * @param int $pageUid The uid of the survey page
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup[]
+     * @return PageConditionGroup[]
      */
     public function findByPage($pageUid, $loadObjects = [])
     {
@@ -66,10 +67,11 @@ class PageConditionGroupRepository extends AbstractRepository
      *
      * @param array $record The database record
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup The page condition group
+     * @return PageConditionGroup The page condition group
      */
     protected function setPageConditionGroupFromRecord($record, $loadObjects)
     {
+        /** @var PageConditionGroup $pageConditionGroup */
         $pageConditionGroup = GeneralUtility::makeInstance(PageConditionGroup::class);
         $pageConditionGroup->fill($record);
 
@@ -83,9 +85,9 @@ class PageConditionGroupRepository extends AbstractRepository
     /**
      * Get the condition rules
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup $pageConditionGroup The item
+     * @param PageConditionGroup $pageConditionGroup The item
      * @param array $loadObjects The nested models which should be loaded
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule[] The item rows
+     * @return PageConditionRule[] The item rows
      */
     protected function getPageConditionRules($pageConditionGroup, $loadObjects) {
         $pageConditionRuleRepository = GeneralUtility::makeInstance(OptionRepository::class);

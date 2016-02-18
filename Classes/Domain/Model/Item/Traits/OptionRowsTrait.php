@@ -24,7 +24,7 @@ trait OptionRowsTrait
     /**
      * The option rows
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Model\OptionRow[]
+     * @var OptionRow[]
      */
     protected $optionRows;
 
@@ -53,7 +53,7 @@ trait OptionRowsTrait
      * Get an option row by its uid
      *
      * @param int $optionRowUid The option row uid
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\OptionRow The option row
+     * @return null|OptionRow The option row
      */
     public function getOptionRow($optionRowUid)
     {
@@ -69,7 +69,7 @@ trait OptionRowsTrait
     /**
      * Get the option rows
      *
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\OptionRow[]
+     * @return OptionRow[]
      */
     public function getOptionRows()
     {
@@ -79,7 +79,7 @@ trait OptionRowsTrait
     /**
      * Add an option row
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\OptionRow $optionRow The option row
+     * @param OptionRow $optionRow The option row
      */
     public function addOptionRow(OptionRow $optionRow)
     {
@@ -89,7 +89,7 @@ trait OptionRowsTrait
     /**
      * Add option rows
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\OptionRow[] $optionRows The option rows
+     * @param OptionRow[] $optionRows The option rows
      */
     public function addOptionRows(array $optionRows)
     {

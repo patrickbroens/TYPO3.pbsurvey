@@ -24,7 +24,7 @@ abstract class AbstractChoice extends AbstractQuestion
     /**
      * The options
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Model\Option[]
+     * @var Option[]
      */
     protected $options;
 
@@ -53,7 +53,7 @@ abstract class AbstractChoice extends AbstractQuestion
      * Get an option by its uid
      *
      * @param int $optionUid The option uid
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Option The option
+     * @return null|Option The option
      */
     public function getOption($optionUid)
     {
@@ -69,7 +69,7 @@ abstract class AbstractChoice extends AbstractQuestion
     /**
      * Get the options
      *
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[]
+     * @return Option[]
      */
     public function getOptions()
     {
@@ -79,7 +79,7 @@ abstract class AbstractChoice extends AbstractQuestion
     /**
      * Add an option
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Option $option The option
+     * @param Option $option The option
      */
     public function addOption(Option $option)
     {
@@ -89,12 +89,12 @@ abstract class AbstractChoice extends AbstractQuestion
     /**
      * Add options
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Option[] $options The options
+     * @param Option[] $options The options
      */
     public function addOptions(array $options)
     {
         foreach ($options as $option) {
-            if ($option instanceof \PatrickBroens\Pbsurvey\Domain\Model\Option) {
+            if ($option instanceof Option) {
                 $this->addOption($option);
             }
         }

@@ -14,8 +14,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined;
-
 /**
  * Predefined option group
  */
@@ -31,7 +29,7 @@ class OptionPredefinedGroup extends AbstractModel
     /**
      * The predefined options
      *
-     * @var \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined []
+     * @var OptionPredefined []
      */
     protected $options;
 
@@ -68,7 +66,7 @@ class OptionPredefinedGroup extends AbstractModel
     /**
      * Get the options
      *
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined[]
+     * @return OptionPredefined[]
      */
     public function getOptions()
     {
@@ -78,7 +76,7 @@ class OptionPredefinedGroup extends AbstractModel
     /**
      * Add an option
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined $option The option
+     * @param OptionPredefined $option The option
      */
     public function addOption(OptionPredefined $option)
     {
@@ -88,7 +86,7 @@ class OptionPredefinedGroup extends AbstractModel
     /**
      * Add options
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined[] $options The options
+     * @param OptionPredefined[] $options The options
      */
     public function addOptions(array $options)
     {

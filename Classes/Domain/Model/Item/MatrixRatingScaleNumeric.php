@@ -58,7 +58,7 @@ class MatrixRatingScaleNumeric extends AbstractMatrix
      * Get an option by its uid
      *
      * @param int $optionUid The option uid
-     * @return null|\PatrickBroens\Pbsurvey\Domain\Model\Option The option
+     * @return null|Option The option
      */
     public function getOption($optionUid)
     {
@@ -76,7 +76,7 @@ class MatrixRatingScaleNumeric extends AbstractMatrix
     /**
      * Get the options
      *
-     * @return \PatrickBroens\Pbsurvey\Domain\Model\Option[]
+     * @return Option[]
      */
     public function getOptions()
     {

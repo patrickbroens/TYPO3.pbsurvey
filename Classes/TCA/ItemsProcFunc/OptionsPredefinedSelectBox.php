@@ -29,7 +29,7 @@ class OptionsPredefinedSelectBox
      */
     public function getItems(&$parameters)
     {
-        /** @var \PatrickBroens\Pbsurvey\Domain\Repository\OptionPredefinedGroupRepository $optionPredefinedGroupRepository */
+        /** @var OptionPredefinedGroupRepository $optionPredefinedGroupRepository */
         $optionPredefinedGroupRepository = GeneralUtility::makeInstance(OptionPredefinedGroupRepository::class);
 
         $groups = $optionPredefinedGroupRepository->findAll();

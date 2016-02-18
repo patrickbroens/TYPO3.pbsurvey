@@ -15,8 +15,6 @@ namespace PatrickBroens\Pbsurvey\TCA;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
-use TYPO3\CMS\Lang\LanguageService;
 use PatrickBroens\Pbsurvey\Domain\Repository\PageRepository;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
@@ -48,7 +46,7 @@ class PageControl extends Control
     /**
      * Check if there are questions and not only presentation items in the pages
      *
-     * @param \PatrickBroens\Pbsurvey\Domain\Model\Page[] $pagesBeforeCurrentPage The pages
+     * @param Page[] $pagesBeforeCurrentPage The pages
      * @return bool true if there are questions
      */
     protected function hasQuestions($pagesBeforeCurrentPage)
