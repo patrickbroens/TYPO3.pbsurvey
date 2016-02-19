@@ -26,18 +26,18 @@ class Reflection extends \ReflectionClass
     public function getPropertyTag(\ReflectionProperty $property, $tagName)
     {
         $propertyDocComment = $property->getDocComment();
-        $tags = $this->parseDocComments($propertyDocComment);
+        $tags = $this->parseDocumentComments($propertyDocComment);
 
         return $tags[$tagName];
     }
 
     /**
-     * Parse Doc comments
+     * Parse document comments
      *
      * @param string $comments The comments
      * @return array
      */
-    protected function parseDocComments($comments)
+    protected function parseDocumentComments($comments)
     {
         $comments = explode("\n", $comments);
         $commentsOut = $parameters = [];
@@ -49,14 +49,14 @@ class Reflection extends \ReflectionClass
                 $comment = explode('|', $comment);
 
                 if (trim($comment[0]) == 'param') {
-                    $comment[1] = $this->parseParamDocs(trim($comment[1]));
+                    $comment[1] = $this->parseParamTag(trim($comment[1]));
                     array_push($parameters, $comment[1]);
                     $comment[1] = $parameters;
                     $comment[0] = 'params';
                 }
 
                 if (trim($comment[0]) == 'return') {
-                    $comment[1] = $this->parseReturnDocs(trim($comment[1]));
+                    $comment[1] = $this->parseReturnTag(trim($comment[1]));
                 }
 
                 $commentsOut[trim($comment[0])] = $comment[1];
@@ -72,7 +72,7 @@ class Reflection extends \ReflectionClass
      * @param string $string The param string
      * @return array
      */
-    protected function parseParamDocs($string)
+    protected function parseParamTag($string)
     {
         $out = [];
 
@@ -98,7 +98,7 @@ class Reflection extends \ReflectionClass
      * @param string $string
      * @return array
      */
-    protected function parseReturnDocs($string)
+    protected function parseReturnTag($string)
     {
         $out = [];
 
