@@ -21,6 +21,7 @@ return [
     'interface' => [
         'showRecordFieldList' => '
             condition_groups,
+            hidden,
             introduction,
             items,
             title
@@ -48,6 +49,15 @@ return [
                 'customControls' => [
                     \PatrickBroens\Pbsurvey\TCA\CustomControls\PageConditionGroup::class . '->render'
                 ]
+            ]
+        ],
+        'hidden' => [
+            'l10n_mode' => 'mergeIfNotBlank',
+            'exclude' => true,
+            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
+            'config' => [
+                'type' => 'check',
+                'default' => 1
             ]
         ],
         'introduction' => [
