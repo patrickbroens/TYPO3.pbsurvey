@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Configuration;
+namespace PatrickBroens\Pbsurvey\Configuration\Populator;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\Configuration;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
 use PatrickBroens\Pbsurvey\Utility\Reflection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
@@ -21,7 +22,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
 /**
  * Application configuration populator for TypoScript
  */
-class TypoScriptConfigurationPopulator
+class TypoScriptConfigurationPopulator implements ConfigurationPopulatorInterface
 {
     /**
      * Populate the application configuration based on TypoScript

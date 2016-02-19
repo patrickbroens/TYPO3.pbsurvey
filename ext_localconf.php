@@ -85,19 +85,22 @@ if (TYPO3_MODE === 'BE') {
     $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
 
     /**
-     * Register slots for configuration
+     * Register slots for populating configuration
      */
+
+    // Populate the configuration with the TypoScript configuration
     $signalSlotDispatcher->connect(
         \PatrickBroens\Pbsurvey\Configuration\ConfigurationManager::class,
         'PopulateConfiguration',
-        \PatrickBroens\Pbsurvey\Configuration\TypoScriptConfigurationPopulator::class,
+        \PatrickBroens\Pbsurvey\Configuration\Populator\TypoScriptConfigurationPopulator::class,
         'populate'
     );
 
+    // Populate the configuration with settings from the content element
     $signalSlotDispatcher->connect(
         \PatrickBroens\Pbsurvey\Configuration\ConfigurationManager::class,
         'PopulateConfiguration',
-        \PatrickBroens\Pbsurvey\Configuration\ContentElementConfigurationPopulator::class,
+        \PatrickBroens\Pbsurvey\Configuration\Populator\ContentElementConfigurationPopulator::class,
         'populate'
     );
 }
