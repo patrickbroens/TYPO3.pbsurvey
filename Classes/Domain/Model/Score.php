@@ -72,5 +72,4 @@ class Score extends AbstractModel
     {
         $this->score = $score;
     }
-
 }

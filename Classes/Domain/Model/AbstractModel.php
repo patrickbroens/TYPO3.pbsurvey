@@ -61,7 +61,6 @@ abstract class AbstractModel
         $properties = $reflection->getProperties(\ReflectionProperty::IS_PROTECTED);
 
         foreach ($properties as $property) {
-
             $databaseField = GeneralUtility::camelCaseToLowerCaseUnderscored($property->name);
             $type = $reflection->getPropertyTag($property, 'var');
             if (substr($type, -2) === '[]') {

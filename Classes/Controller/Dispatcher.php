@@ -14,20 +14,34 @@ namespace PatrickBroens\Pbsurvey\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+
 /**
  * Dispatcher
  */
 class Dispatcher
 {
     /**
+     * The content object renderer
+     *
+     * @var ContentObjectRenderer
+     */
+    public $cObj;
+
+    /**
      * Executes the dispatcher
      *
-     * @param array $content Not used
-     * @param array $configuration TypoScript configuration
+     * @param string $content Not used
+     * @param array $typoScriptConfiguration TypoScript configuration
      * @return string The rendered view
      */
-    public function execute($content, $configuration)
+    public function execute($content, array $typoScriptConfiguration)
     {
+        $this->setConfiguration($typoScriptConfiguration);
+
         return $this->dispatch();
     }
 
@@ -41,5 +55,17 @@ class Dispatcher
         $output = 'Dispatch';
 
         return $output;
+    }
+
+    /**
+     * Populate the application configuration with TypoScript and content element configuration
+     *
+     * @param array $typoScriptConfiguration The TypoScript configuration
+     */
+    protected function setConfiguration(array $typoScriptConfiguration)
+    {
+        /** @var ApplicationConfiguration $configuration */
+        $configuration = GeneralUtility::makeInstance(ApplicationConfiguration::class);
+        $configuration->populate($typoScriptConfiguration, $this->cObj->data);
     }
 }
