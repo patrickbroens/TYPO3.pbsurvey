@@ -16,18 +16,18 @@ namespace PatrickBroens\Pbsurvey\Access\Check;
 
 use PatrickBroens\Pbsurvey\Access\AccessProvider;
 use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
-use PatrickBroens\Pbsurvey\Domain\Repository\ResultRepository;
+use PatrickBroens\Pbsurvey\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Access check if the maximum amount of responses has been reached
+ * Access check if there are any pages and items at all
  */
-class MaximumAmountOfResponsesCheck
+class ItemsAvailabilityCheck
 {
     /**
      * The error controller name
      */
-    const ERROR_CONTROLLER_NAME = 'PatrickBroens\Pbsurvey\Controller\Access\MaximumAmountOfResponsesErrorController';
+    const ERROR_CONTROLLER_NAME = 'PatrickBroens\Pbsurvey\Controller\Access\ItemsAvailabilityErrorController';
 
     /**
      * Check if the maximum amount of responses to the survey has been reached
@@ -44,14 +44,20 @@ class MaximumAmountOfResponsesCheck
         if (!$accessProvider->hasError()) {
             $storageFolderUid = $configuration->getStorageFolder();
 
-            $maximumAmount = $configuration->getMaximumResponses();
+            /** @var PageRepository $pageRepository */
+            $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+            $pages = $pageRepository->findByPid($storageFolderUid);
 
-            $resultRepository = GeneralUtility::makeInstance(ResultRepository::class);
-            $finishedResults = $resultRepository->countByStorageFolder($storageFolderUid);
+            $pageCount = count($pages);
+            $itemCount = 0;
+
+            foreach ($pages as $page) {
+                $itemCount += $page->getItemCount();
+            }
 
             if (
-                $finishedResults >= $maximumAmount
-                && $maximumAmount !== 0
+                $pageCount === 0
+                && $itemCount === 0
             ) {
                 $accessProvider->setError(true);
                 $accessProvider->setErrorControllerName(self::ERROR_CONTROLLER_NAME);

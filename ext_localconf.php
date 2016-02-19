@@ -115,6 +115,13 @@ if (TYPO3_MODE === 'BE') {
         \PatrickBroens\Pbsurvey\Access\Check\MaximumAmountOfResponsesCheck::class,
         'check'
     );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Access\AccessManager::class,
+        'CheckAccess',
+        \PatrickBroens\Pbsurvey\Access\Check\ItemsAvailabilityCheck::class,
+        'check'
+    );
 }
 
 // Register the item classes

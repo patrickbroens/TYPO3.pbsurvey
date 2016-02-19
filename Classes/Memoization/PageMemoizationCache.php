@@ -33,6 +33,13 @@ use PatrickBroens\Pbsurvey\Domain\Model\Page;
 class PageMemoizationCache implements SingletonInterface
 {
     /**
+     * Storage of pages by pid
+     *
+     * @var array
+     */
+    protected $pagesByPid = [];
+
+    /**
      * Storage of pages before a page
      *
      * @var array
@@ -45,6 +52,23 @@ class PageMemoizationCache implements SingletonInterface
      * @var array
      */
     protected $pagesBeforePageByConditionGroup = [];
+
+    /**
+     * Check if pages are in cache which are in a pid
+     *
+     * @param int $pageUid The uid of the page
+     * @param array $loadObjects The nested models which should be loaded
+     * @return bool
+     */
+    public function hasPagesByPid($pageUid, array $loadObjects)
+    {
+        $objectsIdentifier = $this->getObjectsIdentifier($loadObjects);
+
+        return (
+            isset($this->pagesByPid[$pageUid])
+            && isset($this->pagesByPid[$pageUid][$objectsIdentifier])
+        );
+    }
 
     /**
      * Check if pages are in cache which are before a certain page
@@ -78,6 +102,26 @@ class PageMemoizationCache implements SingletonInterface
             isset($this->pagesBeforePageByConditionGroup[$conditionGroupUid])
             && isset($this->pagesBeforePageByConditionGroup[$conditionGroupUid][$objectsIdentifier])
         );
+    }
+
+    /**
+     * Get pages from the cache
+     *
+     * @param int $pageUid The uid of the  page
+     * @param array $loadObjects The nested models which should be loaded
+     * @return null|Page[] Pages when in cache
+     */
+    public function getPagesByPid($pageUid, array $loadObjects)
+    {
+        $pagesByPid = [];
+
+        if ($this->hasPagesByPid($pageUid, $loadObjects)) {
+            $objectsIdentifier = $this->getObjectsIdentifier($loadObjects);
+
+            $pagesByPid = $this->pagesByPid[$pageUid][$objectsIdentifier];
+        }
+
+        return $pagesByPid;
     }
 
     /**
@@ -118,6 +162,28 @@ class PageMemoizationCache implements SingletonInterface
         }
 
         return $pagesBeforePageByConditionGroup;
+    }
+
+    /**
+     * Store pages in the cache
+     *
+     * @param int $pageUid The uid of the page
+     * @param Page[] $pages The pages
+     * @param array $loadObjects The nested models which should be loaded
+     */
+    public function storePagesByPid($pageUid, $pages, array $loadObjects)
+    {
+        if (!$this->hasPagesByPid($pageUid, $loadObjects)) {
+            $objectsIdentifier = $this->getObjectsIdentifier($loadObjects);
+
+            if (!isset($this->pagesByPid[$pageUid])) {
+                $this->pagesByPid[$pageUid] = [
+                    $objectsIdentifier => $pages
+                ];
+            } else {
+                $this->pagesByPid[$pageUid][$objectsIdentifier] = $pages;
+            }
+        }
     }
 
     /**

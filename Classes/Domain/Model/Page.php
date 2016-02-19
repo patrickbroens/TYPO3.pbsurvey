@@ -135,6 +135,16 @@ class Page extends AbstractModel
     }
 
     /**
+     * Get the item count
+     *
+     * @return int
+     */
+    public function getItemCount()
+    {
+        return count($this->items);
+    }
+
+    /**
      * Add an item
      *
      * @param AbstractItem $item The item

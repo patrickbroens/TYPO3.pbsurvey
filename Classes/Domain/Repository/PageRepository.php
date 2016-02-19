@@ -43,6 +43,55 @@ class PageRepository extends AbstractRepository
     }
 
     /**
+     * Find survey pages by pid
+     *
+     * @param int $pageUid The page uid
+     * @param array $loadObjects
+     * @return Page[]
+     */
+    public function findByPid($pageUid, $loadObjects = [])
+    {
+        $pages = [];
+
+        if ($this->pageMemoizationCache->hasPagesByPid($pageUid, $loadObjects)) {
+            $pages = $this->pageMemoizationCache->getPagesByPid($pageUid, $loadObjects);
+        } else {
+            $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
+                '
+                    uid,
+                    condition_groups,
+                    introduction,
+                    items,
+                    title
+                ',
+                'tx_pbsurvey_page',
+                '
+                    pid = ' . (int)$pageUid . '
+                    AND hidden = 0
+                    AND deleted = 0
+                ',
+                '',
+                'sorting ASC'
+            );
+
+            if ($this->getDatabaseConnection()->sql_error()) {
+                $this->getDatabaseConnection()->sql_free_result($databaseResource);
+                return $pages;
+            }
+
+            while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
+                $pages[] = $this->setPageFromRecord($record, $loadObjects);
+            }
+
+            $this->getDatabaseConnection()->sql_free_result($databaseResource);
+
+            $this->pageMemoizationCache->storePagesByPid($pageUid, $pages, $loadObjects);
+        }
+
+        return $pages;
+    }
+
+    /**
      * Find pages before a page
      *
      * @param int $pageUid The page uid
@@ -98,6 +147,7 @@ class PageRepository extends AbstractRepository
 
         return $pages;
     }
+
     /**
      * Get the pages before the page which contains a certain condition group
      *
