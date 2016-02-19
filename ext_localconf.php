@@ -103,6 +103,18 @@ if (TYPO3_MODE === 'BE') {
         \PatrickBroens\Pbsurvey\Configuration\Populator\ContentElementConfigurationPopulator::class,
         'populate'
     );
+
+    /**
+     * Register slots for checking access
+     */
+
+    // Check the maximum amount of responses to one survey
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Access\AccessManager::class,
+        'CheckAccess',
+        \PatrickBroens\Pbsurvey\Access\Check\MaximumAmountOfResponsesCheck::class,
+        'check'
+    );
 }
 
 // Register the item classes

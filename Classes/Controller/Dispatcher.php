@@ -14,6 +14,8 @@ namespace PatrickBroens\Pbsurvey\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Access\AccessManager;
+use PatrickBroens\Pbsurvey\Access\AccessProvider;
 use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
 use PatrickBroens\Pbsurvey\Configuration\ConfigurationManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -41,6 +43,13 @@ class Dispatcher
     protected $configuration;
 
     /**
+     * The access provider
+     *
+     * @var AccessProvider
+     */
+    protected $accessProvider;
+
+    /**
      * Executes the dispatcher
      *
      * @param string $content The content string
@@ -49,21 +58,44 @@ class Dispatcher
      */
     public function execute($content, array $typoScriptConfiguration)
     {
+        $controllerName = '';
+
         $this->setConfiguration($typoScriptConfiguration);
 
-        return $this->dispatch();
+        if (!$this->hasAccess()) {
+            $controllerName = $this->accessProvider->getErrorControllerName();
+        }
+
+
+        return $this->dispatch($controllerName);
     }
 
     /**
      * Dispatch
      *
+     * @return string $controllerName The controller class
      * @return string The rendered view
      */
-    protected function dispatch()
+    protected function dispatch($controllerName)
     {
-        $output = 'Dispatch';
+        $controller = GeneralUtility::makeInstance($controllerName);
+        $output = $controller->indexAction();
 
         return $output;
+    }
+
+    /**
+     * Check if the respondent has access to the survey
+     *
+     * @return bool true if access is provided
+     */
+    protected function hasAccess()
+    {
+        /** @var AccessManager $accessManager */
+        $accessManager = GeneralUtility::makeInstance(AccessManager::class);
+        $this->accessProvider = $accessManager->getAccessProvider();
+
+        return $this->accessProvider->hasAccess();
     }
 
     /**
