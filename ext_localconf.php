@@ -1,80 +1,104 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-// Register hook to update the answers after selecting a predefined answer group
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['pbsurvey'] =
-    \PatrickBroens\Pbsurvey\Hook\ProcessDataMap::class;
+if (TYPO3_MODE === 'BE') {
 
-// Get the icon registry
-$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+    // Register hook to update the answers after selecting a predefined answer group
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['pbsurvey'] =
+        \PatrickBroens\Pbsurvey\Hook\ProcessDataMap::class;
 
-/**
- * Add the icons for the new content elements to the icon registry
- */
-$newContentElementCTypes = [
-    'pbsurvey'
-];
+    // Get the icon registry
+    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
 
-foreach ($newContentElementCTypes as $newContentElementCType) {
+    /**
+     * Add the icons for the new content elements to the icon registry
+     */
+    $newContentElementCTypes = [
+        'pbsurvey'
+    ];
 
-    // Add the content element icon to the icon registry
-    $iconRegistry->registerIcon(
-        'mimetypes-x-content-' . $newContentElementCType,
-        \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-        [
-            'source' => 'EXT:pbsurvey/Resources/Public/Icons/ContentElements/' . $newContentElementCType . '.gif'
-        ]
+    foreach ($newContentElementCTypes as $newContentElementCType) {
+
+        // Add the content element icon to the icon registry
+        $iconRegistry->registerIcon(
+            'mimetypes-x-content-' . $newContentElementCType,
+            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+            [
+                'source' => 'EXT:pbsurvey/Resources/Public/Icons/ContentElements/' . $newContentElementCType . '.gif'
+            ]
+        );
+
+        // Add the content element icon to the icon registry for the content element wizard
+        $iconRegistry->registerIcon(
+            'content-special-' . $newContentElementCType,
+            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+            [
+                'source' => 'EXT:pbsurvey/Resources/Public/Icons/ContentElementWizard/' . $newContentElementCType . '.gif'
+            ]
+        );
+    }
+
+    /**
+     * Add the icons for record types to the icon registry
+     */
+    $recordTypes = [
+        'answer',
+        'item',
+        'option',
+        'option-predefined',
+        'option-predefined-group',
+        'option_row',
+        'page',
+        'page-condition-group',
+        'page-condition-rule',
+        'result',
+        'score'
+    ];
+
+    foreach ($recordTypes as $recordType) {
+        $iconRegistry->registerIcon(
+            'mimetypes-x-pbsurvey-' . $recordType,
+            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+            [
+                'source' => 'EXT:pbsurvey/Resources/Public/Icons/TCA/' . $recordType . '.gif'
+            ]
+        );
+    }
+
+    /**
+     * Add icons to the icon registry for all item types
+     */
+    $itemsAmount = 24;
+
+    for ($itemNumber = 1; $itemNumber <= $itemsAmount; $itemNumber++) {
+        $iconRegistry->registerIcon(
+            'mimetypes-x-pbsurvey-item-' . $itemNumber,
+            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+            [
+                'source' => 'EXT:pbsurvey/Resources/Public/Icons/TCA/Item/' . $itemNumber . '.gif'
+            ]
+        );
+    }
+} else {
+    // Instantiate the signal/slot dispatcher
+    /** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
+    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
+
+    /**
+     * Register slots for configuration
+     */
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Configuration\ConfigurationManager::class,
+        'PopulateConfiguration',
+        \PatrickBroens\Pbsurvey\Configuration\TypoScriptConfigurationPopulator::class,
+        'populate'
     );
 
-    // Add the content element icon to the icon registry for the content element wizard
-    $iconRegistry->registerIcon(
-        'content-special-' . $newContentElementCType,
-        \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-        [
-            'source' => 'EXT:pbsurvey/Resources/Public/Icons/ContentElementWizard/' . $newContentElementCType . '.gif'
-        ]
-    );
-}
-
-/**
- * Add the icons for record types to the icon registry
- */
-$recordTypes = [
-    'answer',
-    'item',
-    'option',
-    'option-predefined',
-    'option-predefined-group',
-    'option_row',
-    'page',
-    'page-condition-group',
-    'page-condition-rule',
-    'result',
-    'score'
-];
-
-foreach ($recordTypes as $recordType) {
-    $iconRegistry->registerIcon(
-        'mimetypes-x-pbsurvey-' . $recordType,
-        \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-        [
-            'source' => 'EXT:pbsurvey/Resources/Public/Icons/TCA/' . $recordType . '.gif'
-        ]
-    );
-}
-
-/**
- * Add icons to the icon registry for all item types
- */
-$itemsAmount = 24;
-
-for ($itemNumber = 1; $itemNumber <= $itemsAmount; $itemNumber++) {
-    $iconRegistry->registerIcon(
-        'mimetypes-x-pbsurvey-item-' . $itemNumber,
-        \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-        [
-            'source' => 'EXT:pbsurvey/Resources/Public/Icons/TCA/Item/' . $itemNumber . '.gif'
-        ]
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Configuration\ConfigurationManager::class,
+        'PopulateConfiguration',
+        \PatrickBroens\Pbsurvey\Configuration\ContentElementConfigurationPopulator::class,
+        'populate'
     );
 }
 

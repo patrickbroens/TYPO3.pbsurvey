@@ -13,14 +13,9 @@ namespace PatrickBroens\Pbsurvey\Configuration;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
 use PatrickBroens\Pbsurvey\Domain\Model\Score;
-use PatrickBroens\Pbsurvey\Domain\Repository\ScoreRepository;
-use PatrickBroens\Pbsurvey\Utility\ArrayUtility;
-use PatrickBroens\Pbsurvey\Utility\Reflection;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Application configuration
@@ -349,11 +344,21 @@ class ApplicationConfiguration implements SingletonInterface
     }
 
     /**
-     * Check if captcha is shown before entering the survey
+     * Alias for getCaptcha()
      *
      * @return boolean
      */
     public function hasCaptcha()
+    {
+        return $this->getCaptcha();
+    }
+
+    /**
+     * Check if captcha is shown before entering the survey
+     *
+     * @return boolean
+     */
+    public function getCaptcha()
     {
         return $this->captcha;
     }
@@ -389,11 +394,21 @@ class ApplicationConfiguration implements SingletonInterface
     }
 
     /**
-     * Check if "Close" button should be shown when the survey has been completed
+     * Alias for getCompletionCloseButton()
      *
      * @return boolean
      */
     public function hasCompletionCloseButton()
+    {
+        return $this->getCompletionCloseButton();
+    }
+
+    /**
+     * Check if "Close" button should be shown when the survey has been completed
+     *
+     * @return boolean
+     */
+    public function getCompletionCloseButton()
     {
         return $this->completionCloseButton;
     }
@@ -409,11 +424,21 @@ class ApplicationConfiguration implements SingletonInterface
     }
 
     /**
+     * Alias for getCompletionContinueButton()
+     *
+     * @return boolean
+     */
+    public function hasCompletionContinueButton()
+    {
+        return $this->getCompletionContinueButton();
+    }
+
+    /**
      * Check if "Continue" button should be shown when the survey has been completed
      *
      * @return boolean
      */
-    public function isCompletionContinueButton()
+    public function getCompletionContinueButton()
     {
         return $this->completionContinueButton;
     }
@@ -489,11 +514,21 @@ class ApplicationConfiguration implements SingletonInterface
     }
 
     /**
+     * Alias for getEnteringStage()
+     *
+     * @return boolean
+     */
+    public function hasEnteringStage()
+    {
+        return $this->getEnteringStage();
+    }
+
+    /**
      * Get the begin stage when restarting a survey
      *
      * @return boolean
      */
-    public function isEnteringStage()
+    public function getEnteringStage()
     {
         return $this->enteringStage;
     }
@@ -709,11 +744,21 @@ class ApplicationConfiguration implements SingletonInterface
     }
 
     /**
+     * Alias for getNavigationBack()
+     *
+     * @return boolean
+     */
+    public function hasNavigationBack()
+    {
+        return $this->getNavigationBack();
+    }
+
+    /**
      * Check if the "Back" button should be shown
      *
      * @return boolean
      */
-    public function isNavigationBack()
+    public function getNavigationBack()
     {
         return $this->navigationBack;
     }
@@ -958,88 +1003,5 @@ class ApplicationConfiguration implements SingletonInterface
     public function setValidation($validation)
     {
         $this->validation = (int)$validation;
-    }
-
-    /**
-     * Populate the application configuration based on TypoScript and content object
-     *
-     * @param array $typoScriptConfiguration The TypoScript configuration
-     * @param array $contentObjectConfiguration The content object configuration
-     */
-    public function populate(array $typoScriptConfiguration, array $contentObjectConfiguration)
-    {
-        $contentElementUid = $contentObjectConfiguration['uid'];
-
-        $typoScriptConfiguration = $this->prepareTypoScriptConfiguration($typoScriptConfiguration);
-        $contentObjectConfiguration = $this->prepareContentObjectConfiguration($contentObjectConfiguration);
-
-        $reflection = GeneralUtility::makeInstance(Reflection::class, get_class($this));
-        $properties = $reflection->getProperties(\ReflectionProperty::IS_PROTECTED);
-
-        foreach ($properties as $property) {
-            $databaseField = GeneralUtility::camelCaseToLowerCaseUnderscored($property->name);
-            $type = $reflection->getPropertyTag($property, 'var');
-
-            if (
-                substr($type, -2) !== '[]'
-                && is_callable([$this, 'set' . ucfirst($property->name)])
-            ) {
-                $method = 'set' . ucfirst($property->name);
-
-                // First set the TypoScript configuration
-                if (isset($typoScriptConfiguration[$property->name])) {
-                    $this->$method($typoScriptConfiguration[$property->name]);
-                }
-
-                // Then overwrite with content object configuration
-                if (
-                    $this->{$property->name} === null
-                    || (
-                        $this->{$property->name} !== null
-                        && !empty($contentObjectConfiguration[$databaseField])
-                    )
-                ) {
-                    $this->$method($contentObjectConfiguration[$databaseField]);
-                }
-            } else {
-                if (
-                    $property->name === 'scoring'
-                    && (int)$contentObjectConfiguration[$databaseField] > 0
-                ) {
-                    /** @var ScoreRepository $scoreRepository */
-                    $scoreRepository = GeneralUtility::makeInstance(ScoreRepository::class);
-                    $this->addScorings($scoreRepository->findByContentElement($contentElementUid));
-                }
-            }
-        }
-    }
-
-    /**
-     * Removes all trailing dots recursively from TS settings array
-     *
-     * @param array $typoScriptConfiguration The TypoScript array with dots
-     * @return array
-     */
-    protected function prepareTypoScriptConfiguration(array $typoScriptConfiguration)
-    {
-        /** @var $typoScriptService TypoScriptService */
-        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
-        return $typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptConfiguration);
-    }
-
-    /**
-     * Only get the data specifically for pbsurvey and remove the prefix from the keys
-     *
-     * @param array $contentObjectConfiguration The content object data
-     * @return array
-     */
-    protected function prepareContentObjectConfiguration(array $contentObjectConfiguration)
-    {
-        $contentObjectConfiguration = ArrayUtility::filterArrayWhereKeyStartsWithKeyword(
-            $contentObjectConfiguration,
-            'pbsurvey_'
-        );
-
-        return ArrayUtility::removePrefixFromKey($contentObjectConfiguration, 'pbsurvey_');
     }
 }

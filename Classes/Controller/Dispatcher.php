@@ -15,8 +15,8 @@ namespace PatrickBroens\Pbsurvey\Controller;
  */
 
 use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -27,14 +27,23 @@ class Dispatcher
     /**
      * The content object renderer
      *
+     * This value is magically set by the content element
+     *
      * @var ContentObjectRenderer
      */
     public $cObj;
 
     /**
+     * The application configuration
+     *
+     * @var ApplicationConfiguration
+     */
+    protected $configuration;
+
+    /**
      * Executes the dispatcher
      *
-     * @param string $content Not used
+     * @param string $content The content string
      * @param array $typoScriptConfiguration TypoScript configuration
      * @return string The rendered view
      */
@@ -64,8 +73,15 @@ class Dispatcher
      */
     protected function setConfiguration(array $typoScriptConfiguration)
     {
-        /** @var ApplicationConfiguration $configuration */
-        $configuration = GeneralUtility::makeInstance(ApplicationConfiguration::class);
-        $configuration->populate($typoScriptConfiguration, $this->cObj->data);
+        /** @var ConfigurationManager configurationManager */
+        $configurationManager = GeneralUtility::makeInstance(
+            ConfigurationManager::class,
+            $typoScriptConfiguration,
+            $this->cObj->data
+        );
+
+        $configurationManager->populate();
+
+        $this->configuration = $configurationManager->getConfiguration();
     }
 }
