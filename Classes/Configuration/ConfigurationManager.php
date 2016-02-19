@@ -22,7 +22,7 @@ use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 /**
  * Configuration manager
  */
-class ConfigurationManager implements SingletonInterface
+class ConfigurationManager
 {
     /**
      * The configuration
