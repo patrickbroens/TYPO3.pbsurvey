@@ -14,7 +14,6 @@ namespace PatrickBroens\Pbsurvey\Configuration;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
@@ -22,7 +21,7 @@ use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 /**
  * Configuration manager
  */
-class ConfigurationManager
+class ConfigurationManager implements SingletonInterface
 {
     /**
      * The configuration
@@ -53,14 +52,14 @@ class ConfigurationManager
     protected $typoScriptConfiguration;
 
     /**
-     * Constructor
+     * Initialize the configuration manager
      *
      * Set the configuration and emit a signal to populate
      *
      * @param array $typoScriptConfiguration The TypoScript configuration
      * @param array $contentElementConfiguration The settings of the content element
      */
-    public function __construct($typoScriptConfiguration, $contentElementConfiguration)
+    public function initialize($typoScriptConfiguration, $contentElementConfiguration)
     {
         $this->configuration = GeneralUtility::makeInstance(ApplicationConfiguration::class);
         $this->signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
@@ -68,6 +67,7 @@ class ConfigurationManager
         $this->contentElementConfiguration = $contentElementConfiguration;
         $this->typoScriptConfiguration = $typoScriptConfiguration;
 
+        $this->emitPopulateConfigurationSignal();
     }
 
     /**
@@ -78,14 +78,6 @@ class ConfigurationManager
     public function getConfiguration()
     {
         return $this->configuration;
-    }
-
-    /**
-     * Populate the configuration
-     */
-    public function populate()
-    {
-        $this->emitPopulateConfigurationSignal();
     }
 
     /**
