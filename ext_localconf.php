@@ -90,7 +90,7 @@ if (TYPO3_MODE === 'BE') {
 
     // Populate the configuration with the TypoScript configuration
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Configuration\ConfigurationManager::class,
+        \PatrickBroens\Pbsurvey\Configuration\ConfigurationInitializer::class,
         'PopulateConfiguration',
         \PatrickBroens\Pbsurvey\Configuration\Populator\TypoScriptConfigurationPopulator::class,
         'populate'
@@ -98,7 +98,7 @@ if (TYPO3_MODE === 'BE') {
 
     // Populate the configuration with settings from the content element
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Configuration\ConfigurationManager::class,
+        \PatrickBroens\Pbsurvey\Configuration\ConfigurationInitializer::class,
         'PopulateConfiguration',
         \PatrickBroens\Pbsurvey\Configuration\Populator\ContentElementConfigurationPopulator::class,
         'populate'
@@ -110,14 +110,14 @@ if (TYPO3_MODE === 'BE') {
 
     // Check the maximum amount of responses to one survey
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Access\AccessManager::class,
+        \PatrickBroens\Pbsurvey\Access\AccessInitializer::class,
         'CheckAccess',
         \PatrickBroens\Pbsurvey\Access\Check\MaximumAmountOfResponsesCheck::class,
         'check'
     );
 
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Access\AccessManager::class,
+        \PatrickBroens\Pbsurvey\Access\AccessInitializer::class,
         'CheckAccess',
         \PatrickBroens\Pbsurvey\Access\Check\ItemsAvailabilityCheck::class,
         'check'

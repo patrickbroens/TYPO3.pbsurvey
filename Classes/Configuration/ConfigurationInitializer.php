@@ -14,21 +14,20 @@ namespace PatrickBroens\Pbsurvey\Configuration;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
- * Configuration manager
+ * Configuration initializer
  */
-class ConfigurationManager implements SingletonInterface
+class ConfigurationInitializer
 {
     /**
-     * The configuration
+     * The configuration provider
      *
-     * @var ApplicationConfiguration
+     * @var ConfigurationProvider
      */
-    protected $configuration;
+    protected $configurationProvider;
 
     /**
      * The settings of the content element
@@ -52,7 +51,7 @@ class ConfigurationManager implements SingletonInterface
     protected $typoScriptConfiguration;
 
     /**
-     * Initialize the configuration manager
+     * Initialize the configuration initializer
      *
      * Set the configuration and emit a signal to populate
      *
@@ -61,23 +60,12 @@ class ConfigurationManager implements SingletonInterface
      */
     public function initialize($typoScriptConfiguration, $contentElementConfiguration)
     {
-        $this->configuration = GeneralUtility::makeInstance(ApplicationConfiguration::class);
+        $this->configurationProvider = GeneralUtility::makeInstance(ConfigurationProvider::class);
         $this->signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
-
         $this->contentElementConfiguration = $contentElementConfiguration;
         $this->typoScriptConfiguration = $typoScriptConfiguration;
 
         $this->emitPopulateConfigurationSignal();
-    }
-
-    /**
-     * Get the configuration
-     *
-     * @return ApplicationConfiguration
-     */
-    public function getConfiguration()
-    {
-        return $this->configuration;
     }
 
     /**
@@ -89,7 +77,7 @@ class ConfigurationManager implements SingletonInterface
             __CLASS__,
             'PopulateConfiguration',
             [
-                $this->configuration,
+                $this->configurationProvider,
                 $this->typoScriptConfiguration,
                 $this->contentElementConfiguration
             ]

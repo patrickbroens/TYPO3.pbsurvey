@@ -14,10 +14,10 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\DataProvider\PageConditionGroupProvider;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\Survey\PageConditionGroupProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Page condition group repository
@@ -36,9 +36,7 @@ class PageConditionGroupRepository extends AbstractRepository
      */
     public function __construct()
     {
-        parent::__construct();
-
-        $this->pageConditionGroupProvider = $this->dataProvider->getProvider('pageConditionGroup');
+        $this->pageConditionGroupProvider = GeneralUtility::makeInstance(PageConditionGroupProvider::class);
     }
 
     /**

@@ -15,7 +15,7 @@ namespace PatrickBroens\Pbsurvey\Access\Check;
  */
 
 use PatrickBroens\Pbsurvey\Access\AccessProvider;
-use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Domain\Repository\ResultRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -33,18 +33,18 @@ class MaximumAmountOfResponsesCheck
      * Check if the maximum amount of responses to the survey has been reached
      *
      * @param AccessProvider $accessProvider The access provider
-     * @param ApplicationConfiguration $configuration The configuration
+     * @param ConfigurationProvider $configurationProvider The configuration provider
      */
     public function check(
         AccessProvider $accessProvider,
-        ApplicationConfiguration $configuration
+        ConfigurationProvider $configurationProvider
     )
     {
         // Skip if there is already an error
         if (!$accessProvider->hasError()) {
-            $storageFolderUid = $configuration->getStorageFolder();
+            $storageFolderUid = $configurationProvider->getStorageFolder();
 
-            $maximumAmount = $configuration->getMaximumResponses();
+            $maximumAmount = $configurationProvider->getMaximumResponses();
 
             $resultRepository = GeneralUtility::makeInstance(ResultRepository::class);
             $finishedResults = $resultRepository->countByStorageFolder($storageFolderUid);

@@ -14,9 +14,9 @@ namespace PatrickBroens\Pbsurvey\TCA;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\DataProvider\PageProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
+use PatrickBroens\Pbsurvey\Survey\PageProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -34,12 +34,12 @@ class PageControl extends Control
     /**
      * Initialize the data provider and set the page provider
      *
-     * @param int $pageUid The page uid where the dataprovider has to collect the data
+     * @param int $pageUid The page uid where the data initializer has to collect the data
      */
     public function setPageProvider($pageUid)
     {
-        $this->dataProvider->initialize((int)$pageUid);
-        $this->pageProvider = $this->dataProvider->getProvider('page');
+        $this->dataInitializer->initialize((int)$pageUid);
+        $this->pageProvider = GeneralUtility::makeInstance(PageProvider::class);
     }
 
     /**

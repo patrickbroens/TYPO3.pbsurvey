@@ -15,8 +15,9 @@ namespace PatrickBroens\Pbsurvey\Access\Check;
  */
 
 use PatrickBroens\Pbsurvey\Access\AccessProvider;
-use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
-use PatrickBroens\Pbsurvey\DataProvider\DataProvider;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
+use PatrickBroens\Pbsurvey\Survey\ItemProvider;
+use PatrickBroens\Pbsurvey\Survey\PageProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -33,19 +34,17 @@ class ItemsAvailabilityCheck
      * Check if the maximum amount of responses to the survey has been reached
      *
      * @param AccessProvider $accessProvider The access provider
-     * @param ApplicationConfiguration $configuration The configuration
+     * @param ConfigurationProvider $configurationProvider The configuration provider
      */
     public function check(
         AccessProvider $accessProvider,
-        ApplicationConfiguration $configuration
+        ConfigurationProvider $configurationProvider
     )
     {
         // Skip if there is already an error
         if (!$accessProvider->hasError()) {
-            /** @var DataProvider $dataProvider */
-            $dataProvider = GeneralUtility::makeInstance(DataProvider::class);
-            $pageProvider = $dataProvider->getProvider('page');
-            $itemProvider = $dataProvider->getProvider('item');
+            $pageProvider = GeneralUtility::makeInstance(PageProvider::class);
+            $itemProvider = GeneralUtility::makeInstance(ItemProvider::class);
 
             $pageCount = $pageProvider->getCount();
             $itemCount = $itemProvider->getCount();

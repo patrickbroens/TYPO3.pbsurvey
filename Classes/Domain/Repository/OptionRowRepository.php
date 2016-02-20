@@ -14,8 +14,8 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\DataProvider\OptionRowProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use PatrickBroens\Pbsurvey\Survey\OptionRowProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -35,9 +35,7 @@ class OptionRowRepository extends AbstractRepository
      */
     public function __construct()
     {
-        parent::__construct();
-
-        $this->optionRowProvider = $this->dataProvider->getProvider('optionRow');
+        $this->optionRowProvider = GeneralUtility::makeInstance(OptionRowProvider::class);
     }
 
     /**

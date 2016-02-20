@@ -14,12 +14,12 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\DataProvider\ItemProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Item;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
 use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use PatrickBroens\Pbsurvey\Survey\ItemProvider;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -41,9 +41,8 @@ class ItemRepository extends AbstractRepository
      */
     public function __construct()
     {
-        parent::__construct();
 
-        $this->itemProvider = $this->dataProvider->getProvider('item');
+        $this->itemProvider = GeneralUtility::makeInstance(ItemProvider::class);
     }
 
     /**

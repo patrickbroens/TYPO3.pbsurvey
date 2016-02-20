@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\DataProvider;
+namespace PatrickBroens\Pbsurvey\Survey;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,12 +15,13 @@ namespace PatrickBroens\Pbsurvey\DataProvider;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Page condition group provider
  */
-class PageConditionGroupProvider
+class PageConditionGroupProvider implements SingletonInterface
 {
     /**
      * The page condition groups

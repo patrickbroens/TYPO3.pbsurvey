@@ -14,14 +14,14 @@ namespace PatrickBroens\Pbsurvey\Access;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
- * Access manager
+ * Access initizializer
  */
-class AccessManager
+class AccessInitializer
 {
     /**
      * The access provider
@@ -31,11 +31,11 @@ class AccessManager
     protected $accessProvider;
 
     /**
-     * The configuration
+     * The configuration provider
      *
-     * @var ApplicationConfiguration
+     * @var ConfigurationProvider
      */
-    protected $configuration;
+    protected $configurationProvider;
 
     /**
      * The signal/slot dispatcher
@@ -45,27 +45,17 @@ class AccessManager
     protected $signalSlotDispatcher;
 
     /**
-     * Constructor
+     * Initialize the access initializer
      *
      * Set the configuration and emit a signal to populate
      */
-    public function __construct()
+    public function initialize()
     {
         $this->accessProvider = GeneralUtility::makeInstance(AccessProvider::class);
-        $this->configuration = GeneralUtility::makeInstance(ApplicationConfiguration::class);
+        $this->configurationProvider = GeneralUtility::makeInstance(ConfigurationProvider::class);
         $this->signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
 
         $this->emitCheckAccessSignal();
-    }
-
-    /**
-     * Get the access provider
-     *
-     * @return AccessProvider
-     */
-    public function getAccessProvider()
-    {
-        return $this->accessProvider;
     }
 
     /**
@@ -78,7 +68,7 @@ class AccessManager
             'CheckAccess',
             [
                 $this->accessProvider,
-                $this->configuration
+                $this->configurationProvider
             ]
         );
 

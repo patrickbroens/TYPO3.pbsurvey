@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\DataProvider\PageConditionRuleProvider;
+use PatrickBroens\Pbsurvey\Survey\PageConditionRuleProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
@@ -38,9 +38,7 @@ class PageConditionRuleRepository extends AbstractRepository
      */
     public function __construct()
     {
-        parent::__construct();
-
-        $this->pageConditionRuleProvider = $this->dataProvider->getProvider('pageConditionRule');
+        $this->pageConditionRuleProvider = GeneralUtility::makeInstance(PageConditionRuleProvider::class);
     }
 
     /**

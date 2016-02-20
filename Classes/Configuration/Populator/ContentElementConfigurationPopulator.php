@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Configuration\Populator;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Domain\Repository\ScoreRepository;
 use PatrickBroens\Pbsurvey\Utility\ArrayUtility;
 use PatrickBroens\Pbsurvey\Utility\Reflection;
@@ -28,12 +28,12 @@ class ContentElementConfigurationPopulator implements ConfigurationPopulatorInte
     /**
      * Populate the application configuration based on settings in the content element
      *
-     * @param ApplicationConfiguration $configuration
+     * @param ConfigurationProvider $configurationProvider
      * @param array $typoScriptConfiguration The TypoScript configuration
      * @param array $contentObjectConfiguration The content object configuration
      */
     public function populate(
-        ApplicationConfiguration $configuration,
+        ConfigurationProvider $configurationProvider,
         array $typoScriptConfiguration,
         array $contentObjectConfiguration
     )
@@ -42,7 +42,7 @@ class ContentElementConfigurationPopulator implements ConfigurationPopulatorInte
 
         $contentObjectConfiguration = $this->prepareContentObjectConfiguration($contentObjectConfiguration);
 
-        $reflection = GeneralUtility::makeInstance(Reflection::class, $configuration);
+        $reflection = GeneralUtility::makeInstance(Reflection::class, $configurationProvider);
         $properties = $reflection->getProperties(\ReflectionProperty::IS_PROTECTED);
 
         foreach ($properties as $property) {
@@ -51,7 +51,7 @@ class ContentElementConfigurationPopulator implements ConfigurationPopulatorInte
 
             if (
                 substr($type, -2) !== '[]'
-                && is_callable([$configuration, 'set' . ucfirst($property->name)])
+                && is_callable([$configurationProvider, 'set' . ucfirst($property->name)])
             ) {
                 $methodName = ucfirst($property->name);
                 $setMethod = 'set' . $methodName;
@@ -59,13 +59,13 @@ class ContentElementConfigurationPopulator implements ConfigurationPopulatorInte
 
                 // Then overwrite with content object configuration
                 if (
-                    $configuration->$getMethod() === null
+                    $configurationProvider->$getMethod() === null
                     || (
-                        $configuration->$getMethod() !== null
+                        $configurationProvider->$getMethod() !== null
                         && !empty($contentObjectConfiguration[$databaseField])
                     )
                 ) {
-                    $configuration->$setMethod($contentObjectConfiguration[$databaseField]);
+                    $configurationProvider->$setMethod($contentObjectConfiguration[$databaseField]);
                 }
             } else {
                 if (
@@ -74,7 +74,7 @@ class ContentElementConfigurationPopulator implements ConfigurationPopulatorInte
                 ) {
                     /** @var ScoreRepository $scoreRepository */
                     $scoreRepository = GeneralUtility::makeInstance(ScoreRepository::class);
-                    $configuration->addScorings($scoreRepository->findByContentElement($contentElementUid));
+                    $configurationProvider->addScorings($scoreRepository->findByContentElement($contentElementUid));
                 }
             }
         }

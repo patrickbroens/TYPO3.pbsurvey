@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\DataProvider;
+namespace PatrickBroens\Pbsurvey\Survey;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -17,12 +17,13 @@ namespace PatrickBroens\Pbsurvey\DataProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
 use PatrickBroens\Pbsurvey\Domain\Repository\PageRepository;
 use PatrickBroens\Pbsurvey\Utility\ArrayUtility;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Survey page provider
  */
-class PageProvider
+class PageProvider implements SingletonInterface
 {
     /**
      * The survey pages
@@ -66,10 +67,12 @@ class PageProvider
 
     /**
      * Populate the page provider and all underlying objects
+     *
+     * @param int $storageFolder The storage folder
      */
-    public function populate()
+    public function populate($storageFolder)
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        $pageRepository->findByPid();
+        $pageRepository->findByPid($storageFolder);
     }
 }

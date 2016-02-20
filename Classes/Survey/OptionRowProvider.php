@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\DataProvider;
+namespace PatrickBroens\Pbsurvey\Survey;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,12 +15,13 @@ namespace PatrickBroens\Pbsurvey\DataProvider;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Option row provider
  */
-class OptionRowProvider
+class OptionRowProvider implements SingletonInterface
 {
     /**
      * The option rows

@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\DataProvider;
+namespace PatrickBroens\Pbsurvey\Survey;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -18,9 +18,9 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Data provider
+ * Data initializer
  */
-class DataProvider implements SingletonInterface
+class DataInitializer implements SingletonInterface
 {    /**
      * The item provider
      *
@@ -64,59 +64,25 @@ class DataProvider implements SingletonInterface
     protected $pageConditionRuleProvider;
 
     /**
-     * The storage folder
-     *
-     * @var int
-     */
-    protected $storageFolder;
-
-    /**
-     * Set the configuration and the providers and populates them
+     * Set the configuration and the providers and populate them
      *
      * @param int $storageFolder The storageFolder
      */
     public function initialize($storageFolder = 0)
     {
-        $this->storageFolder = $storageFolder;
-
         $this->setProviders();
 
-        $this->populate();
-    }
-
-    /**
-     * Get a provider by name
-     *
-     * @param string $providerName
-     * @return null|object
-     */
-    public function getProvider($providerName)
-    {
-        $providerName = lcfirst($providerName) . 'Provider';
-
-        if (!isset($this->{$providerName})) {
-            return null;
-        }
-
-        return $this->{$providerName};
-    }
-
-    /**
-     * Get the storage folder
-     *
-     * @return int
-     */
-    public function getStorageFolder()
-    {
-        return $this->storageFolder;
+        $this->populate($storageFolder);
     }
 
     /**
      * Populate the providers
+     *
+     * @param int $storageFolder The storageFolder
      */
-    protected function populate()
+    protected function populate($storageFolder)
     {
-        $this->pageProvider->populate();
+        $this->pageProvider->populate($storageFolder);
     }
 
     /**

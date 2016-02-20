@@ -14,10 +14,11 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\DataProvider\PageProvider;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
+use PatrickBroens\Pbsurvey\Survey\PageProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -26,9 +27,18 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class PageRepository extends AbstractRepository
 {
     /**
+     * The page provider
+     *
      * @var PageProvider
      */
     protected $pageProvider;
+
+    /**
+     * The configuration provider
+     *
+     * @var ConfigurationProvider
+     */
+    protected $configurationProvider;
 
     /**
      * Constructor
@@ -37,9 +47,7 @@ class PageRepository extends AbstractRepository
      */
     public function __construct()
     {
-        parent::__construct();
-
-        $this->pageProvider = $this->dataProvider->getProvider('page');
+        $this->pageProvider = GeneralUtility::makeInstance(PageProvider::class);
     }
 
     /**
@@ -50,8 +58,6 @@ class PageRepository extends AbstractRepository
      */
     public function findByPid($pageUid = 0)
     {
-        $pageUid = $pageUid === 0 ? $this->dataProvider->getStorageFolder() : $pageUid;
-
         $pages = [];
 
         $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(

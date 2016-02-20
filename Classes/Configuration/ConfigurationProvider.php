@@ -15,15 +15,16 @@ namespace PatrickBroens\Pbsurvey\Configuration;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Score;
+use TYPO3\CMS\Core\SingletonInterface;
 
 /**
- * Application configuration
+ * Configuration provider
  *
  * Configuration of the content element in tt_content and TypoScript
  *
  * TypoScript is loaded first, everything set in tt_content overrides TypoScript
  */
-class ApplicationConfiguration
+class ConfigurationProvider implements SingletonInterface
 {
     /**
      * Respondent Access Level

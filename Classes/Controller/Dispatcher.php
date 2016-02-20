@@ -14,11 +14,11 @@ namespace PatrickBroens\Pbsurvey\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Access\AccessManager;
+use PatrickBroens\Pbsurvey\Access\AccessInitializer;
 use PatrickBroens\Pbsurvey\Access\AccessProvider;
-use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
-use PatrickBroens\Pbsurvey\Configuration\ConfigurationManager;
-use PatrickBroens\Pbsurvey\DataProvider\DataProvider;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationInitializer;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
+use PatrickBroens\Pbsurvey\Survey\DataInitializer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -37,25 +37,11 @@ class Dispatcher
     public $cObj;
 
     /**
-     * The application configuration
-     *
-     * @var ApplicationConfiguration
-     */
-    protected $configuration;
-
-    /**
      * The access provider
      *
      * @var AccessProvider
      */
     protected $accessProvider;
-
-    /**
-     * The data provider
-     *
-     * @var DataProvider
-     */
-    protected $dataProvider;
 
     /**
      * Executes the dispatcher
@@ -68,11 +54,7 @@ class Dispatcher
     {
         $controllerName = '';
 
-        // Set the configuration based on TypoScript and the settings in the content element
-        $this->setConfiguration($typoScriptConfiguration);
-
-        // Set the provider and collect all survey data
-        $this->setDataProvider();
+        $this->initializeProviders($typoScriptConfiguration);
 
         if (!$this->hasAccess()) {
             $controllerName = $this->accessProvider->getErrorControllerName();
@@ -102,33 +84,28 @@ class Dispatcher
      */
     protected function hasAccess()
     {
-        /** @var AccessManager $accessManager */
-        $accessManager = GeneralUtility::makeInstance(AccessManager::class);
-        $this->accessProvider = $accessManager->getAccessProvider();
-
+        $this->accessProvider = GeneralUtility::makeInstance(AccessProvider::class);
         return $this->accessProvider->hasAccess();
     }
 
     /**
-     * Set the data provider
-     */
-    protected function setDataProvider()
-    {
-        $this->dataProvider = GeneralUtility::makeInstance(DataProvider::class);
-        $this->dataProvider->initialize($this->configuration->getStorageFolder());
-    }
-
-    /**
-     * Populate the application configuration with TypoScript and content element configuration
+     * Initialize providers
      *
      * @param array $typoScriptConfiguration The TypoScript configuration
      */
-    protected function setConfiguration(array $typoScriptConfiguration)
+    protected function initializeProviders($typoScriptConfiguration)
     {
-        /** @var ConfigurationManager configurationManager */
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
-        $configurationManager->initialize($typoScriptConfiguration, $this->cObj->data);
+        /** @var ConfigurationInitializer ConfigurationInitializer */
+        $configurationInitializer = GeneralUtility::makeInstance(ConfigurationInitializer::class);
+        $configurationInitializer->initialize($typoScriptConfiguration, $this->cObj->data);
+        $configurationProvider = GeneralUtility::makeInstance(ConfigurationProvider::class);
 
-        $this->configuration = $configurationManager->getConfiguration();
+        /** @var DataInitializer dataInitializer */
+        $dataInitializer = GeneralUtility::makeInstance(DataInitializer::class);
+        $dataInitializer->initialize($configurationProvider->getStorageFolder());
+
+        /** @var AccessInitializer $accessInitializer */
+        $accessInitializer = GeneralUtility::makeInstance(AccessInitializer::class);
+        $accessInitializer->initialize();
     }
 }

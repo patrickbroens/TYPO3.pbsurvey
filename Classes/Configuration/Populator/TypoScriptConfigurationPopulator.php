@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Configuration\Populator;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Utility\Reflection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
@@ -27,19 +27,19 @@ class TypoScriptConfigurationPopulator implements ConfigurationPopulatorInterfac
     /**
      * Populate the application configuration based on TypoScript
      *
-     * @param ApplicationConfiguration $configuration
+     * @param ConfigurationProvider $configurationProvider
      * @param array $typoScriptConfiguration The TypoScript configuration
      * @param array $contentObjectConfiguration The content object configuration
      */
     public function populate(
-        ApplicationConfiguration $configuration,
+        ConfigurationProvider $configurationProvider,
         array $typoScriptConfiguration,
         array $contentObjectConfiguration
     )
     {
         $typoScriptConfiguration = $this->prepareTypoScriptConfiguration($typoScriptConfiguration);
 
-        $reflection = GeneralUtility::makeInstance(Reflection::class, $configuration);
+        $reflection = GeneralUtility::makeInstance(Reflection::class, $configurationProvider);
         $properties = $reflection->getProperties(\ReflectionProperty::IS_PROTECTED);
 
         foreach ($properties as $property) {
@@ -47,12 +47,12 @@ class TypoScriptConfigurationPopulator implements ConfigurationPopulatorInterfac
 
             if (
                 substr($type, -2) !== '[]'
-                && is_callable([$configuration, 'set' . ucfirst($property->name)])
+                && is_callable([$configurationProvider, 'set' . ucfirst($property->name)])
             ) {
                 $method = 'set' . ucfirst($property->name);
 
                 if (isset($typoScriptConfiguration[$property->name])) {
-                    $configuration->$method($typoScriptConfiguration[$property->name]);
+                    $configurationProvider->$method($typoScriptConfiguration[$property->name]);
                 }
             }
         }

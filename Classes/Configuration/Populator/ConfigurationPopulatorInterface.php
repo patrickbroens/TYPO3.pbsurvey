@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Configuration\Populator;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
+use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
 
 /**
  * Application configuration populator interface
@@ -24,12 +24,12 @@ interface ConfigurationPopulatorInterface
     /**
      * Populate the application configuration based on settings in the content element
      *
-     * @param ApplicationConfiguration $configuration
+     * @param ConfigurationProvider $configurationProvider
      * @param array $typoScriptConfiguration The TypoScript configuration
      * @param array $contentObjectConfiguration The content object configuration
      */
     public function populate(
-        ApplicationConfiguration $configuration,
+        ConfigurationProvider $configurationProvider,
         array $typoScriptConfiguration,
         array $contentObjectConfiguration
     );

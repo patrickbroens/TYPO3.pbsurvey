@@ -14,8 +14,8 @@ namespace PatrickBroens\Pbsurvey\TCA\User;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\DataProvider\PageConditionGroupProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
+use PatrickBroens\Pbsurvey\Survey\PageConditionGroupProvider;
 use PatrickBroens\Pbsurvey\TCA\PageControl;
 use TYPO3\CMS\Backend\Form\Element\UserElement;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -53,9 +53,10 @@ class PageConditionRuleItemSelectBox extends PageControl
         if (!$groupUid || strstr($groupUid, 'NEW')) {
             $content = $this->renderSaveWarning();
         } else {
-            /** @var PageConditionGroupProvider $pageConditionGroupProvider */
             $this->setPageProvider($storageFolder);
-            $pageConditionGroupProvider = $this->dataProvider->getProvider('pageConditionGroup');
+
+            /** @var PageConditionGroupProvider $pageConditionGroupProvider */
+            $pageConditionGroupProvider = GeneralUtility::makeInstance(PageConditionGroupProvider::class);
             $currentGroup = $pageConditionGroupProvider->findByUid($groupUid);
             $parentPage = $currentGroup->getParentid();
 
