@@ -65,7 +65,7 @@ class AccessInitializer
     {
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
-            'CheckAccess',
+            'AccessCheck',
             [
                 $this->accessProvider,
                 $this->configurationProvider

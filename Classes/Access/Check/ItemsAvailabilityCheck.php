@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Access check if there are any pages and items at all
  */
-class ItemsAvailabilityCheck
+class ItemsAvailabilityCheck implements AccessCheckInterface
 {
     /**
      * The error controller name

@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Access check if the maximum amount of responses has been reached
  */
-class MaximumAmountOfResponsesCheck
+class MaximumAmountOfResponsesCheck implements AccessCheckInterface
 {
     /**
      * The error controller name

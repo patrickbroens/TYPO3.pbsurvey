@@ -111,14 +111,14 @@ if (TYPO3_MODE === 'BE') {
     // Check the maximum amount of responses to one survey
     $signalSlotDispatcher->connect(
         \PatrickBroens\Pbsurvey\Access\AccessInitializer::class,
-        'CheckAccess',
+        'AccessCheck',
         \PatrickBroens\Pbsurvey\Access\Check\MaximumAmountOfResponsesCheck::class,
         'check'
     );
 
     $signalSlotDispatcher->connect(
         \PatrickBroens\Pbsurvey\Access\AccessInitializer::class,
-        'CheckAccess',
+        'AccessCheck',
         \PatrickBroens\Pbsurvey\Access\Check\ItemsAvailabilityCheck::class,
         'check'
     );
