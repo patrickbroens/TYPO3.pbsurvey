@@ -14,10 +14,10 @@ namespace PatrickBroens\Pbsurvey\TCA;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use PatrickBroens\Pbsurvey\Domain\Repository\PageRepository;
-use PatrickBroens\Pbsurvey\Domain\Model\Page;
+use PatrickBroens\Pbsurvey\DataProvider\PageProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
+use PatrickBroens\Pbsurvey\Domain\Model\Page;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Abstract to control survey pages
@@ -25,22 +25,21 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 class PageControl extends Control
 {
     /**
-     * The page repository
+     * The page provider
      *
-     * @var PageRepository
+     * @var PageProvider
      */
-    protected $pageRepository;
+    protected $pageProvider;
 
     /**
-     * Constructor
+     * Initialize the data provider and set the page provider
      *
-     * Set the page repository
+     * @param int $pageUid The page uid where the dataprovider has to collect the data
      */
-    public function __construct()
+    public function setPageProvider($pageUid)
     {
-        $this->pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-
-        parent::__construct();
+        $this->dataProvider->initialize((int)$pageUid);
+        $this->pageProvider = $this->dataProvider->getProvider('page');
     }
 
     /**

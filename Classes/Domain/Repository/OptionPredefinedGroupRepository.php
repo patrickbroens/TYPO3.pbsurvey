@@ -26,10 +26,9 @@ class OptionPredefinedGroupRepository extends AbstractRepository
     /**
      * Get the predefined option groups
      *
-     * @param array $loadObjects The nested objects which should be loaded
      * @return OptionPredefinedGroup[] The predefined option groups
      */
-    public function findAll($loadObjects = [])
+    public function findAll()
     {
         $predefinedOptionGroups = [];
 
@@ -53,7 +52,7 @@ class OptionPredefinedGroupRepository extends AbstractRepository
         }
 
         while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $predefinedOptionGroups[] = $this->setPredefinedOptionGroupFromRecord($record, $loadObjects);
+            $predefinedOptionGroups[] = $this->setPredefinedOptionGroupFromRecord($record);
         }
 
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
@@ -65,18 +64,15 @@ class OptionPredefinedGroupRepository extends AbstractRepository
      * Set a predefined option group from a database record
      *
      * @param array $record The database record
-     * @param array $loadObjects The nested objects which should be loaded
      * @return OptionPredefinedGroup The predefined option group
      */
-    protected function setPredefinedOptionGroupFromRecord($record, $loadObjects)
+    protected function setPredefinedOptionGroupFromRecord($record)
     {
         /** @var OptionPredefinedGroup $predefinedOptionGroup */
         $predefinedOptionGroup = GeneralUtility::makeInstance(OptionPredefinedGroup::class);
         $predefinedOptionGroup->populate($record);
 
-        if (in_array('OptionPredefined', $loadObjects)) {
-            $predefinedOptionGroup->addOptions($this->getOptions($predefinedOptionGroup, $loadObjects));
-        }
+        $predefinedOptionGroup->addOptions($this->getOptions($predefinedOptionGroup));
 
         return $predefinedOptionGroup;
     }
@@ -85,11 +81,10 @@ class OptionPredefinedGroupRepository extends AbstractRepository
      * Get the group options
      *
      * @param OptionPredefinedGroup $predefinedOptionGroup The predefined option group
-     * @param array $loadObjects The nested objects which should be loaded
      * @return OptionPredefined[] The group options
      */
-    protected function getOptions(OptionPredefinedGroup $predefinedOptionGroup, array $loadObjects) {
+    protected function getOptions(OptionPredefinedGroup $predefinedOptionGroup) {
         $optionPredefinedRepository = GeneralUtility::makeInstance(OptionPredefinedRepository::class);
-        return $optionPredefinedRepository->findByPredefinedOptionGroup($predefinedOptionGroup, $loadObjects);
+        return $optionPredefinedRepository->findByPredefinedOptionGroup($predefinedOptionGroup);
     }
 }

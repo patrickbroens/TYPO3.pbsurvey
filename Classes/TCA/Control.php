@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\TCA;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\DataProvider\DataProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Lang\LanguageService;
@@ -38,6 +39,11 @@ class Control
     protected $view;
 
     /**
+     * @var DataProvider
+     */
+    protected $dataProvider;
+
+    /**
      * Constructor
      *
      * Set the view
@@ -45,6 +51,8 @@ class Control
     public function __construct()
     {
         $this->setView(static::$templateRootPaths);
+
+        $this->dataProvider = GeneralUtility::makeInstance(DataProvider::class);
     }
 
     /**

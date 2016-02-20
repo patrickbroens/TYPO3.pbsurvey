@@ -18,6 +18,7 @@ use PatrickBroens\Pbsurvey\Access\AccessManager;
 use PatrickBroens\Pbsurvey\Access\AccessProvider;
 use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
 use PatrickBroens\Pbsurvey\Configuration\ConfigurationManager;
+use PatrickBroens\Pbsurvey\DataProvider\DataProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -50,6 +51,13 @@ class Dispatcher
     protected $accessProvider;
 
     /**
+     * The data provider
+     *
+     * @var DataProvider
+     */
+    protected $dataProvider;
+
+    /**
      * Executes the dispatcher
      *
      * @param string $content The content string
@@ -60,12 +68,15 @@ class Dispatcher
     {
         $controllerName = '';
 
+        // Set the configuration based on TypoScript and the settings in the content element
         $this->setConfiguration($typoScriptConfiguration);
+
+        // Set the provider and collect all survey data
+        $this->setDataProvider();
 
         if (!$this->hasAccess()) {
             $controllerName = $this->accessProvider->getErrorControllerName();
         }
-
 
         return $this->dispatch($controllerName);
     }
@@ -73,7 +84,7 @@ class Dispatcher
     /**
      * Dispatch
      *
-     * @return string $controllerName The controller class
+     * @param string $controllerName The controller class
      * @return string The rendered view
      */
     protected function dispatch($controllerName)
@@ -99,6 +110,15 @@ class Dispatcher
     }
 
     /**
+     * Set the data provider
+     */
+    protected function setDataProvider()
+    {
+        $this->dataProvider = GeneralUtility::makeInstance(DataProvider::class);
+        $this->dataProvider->initialize($this->configuration->getStorageFolder());
+    }
+
+    /**
      * Populate the application configuration with TypoScript and content element configuration
      *
      * @param array $typoScriptConfiguration The TypoScript configuration
@@ -106,13 +126,8 @@ class Dispatcher
     protected function setConfiguration(array $typoScriptConfiguration)
     {
         /** @var ConfigurationManager configurationManager */
-        $configurationManager = GeneralUtility::makeInstance(
-            ConfigurationManager::class,
-            $typoScriptConfiguration,
-            $this->cObj->data
-        );
-
-        $configurationManager->populate();
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
+        $configurationManager->initialize($typoScriptConfiguration, $this->cObj->data);
 
         $this->configuration = $configurationManager->getConfiguration();
     }

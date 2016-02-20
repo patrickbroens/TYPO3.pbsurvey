@@ -34,6 +34,13 @@ class PageConditionGroup extends AbstractModel
     protected $name;
 
     /**
+     * The parent id
+     *
+     * @var int
+     */
+    protected $parentid;
+
+    /**
      * Check if the condition group contains rules
      *
      * @return bool true when rules are available
@@ -95,5 +102,25 @@ class PageConditionGroup extends AbstractModel
     public function setName($name)
     {
         $this->name = (string)$name;
+    }
+
+    /**
+     * Get the parent id
+     *
+     * @return int
+     */
+    public function getParentid()
+    {
+        return $this->parentid;
+    }
+
+    /**
+     * Set the parent id
+     *
+     * @param int $parentid The parent id
+     */
+    public function setParentid($parentid)
+    {
+        $this->parentid = (int)$parentid;
     }
 }

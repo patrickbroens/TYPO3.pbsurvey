@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\DataProvider\PageConditionGroupProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
@@ -24,11 +25,27 @@ use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
 class PageConditionGroupRepository extends AbstractRepository
 {
     /**
+     * @var PageConditionGroupProvider
+     */
+    protected $pageConditionGroupProvider;
+
+    /**
+     * Constructor
+     *
+     * Set the page condition group provider
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->pageConditionGroupProvider = $this->dataProvider->getProvider('pageConditionGroup');
+    }
+
+    /**
      * @param int $pageUid The uid of the survey page
-     * @param array $loadObjects The nested models which should be loaded
      * @return PageConditionGroup[]
      */
-    public function findByPage($pageUid, $loadObjects = [])
+    public function findByParentId($pageUid)
     {
         $pageConditionGroups = [];
 
@@ -36,7 +53,8 @@ class PageConditionGroupRepository extends AbstractRepository
             '
                 uid,
                 name,
-                rules
+                rules,
+                parentid
             ',
             'tx_pbsurvey_page_condition_group',
             '
@@ -54,7 +72,7 @@ class PageConditionGroupRepository extends AbstractRepository
         }
 
         while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $pageConditionGroups[] = $this->setPageConditionGroupFromRecord($record, $loadObjects);
+            $pageConditionGroups[] = $this->setPageConditionGroupFromRecord($record);
         }
 
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
@@ -66,18 +84,17 @@ class PageConditionGroupRepository extends AbstractRepository
      * Set an page condition group from a database record
      *
      * @param array $record The database record
-     * @param array $loadObjects The nested models which should be loaded
      * @return PageConditionGroup The page condition group
      */
-    protected function setPageConditionGroupFromRecord($record, $loadObjects)
+    protected function setPageConditionGroupFromRecord($record)
     {
         /** @var PageConditionGroup $pageConditionGroup */
         $pageConditionGroup = GeneralUtility::makeInstance(PageConditionGroup::class);
         $pageConditionGroup->populate($record);
 
-        if (in_array('PageConditionRule', $loadObjects)) {
-            $pageConditionGroup->addRules($this->getPageConditionRules($pageConditionGroup, $loadObjects));
-        }
+        $pageConditionGroup->addRules($this->getPageConditionRules($pageConditionGroup));
+
+        $this->pageConditionGroupProvider->addSingle($pageConditionGroup);
 
         return $pageConditionGroup;
     }
@@ -85,12 +102,11 @@ class PageConditionGroupRepository extends AbstractRepository
     /**
      * Get the condition rules
      *
-     * @param PageConditionGroup $pageConditionGroup The item
-     * @param array $loadObjects The nested models which should be loaded
-     * @return PageConditionRule[] The item rows
+     * @param PageConditionGroup $pageConditionGroup The page condition group
+     * @return PageConditionRule[] The page condition rules
      */
-    protected function getPageConditionRules($pageConditionGroup, $loadObjects) {
+    protected function getPageConditionRules($pageConditionGroup) {
         $pageConditionRuleRepository = GeneralUtility::makeInstance(OptionRepository::class);
-        return $pageConditionRuleRepository->findByPageConditionGroup($pageConditionGroup->getUid(), $loadObjects);
+        return $pageConditionRuleRepository->findByParentId($pageConditionGroup->getUid());
     }
 }

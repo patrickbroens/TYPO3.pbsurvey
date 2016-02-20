@@ -14,8 +14,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\DataProvider\OptionRowProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Option row repository
@@ -23,11 +24,27 @@ use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
 class OptionRowRepository extends AbstractRepository
 {
     /**
+     * @var OptionRowProvider
+     */
+    protected $optionRowProvider;
+
+    /**
+     * Constructor
+     *
+     * Set the option row provider
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->optionRowProvider = $this->dataProvider->getProvider('optionRow');
+    }
+
+    /**
      * @param int $itemUid The uid of the survey item
-     * @param array $loadObjects The nested models which should be loaded
      * @return OptionRow[]
      */
-    public function findByItem($itemUid, $loadObjects = [])
+    public function findByParentId($itemUid)
     {
         $rows = [];
 
@@ -52,7 +69,7 @@ class OptionRowRepository extends AbstractRepository
         }
 
         while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $rows[] = $this->setOptionRowFromRecord($record, $loadObjects);
+            $rows[] = $this->setOptionRowFromRecord($record);
         }
 
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
@@ -64,14 +81,16 @@ class OptionRowRepository extends AbstractRepository
      * Set an option row from a database record
      *
      * @param array $record The database record
-     * @param array $loadObjects The nested models which should be loaded
      * @return OptionRow The option row
      */
-    protected function setOptionRowFromRecord($record, $loadObjects)
+    protected function setOptionRowFromRecord($record)
     {
-        $option = GeneralUtility::makeInstance(OptionRow::class);
-        $option->populate($record);
+        /** @var OptionRow $optionRow */
+        $optionRow = GeneralUtility::makeInstance(OptionRow::class);
+        $optionRow->populate($record);
 
-        return $option;
+        $this->optionRowProvider->addSingle($optionRow);
+
+        return $optionRow;
     }
 }

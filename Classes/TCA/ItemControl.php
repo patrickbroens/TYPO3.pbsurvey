@@ -14,8 +14,8 @@ namespace PatrickBroens\Pbsurvey\TCA;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\DataProvider\ItemProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use PatrickBroens\Pbsurvey\Domain\Repository\ItemRepository;
 
 /**
  * Abstract to control survey items
@@ -23,21 +23,20 @@ use PatrickBroens\Pbsurvey\Domain\Repository\ItemRepository;
 class ItemControl extends Control
 {
     /**
-     * The item repository
+     * The item provider
      *
-     * @var ItemRepository
+     * @var ItemProvider
      */
-    protected $itemRepository;
+    protected $itemProvider;
 
     /**
-     * Constructor
+     * Initialize the data provider and set the item provider
      *
-     * Set the item repository
+     * @param int $pageUid The page uid where the dataprovider has to collect the data
      */
-    public function __construct()
+    public function setItemProvider($pageUid)
     {
-        $this->itemRepository = GeneralUtility::makeInstance(ItemRepository::class);
-
-        parent::__construct();
+        $this->dataProvider->initialize((int)$pageUid);
+        $this->itemProvider = $this->dataProvider->getProvider('item');
     }
 }

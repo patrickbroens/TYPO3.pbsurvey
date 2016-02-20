@@ -45,12 +45,14 @@ class PageConditionGroup extends PageControl
     {
         $content = '';
 
-        $currentPageUid = (int)$parameters['row']['uid'];
+        $currentSurveyPageUid = (int)$parameters['row']['uid'];
+        $storageFolder = (int)$parameters['row']['pid'];
 
-        if (!$currentPageUid || strstr($currentPageUid, 'NEW')) {
+        if (!$currentSurveyPageUid || strstr($currentSurveyPageUid, 'NEW')) {
             $content = $this->renderSaveWarning();
         } else {
-            $pagesBeforeCurrentPage = $this->pageRepository->findBeforePage($currentPageUid, ['Item']);
+            $this->setPageProvider($storageFolder);
+            $pagesBeforeCurrentPage = $this->pageProvider->findBeforePage($currentSurveyPageUid);
 
             if (count($pagesBeforeCurrentPage)) {
                 if ($this->hasQuestions($pagesBeforeCurrentPage)) {

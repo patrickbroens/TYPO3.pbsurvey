@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\DataProvider\PageConditionRuleProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
@@ -24,11 +25,29 @@ use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
 class PageConditionRuleRepository extends AbstractRepository
 {
     /**
+     * The page condition rule provider
+     *
+     * @var PageConditionRuleProvider
+     */
+    protected $pageConditionRuleProvider;
+
+    /**
+     * Constructor
+     *
+     * Set the page condition rule provider
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->pageConditionRuleProvider = $this->dataProvider->getProvider('pageConditionRule');
+    }
+
+    /**
      * @param int $pageConditionGroupUid The uid of the page condition group
-     * @param array $loadObjects The nested models which should be loaded
      * @return PageConditionGroup[]
      */
-    public function findByPageConditionGroup($pageConditionGroupUid, $loadObjects = [])
+    public function findByParentId($pageConditionGroupUid)
     {
         $pageConditionRules = [];
 
@@ -56,7 +75,7 @@ class PageConditionRuleRepository extends AbstractRepository
         }
 
         while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $pageConditionRules[] = $this->setPageConditionRuleFromRecord($record, $loadObjects);
+            $pageConditionRules[] = $this->setPageConditionRuleFromRecord($record);
         }
 
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
@@ -68,13 +87,15 @@ class PageConditionRuleRepository extends AbstractRepository
      * Set an page condition rule from a database record
      *
      * @param array $record The database record
-     * @param array $loadObjects The nested models which should be loaded
      * @return PageConditionRule The page condition rule
      */
-    protected function setPageConditionRuleFromRecord($record, $loadObjects)
+    protected function setPageConditionRuleFromRecord($record)
     {
+        /** @var PageConditionRule $pageConditionRule */
         $pageConditionRule = GeneralUtility::makeInstance(PageConditionRule::class);
         $pageConditionRule->populate($record);
+
+        $this->pageConditionRuleProvider->addSingle($pageConditionRule);
 
         return $pageConditionRule;
     }

@@ -44,6 +44,18 @@ class ArrayUtility
     }
 
     /**
+     * Find the position of a key within an array
+     *
+     * @param array $array The haystack
+     * @param mixed $key The needle
+     * @return mixed
+     */
+    public static function findPositionByKey(array $array, $key)
+    {
+        return array_search($key, array_keys($array), true);
+    }
+
+    /**
      * Remove a prefix from array keys
      *
      * @param array $array The array

@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Domain\Repository;
+namespace PatrickBroens\Pbsurvey\DataProvider;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,37 +14,38 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\DataProvider\DataProvider;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Abstract repository
+ * Option row provider
  */
-class AbstractRepository
+class OptionRowProvider
 {
     /**
-     * @var DataProvider
+     * The option rows
+     *
+     * @var OptionRow[]
      */
-    protected $dataProvider;
+    protected $optionRows = [];
 
     /**
-     * Constructor
+     * Add an option row
      *
-     * Set the data provider
+     * @param OptionRow $optionRow The option row
      */
-    public function __construct()
+    public function addSingle(OptionRow $optionRow)
     {
-        $this->dataProvider = GeneralUtility::makeInstance(DataProvider::class);
+        $this->optionRows[$optionRow->getUid()] = $optionRow;
     }
 
     /**
-     * Get the database instance
+     * Get the amount of option rows
      *
-     * @return DatabaseConnection
+     * @return int
      */
-    protected function getDatabaseConnection()
+    public function getCount()
     {
-        return $GLOBALS['TYPO3_DB'];
+        return count($this->optionRows);
     }
 }

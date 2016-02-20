@@ -26,10 +26,9 @@ class OptionPredefinedRepository extends AbstractRepository
      * Select the predefined options by the parent option group
      *
      * @var int $predefinedOptionGroupUid The id of the parent option group
-     * @param array $loadObjects The nested objects which should be loaded
      * @return OptionPredefined[] The predefined options
      */
-    public function findByPredefinedOptionGroup($predefinedOptionGroupUid, $loadObjects = [])
+    public function findByPredefinedOptionGroup($predefinedOptionGroupUid)
     {
         $predefinedOptions = [];
 
@@ -55,7 +54,7 @@ class OptionPredefinedRepository extends AbstractRepository
         }
 
         while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $predefinedOptions[] = $this->setPredefinedOptionFromRecord($record, $loadObjects);
+            $predefinedOptions[] = $this->setPredefinedOptionFromRecord($record);
         }
 
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
@@ -85,10 +84,9 @@ class OptionPredefinedRepository extends AbstractRepository
      * Set a predefined option from a database record
      *
      * @param array $record The database record
-     * @param array $loadObjects The nested objects which should be loaded
      * @return OptionPredefined The predefined option
      */
-    protected function setPredefinedOptionFromRecord($record, $loadObjects)
+    protected function setPredefinedOptionFromRecord($record)
     {
         /** @var \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefined $predefinedOption */
         $predefinedOption = GeneralUtility::makeInstance(OptionPredefined::class);

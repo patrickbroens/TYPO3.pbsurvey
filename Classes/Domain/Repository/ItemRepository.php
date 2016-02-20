@@ -14,15 +14,15 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Resource\FileReference;
-use TYPO3\CMS\Core\Resource\FileRepository;
+use PatrickBroens\Pbsurvey\DataProvider\ItemProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Item;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
 use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
-use PatrickBroens\Pbsurvey\Memoization\ItemMemoizationCache;
+use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Core\Resource\FileRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item repository
@@ -30,97 +30,52 @@ use PatrickBroens\Pbsurvey\Memoization\ItemMemoizationCache;
 class ItemRepository extends AbstractRepository
 {
     /**
-     * The item runtime cache
-     *
-     * Some items are needed multiple times within runtime
-     *
-     * @var ItemMemoizationCache
+     * @var ItemProvider
      */
-    protected $itemMemoizationCache;
+    protected $itemProvider;
 
     /**
      * Constructor
      *
-     * Set the item runtime cache
+     * Set the item provider
      */
     public function __construct()
     {
-        $this->itemMemoizationCache = GeneralUtility::makeInstance(ItemMemoizationCache::class);
+        parent::__construct();
+
+        $this->itemProvider = $this->dataProvider->getProvider('item');
     }
 
     /**
-     * Find an item by its uid
-     *
-     * Checks if it is in item runtime cache,
-     * otherwise will be loaded from database
-     *
-     * @param int $itemUid The uid of the survey item
-     * @param array $loadObjects The nested models which should be loaded
-     * @return AbstractItem
-     */
-    public function findByUid($itemUid, $loadObjects = [])
-    {
-        $item = null;
-
-        if ($this->itemMemoizationCache->hasByUid($itemUid, $loadObjects)) {
-            $item = $this->itemMemoizationCache->getByUid($itemUid, $loadObjects);
-        } else {
-            $record = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
-                '*',
-                'tx_pbsurvey_item',
-                '
-                    uid = ' . (int)$itemUid . '
-                    AND hidden = 0
-                    AND deleted = 0
-                '
-            );
-
-            if ($record) {
-                $item = $this->setItemFromRecord($record, $loadObjects);
-                $this->itemMemoizationCache->storeByUid($item->getUid(), $item, $loadObjects);
-            }
-        }
-
-        return $item;
-    }
-
-    /**
-     * @param int $pageUid The uid of the survey page
-     * @param array $loadObjects The nested models which should be loaded
+     * @param int $parentId The uid of the parent survey page
      * @return AbstractItem[]
      */
-    public function findByPage($pageUid, $loadObjects = [])
+    public function findByParentId($parentId)
     {
         $items = [];
 
-        if ($this->itemMemoizationCache->hasByPage($pageUid, $loadObjects)) {
-            $items = $this->itemMemoizationCache->getByPage($pageUid, $loadObjects);
-        } else {
-            $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
-                '*',
-                'tx_pbsurvey_item',
-                '
-                    parentid = ' . (int)$pageUid . '
-                    AND hidden = 0
-                    AND deleted = 0
-                ',
-                '',
-                'sorting ASC'
-            );
+        $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
+            '*',
+            'tx_pbsurvey_item',
+            '
+                parentid = ' . (int)$parentId . '
+                AND hidden = 0
+                AND deleted = 0
+            ',
+            '',
+            'sorting ASC'
+        );
 
-            if ($this->getDatabaseConnection()->sql_error()) {
-                $this->getDatabaseConnection()->sql_free_result($databaseResource);
-                return $items;
-            }
-
-            while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-                $items[] = $this->setItemFromRecord($record, $loadObjects);
-            }
-
+        if ($this->getDatabaseConnection()->sql_error()) {
             $this->getDatabaseConnection()->sql_free_result($databaseResource);
-
-            $this->itemMemoizationCache->storeByPage($pageUid, $items, $loadObjects);
+            return $items;
         }
+
+        while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
+            $items[] = $this->setItemFromRecord($record);
+        }
+
+        $this->getDatabaseConnection()->sql_free_result($databaseResource);
 
         return $items;
     }
@@ -146,36 +101,28 @@ class ItemRepository extends AbstractRepository
      * Set an item from a database record
      *
      * @param array $record The database record
-     * @param array $loadObjects The nested models which should be loaded
      * @return AbstractItem The item
      */
-    protected function setItemFromRecord($record, $loadObjects)
+    protected function setItemFromRecord($record)
     {
         $itemClassName = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['pbsurvey']['items'][(int)$record['question_type']];
 
         $item = GeneralUtility::makeInstance($itemClassName);
         $item->populate($record);
 
-        if (
-            in_array('Option', $loadObjects)
-            && ($item instanceof AbstractChoice)
-        ) {
-            $item->addOptions($this->getOptions($item, $loadObjects));
+        if ($item instanceof AbstractChoice) {
+            $item->addOptions($this->getOptions($item));
         }
 
-        if (
-            in_array('FileReference', $loadObjects)
-            && is_callable([$itemClassName, 'addFileReferences'])
-        ) {
-            $item->addFileReferences($this->getFileReferences($item, $loadObjects));
+        if (is_callable([$itemClassName, 'addFileReferences'])) {
+            $item->addFileReferences($this->getFileReferences($item));
         }
 
-        if (
-            in_array('Row', $loadObjects)
-            && is_callable([$itemClassName, 'addRows'])
-        ) {
-            $item->addRows($this->getRows($item, $loadObjects));
+        if (is_callable([$itemClassName, 'addRows'])) {
+            $item->addRows($this->getOptionRows($item));
         }
+
+        $this->itemProvider->addSingle($item);
 
         return $item;
     }
@@ -184,22 +131,20 @@ class ItemRepository extends AbstractRepository
      * Get the item options
      *
      * @param AbstractItem $item The item
-     * @param array $loadObjects The nested models which should be loaded
      * @return Option[] The item options
      */
-    protected function getOptions($item, $loadObjects) {
+    protected function getOptions($item) {
         $optionRepository = GeneralUtility::makeInstance(OptionRepository::class);
-        return $optionRepository->findByItem($item->getUid(), $loadObjects);
+        return $optionRepository->findByParentId($item->getUid());
     }
 
     /**
      * Get the item file references
      *
      * @param AbstractItem $item The item
-     * @param array $loadObjects The nested models which should be loaded
      * @return FileReference[] The item file references
      */
-    protected function getFileReferences($item, $loadObjects) {
+    protected function getFileReferences($item) {
         $fileRepository = GeneralUtility::makeInstance(FileRepository::class);
         return $fileRepository->findByRelation('tx_pbsurvey_item', 'file_references', $item->getUid());
     }
@@ -208,11 +153,10 @@ class ItemRepository extends AbstractRepository
      * Get the item rows
      *
      * @param AbstractItem $item The item
-     * @param array $loadObjects The nested models which should be loaded
      * @return OptionRow[] The item rows
      */
-    protected function getRows($item, $loadObjects) {
+    protected function getOptionRows($item) {
         $rowRepository = GeneralUtility::makeInstance(OptionRowRepository::class);
-        return $rowRepository->findByItem($item->getUid(), $loadObjects);
+        return $rowRepository->findByParentId($item->getUid());
     }
 }

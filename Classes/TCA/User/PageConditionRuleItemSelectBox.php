@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\TCA\User;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\DataProvider\PageConditionGroupProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
 use PatrickBroens\Pbsurvey\TCA\PageControl;
 use TYPO3\CMS\Backend\Form\Element\UserElement;
@@ -47,13 +48,20 @@ class PageConditionRuleItemSelectBox extends PageControl
         $content = '';
 
         $groupUid = (int)$parameters['row']['parentid'];
+        $storageFolder = (int)$parameters['row']['pid'];
 
         if (!$groupUid || strstr($groupUid, 'NEW')) {
             $content = $this->renderSaveWarning();
         } else {
-            $pagesBeforeCurrentPage = $this->pageRepository->findBeforePageByConditionGroup($groupUid, ['Item']);
+            /** @var PageConditionGroupProvider $pageConditionGroupProvider */
+            $this->setPageProvider($storageFolder);
+            $pageConditionGroupProvider = $this->dataProvider->getProvider('pageConditionGroup');
+            $currentGroup = $pageConditionGroupProvider->findByUid($groupUid);
+            $parentPage = $currentGroup->getParentid();
 
-            if (count($pagesBeforeCurrentPage)) {
+            $pagesBeforeCurrentPage = $this->pageProvider->findBeforePage($parentPage);
+
+            if ($pagesBeforeCurrentPage) {
                 if ($this->hasQuestions($pagesBeforeCurrentPage)) {
                     $content = $this->renderSelectBox($pagesBeforeCurrentPage, $parameters);
                 }

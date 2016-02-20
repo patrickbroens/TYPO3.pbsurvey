@@ -61,8 +61,10 @@ class PageConditionRuleOperatorSelectBox extends ItemControl
     {
         $itemUid = (int)$parameters['row']['item'];
         $selectedOperator = (string)$parameters['row']['operator'];
+        $storageFolder = (int)$parameters['row']['pid'];
 
         if ($itemUid) {
+            $this->setItemProvider($storageFolder);
             $operators = $this->getOperatorsFromItem($itemUid);
 
             if (empty($selectedOperator)) {
@@ -93,7 +95,7 @@ class PageConditionRuleOperatorSelectBox extends ItemControl
         $operators = [];
 
         /** @var AbstractQuestion $item */
-        $item = $this->itemRepository->findByUid($itemUid);
+        $item = $this->itemProvider->findByUid($itemUid);
 
         if ($item) {
             $itemOperatorGroups = $item->getAllowedConditionOperatorGroups();

@@ -48,9 +48,11 @@ class PageConditionRuleItemOptionSelectBox extends ItemControl
 
         $itemUid = (int)$parameters['row']['item'];
         $operator = (string)reset($parameters['row']['operator']);
+        $storageFolder = (int)$parameters['row']['pid'];
 
         if ($itemUid && !empty($operator) && !in_array($operator, ['set', 'notset'])) {
-            $item = $this->itemRepository->findByUid($itemUid, ['Option', 'FileReference']);
+            $this->setItemProvider($storageFolder);
+            $item = $this->itemProvider->findByUid($itemUid);
 
             if (($item instanceof AbstractChoice) && $item->hasOptions()) {
                 $content = $this->renderSelectBox($item, $parameters);

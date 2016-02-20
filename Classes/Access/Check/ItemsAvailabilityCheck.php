@@ -16,7 +16,7 @@ namespace PatrickBroens\Pbsurvey\Access\Check;
 
 use PatrickBroens\Pbsurvey\Access\AccessProvider;
 use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
-use PatrickBroens\Pbsurvey\Domain\Repository\PageRepository;
+use PatrickBroens\Pbsurvey\DataProvider\DataProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -42,18 +42,13 @@ class ItemsAvailabilityCheck
     {
         // Skip if there is already an error
         if (!$accessProvider->hasError()) {
-            $storageFolderUid = $configuration->getStorageFolder();
+            /** @var DataProvider $dataProvider */
+            $dataProvider = GeneralUtility::makeInstance(DataProvider::class);
+            $pageProvider = $dataProvider->getProvider('page');
+            $itemProvider = $dataProvider->getProvider('item');
 
-            /** @var PageRepository $pageRepository */
-            $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-            $pages = $pageRepository->findByPid($storageFolderUid);
-
-            $pageCount = count($pages);
-            $itemCount = 0;
-
-            foreach ($pages as $page) {
-                $itemCount += $page->getItemCount();
-            }
+            $pageCount = $pageProvider->getCount();
+            $itemCount = $itemProvider->getCount();
 
             if (
                 $pageCount === 0

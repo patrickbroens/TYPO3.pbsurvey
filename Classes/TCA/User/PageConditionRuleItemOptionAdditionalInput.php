@@ -49,9 +49,11 @@ class PageConditionRuleItemOptionAdditionalInput extends ItemControl
 
         $itemUid = (int)$parameters['row']['item'];
         $operator = (string)reset($parameters['row']['operator']);
+        $storageFolder = (int)$parameters['row']['pid'];
 
         if ($itemUid && !empty($operator) && !in_array($operator, ['set', 'notset'])) {
-            $item = $this->itemRepository->findByUid($itemUid);
+            $this->setItemProvider($storageFolder);
+            $item = $this->itemProvider->findByUid($itemUid);
 
             if (
                 ($item instanceof AbstractOpenEnded)

@@ -14,8 +14,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use PatrickBroens\Pbsurvey\DataProvider\OptionProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Option repository
@@ -23,11 +24,27 @@ use PatrickBroens\Pbsurvey\Domain\Model\Option;
 class OptionRepository extends AbstractRepository
 {
     /**
+     * @var OptionProvider
+     */
+    protected $optionProvider;
+
+    /**
+     * Constructor
+     *
+     * Set the option provider
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->optionProvider = $this->dataProvider->getProvider('option');
+    }
+
+    /**
      * @param int $itemUid The uid of the survey item
-     * @param array $loadObjects The nested models which should be loaded
      * @return Option[]
      */
-    public function findByItem($itemUid, $loadObjects = [])
+    public function findByParentId($itemUid)
     {
         $options = [];
 
@@ -54,7 +71,7 @@ class OptionRepository extends AbstractRepository
         }
 
         while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $options[] = $this->setOptionFromRecord($record, $loadObjects);
+            $options[] = $this->setOptionFromRecord($record);
         }
 
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
@@ -101,13 +118,15 @@ class OptionRepository extends AbstractRepository
      * Set an option from a database record
      *
      * @param array $record The database record
-     * @param array $loadObjects The nested models which should be loaded
      * @return Option The option
      */
-    protected function setOptionFromRecord($record, $loadObjects)
+    protected function setOptionFromRecord($record)
     {
+        /** @var Option $option */
         $option = GeneralUtility::makeInstance(Option::class);
         $option->populate($record);
+
+        $this->optionProvider->addSingle($option);
 
         return $option;
     }

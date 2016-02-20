@@ -23,11 +23,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ScoreRepository extends AbstractRepository
 {
     /**
-     * @param int $itemUid The uid of the survey item
-     * @param array $loadObjects The nested models which should be loaded
+     * @param int $contentElementUid The uid of the survey content element
      * @return Score[]
      */
-    public function findByContentElement($contentElementUid, $loadObjects = [])
+    public function findByContentElement($contentElementUid)
     {
         $scores = [];
 
@@ -53,7 +52,7 @@ class ScoreRepository extends AbstractRepository
         }
 
         while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $scores[] = $this->setScoreFromRecord($record, $loadObjects);
+            $scores[] = $this->setScoreFromRecord($record);
         }
 
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
@@ -65,10 +64,9 @@ class ScoreRepository extends AbstractRepository
      * Set a score from a database record
      *
      * @param array $record The database record
-     * @param array $loadObjects The nested models which should be loaded
      * @return Score The score
      */
-    protected function setScoreFromRecord($record, $loadObjects)
+    protected function setScoreFromRecord($record)
     {
         $option = GeneralUtility::makeInstance(Score::class);
         $option->populate($record);

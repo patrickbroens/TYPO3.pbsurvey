@@ -67,8 +67,10 @@ class PageConditionRule extends ItemControl
         $operatorId = reset($parameters['row']['operator']);
         $optionUid = $parameters['row']['item_option'];
         $additionalText = $parameters['row']['item_option_additional'];
+        $storageFolder = $parameters['row']['pid'];
 
-        $item = $this->itemRepository->findByUid($itemUid, ['Option', 'FileReference']);
+        $this->setItemProvider($storageFolder);
+        $item = $this->itemProvider->findByUid($itemUid);
 
         if ($item && ($item instanceof AbstractQuestion)) {
             $question = $item->getQuestion();
