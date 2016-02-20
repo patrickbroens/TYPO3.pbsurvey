@@ -101,6 +101,4 @@ class AccessProvider implements SingletonInterface
     {
         $this->errorControllerName = $errorControllerName;
     }
-
-
 }
