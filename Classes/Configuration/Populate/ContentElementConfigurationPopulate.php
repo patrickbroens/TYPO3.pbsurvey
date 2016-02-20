@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Configuration\Populator;
+namespace PatrickBroens\Pbsurvey\Configuration\Populate;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -21,9 +21,9 @@ use PatrickBroens\Pbsurvey\Utility\Reflection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Application configuration populator for content element settings
+ * Configuration populator for content element settings
  */
-class ContentElementConfigurationPopulator implements ConfigurationPopulatorInterface
+class ContentElementConfigurationPopulate implements ConfigurationPopulateInterface
 {
     /**
      * Populate the application configuration based on settings in the content element

@@ -91,16 +91,16 @@ if (TYPO3_MODE === 'BE') {
     // Populate the configuration with the TypoScript configuration
     $signalSlotDispatcher->connect(
         \PatrickBroens\Pbsurvey\Configuration\ConfigurationInitializer::class,
-        'PopulateConfiguration',
-        \PatrickBroens\Pbsurvey\Configuration\Populator\TypoScriptConfigurationPopulator::class,
+        'ConfigurationPopulate',
+        \PatrickBroens\Pbsurvey\Configuration\Populate\TypoScriptConfigurationPopulate::class,
         'populate'
     );
 
     // Populate the configuration with settings from the content element
     $signalSlotDispatcher->connect(
         \PatrickBroens\Pbsurvey\Configuration\ConfigurationInitializer::class,
-        'PopulateConfiguration',
-        \PatrickBroens\Pbsurvey\Configuration\Populator\ContentElementConfigurationPopulator::class,
+        'ConfigurationPopulate',
+        \PatrickBroens\Pbsurvey\Configuration\Populate\ContentElementConfigurationPopulate::class,
         'populate'
     );
 

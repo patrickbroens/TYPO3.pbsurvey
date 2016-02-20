@@ -65,17 +65,17 @@ class ConfigurationInitializer
         $this->contentElementConfiguration = $contentElementConfiguration;
         $this->typoScriptConfiguration = $typoScriptConfiguration;
 
-        $this->emitPopulateConfigurationSignal();
+        $this->emitConfigurationPopulateSignal();
     }
 
     /**
      * Emit signal to populate the configuration
      */
-    protected function emitPopulateConfigurationSignal()
+    protected function emitConfigurationPopulateSignal()
     {
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
-            'PopulateConfiguration',
+            'ConfigurationPopulate',
             [
                 $this->configurationProvider,
                 $this->typoScriptConfiguration,
