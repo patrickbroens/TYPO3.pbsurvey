@@ -87,9 +87,8 @@ class Page extends AbstractModel
     public function addConditionGroups(array $conditionGroups)
     {
         foreach ($conditionGroups as $conditionGroup) {
-            /** @var $conditionGroup AbstractItem */
             if ($conditionGroup instanceof PageConditionGroup) {
-                $this->addItem($conditionGroup);
+                $this->addConditionGroup($conditionGroup);
             }
         }
     }
