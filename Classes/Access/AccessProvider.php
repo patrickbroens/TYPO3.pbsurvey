@@ -79,7 +79,7 @@ class AccessProvider implements SingletonInterface
      */
     public function setError($error)
     {
-        $this->hasError = $error;
+        $this->error = $error;
     }
 
     /**
