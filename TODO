@@ -88,3 +88,26 @@ tx_pbsurvey_page
 ================
 
 conditions => condition_groups - Changed to IRRE
+
+tx_pbsurvey_result
+==================
+
+rename fields to more readable ones
+
+add a field answers and connect these with parentid
+
+tx_pbsurvey_answer
+==================
+
+Rename field "result" to parent_id
+Lot of renaming and coupling of other records:
+
+answer => open
+col => option
+row => option_row
+question => item
+
+ALL
+===
+
+Rename all parentid fields to parent_uid, in the models etc. to parentUid
