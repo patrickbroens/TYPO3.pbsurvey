@@ -15,7 +15,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
-use PatrickBroens\Pbsurvey\Survey\OptionProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -24,21 +23,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class OptionRepository extends AbstractRepository
 {
     /**
-     * @var OptionProvider
-     */
-    protected $optionProvider;
-
-    /**
-     * Constructor
+     * Find an option by its parent id
      *
-     * Set the option provider
-     */
-    public function __construct()
-    {
-        $this->optionProvider = GeneralUtility::makeInstance(OptionProvider::class);
-    }
-
-    /**
      * @param int $itemUid The uid of the survey item
      * @return Option[]
      */
@@ -123,8 +109,6 @@ class OptionRepository extends AbstractRepository
         /** @var Option $option */
         $option = GeneralUtility::makeInstance(Option::class);
         $option->populate($record);
-
-        $this->optionProvider->addSingle($option);
 
         return $option;
     }

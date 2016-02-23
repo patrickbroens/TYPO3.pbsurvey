@@ -14,30 +14,35 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use PatrickBroens\Pbsurvey\Domain\Model\Answer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Option row repository
+ * Answer repository
  */
-class OptionRowRepository extends AbstractRepository
+class AnswerRepository extends AbstractRepository
 {
     /**
-     * @param int $itemUid The uid of the survey item
-     * @return OptionRow[]
+     * Find answer by parent id
+     *
+     * @param int $parentId The result uid
+     * @return Answer[]
      */
-    public function findByParentId($itemUid)
+    public function findByParentId($parentId = 0)
     {
-        $rows = [];
+        $answers = [];
 
         $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
             '
                 uid,
-                name
+                item,
+                item_option,
+                item_option_row,
+                open
             ',
-            'tx_pbsurvey_option_row',
+            'tx_pbsurvey_answer',
             '
-                parentid = ' . (int)$itemUid . '
+                parent_id = ' . (int)$parentId . '
                 AND hidden = 0
                 AND deleted = 0
             ',
@@ -47,30 +52,30 @@ class OptionRowRepository extends AbstractRepository
 
         if ($this->getDatabaseConnection()->sql_error()) {
             $this->getDatabaseConnection()->sql_free_result($databaseResource);
-            return $rows;
+            return $answers;
         }
 
         while ($record = $this->getDatabaseConnection()->sql_fetch_assoc($databaseResource)) {
-            $rows[] = $this->setOptionRowFromRecord($record);
+            $answers[] = $this->setAnswerFromRecord($record);
         }
 
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
 
-        return $rows;
+        return $answers;
     }
 
     /**
-     * Set an option row from a database record
+     * Set an answer from a database record
      *
      * @param array $record The database record
-     * @return OptionRow The option row
+     * @return Answer The answer
      */
-    protected function setOptionRowFromRecord($record)
+    protected function setAnswerFromRecord($record)
     {
-        /** @var OptionRow $optionRow */
-        $optionRow = GeneralUtility::makeInstance(OptionRow::class);
-        $optionRow->populate($record);
+        /** @var Answer $answer */
+        $answer = GeneralUtility::makeInstance(Answer::class);
+        $answer->populate($record);
 
-        return $optionRow;
+        return $answer;
     }
 }

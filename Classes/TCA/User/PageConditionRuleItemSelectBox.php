@@ -15,15 +15,14 @@ namespace PatrickBroens\Pbsurvey\TCA\User;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
-use PatrickBroens\Pbsurvey\Survey\PageConditionGroupProvider;
-use PatrickBroens\Pbsurvey\TCA\PageControl;
+use PatrickBroens\Pbsurvey\TCA\Control;
 use TYPO3\CMS\Backend\Form\Element\UserElement;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Fills the select box for questions in the condition rules in TCA ItemsProcFunc
  */
-class PageConditionRuleItemSelectBox extends PageControl
+class PageConditionRuleItemSelectBox extends Control
 {
     /**
      * The template root paths
@@ -55,12 +54,18 @@ class PageConditionRuleItemSelectBox extends PageControl
         } else {
             $this->setPageProvider($storageFolder);
 
-            /** @var PageConditionGroupProvider $pageConditionGroupProvider */
-            $pageConditionGroupProvider = GeneralUtility::makeInstance(PageConditionGroupProvider::class);
-            $currentGroup = $pageConditionGroupProvider->findByUid($groupUid);
-            $parentPage = $currentGroup->getParentid();
+            $pages = $this->pageProvider->getPages();
 
-            $pagesBeforeCurrentPage = $this->pageProvider->findBeforePage($parentPage);
+            $pagesBeforeCurrentPage = null;
+
+            foreach ($pages as $page) {
+                if ($page->hasConditionGroup($groupUid)) {
+                    $parentPage = $page->getUid();
+                    $pagesBeforeCurrentPage = $this->pageProvider->findBeforePage($parentPage);
+
+                    break;
+                }
+            }
 
             if ($pagesBeforeCurrentPage) {
                 if ($this->hasQuestions($pagesBeforeCurrentPage)) {

@@ -18,12 +18,12 @@ use TYPO3\CMS\Backend\Form\Container\InlineControlContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use PatrickBroens\Pbsurvey\TCA\PageControl;
+use PatrickBroens\Pbsurvey\TCA\Control;
 
 /**
  * Custom controls for page condition group inline form element
  */
-class PageConditionGroup extends PageControl
+class PageConditionGroup extends Control
 {
     /**
      * The template root paths

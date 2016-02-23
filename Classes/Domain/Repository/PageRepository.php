@@ -14,11 +14,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
-use PatrickBroens\Pbsurvey\Survey\PageProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -26,30 +24,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class PageRepository extends AbstractRepository
 {
-    /**
-     * The page provider
-     *
-     * @var PageProvider
-     */
-    protected $pageProvider;
-
-    /**
-     * The configuration provider
-     *
-     * @var ConfigurationProvider
-     */
-    protected $configurationProvider;
-
-    /**
-     * Constructor
-     *
-     * Set the page provider
-     */
-    public function __construct()
-    {
-        $this->pageProvider = GeneralUtility::makeInstance(PageProvider::class);
-    }
-
     /**
      * Find survey pages by pid
      *
@@ -107,8 +81,6 @@ class PageRepository extends AbstractRepository
 
         $page->addItems($this->getItems($page));
         $page->addConditionGroups($this->getConditionGroups($page));
-
-        $this->pageProvider->addSingle($page);
 
         return $page;
     }

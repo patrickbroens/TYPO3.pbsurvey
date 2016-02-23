@@ -19,7 +19,6 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
 use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
-use PatrickBroens\Pbsurvey\Survey\ItemProvider;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,22 +28,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ItemRepository extends AbstractRepository
 {
-    /**
-     * @var ItemProvider
-     */
-    protected $itemProvider;
-
-    /**
-     * Constructor
-     *
-     * Set the item provider
-     */
-    public function __construct()
-    {
-
-        $this->itemProvider = GeneralUtility::makeInstance(ItemProvider::class);
-    }
-
     /**
      * @param int $parentId The uid of the parent survey page
      * @return AbstractItem[]
@@ -120,8 +103,6 @@ class ItemRepository extends AbstractRepository
         if (is_callable([$itemClassName, 'addRows'])) {
             $item->addRows($this->getOptionRows($item));
         }
-
-        $this->itemProvider->addSingle($item);
 
         return $item;
     }

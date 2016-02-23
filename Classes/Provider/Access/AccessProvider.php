@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Access;
+namespace PatrickBroens\Pbsurvey\Provider\Access;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,12 +14,10 @@ namespace PatrickBroens\Pbsurvey\Access;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\SingletonInterface;
-
 /**
  * Access provider
  */
-class AccessProvider implements SingletonInterface
+class AccessProvider
 {
     /**
      * Does the respondent have access to the survey?

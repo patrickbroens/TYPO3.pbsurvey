@@ -4,13 +4,13 @@ return [
         'crdate' => 'crdate',
         'default_sortby' => 'score ASC',
         'delete' => 'deleted',
+        'hideTable' => true,
         'label' => 'score',
         'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Score.xlf:title',
         'tstamp' => 'tstamp',
         'typeicon_classes' => [
             'default' => 'mimetypes-x-tx_pbsurvey_score'
-        ],
-
+        ]
     ],
     'interface' => [
         'showRecordFieldList' => '

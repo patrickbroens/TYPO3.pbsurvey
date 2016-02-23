@@ -17,12 +17,12 @@ namespace PatrickBroens\Pbsurvey\TCA\User;
 use TYPO3\CMS\Backend\Form\Element\UserElement;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
-use PatrickBroens\Pbsurvey\TCA\ItemControl;
+use PatrickBroens\Pbsurvey\TCA\Control;
 
 /**
  * Fills the select box for answers in the condition rules in TCA ItemsProcFunc
  */
-class PageConditionRuleItemOptionSelectBox extends ItemControl
+class PageConditionRuleItemOptionSelectBox extends Control
 {
     /**
      * The template root paths
@@ -51,8 +51,8 @@ class PageConditionRuleItemOptionSelectBox extends ItemControl
         $storageFolder = (int)$parameters['row']['pid'];
 
         if ($itemUid && !empty($operator) && !in_array($operator, ['set', 'notset'])) {
-            $this->setItemProvider($storageFolder);
-            $item = $this->itemProvider->findByUid($itemUid);
+            $this->setPageProvider($storageFolder);
+            $item = $this->getItemByUid($itemUid);
 
             if (($item instanceof AbstractChoice) && $item->hasOptions()) {
                 $content = $this->renderSelectBox($item, $parameters);

@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Configuration\Populate;
+namespace PatrickBroens\Pbsurvey\Provider\Configuration\Populate;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Configuration\Populate;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
+use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
 
 /**
  * Configuration populator interface
@@ -31,5 +31,4 @@ interface ConfigurationPopulateInterface
         array $typoScriptConfiguration,
         array $contentObjectConfiguration
     );
-
 }

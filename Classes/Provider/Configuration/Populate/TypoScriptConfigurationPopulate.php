@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Configuration\Populate;
+namespace PatrickBroens\Pbsurvey\Provider\Configuration\Populate;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Configuration\Populate;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
+use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Utility\Reflection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;

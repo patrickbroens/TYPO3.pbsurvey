@@ -16,12 +16,12 @@ namespace PatrickBroens\Pbsurvey\TCA\LabelUserFunc;
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
-use PatrickBroens\Pbsurvey\TCA\ItemControl;
+use PatrickBroens\Pbsurvey\TCA\Control;
 
 /**
  * Create label for page condition rules
  */
-class PageConditionRule extends ItemControl
+class PageConditionRule extends Control
 {
     /**
      * The operators
@@ -69,8 +69,8 @@ class PageConditionRule extends ItemControl
         $additionalText = $parameters['row']['item_option_additional'];
         $storageFolder = $parameters['row']['pid'];
 
-        $this->setItemProvider($storageFolder);
-        $item = $this->itemProvider->findByUid($itemUid);
+        $this->setPageProvider($storageFolder);
+        $item = $this->getItemByUid($itemUid);
 
         if ($item && ($item instanceof AbstractQuestion)) {
             $question = $item->getQuestion();

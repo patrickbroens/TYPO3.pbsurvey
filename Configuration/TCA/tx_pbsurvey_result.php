@@ -1,116 +1,126 @@
 <?php
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results',
-        'label' => 'uid',
-        'tstamp' => 'tstamp',
         'crdate' => 'crdate',
+        'default_sortby' => 'uid ASC',
         'delete' => 'deleted',
-        'enablecolumns' => [
-            'disabled' => 'hidden',
-        ],
+        'label' => 'uid',
+        //'readOnly' => true,
+        'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:title',
+        'tstamp' => 'tstamp',
+        'typeicon_classes' => [
+            'default' => 'mimetypes-x-tx_pbsurvey_result'
+        ]
     ],
     'interface' => [
         'showRecordFieldList' => '
-            hidden,
-            user,
-            ip,
+            answers,
+            fe_user,
             finished,
-            begintstamp,
-            endtstamp,
+            ip,
             language_uid,
-            answers
+            timestamp_begin,
+            timestamp_end
         '
     ],
     'columns' => [
-        'hidden' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
+        'answers' => [
+            'l10n_mode' => 'prefixLangTitle',
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.answers',
             'config' => [
-                'type' => 'check',
-                'default' => '0',
+                'type' => 'inline',
+                'foreign_table' => 'tx_pbsurvey_answer',
+                'foreign_field' => 'parentid',
+                'foreign_label' => 'item',
+                'maxitems' => 999,
+                'appearance' => [
+                    'collapseAll' => true,
+                    'expandSingle' => true,
+                    'useSortable' => true
+                ]
             ]
         ],
-        'user' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.user',
+        'fe_user' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.fe_user',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'fe_users',
                 'size' => 1,
                 'minitems' => 0,
-                'maxitems' => 1,
-            ]
-        ],
-        'ip' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.ip',
-            'config' => [
-                'type' => 'input',
-                'size' => '15',
-                'max' => '15',
+                'maxitems' => 1
             ]
         ],
         'finished' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.finished',
+            'exclude' => true,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.finished',
             'config' => [
                 'type' => 'check',
-                'default' => '0',
+                'default' => 0
             ]
         ],
-        'begintstamp' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.begintstamp',
+        'ip' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.ip',
             'config' => [
                 'type' => 'input',
-                'size' => '8',
-                'max' => '20',
-                'eval' => 'datetime',
-            ]
-        ],
-        'endtstamp' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.endtstamp',
-            'config' => [
-                'type' => 'input',
-                'size' => '8',
-                'max' => '20',
-                'eval' => 'datetime',
+                'size' => 15,
+                'max' => 15
             ]
         ],
         'language_uid' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.language',
+            'exclude' => true,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.language_uid',
             'config' => [
-                'type' => 'input',
-                'size' => '15',
-                'max' => '15',
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'sys_language',
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1
             ]
         ],
-        'history' => [
-            'exclude' => 0,
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.history',
+        'timestamp_begin' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.timestamp_begin',
             'config' => [
-                'type' => 'text',
-                'cols' => '30',
-                'rows' => '5',
-            ],
+                'type' => 'input',
+                'size' => 8,
+                'max' => 20,
+                'eval' => 'datetime'
+            ]
         ],
+        'timestamp_end' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.timestamp_end',
+            'config' => [
+                'type' => 'input',
+                'size' => 8,
+                'max' => 20,
+                'eval' => 'datetime'
+            ]
+        ]
     ],
     'types' => [
         1 => [
             'showitem' => '
-                hidden;;1,
-                user,
-                ip,
-                finished,
-                begintstamp,
-                endtstamp,
-                language_uid,
-                answers,
-                history
+                    fe_user,
+                    ip,
+                    finished,
+                    --palette--;;1,
+                    language_uid,
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:tab.answers,
+                    answers
+            '
+        ]
+    ],
+    'palettes' => [
+        1 => [
+            'showitem' => '
+                timestamp_begin,
+                timestamp_end
             '
         ]
     ]

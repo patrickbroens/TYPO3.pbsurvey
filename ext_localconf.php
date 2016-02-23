@@ -90,17 +90,37 @@ if (TYPO3_MODE === 'BE') {
 
     // Populate the configuration with the TypoScript configuration
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Configuration\ConfigurationInitializer::class,
+        \PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationInitializer::class,
         'ConfigurationPopulate',
-        \PatrickBroens\Pbsurvey\Configuration\Populate\TypoScriptConfigurationPopulate::class,
+        \PatrickBroens\Pbsurvey\Provider\Configuration\Populate\TypoScriptConfigurationPopulate::class,
         'populate'
     );
 
     // Populate the configuration with settings from the content element
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Configuration\ConfigurationInitializer::class,
+        \PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationInitializer::class,
         'ConfigurationPopulate',
-        \PatrickBroens\Pbsurvey\Configuration\Populate\ContentElementConfigurationPopulate::class,
+        \PatrickBroens\Pbsurvey\Provider\Configuration\Populate\ContentElementConfigurationPopulate::class,
+        'populate'
+    );
+
+    /**
+     * Register slots for populating the user
+     */
+
+    // Populate the user with data from FrontendUserAuthentication
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Provider\User\UserInitializer::class,
+        'UserPopulate',
+        \PatrickBroens\Pbsurvey\Provider\User\Populate\FrontendUserPopulate::class,
+        'populate'
+    );
+
+    // Populate the user with result data
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Provider\User\UserInitializer::class,
+        'UserPopulate',
+        \PatrickBroens\Pbsurvey\Provider\User\Populate\ResultPopulate::class,
         'populate'
     );
 
@@ -110,16 +130,23 @@ if (TYPO3_MODE === 'BE') {
 
     // Check the maximum amount of responses to one survey
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Access\AccessInitializer::class,
+        \PatrickBroens\Pbsurvey\Provider\Access\AccessInitializer::class,
         'AccessCheck',
-        \PatrickBroens\Pbsurvey\Access\Check\MaximumAmountOfResponsesCheck::class,
+        \PatrickBroens\Pbsurvey\Provider\Access\Check\MaximumAmountOfResponsesCheck::class,
         'check'
     );
 
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Access\AccessInitializer::class,
+        \PatrickBroens\Pbsurvey\Provider\Access\AccessInitializer::class,
         'AccessCheck',
-        \PatrickBroens\Pbsurvey\Access\Check\ItemsAvailabilityCheck::class,
+        \PatrickBroens\Pbsurvey\Provider\Access\Check\ItemsAvailabilityCheck::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Provider\Access\AccessInitializer::class,
+        'AccessCheck',
+        \PatrickBroens\Pbsurvey\Provider\Access\Check\MaximumAmountOfUserResponsesCheck::class,
         'check'
     );
 }

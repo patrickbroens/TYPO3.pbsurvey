@@ -17,12 +17,12 @@ namespace PatrickBroens\Pbsurvey\TCA\ItemsProcFunc;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
-use PatrickBroens\Pbsurvey\TCA\ItemControl;
+use PatrickBroens\Pbsurvey\TCA\Control;
 
 /**
  * Fills the select box for operators in the condition rules in TCA ItemsProcFunc
  */
-class PageConditionRuleOperatorSelectBox extends ItemControl
+class PageConditionRuleOperatorSelectBox extends Control
 {
     /**
      * The operator groups
@@ -64,7 +64,7 @@ class PageConditionRuleOperatorSelectBox extends ItemControl
         $storageFolder = (int)$parameters['row']['pid'];
 
         if ($itemUid) {
-            $this->setItemProvider($storageFolder);
+            $this->setPageProvider($storageFolder);
             $operators = $this->getOperatorsFromItem($itemUid);
 
             if (empty($selectedOperator)) {
@@ -95,7 +95,7 @@ class PageConditionRuleOperatorSelectBox extends ItemControl
         $operators = [];
 
         /** @var AbstractQuestion $item */
-        $item = $this->itemProvider->findByUid($itemUid);
+        $item = $this->getItemByUid($itemUid);
 
         if ($item) {
             $itemOperatorGroups = $item->getAllowedConditionOperatorGroups();

@@ -10,8 +10,7 @@ return [
         'tstamp' => 'tstamp',
         'typeicon_classes' => [
             'default' => 'mimetypes-x-tx_pbsurvey_option_row'
-        ],
-
+        ]
     ],
     'interface' => [
         'showRecordFieldList' => '

@@ -3,10 +3,9 @@ return [
     'ctrl' => [
         'crdate' => 'crdate',
         'delete' => 'deleted',
-        'enablecolumns' => [
-            'disabled' => 'hidden'
-        ],
+        'hideTable' => true,
         'label' => 'question',
+        //'readOnly' => true,
         'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:title',
         'tstamp' => 'tstamp',
         'typeicon_classes' => [
@@ -15,46 +14,16 @@ return [
     ],
     'interface' => [
         'showRecordFieldList' => '
-            answer,
-            col,
-            hidden,
-            question,
-            result,
-            row
+            item,
+            item_option,
+            item_option_row,
+            open
         '
     ],
     'columns' => [
-        'answer' => [
+        'item' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:field.answer',
-            'config' => [
-                'type' => 'text',
-                'cols' => 30,
-                'rows' => 5
-            ]
-        ],
-        'col' => [
-            'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:field.col',
-            'config' => [
-                'type' => 'input',
-                'size' => 3,
-                'eval' => 'int',
-                'checkbox' => false
-            ]
-        ],
-        'hidden' => [
-            'l10n_mode' => 'mergeIfNotBlank',
-            'exclude' => true,
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
-            'config' => [
-                'type' => 'check',
-                'default' => 1
-            ]
-        ],
-        'question' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:field.question',
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:field.item',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -64,38 +33,47 @@ return [
                 'maxitems' => 1
             ]
         ],
-        'result' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:field.result',
+        'item_option' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:field.item_option',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
-                'allowed' => 'tx_pbsurvey_results',
+                'allowed' => 'tx_pbsurvey_option',
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1
             ]
         ],
-        'row' => [
+        'item_option_row' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:field.row',
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:field.item_option_row',
             'config' => [
-                'type' => 'input',
-                'size' => 3,
-                'eval' => 'int',
-                'checkbox' => false
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'tx_pbsurvey_option_row',
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1
+            ]
+        ],
+        'open' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Answer.xlf:field.open',
+            'config' => [
+                'type' => 'text',
+                'cols' => 30,
+                'rows' => 5
             ]
         ]
     ],
     'types' => [
         1 => [
             'showitem' => '
-                hidden,
-                result,
-                question,
-                row,
-                col,
-                answer
+                item,
+                item_option_row,
+                item_option,
+                open
             '
         ]
     ]

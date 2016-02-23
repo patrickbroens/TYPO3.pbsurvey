@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Survey;
+namespace PatrickBroens\Pbsurvey\Provider\Element;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,15 +15,13 @@ namespace PatrickBroens\Pbsurvey\Survey;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
-use PatrickBroens\Pbsurvey\Domain\Repository\PageRepository;
 use PatrickBroens\Pbsurvey\Utility\ArrayUtility;
-use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Survey page provider
  */
-class PageProvider implements SingletonInterface
+class PageProvider
 {
     /**
      * The survey pages
@@ -40,6 +38,30 @@ class PageProvider implements SingletonInterface
     public function addSingle(Page $page)
     {
         $this->pages[$page->getUid()] = $page;
+    }
+
+    /**
+     * Add pages
+     *
+     * @param Page[] $pages
+     */
+    public function addPages(array $pages)
+    {
+        foreach ($pages as $page) {
+            if ($page instanceof Page) {
+                $this->addSingle($page);
+            }
+        }
+    }
+
+    /**
+     * Get the pages
+     *
+     * @return Page[]
+     */
+    public function getPages()
+    {
+        return $this->pages;
     }
 
     /**
@@ -60,19 +82,8 @@ class PageProvider implements SingletonInterface
      *
      * @return int
      */
-    public function getCount()
+    public function getPageCount()
     {
         return count($this->pages);
-    }
-
-    /**
-     * Populate the page provider and all underlying objects
-     *
-     * @param int $storageFolder The storage folder
-     */
-    public function populate($storageFolder)
-    {
-        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        $pageRepository->findByPid($storageFolder);
     }
 }

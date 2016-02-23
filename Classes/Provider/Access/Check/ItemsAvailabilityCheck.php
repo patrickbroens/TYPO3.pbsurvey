@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Access\Check;
+namespace PatrickBroens\Pbsurvey\Provider\Access\Check;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,10 +14,10 @@ namespace PatrickBroens\Pbsurvey\Access\Check;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Access\AccessProvider;
-use PatrickBroens\Pbsurvey\Configuration\ConfigurationProvider;
-use PatrickBroens\Pbsurvey\Survey\ItemProvider;
-use PatrickBroens\Pbsurvey\Survey\PageProvider;
+use PatrickBroens\Pbsurvey\Provider\Access\AccessProvider;
+use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
+use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
+use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -35,19 +35,27 @@ class ItemsAvailabilityCheck implements AccessCheckInterface
      *
      * @param AccessProvider $accessProvider The access provider
      * @param ConfigurationProvider $configurationProvider The configuration provider
+     * @param PageProvider $pageProvider The page provider
+     * @param UserProvider $userProvider The user provider
      */
     public function check(
         AccessProvider $accessProvider,
-        ConfigurationProvider $configurationProvider
+        ConfigurationProvider $configurationProvider,
+        PageProvider $pageProvider,
+        UserProvider $userProvider
     )
     {
         // Skip if there is already an error
         if (!$accessProvider->hasError()) {
-            $pageProvider = GeneralUtility::makeInstance(PageProvider::class);
-            $itemProvider = GeneralUtility::makeInstance(ItemProvider::class);
+            $pageCount = $pageProvider->getPageCount();
+            $itemCount = 0;
 
-            $pageCount = $pageProvider->getCount();
-            $itemCount = $itemProvider->getCount();
+            $pages = $pageProvider->getPages();
+            foreach ($pages as $page) {
+                if ($page->hasItems()) {
+                    $itemCount += $page->getItemCount();
+                }
+            }
 
             if (
                 $pageCount === 0

@@ -14,7 +14,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Survey\PageConditionRuleProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionGroup;
 use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
@@ -24,23 +23,6 @@ use PatrickBroens\Pbsurvey\Domain\Model\PageConditionRule;
  */
 class PageConditionRuleRepository extends AbstractRepository
 {
-    /**
-     * The page condition rule provider
-     *
-     * @var PageConditionRuleProvider
-     */
-    protected $pageConditionRuleProvider;
-
-    /**
-     * Constructor
-     *
-     * Set the page condition rule provider
-     */
-    public function __construct()
-    {
-        $this->pageConditionRuleProvider = GeneralUtility::makeInstance(PageConditionRuleProvider::class);
-    }
-
     /**
      * @param int $pageConditionGroupUid The uid of the page condition group
      * @return PageConditionGroup[]
@@ -92,8 +74,6 @@ class PageConditionRuleRepository extends AbstractRepository
         /** @var PageConditionRule $pageConditionRule */
         $pageConditionRule = GeneralUtility::makeInstance(PageConditionRule::class);
         $pageConditionRule->populate($record);
-
-        $this->pageConditionRuleProvider->addSingle($pageConditionRule);
 
         return $pageConditionRule;
     }

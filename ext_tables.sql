@@ -44,17 +44,17 @@ CREATE TABLE tx_pbsurvey_answer (
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 
 	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
-	answer text NOT NULL,
-	col int(11) unsigned DEFAULT '0' NOT NULL,
-	question int(11) unsigned DEFAULT '0' NOT NULL,
-	result int(11) unsigned DEFAULT '0' NOT NULL,
-	row int(11) DEFAULT '0' NOT NULL,
+	item int(11) unsigned DEFAULT '0' NOT NULL,
+	item_option int(11) unsigned DEFAULT '0' NOT NULL,
+	item_option_row int(11) DEFAULT '0' NOT NULL,
+	open text NOT NULL,
+
+	parentid int(11) unsigned DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY parent (result)
+	KEY parent (parentid)
 );
 
 #
@@ -341,15 +341,14 @@ CREATE TABLE tx_pbsurvey_result (
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 
 	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
-	begintstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	endtstamp int(11) unsigned DEFAULT '0' NOT NULL,
+	answers int(11) unsigned DEFAULT '0' NOT NULL,
+	fe_user int(11) unsigned DEFAULT '0' NOT NULL,
 	finished tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	history text,
 	ip varchar(78) NOT NULL DEFAULT '',
-	language_uid tinytext NOT NULL,
-	user int(11) unsigned DEFAULT '0' NOT NULL,
+	language_uid int(11) unsigned DEFAULT '0' NOT NULL,
+	timestamp_begin int(11) unsigned DEFAULT '0' NOT NULL,
+	timestamp_end int(11) unsigned DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid)

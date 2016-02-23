@@ -50,6 +50,34 @@ class Page extends AbstractModel
     protected $title;
 
     /**
+     * Check if a condition group is available
+     *
+     * @param int $uid The uid of the condition group
+     * @return bool true if available
+     */
+    public function hasConditionGroup($uid)
+    {
+        return isset($this->conditionGroups[$uid]) && !empty($this->conditionGroups[$uid]);
+    }
+
+    /**
+     * Get a condition group by its uid
+     *
+     * @param int $uid The uid of the condition group
+     * @return null|PageConditionGroup
+     */
+    public function getConditionGroup($uid)
+    {
+        $conditionGroup = null;
+
+        if ($this->hasConditionGroup($uid)) {
+            $conditionGroup = $this->conditionGroups[$uid];
+        }
+
+        return $conditionGroup;
+    }
+
+    /**
      * Check if the page contains condition groups
      *
      * @return bool true when condition groups are available
@@ -76,7 +104,7 @@ class Page extends AbstractModel
      */
     public function addConditionGroup(PageConditionGroup $conditionGroup)
     {
-        $this->conditionGroups[] = $conditionGroup;
+        $this->conditionGroups[$conditionGroup->getUid()] = $conditionGroup;
     }
 
     /**

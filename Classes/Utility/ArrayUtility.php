@@ -77,5 +77,25 @@ class ArrayUtility
 
         return $newArray;
     }
+
+    /**
+     * Count the keyword in an array
+     *
+     * @param array $array The haystack
+     * @param mixed $keyword The needle
+     * @return int
+     */
+    public static function countByKeyword(array $array, $keyword)
+    {
+        return count(
+            array_filter(
+                $array,
+                function($value) use ($keyword)
+                {
+                    return $value === $keyword;
+                }
+            )
+        );
+    }
 }
 

@@ -14,7 +14,10 @@ namespace PatrickBroens\Pbsurvey\TCA;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Survey\DataInitializer;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
+use PatrickBroens\Pbsurvey\Domain\Model\Page;
+use PatrickBroens\Pbsurvey\Provider\Element\ElementInitializer;
+use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Lang\LanguageService;
@@ -39,11 +42,18 @@ class Control
     protected $view;
 
     /**
-     * The data initializer
+     * The element initializer
      *
-     * @var DataInitializer
+     * @var ElementInitializer
      */
-    protected $dataInitializer;
+    protected $elementInitializer;
+
+    /**
+     * The page provider
+     *
+     * @var PageProvider
+     */
+    protected $pageProvider;
 
     /**
      * Constructor
@@ -54,7 +64,85 @@ class Control
     {
         $this->setView(static::$templateRootPaths);
 
-        $this->dataInitializer = GeneralUtility::makeInstance(DataInitializer::class);
+        $this->elementInitializer = GeneralUtility::makeInstance(ElementInitializer::class);
+    }
+
+    /**
+     * Initialize the element provider and set the page provider
+     *
+     * @param int $storagePage The page uid where the element initializer has to collect the data
+     */
+    public function setPageProvider($storagePage)
+    {
+        $this->pageProvider = $this->elementInitializer->initialize((int)$storagePage);
+    }
+
+    /**
+     * Get an item by its uid
+     *
+     * @param int $uid The uid of the item
+     * @return null|AbstractQuestion
+     */
+    protected function getItemByUid($uid)
+    {
+        $output = null;
+
+        $pages = $this->pageProvider->getPages();
+
+        foreach ($pages as $page) {
+            if ($page->hasItems()) {
+                foreach($page->getItems() as $item) {
+                    if (
+                        $item instanceof AbstractQuestion
+                        && $item->getUid() === $uid
+                    ) {
+                        $output = $item;
+                    }
+                }
+            }
+        }
+
+        return $output;
+    }
+
+    /**
+     * Check if there are questions and not only presentation items in the pages
+     *
+     * @param Page[] $pagesBeforeCurrentPage The pages
+     * @return bool true if there are questions
+     */
+    protected function hasQuestions($pagesBeforeCurrentPage)
+    {
+        $questionAmount = 0;
+
+        /** @var Page $page */
+        foreach ($pagesBeforeCurrentPage as $page) {
+            if ($page->hasItems()) {
+                /** @var AbstractQuestion $item */
+                foreach($page->getItems() as $item) {
+                    if (
+                        $item instanceof AbstractQuestion
+                        && !empty($item->getAllowedConditionOperatorGroups())
+                    ) {
+                        $questionAmount++;
+                    }
+                }
+            }
+        }
+
+        return (bool)$questionAmount;
+    }
+
+    /**
+     * Render the warning markup when the page record has not been saved yet
+     *
+     * @return string The warning markup
+     */
+    protected function renderSaveWarning()
+    {
+        $this->view->setTemplate('SaveWarning');
+
+        return $this->view->render();
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Configuration;
+namespace PatrickBroens\Pbsurvey\Provider\Configuration;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,7 +15,6 @@ namespace PatrickBroens\Pbsurvey\Configuration;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Score;
-use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * Configuration provider
@@ -24,7 +23,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * TypoScript is loaded first, everything set in tt_content overrides TypoScript
  */
-class ConfigurationProvider implements SingletonInterface
+class ConfigurationProvider
 {
     /**
      * Respondent Access Level
@@ -271,6 +270,13 @@ class ConfigurationProvider implements SingletonInterface
      * @var array
      */
     protected $templateRootPaths;
+
+    /**
+     * The uid of the content element
+     *
+     * @var int
+     */
+    protected $uid;
 
     /**
      * Form validation method
@@ -983,6 +989,26 @@ class ConfigurationProvider implements SingletonInterface
     public function setTemplateRootPaths(array $templateRootPaths)
     {
         $this->templateRootPaths = $templateRootPaths;
+    }
+
+    /**
+     * Get the uid of the content element
+     *
+     * @return int
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * Set the uid of the content element
+     *
+     * @param int $uid The uid
+     */
+    public function setUid($uid)
+    {
+        $this->uid = (int)$uid;
     }
 
     /**

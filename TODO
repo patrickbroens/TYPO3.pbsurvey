@@ -106,8 +106,22 @@ answer => open
 col => option
 row => option_row
 question => item
+result => parentid
+
+tx_pbsurvey_result
+==================
+
+user => fe_user
+begintstamp => timestamp_begin
+endtstamp =>
 
 ALL
 ===
 
 Rename all parentid fields to parent_uid, in the models etc. to parentUid
+
+COOKIE
+======
+
+Format
+$COOKIE['pbsurvey_(CONTENT_ELEMENT_UID)'][RESULT_UID] = 1; where 1 means finished

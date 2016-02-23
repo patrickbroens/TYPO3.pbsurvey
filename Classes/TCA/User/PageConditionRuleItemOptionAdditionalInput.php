@@ -18,12 +18,12 @@ use TYPO3\CMS\Backend\Form\Element\UserElement;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
-use PatrickBroens\Pbsurvey\TCA\ItemControl;
+use PatrickBroens\Pbsurvey\TCA\Control;
 
 /**
  * Make an input field for an additional answer in the condition rules in TCA
  */
-class PageConditionRuleItemOptionAdditionalInput extends ItemControl
+class PageConditionRuleItemOptionAdditionalInput extends Control
 {
     /**
      * The template root paths
@@ -52,8 +52,8 @@ class PageConditionRuleItemOptionAdditionalInput extends ItemControl
         $storageFolder = (int)$parameters['row']['pid'];
 
         if ($itemUid && !empty($operator) && !in_array($operator, ['set', 'notset'])) {
-            $this->setItemProvider($storageFolder);
-            $item = $this->itemProvider->findByUid($itemUid);
+            $this->setPageProvider($storageFolder);
+            $item = $this->getItemByUid($itemUid);
 
             if (
                 ($item instanceof AbstractOpenEnded)

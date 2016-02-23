@@ -1,6 +1,6 @@
 tt_content.pbsurvey = USER
 tt_content.pbsurvey {
-	userFunc = PatrickBroens\Pbsurvey\Controller\Dispatcher->execute
+	userFunc = PatrickBroens\Pbsurvey\Controller\Bootstrap->execute
 
 	templateRootPaths {
 		0 = {$configuration.pbsurvey.templateRootPath}

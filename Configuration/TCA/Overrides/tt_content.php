@@ -28,7 +28,7 @@ $extraTtContentColumns = [
     'pbsurvey_anonymous_mode' => [
         'exclude' => true,
         'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/TtContent.xlf:field.anonymousMode',
-        'displayCond' => 'FIELD:pbsurvey_entering_stage:IN:1,3',
+        'displayCond' => 'FIELD:pbsurvey_access_level:IN:1,3',
         'config' => [
             'type' => 'select',
             'items' => [
@@ -116,7 +116,7 @@ $extraTtContentColumns = [
     'pbsurvey_cookie_lifetime' => [
         'exclude' => true,
         'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/TtContent.xlf:field.cookieLifetime',
-        'displayCond' => 'FIELD:pbsurvey_mail_send_type:=:2',
+        'displayCond' => 'FIELD:pbsurvey_access_level:IN:1,3',
         'config' => [
             'type' => 'input',
             'size' => 4,
