@@ -55,7 +55,7 @@ class Bootstrap
         $pageProvider = $this->initializeElements($configurationProvider);
         $userProvider = $this->initializeUser($configurationProvider, $serverRequest);
         $accessProvider = $this->initializeAccess($configurationProvider, $pageProvider, $userProvider);
-var_dump($accessProvider);exit;
+
         if (!$accessProvider->hasAccess()) {
             $controllerName = $accessProvider->getErrorControllerName();
             $content = $this->dispatch($controllerName);
