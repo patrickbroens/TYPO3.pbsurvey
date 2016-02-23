@@ -37,7 +37,6 @@ class MaximumAmountOfUserResponsesCheck implements AccessCheckInterface
      * @param ConfigurationProvider $configurationProvider The configuration provider
      * @param PageProvider $pageProvider The page provider
      * @param UserProvider $userProvider The user provider
-     * @return
      */
     public function check(
         AccessProvider $accessProvider,
