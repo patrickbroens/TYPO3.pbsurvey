@@ -14,11 +14,11 @@ namespace PatrickBroens\Pbsurvey\Provider;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Provider\Access\AccessInitializer;
+use PatrickBroens\Pbsurvey\Provider\Access\AccessFactory;
 use PatrickBroens\Pbsurvey\Provider\Access\AccessProvider;
-use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationInitializer;
+use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationFactory;
 use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
-use PatrickBroens\Pbsurvey\Provider\Element\ElementInitializer;
+use PatrickBroens\Pbsurvey\Provider\Element\ElementFactory;
 use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
 use PatrickBroens\Pbsurvey\Provider\User\UserInitializer;
 use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
@@ -28,22 +28,22 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * Provider initializer
+ * Central point to get all providers
  */
-class ProviderInitializer
+class ProviderFactory
 {
     /**
-     * Initialize the server request
+     * Get the server request
      *
      * @return ServerRequest
      */
-    public static function initializeServerRequest()
+    public static function getServerRequest()
     {
         return ServerRequestFactory::fromGlobals();
     }
 
     /**
-     * Initialize the configuration
+     * Get the configuration
      *
      * This will be constructed from TypoScript and content element settings
      *
@@ -51,40 +51,40 @@ class ProviderInitializer
      * @param ContentObjectRenderer $contentObjectRenderer The content object renderer
      * @return ConfigurationProvider
      */
-    public static function initializeConfiguration(
+    public static function getConfiguration(
         array $typoScriptConfiguration,
         ContentObjectRenderer $contentObjectRenderer
     )
     {
-        /** @var ConfigurationInitializer ConfigurationInitializer */
-        $configurationInitializer = GeneralUtility::makeInstance(ConfigurationInitializer::class);
-        return $configurationInitializer->initialize(
+        /** @var ConfigurationFactory $configurationFactory */
+        $configurationFactory = GeneralUtility::makeInstance(ConfigurationFactory::class);
+        return $configurationFactory->initialize(
             $typoScriptConfiguration,
             $contentObjectRenderer->data
         );
     }
 
     /**
-     * Initialize the elements
+     * Get the elements
      *
      * @param ConfigurationProvider $configurationProvider The configuration provider
      * @return PageProvider
      */
-    public static function initializeElements(ConfigurationProvider $configurationProvider)
+    public static function getElements(ConfigurationProvider $configurationProvider)
     {
-        /** @var ElementInitializer elementInitializer */
-        $elementInitializer = GeneralUtility::makeInstance(ElementInitializer::class);
-        return $elementInitializer->initialize($configurationProvider->getStorageFolder());
+        /** @var ElementFactory $elementFactory */
+        $elementFactory = GeneralUtility::makeInstance(ElementFactory::class);
+        return $elementFactory->initialize($configurationProvider->getStorageFolder());
     }
 
     /**
-     * Initialize the user
+     * Get the user
      *
      * @param ConfigurationProvider $configurationProvider The configuration provider
      * @param ServerRequest $serverRequest The server request
      * @return UserProvider
      */
-    public static function initializeUser(
+    public static function getUser(
         ConfigurationProvider $configurationProvider,
         ServerRequest $serverRequest
     )
@@ -95,21 +95,21 @@ class ProviderInitializer
     }
 
     /**
-     * Initialize the access
+     * Get the access
      *
      * @param ConfigurationProvider $configurationProvider The configuration provider
      * @param PageProvider $pageProvider The page provider
      * @param UserProvider $userProvider The user provider
      * @return AccessProvider
      */
-    public static function initializeAccess(
+    public static function getAccess(
         ConfigurationProvider $configurationProvider,
         PageProvider $pageProvider,
         UserProvider $userProvider
     )
     {
-        /** @var AccessInitializer $accessInitializer */
-        $accessInitializer = GeneralUtility::makeInstance(AccessInitializer::class);
-        return $accessInitializer->initialize($configurationProvider, $pageProvider, $userProvider);
+        /** @var AccessFactory $accessFactory */
+        $accessFactory = GeneralUtility::makeInstance(AccessFactory::class);
+        return $accessFactory->initialize($configurationProvider, $pageProvider, $userProvider);
     }
 }

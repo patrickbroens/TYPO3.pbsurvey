@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Provider\ProviderInitializer;
+use PatrickBroens\Pbsurvey\Provider\ProviderFactory;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Http\ServerRequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,6 +29,7 @@ class Bootstrap
      * The content object renderer
      *
      * This value is magically set by the content element
+     * Therefor it should remain public
      *
      * @var ContentObjectRenderer
      */
@@ -43,18 +44,16 @@ class Bootstrap
      */
     public function execute($content, array $typoScriptConfiguration)
     {
-        $serverRequest = ProviderInitializer::initializeServerRequest();
-        $configurationProvider = ProviderInitializer::initializeConfiguration($typoScriptConfiguration, $this->cObj);
-        $pageProvider = ProviderInitializer::initializeElements($configurationProvider);
-        $userProvider = ProviderInitializer::initializeUser($configurationProvider, $serverRequest);
-        $accessProvider = ProviderInitializer::initializeAccess($configurationProvider, $pageProvider, $userProvider);
+        $serverRequest = ProviderFactory::getServerRequest();
+        $configuration = ProviderFactory::getConfiguration($typoScriptConfiguration, $this->cObj);
+        $pages = ProviderFactory::getElements($configuration);
+        $user = ProviderFactory::getUser($configuration, $serverRequest);
+        $access = ProviderFactory::getAccess($configuration, $pages, $user);
 
-        if (!$accessProvider->hasAccess()) {
-            $controllerName = $accessProvider->getErrorControllerName();
+        if (!$access->hasAccess()) {
+            $controllerName = $access->getErrorControllerName();
             $content = $this->dispatch($controllerName);
         }
-
-
 
         return $content;
     }

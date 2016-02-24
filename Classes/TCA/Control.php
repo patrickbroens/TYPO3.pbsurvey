@@ -16,7 +16,7 @@ namespace PatrickBroens\Pbsurvey\TCA;
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
-use PatrickBroens\Pbsurvey\Provider\Element\ElementInitializer;
+use PatrickBroens\Pbsurvey\Provider\Element\ElementFactory;
 use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -42,11 +42,11 @@ class Control
     protected $view;
 
     /**
-     * The element initializer
+     * The element factory
      *
-     * @var ElementInitializer
+     * @var ElementFactory
      */
-    protected $elementInitializer;
+    protected $elementFactory;
 
     /**
      * The page provider
@@ -64,7 +64,7 @@ class Control
     {
         $this->setView(static::$templateRootPaths);
 
-        $this->elementInitializer = GeneralUtility::makeInstance(ElementInitializer::class);
+        $this->elementFactory = GeneralUtility::makeInstance(ElementFactory::class);
     }
 
     /**
@@ -74,7 +74,7 @@ class Control
      */
     public function setPageProvider($storagePage)
     {
-        $this->pageProvider = $this->elementInitializer->initialize((int)$storagePage);
+        $this->pageProvider = $this->elementFactory->initialize((int)$storagePage);
     }
 
     /**

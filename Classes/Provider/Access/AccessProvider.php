@@ -15,7 +15,7 @@ namespace PatrickBroens\Pbsurvey\Provider\Access;
  */
 
 /**
- * Access provider
+ * Access class
  */
 class AccessProvider
 {

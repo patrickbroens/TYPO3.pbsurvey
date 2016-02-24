@@ -21,9 +21,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
- * Access initializer
+ * Access factory
  */
-class AccessInitializer
+class AccessFactory
 {
     /**
      * Initialize the access initializer

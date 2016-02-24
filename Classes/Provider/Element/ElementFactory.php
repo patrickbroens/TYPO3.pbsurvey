@@ -18,9 +18,9 @@ use PatrickBroens\Pbsurvey\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Element initializer
+ * Element factory
  */
-class ElementInitializer
+class ElementFactory
 {
     /**
      * Set the provider and populate it

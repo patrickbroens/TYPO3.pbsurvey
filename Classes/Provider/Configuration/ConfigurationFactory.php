@@ -18,9 +18,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
- * Configuration initializer
+ * Configuration factory
  */
-class ConfigurationInitializer
+class ConfigurationFactory
 {
     /**
      * Initialize the configuration initializer
