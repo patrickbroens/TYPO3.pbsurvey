@@ -52,6 +52,7 @@ if (TYPO3_MODE === 'BE') {
         'page-condition-group',
         'page-condition-rule',
         'result',
+        'stage',
         'score'
     ];
 
@@ -90,7 +91,7 @@ if (TYPO3_MODE === 'BE') {
 
     // Populate the configuration with the TypoScript configuration
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationInitializer::class,
+        \PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationFactory::class,
         'ConfigurationPopulate',
         \PatrickBroens\Pbsurvey\Provider\Configuration\Populate\TypoScriptConfigurationPopulate::class,
         'populate'
@@ -98,7 +99,7 @@ if (TYPO3_MODE === 'BE') {
 
     // Populate the configuration with settings from the content element
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationInitializer::class,
+        \PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationFactory::class,
         'ConfigurationPopulate',
         \PatrickBroens\Pbsurvey\Provider\Configuration\Populate\ContentElementConfigurationPopulate::class,
         'populate'
@@ -130,21 +131,21 @@ if (TYPO3_MODE === 'BE') {
 
     // Check the maximum amount of responses to one survey
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Provider\Access\AccessInitializer::class,
+        \PatrickBroens\Pbsurvey\Provider\Access\AccessFactory::class,
         'AccessCheck',
         \PatrickBroens\Pbsurvey\Provider\Access\Check\MaximumAmountOfResponsesCheck::class,
         'check'
     );
 
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Provider\Access\AccessInitializer::class,
+        \PatrickBroens\Pbsurvey\Provider\Access\AccessFactory::class,
         'AccessCheck',
         \PatrickBroens\Pbsurvey\Provider\Access\Check\ItemsAvailabilityCheck::class,
         'check'
     );
 
     $signalSlotDispatcher->connect(
-        \PatrickBroens\Pbsurvey\Provider\Access\AccessInitializer::class,
+        \PatrickBroens\Pbsurvey\Provider\Access\AccessFactory::class,
         'AccessCheck',
         \PatrickBroens\Pbsurvey\Provider\Access\Check\MaximumAmountOfUserResponsesCheck::class,
         'check'
