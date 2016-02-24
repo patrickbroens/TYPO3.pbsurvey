@@ -14,9 +14,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Answer;
 use PatrickBroens\Pbsurvey\Domain\Model\FrontendUser;
 use PatrickBroens\Pbsurvey\Domain\Model\Result;
+use PatrickBroens\Pbsurvey\Domain\Model\Stage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -236,19 +236,19 @@ class ResultRepository extends AbstractRepository
         $result = GeneralUtility::makeInstance(Result::class);
         $result->populate($record);
 
-        $result->addAnswers($this->getAnswers($result));
+        $result->addStages($this->getStages($result));
 
         return $result;
     }
 
     /**
-     * Get the answers
+     * Get the stages
      *
      * @param Result $result The result
-     * @return Answer[] The answers
+     * @return Stage[] The stages
      */
-    protected function getAnswers($result) {
-        $answerRepository = GeneralUtility::makeInstance(AnswerRepository::class);
-        return $answerRepository->findByParentId($result->getUid());
+    protected function getStages($result) {
+        $stageRepository = GeneralUtility::makeInstance(StageRepository::class);
+        return $stageRepository->findByParentId($result->getUid());
     }
 }

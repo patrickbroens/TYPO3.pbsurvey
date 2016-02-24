@@ -14,20 +14,11 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Answer;
-
 /**
  * Result
  */
 class Result extends AbstractModel
 {
-    /**
-     * The answers of this result
-     *
-     * @var Answer[]
-     */
-    protected $answers;
-
     /**
      * The frontend user
      *
@@ -57,6 +48,13 @@ class Result extends AbstractModel
     protected $languageUid;
 
     /**
+     * The stages of this result
+     *
+     * @var Stage[]
+     */
+    protected $stages;
+
+    /**
      * The timestamp when the respondent started with the survey
      *
      * @var int
@@ -69,40 +67,6 @@ class Result extends AbstractModel
      * @var int
      */
     protected $timestampEnd;
-
-    /**
-     * Get the answers
-     *
-     * @return Answer[]
-     */
-    public function getAnswers()
-    {
-        return $this->answers;
-    }
-
-    /**
-     * Add an answer
-     *
-     * @param Answer $answer The answer
-     */
-    public function addAnswer(Answer $answer)
-    {
-        $this->answers[$answer->getUid()] = $answer;
-    }
-
-    /**
-     * Set the answers
-     *
-     * @param Answer[] $answers The answers
-     */
-    public function addAnswers(array $answers)
-    {
-        foreach ($answers as $answer) {
-            if ($answer instanceof Answer) {
-                $this->addAnswer($answer);
-            }
-        }
-    }
 
     /**
      * Get the frontend user
@@ -182,6 +146,40 @@ class Result extends AbstractModel
     public function setLanguageUid($languageUid)
     {
         $this->languageUid = $languageUid;
+    }
+
+    /**
+     * Get the stages
+     *
+     * @return Stage[]
+     */
+    public function getStages()
+    {
+        return $this->stages;
+    }
+
+    /**
+     * Add a stage
+     *
+     * @param Stage $stage The stage
+     */
+    public function addStage(Stage $stage)
+    {
+        $this->stages[$stage->getUid()] = $stage;
+    }
+
+    /**
+     * Set the stages
+     *
+     * @param Stage[] $stages The stage
+     */
+    public function addStages(array $stages)
+    {
+        foreach ($stages as $stage) {
+            if ($stage instanceof Stage) {
+                $this->addStage($stage);
+            }
+        }
     }
 
     /**

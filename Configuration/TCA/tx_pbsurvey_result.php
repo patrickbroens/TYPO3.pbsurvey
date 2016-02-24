@@ -14,33 +14,16 @@ return [
     ],
     'interface' => [
         'showRecordFieldList' => '
-            answers,
             fe_user,
             finished,
             ip,
             language_uid,
+            stages,
             timestamp_begin,
             timestamp_end
         '
     ],
     'columns' => [
-        'answers' => [
-            'l10n_mode' => 'prefixLangTitle',
-            'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.answers',
-            'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_pbsurvey_answer',
-                'foreign_field' => 'parentid',
-                'foreign_label' => 'item',
-                'maxitems' => 999,
-                'appearance' => [
-                    'collapseAll' => true,
-                    'expandSingle' => true,
-                    'useSortable' => true
-                ]
-            ]
-        ],
         'fe_user' => [
             'exclude' => true,
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.fe_user',
@@ -82,6 +65,23 @@ return [
                 'maxitems' => 1
             ]
         ],
+        'stages' => [
+            'l10n_mode' => 'prefixLangTitle',
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.stages',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_pbsurvey_stage',
+                'foreign_field' => 'parentid',
+                'foreign_label' => 'page',
+                'maxitems' => 999,
+                'appearance' => [
+                    'collapseAll' => true,
+                    'expandSingle' => true,
+                    'useSortable' => true
+                ]
+            ]
+        ],
         'timestamp_begin' => [
             'exclude' => true,
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:field.timestamp_begin',
@@ -111,8 +111,8 @@ return [
                     finished,
                     --palette--;;1,
                     language_uid,
-                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:tab.answers,
-                    answers
+                --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Result.xlf:tab.stages,
+                    stages
             '
         ]
     ],

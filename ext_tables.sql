@@ -43,6 +43,8 @@ CREATE TABLE tx_pbsurvey_answer (
 
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 
+	sorting int(10) unsigned DEFAULT '0' NOT NULL,
+
 	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
 	item int(11) unsigned DEFAULT '0' NOT NULL,
@@ -342,11 +344,11 @@ CREATE TABLE tx_pbsurvey_result (
 
 	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
-	answers int(11) unsigned DEFAULT '0' NOT NULL,
 	fe_user int(11) unsigned DEFAULT '0' NOT NULL,
 	finished tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	ip varchar(78) NOT NULL DEFAULT '',
 	language_uid int(11) unsigned DEFAULT '0' NOT NULL,
+	stages int(11) unsigned DEFAULT '0' NOT NULL,
 	timestamp_begin int(11) unsigned DEFAULT '0' NOT NULL,
 	timestamp_end int(11) unsigned DEFAULT '0' NOT NULL,
 
@@ -377,4 +379,29 @@ CREATE TABLE tx_pbsurvey_score (
 	PRIMARY KEY (uid),
 	KEY pid (pid),
 	KEY parentid (parentid)
+);
+
+#
+# Table structure for table 'tx_pbsurvey_stage'
+#
+CREATE TABLE tx_pbsurvey_stage (
+	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
+	pid int(11) unsigned DEFAULT '0' NOT NULL,
+
+	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+
+	sorting int(10) unsigned DEFAULT '0' NOT NULL,
+
+	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
+
+	answers int(11) unsigned DEFAULT '0' NOT NULL,
+	page int(11) unsigned DEFAULT '0' NOT NULL,
+
+	parentid int(11) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid),
+	KEY parent (parentid)
 );

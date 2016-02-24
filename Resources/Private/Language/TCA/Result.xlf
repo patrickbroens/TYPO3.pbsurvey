@@ -6,9 +6,6 @@
 			<trans-unit id="title" xml:space="preserve">
 				<source>Result</source>
 			</trans-unit>
-			<trans-unit id="field.answers" xml:space="preserve">
-				<source>Answers</source>
-			</trans-unit>
 			<trans-unit id="field.fe_user" xml:space="preserve">
 				<source>Frontend user</source>
 			</trans-unit>
@@ -21,14 +18,17 @@
 			<trans-unit id="field.language_uid" xml:space="preserve">
 				<source>The language the survey was taken in</source>
 			</trans-unit>
+			<trans-unit id="field.stages" xml:space="preserve">
+				<source>Stages</source>
+			</trans-unit>
 			<trans-unit id="field.timestamp_begin" xml:space="preserve">
 				<source>Started the survey at</source>
 			</trans-unit>
 			<trans-unit id="field.timestamp_end" xml:space="preserve">
 				<source>Finished the survey at</source>
 			</trans-unit>
-			<trans-unit id="tab.answers" xml:space="preserve">
-				<source>Answers</source>
+			<trans-unit id="tab.stages" xml:space="preserve">
+				<source>Stages</source>
 			</trans-unit>
 		</body>
 	</file>
