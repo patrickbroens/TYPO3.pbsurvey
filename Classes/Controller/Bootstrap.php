@@ -14,14 +14,7 @@ namespace PatrickBroens\Pbsurvey\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Provider\Access\AccessInitializer;
-use PatrickBroens\Pbsurvey\Provider\Access\AccessProvider;
-use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationInitializer;
-use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
-use PatrickBroens\Pbsurvey\Provider\Element\ElementInitializer;
-use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
-use PatrickBroens\Pbsurvey\Provider\User\UserInitializer;
-use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
+use PatrickBroens\Pbsurvey\Provider\ProviderInitializer;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Http\ServerRequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -50,16 +43,18 @@ class Bootstrap
      */
     public function execute($content, array $typoScriptConfiguration)
     {
-        $serverRequest = $this->initializeServerRequest();
-        $configurationProvider = $this->initializeConfiguration($typoScriptConfiguration);
-        $pageProvider = $this->initializeElements($configurationProvider);
-        $userProvider = $this->initializeUser($configurationProvider, $serverRequest);
-        $accessProvider = $this->initializeAccess($configurationProvider, $pageProvider, $userProvider);
+        $serverRequest = ProviderInitializer::initializeServerRequest();
+        $configurationProvider = ProviderInitializer::initializeConfiguration($typoScriptConfiguration, $this->cObj);
+        $pageProvider = ProviderInitializer::initializeElements($configurationProvider);
+        $userProvider = ProviderInitializer::initializeUser($configurationProvider, $serverRequest);
+        $accessProvider = ProviderInitializer::initializeAccess($configurationProvider, $pageProvider, $userProvider);
 
         if (!$accessProvider->hasAccess()) {
             $controllerName = $accessProvider->getErrorControllerName();
             $content = $this->dispatch($controllerName);
         }
+
+
 
         return $content;
     }
@@ -77,83 +72,4 @@ class Bootstrap
 
         return $content;
     }
-
-    /**
-     * Initialize the server request
-     *
-     * @return ServerRequest
-     */
-    protected function initializeServerRequest()
-    {
-        return ServerRequestFactory::fromGlobals();
-    }
-
-    /**
-     * Initialize the configuration
-     *
-     * This will be constructed from TypoScript and content element settings
-     *
-     * @param array $typoScriptConfiguration The TypoScript configuration
-     * @return ConfigurationProvider
-     */
-    protected function initializeConfiguration(array $typoScriptConfiguration)
-    {
-        /** @var ConfigurationInitializer ConfigurationInitializer */
-        $configurationInitializer = GeneralUtility::makeInstance(ConfigurationInitializer::class);
-        return $configurationInitializer->initialize(
-            $typoScriptConfiguration,
-            $this->cObj->data
-        );
-    }
-
-    /**
-     * Initialize the elements
-     *
-     * @param ConfigurationProvider $configurationProvider The configuration provider
-     * @return PageProvider
-     */
-    protected function initializeElements(ConfigurationProvider $configurationProvider)
-    {
-        /** @var ElementInitializer elementInitializer */
-        $elementInitializer = GeneralUtility::makeInstance(ElementInitializer::class);
-        return $elementInitializer->initialize($configurationProvider->getStorageFolder());
-    }
-
-    /**
-     * Initialize the user
-     *
-     * @param ConfigurationProvider $configurationProvider The configuration provider
-     * @param ServerRequest $serverRequest The server request
-     * @return UserProvider
-     */
-    protected function initializeUser(
-        ConfigurationProvider $configurationProvider,
-        ServerRequest $serverRequest
-    )
-    {
-        /** @var UserInitializer $userInitializer */
-        $userInitializer = GeneralUtility::makeInstance(UserInitializer::class);
-        return $userInitializer->initialize($configurationProvider, $serverRequest);
-    }
-
-    /**
-     * Initialize the access
-     *
-     * @param ConfigurationProvider $configurationProvider The configuration provider
-     * @param PageProvider $pageProvider The page provider
-     * @param UserProvider $userProvider The user provider
-     * @return AccessProvider
-     */
-    protected function initializeAccess(
-        ConfigurationProvider $configurationProvider,
-        PageProvider $pageProvider,
-        UserProvider $userProvider
-    )
-    {
-        /** @var AccessInitializer $accessInitializer */
-        $accessInitializer = GeneralUtility::makeInstance(AccessInitializer::class);
-        return $accessInitializer->initialize($configurationProvider, $pageProvider, $userProvider);
-    }
-
-
 }

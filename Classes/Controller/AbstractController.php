@@ -14,7 +14,6 @@ namespace PatrickBroens\Pbsurvey\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Configuration\ApplicationConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Install\View\StandaloneView;
@@ -24,13 +23,6 @@ use TYPO3\CMS\Install\View\StandaloneView;
  */
 abstract class AbstractController
 {
-    /**
-     * The application configuration
-     *
-     * @var ApplicationConfiguration
-     */
-    protected $configuration;
-
     /**
      * The view
      *
@@ -45,8 +37,6 @@ abstract class AbstractController
      */
     public function __construct()
     {
-        $this->configuration = GeneralUtility::makeInstance(ApplicationConfiguration::class);
-
         $this->setView();
     }
 
