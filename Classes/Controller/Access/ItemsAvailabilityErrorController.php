@@ -14,12 +14,14 @@ namespace PatrickBroens\Pbsurvey\Controller\Access;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Controller\AbstractController;
+use PatrickBroens\Pbsurvey\Provider\Access\AccessProvider;
+use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
+use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
 
 /**
  * Error controller when there are no pages and items at all
  */
-class ItemsAvailabilityErrorController extends AbstractController
+class ItemsAvailabilityErrorController extends AbstractAccessController
 {
     /**
      * Display an error page

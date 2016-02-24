@@ -1,5 +1,5 @@
 <?php
-namespace PatrickBroens\Pbsurvey\Controller;
+namespace PatrickBroens\Pbsurvey\Controller\Access;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,29 +14,22 @@ namespace PatrickBroens\Pbsurvey\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Controller\AbstractController;
+use PatrickBroens\Pbsurvey\Provider\Access\AccessProvider;
 use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
-use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
 use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
-use TYPO3\CMS\Core\Http\ServerRequest;
 
 /**
- * Survey controller
+ * Abstract access controller
  */
-class SurveyController extends AbstractController
+abstract class AbstractAccessController extends AbstractController
 {
     /**
-     * The page provider
+     * The access provider
      *
-     * @var PageProvider
+     * @var AccessProvider
      */
-    protected $pages;
-
-    /**
-     * The server request
-     *
-     * @var ServerRequest
-     */
-    protected $serverRequest;
+    protected $access;
 
     /**
      * The user provider
@@ -48,34 +41,19 @@ class SurveyController extends AbstractController
     /**
      * Constructor
      *
-     * @param ServerRequest $serverRequest The server request
+     * @param AccessProvider $access The access provider
      * @param ConfigurationProvider $configuration The configuration provider
-     * @param PageProvider $pages The page provider
      * @param UserProvider $user The user provider
      */
     public function __construct(
-        ServerRequest $serverRequest,
+        AccessProvider $access,
         ConfigurationProvider $configuration,
-        PageProvider $pages,
         UserProvider $user
     )
     {
-        $this->serverRequest = $serverRequest;
-        $this->pages = $pages;
+        $this->access = $access;
         $this->user = $user;
 
         parent::__construct($configuration);
-    }
-
-    /**
-     * Display the survey
-     *
-     * @return string The rendered view
-     */
-    public function indexAction()
-    {
-
-        $this->view->setTemplate('Survey');
-        return $this->view->render();
     }
 }

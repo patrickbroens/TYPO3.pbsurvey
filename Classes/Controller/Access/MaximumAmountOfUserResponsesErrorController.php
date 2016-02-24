@@ -14,12 +14,14 @@ namespace PatrickBroens\Pbsurvey\Controller\Access;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Controller\AbstractController;
+use PatrickBroens\Pbsurvey\Provider\Access\AccessProvider;
+use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
+use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
 
 /**
  * Error controller when the maximum amount of user responses has been reached
  */
-class MaximumAmountOfUserResponsesErrorController extends AbstractController
+class MaximumAmountOfUserResponsesErrorController extends AbstractAccessController
 {
     /**
      * Display an error page
