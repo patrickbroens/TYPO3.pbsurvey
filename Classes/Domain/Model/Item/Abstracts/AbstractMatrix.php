@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Answer;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
 
 /**
@@ -28,4 +29,14 @@ abstract class AbstractMatrix extends AbstractChoice
      * $optionRows
      */
     use OptionRowsTrait;
+
+    /**
+     * Initialize this item
+     */
+    public function initialize()
+    {
+        foreach ($this->getOptionRows() as $optionRow) {
+            $optionRow->addOptions($this->getOptions());
+        }
+    }
 }

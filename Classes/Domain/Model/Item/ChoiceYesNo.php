@@ -16,6 +16,8 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractBoolean;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\DisplayTypeTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item type 5: Choice - Yes/No
@@ -45,11 +47,11 @@ class ChoiceYesNo extends AbstractBoolean
     protected $valueDefaultYesNo;
 
     /**
-     * Get the default value
+     * Get the default boolean value
      *
      * @return int
      */
-    public function getValueDefaultYesNo()
+    public function getValueDefaultBoolean()
     {
         return $this->valueDefaultYesNo;
     }

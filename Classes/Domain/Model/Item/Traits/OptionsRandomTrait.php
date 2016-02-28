@@ -13,6 +13,8 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Traits;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use PatrickBroens\Pbsurvey\Utility\ArrayUtility;
 
 /**
  * Options random trait
@@ -31,7 +33,7 @@ trait OptionsRandomTrait
      *
      * @return bool
      */
-    public function isRandom()
+    public function getRandom()
     {
         return $this->optionsRandom;
     }
@@ -44,5 +46,19 @@ trait OptionsRandomTrait
     public function setOptionsRandom($optionsRandom)
     {
         $this->optionsRandom = (bool)$optionsRandom;
+    }
+
+    /**
+     * Get the options shuffled
+     *
+     * @return Option[]
+     */
+    public function getRandomizedOptions()
+    {
+        if ($this->getRandom()) {
+            return ArrayUtility::shuffleArrayPreserveKeys($this->options);
+        } else {
+            return $this->options;
+        }
     }
 }

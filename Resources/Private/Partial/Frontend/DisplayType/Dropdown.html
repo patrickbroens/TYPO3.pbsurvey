@@ -1,0 +1,19 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<select name="pbsurvey_{configuration.uid}[{item.uid}][o]" id="pbsurvey-{configuration.uid}-{item.uid}">
+	<f:for each="{item.options}" as="option">
+		<f:if condition="{item.answers}">
+			<f:then>
+				<option value="{option.uid}"{f:if(condition: item.answers.{option.uid}, then: ' selected')}>{option.value}</option>
+			</f:then>
+			<f:else>
+				<option value="{option.uid}"{f:if(condition: '{valueDefault} == {option.uid}', then: ' selected')}>{option.value}</option>
+			</f:else>
+		</f:if>
+	</f:for>
+</select>
+
+</html>

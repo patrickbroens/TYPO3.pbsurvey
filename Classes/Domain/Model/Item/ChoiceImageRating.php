@@ -18,6 +18,10 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\FileReferenceTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\ImageConfigurationTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\NumberTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item type 24: Choice - Image rating
@@ -52,6 +56,14 @@ class ChoiceImageRating extends AbstractChoice
     use NumberTrait;
 
     /**
+     * TRAIT: OptionRowsTrait
+     *
+     * FIELDS:
+     * $optionRows
+     */
+    use OptionRowsTrait;
+
+    /**
      * The allowed condition operator groups
      *
      * @var array
@@ -61,4 +73,29 @@ class ChoiceImageRating extends AbstractChoice
         'containment',
         'provision'
     ];
+
+    /**
+     * Initialize this item
+     */
+    public function initialize()
+    {
+        $this->optionRows = [];
+
+        foreach ($this->fileReferences as $fileReference) {
+            /** @var OptionRow $optionRow */
+            $optionRow = GeneralUtility::makeInstance(OptionRow::class);
+            $optionRow->setUid($fileReference->getUid());
+
+            foreach ($this->getRange(count($this->fileReferences)) as $optionUid) {
+                /** @var Option $option */
+                $option = GeneralUtility::makeInstance(Option::class);
+                $option->setUid($optionUid);
+                $option->setValue($optionUid);
+
+                $optionRow->addOption($option);
+            }
+
+            $this->addOptionRow($optionRow);
+        }
+    }
 }

@@ -1,0 +1,83 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<div class="type-7{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
+	<f:render section="labelHeader" arguments="{_all}" />
+	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+
+	<div id="error-container-{item.uid}"></div>
+	<table id="error-class-{item.uid}" data-pbsurvey-matrix="{item.uid}">
+		<thead>
+			<tr>
+				<td>&nbsp;</td>
+				<f:for each="{item.options}" as="option">
+					<td>{option.value}</td>
+				</f:for>
+			</tr>
+		</thead>
+		<tbody>
+			<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
+				<tr>
+					<th>{optionRow.name}</th>
+					<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
+						<td>
+							<f:if condition="{optionRowIterator.index} == 0">
+								<f:then>
+									<f:if condition="{optionIterator.index} == 0">
+										<f:then>
+											<input
+												type="text"
+												name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][o][{option.uid}]"
+												value="{option.answer}"
+												{f:render(section: 'optionsRequired', arguments: '{_all}')}
+											/>
+										</f:then>
+										<f:else>
+											<input
+												type="text"
+												name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][o][{option.uid}]"
+												value="{option.answer}"
+											/>
+										</f:else>
+									</f:if>
+								</f:then>
+								<f:else>
+									<input
+										type="text"
+										name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][o][{option.uid}]"
+										value="{option.answer}"
+									/>
+								</f:else>
+							</f:if>
+						</td>
+					</f:for>
+				</tr>
+			</f:for>
+		</tbody>
+	</table>
+</div>
+
+<f:section name="labelHeader">
+	<h2 class="label">
+		{item.question}
+		<f:if condition="{item.optionsRequired}">
+			<em>
+				<f:render partial="translate" arguments="{key: 'item.label.enter.optionsRequired'}" />
+			</em>
+		</f:if>
+	</h2>
+</f:section>
+
+<f:section name="optionsRequired">
+	<f:if condition="{item.optionsRequired}">
+		data-parsley-validate-if-empty
+		data-parsley-matrix-text-required="1"
+		data-parsley-matrix-text-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.matrix.text.required', printf: {0: '1'}})}"
+		data-parsley-errors-container="#error-container-{item.uid}"
+		data-parsley-class-handler="#error-class-{item.uid}"
+	</f:if>
+</f:section>
+
+</html>

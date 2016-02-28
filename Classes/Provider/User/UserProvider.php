@@ -16,6 +16,11 @@ namespace PatrickBroens\Pbsurvey\Provider\User;
 
 use PatrickBroens\Pbsurvey\Domain\Model\FrontendUser;
 use PatrickBroens\Pbsurvey\Domain\Model\Result;
+use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
+use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * User provider
@@ -44,11 +49,25 @@ class UserProvider
     protected $lastResult;
 
     /**
+     * The current result
+     *
+     * @var Result
+     */
+    protected $result;
+
+    /**
      * The amount of results
      *
      * @var int
      */
     protected $resultAmount;
+
+    /**
+     * The session key
+     *
+     * @var string
+     */
+    protected $sessionKey;
 
     /**
      * Get the number of finished results
@@ -101,6 +120,16 @@ class UserProvider
     }
 
     /**
+     * Check if there is a last result
+     *
+     * @return bool
+     */
+    public function hasLastResult()
+    {
+        return !empty($this->lastResult);
+    }
+
+    /**
      * Get the last result
      *
      * @return Result
@@ -123,6 +152,36 @@ class UserProvider
     }
 
     /**
+     * Check if there is a result
+     *
+     * @return bool
+     */
+    public function hasResult()
+    {
+        return !empty($this->result);
+    }
+
+    /**
+     * Get the current result
+     *
+     * @return Result
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * Set the current result
+     *
+     * @param Result $result The result
+     */
+    public function setResult(Result $result)
+    {
+        $this->result = $result;
+    }
+
+    /**
      * Get the amount of results
      *
      * @return int
@@ -140,5 +199,197 @@ class UserProvider
     public function setResultAmount($resultAmount)
     {
         $this->resultAmount = (int)$resultAmount;
+    }
+
+    /**
+     * Check if there is a session
+     *
+     * @return bool
+     */
+    public function hasSession()
+    {
+        $session = false;
+
+        if ($this->getFrontendUserAuthentication()->getKey('ses', $this->sessionKey) !== null) {
+            $session = true;
+        }
+
+        return $session;
+    }
+
+    /**
+     * Set the session key
+     *
+     * @param string $sessionKey The session key
+     */
+    public function setSessionKey($sessionKey)
+    {
+        $this->sessionKey = (string)$sessionKey;
+    }
+
+    /**
+     * Start a session
+     *
+     * Fill the session with new data
+     *
+     * Only in the following access levels it is possible to update
+     * 1: Single Response
+     * 3: Single Response (Not Updateable after finish)
+     *
+     * Sets the stage to where the respondent left the survey if enteringStage === 1
+     *
+     * @param ConfigurationProvider $configuration The configuration
+     */
+    public function startSession(ConfigurationProvider $configuration)
+    {
+        $resultUid = $stage = 0;
+
+        if (
+            // Only access level 1 and 3 can update
+            $this->hasLastResult()
+            && (
+                $configuration->getAccessLevel() === 1
+                || $configuration->getAccessLevel() === 3
+            )
+        )
+        {
+            $resultUid = $this->getLastResult()->getUid();
+            $this->setResult($this->getLastResult());
+
+            // Set the stage where the respondent left the survey
+            if ($configuration->getEnteringStage() === 1) {
+                $stage = end($this->result->getStages())->getNumber();
+            }
+        }
+
+        $sessionData = [
+            'result' => $resultUid,
+            'stage' => $stage
+        ];
+
+        $this->setSessionData($sessionData);
+    }
+
+    /**
+     * Continue an existing session
+     *
+     * If the "back" button has been pushed, we go back in stage
+     * Following stages have to be removed and the stage must be lowered
+     */
+    public function continueSession(ServerRequest $serverRequest)
+    {
+        if ($this->hasLastResult()) {
+            $this->setResult($this->getLastResult());
+        }
+
+        if (
+            isset($serverRequest->getQueryParams()[$this->sessionKey])
+            && isset($serverRequest->getQueryParams()[$this->sessionKey]['back'])
+        ) {
+            $newStage = $this->result->getPreviousStage($this->getStageNumber());
+            $this->setStageNumber($newStage->getNumber());
+
+            $this->result->deleteStageAndUp($this->getStageNumber());
+        }
+    }
+
+    /**
+     * Get the result uid
+     *
+     * @return int
+     */
+    public function getResultUid()
+    {
+        return $this->getSessionData()['result'];
+    }
+
+    /**
+     * Set the result uid
+     *
+     * @param int $result The result uid
+     */
+    public function setResultUid($result)
+    {
+        $sessionData = $this->getSessionData();
+
+        $sessionData['result'] = (int)$result;
+
+        $this->setSessionData($sessionData);
+    }
+
+    /**
+     * Get the page number
+     *
+     * This is the stage number + 1
+     *
+     * @return int
+     */
+    public function getPageNumber()
+    {
+        return $this->getStageNumber() + 1;
+    }
+
+    /**
+     * Get the stage number
+     *
+     * @return int
+     */
+    public function getStageNumber()
+    {
+        return $this->getSessionData()['stage'];
+    }
+
+    /**
+     * Set the stage
+     *
+     * @param int $stage The stage
+     */
+    public function setStageNumber($stage)
+    {
+        $sessionData = $this->getSessionData();
+
+        $sessionData['stage'] = (int)$stage;
+
+        $this->setSessionData($sessionData);
+    }
+
+    /**
+     * Get the session data
+     *
+     * @return array
+     */
+    protected function getSessionData()
+    {
+        return $this->getFrontendUserAuthentication()->getSessionData($this->sessionKey);
+    }
+
+    /**
+     * Set the session data
+     *
+     * @param array $sessionData The session data
+     */
+    protected function setSessionData(array $sessionData)
+    {
+        $this->getFrontendUserAuthentication()->setAndSaveSessionData($this->sessionKey, $sessionData);
+    }
+
+    /**
+     * Get the frontend user authentication
+     *
+     * @return FrontendUserAuthentication
+     */
+    protected function getFrontendUserAuthentication()
+    {
+        return $this->getTypoScriptFrontendController()->fe_user;
+    }
+
+    /**
+     * Get the TypoScript frontend controller
+     *
+     * @return TypoScriptFrontendController
+     */
+    protected function getTypoScriptFrontendController()
+    {
+        return $GLOBALS['TSFE'];
     }
 }

@@ -17,6 +17,7 @@ namespace PatrickBroens\Pbsurvey\Provider\Access\Check;
 use PatrickBroens\Pbsurvey\Provider\Access\AccessProvider;
 use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
+use PatrickBroens\Pbsurvey\Provider\Session\SessionProvider;
 use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

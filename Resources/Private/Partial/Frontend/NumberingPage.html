@@ -1,0 +1,20 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<div class="numbering-page">
+	<f:switch expression="{numberingPage}">
+		<f:case value="1">
+			<f:render partial="NumberingPage/ProgressBar" arguments="{_all}" />
+		</f:case>
+		<f:case value="2">
+			<f:render partial="NumberingPage/XofY" arguments="{_all}" />
+		</f:case>
+		<f:case value="3">
+			<f:render partial="NumberingPage/Number" arguments="{_all}" />
+		</f:case>
+	</f:switch>
+</div>
+
+</html>

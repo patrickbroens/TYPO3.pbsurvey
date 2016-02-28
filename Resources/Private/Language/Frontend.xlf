@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
+		<header/>
+		<body>
+			<trans-unit id="item.answersAdditionalPlaceholder" xml:space="preserve">
+				<source>Additional answer</source>
+			</trans-unit>
+			<trans-unit id="item.answersNone" xml:space="preserve">
+				<source>-- None --</source>
+			</trans-unit>
+			<trans-unit id="item.error.optionsRequired.select.multiple" xml:space="preserve">
+				<source>Select at least one value</source>
+			</trans-unit>
+			<trans-unit id="item.error.optionsRequired.select.ranking" xml:space="preserve">
+				<source>Ranking %1$d is missing</source>
+			</trans-unit>
+			<trans-unit id="item.error.optionsRequired.select.single" xml:space="preserve">
+				<source>Select a value</source>
+			</trans-unit>
+			<trans-unit id="item.error.matrix.mincheck" xml:space="preserve">
+				<source>Not all of %1$d options have been selected</source>
+			</trans-unit>
+			<trans-unit id="item.error.matrix.mincheck.single" xml:space="preserve">
+				<source>Please select at least %1$d value(s)</source>
+			</trans-unit>
+			<trans-unit id="item.error.matrix.text.required" xml:space="preserve">
+				<source>Enter at least %1$d value</source>
+			</trans-unit>
+			<trans-unit id="item.error.optionsResponsesMaximum" xml:space="preserve">
+				<source>Please select no more than %1$d value(s)</source>
+			</trans-unit>
+			<trans-unit id="item.error.optionsResponsesMinimum" xml:space="preserve">
+				<source>Please select at least %1$d value(s)</source>
+			</trans-unit>
+			<trans-unit id="item.error.optionsResponsesRange" xml:space="preserve">
+				<source>Please select at least %1$d and no more than %2$d values</source>
+			</trans-unit>
+			<trans-unit id="item.label.enter.optionsRequired" xml:space="preserve">
+				<source>Enter at least 1 value</source>
+			</trans-unit>
+			<trans-unit id="item.label.imageRating" xml:space="preserve">
+				<source>Optional, but you can rank the items below. An option can only be used once</source>
+			</trans-unit>
+			<trans-unit id="item.label.imageRating.optionsRequired" xml:space="preserve">
+				<source>Rank the items below. An option can only be used once</source>
+			</trans-unit>
+			<trans-unit id="item.label.imageRating.optionsRequired" xml:space="preserve">
+				<source>Rank the items below. An option can only be used once</source>
+			</trans-unit>
+			<trans-unit id="item.label.optionsRequired" xml:space="preserve">
+				<source>Mandatory</source>
+			</trans-unit>
+			<trans-unit id="item.label.select.optionsResponsesMinimum.optionsResponsesMaximum" xml:space="preserve">
+				<source>Optional, but at least %1$d and no more than %2$d values</source>
+			</trans-unit>
+			<trans-unit id="item.label.select.optionsResponsesMinimum" xml:space="preserve">
+				<source>Optional, but at least %1$d values</source>
+			</trans-unit>
+			<trans-unit id="item.label.select.optionsResponsesMaximum" xml:space="preserve">
+				<source>Optional, no more than %1$d value(s)</source>
+			</trans-unit>
+			<trans-unit id="item.label.select.optionsRequired.optionsResponsesMinimum.optionsResponsesMaximum" xml:space="preserve">
+				<source>Select at least %1$d and no more than %2$d values</source>
+			</trans-unit>
+			<trans-unit id="item.label.select.optionsRequired.optionsResponsesMinimum" xml:space="preserve">
+				<source>Select at least %1$d value(s)</source>
+			</trans-unit>
+			<trans-unit id="item.label.select.optionsRequired.optionsResponsesMaximum" xml:space="preserve">
+				<source>Select at least 1 and no more than %1$d values</source>
+			</trans-unit>
+			<trans-unit id="item.label.select.optionsRequired" xml:space="preserve">
+				<source>Select at least 1 value</source>
+			</trans-unit>
+			<trans-unit id="page.error.title" xml:space="preserve">
+				<source>Please check the form!</source>
+			</trans-unit>
+			<trans-unit id="page.error.message" xml:space="preserve">
+				<source>Some error(s) have occured.</source>
+			</trans-unit>
+			<trans-unit id="page.numbering.number" xml:space="preserve">
+				<source>Page %1$d</source>
+			</trans-unit>
+			<trans-unit id="page.numbering.progressBar" xml:space="preserve">
+				<source>Page %1$d of %2$d</source>
+			</trans-unit>
+			<trans-unit id="page.numbering.XofY" xml:space="preserve">
+				<source>Page %1$d of %2$d</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

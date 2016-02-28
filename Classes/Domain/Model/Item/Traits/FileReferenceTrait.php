@@ -42,19 +42,6 @@ trait FileReferenceTrait
     }
 
     /**
-     * Check if option exists
-     *
-     * In this case an option is a file reference
-     *
-     * @param int $fileReferenceUid The file reference uid
-     * @return bool true if file reference exists
-     */
-    public function hasOption($fileReferenceUid)
-    {
-        return $this->hasFileReference($fileReferenceUid);
-    }
-
-    /**
      * Check if the item contains file references
      *
      * @return bool true when file references are available
@@ -62,18 +49,6 @@ trait FileReferenceTrait
     public function hasFileReferences()
     {
         return !empty($this->fileReferences);
-    }
-
-    /**
-     * Check if the item contains options (answers)
-     *
-     * In this case an option is a file reference
-     *
-     * @return bool true when options are available
-     */
-    public function hasOptions()
-    {
-        return $this->hasFileReferences();
     }
 
     /**
@@ -94,32 +69,6 @@ trait FileReferenceTrait
     }
 
     /**
-     * Get an option by its uid
-     *
-     * In this case an option is a file reference
-     *
-     * @param int $fileReferenceUid The file reference uid
-     * @return null|Option The option
-     */
-    public function getOption($fileReferenceUid)
-    {
-        $option = null;
-
-        if ($this->hasOption($fileReferenceUid)) {
-            $fileReference = $this->fileReferences[$fileReferenceUid];
-
-            $name = $fileReference->getName();
-            $title = $fileReference->getTitle();
-
-            $option = GeneralUtility::makeInstance(Option::class);
-            $option->setUid($fileReferenceUid);
-            $option->setValue($title ?: $name);
-        }
-
-        return $option;
-    }
-
-    /**
      * Get the file references
      *
      * @return FileReference[]
@@ -127,22 +76,6 @@ trait FileReferenceTrait
     public function getFileReferences()
     {
         return $this->fileReferences;
-    }
-
-    /**
-     * Get the options
-     *
-     * @return Option[]
-     */
-    public function getOptions()
-    {
-        $options = [];
-
-        foreach ($this->fileReferences as $fileReference) {
-            $options[] = $this->getOption($fileReference->getUid());
-        }
-
-        return $options;
     }
 
     /**

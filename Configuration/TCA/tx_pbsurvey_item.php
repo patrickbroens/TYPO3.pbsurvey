@@ -90,7 +90,8 @@ return [
             'displayCond' => 'FIELD:answers_additional_allow:=:1',
             'config' => [
                 'type' => 'input',
-                'size' => 30
+                'size' => 30,
+                'eval' => 'required'
             ]
         ],
         'answers_additional_type' => [
@@ -197,7 +198,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.file_reference',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'image',
+                'file_reference',
                 [
                     'appearance' => [
                         'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
@@ -250,7 +251,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.file_references',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'image',
+                'file_references',
                 [
                     'appearance' => [
                         'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
@@ -443,6 +444,7 @@ return [
                 'foreign_field' => 'parentid',
                 'foreign_label' => 'name',
                 'maxitems' => 99,
+                'minitems' => 1,
                 'appearance' => [
                     'collapseAll' => true,
                     'expandSingle' => true,
@@ -790,7 +792,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 3,
-                'eval' => 'int',
+                'eval' => 'int, required',
                 'checkbox' => 0,
                 'default' => 5
             ]
@@ -803,7 +805,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 3,
-                'eval' => 'int',
+                'eval' => 'int, required',
                 'checkbox' => 0,
                 'default' => 20
             ]

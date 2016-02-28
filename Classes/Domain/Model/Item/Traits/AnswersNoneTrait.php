@@ -31,7 +31,7 @@ trait AnswersNoneTrait
      *
      * @return bool
      */
-    public function addNone()
+    public function getAnswersNone()
     {
         return $this->answersNone;
     }

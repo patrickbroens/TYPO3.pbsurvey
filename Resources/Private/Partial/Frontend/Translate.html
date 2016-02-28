@@ -1,0 +1,20 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:pb="http://typo3.org/ns/PatrickBroens/Pbsurvey/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<pb:format.trim>
+	<f:if condition="{printf}">
+		<f:then>
+			<f:format.printf arguments="{printf}">
+				<f:translate key="LLL:EXT:pbsurvey/Resources/Private/Language/Frontend.xlf:{key}" />
+			</f:format.printf>
+		</f:then>
+		<f:else>
+			<f:translate key="LLL:EXT:pbsurvey/Resources/Private/Language/Frontend.xlf:{key}" />
+		</f:else>
+	</f:if>
+</pb:format.trim>
+
+</html>

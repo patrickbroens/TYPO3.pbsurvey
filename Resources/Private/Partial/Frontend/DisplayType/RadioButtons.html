@@ -1,0 +1,20 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<f:for each="{item.options}" as="option">
+	<f:if condition="{item.answers}">
+		<f:then>
+			<input type="radio" name="pbsurvey_{configuration.uid}[{item.uid}][o]" id="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}" value="{option.uid}"{f:if(condition: item.answers.{option.uid}, then: ' checked')}>
+		</f:then>
+		<f:else>
+			<input type="radio" name="pbsurvey_{configuration.uid}[{item.uid}][o]" id="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}" value="{option.uid}"{f:if(condition: '{valueDefault} == {option.uid}', then: ' checked')}>
+		</f:else>
+	</f:if>
+	<label for="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}">
+		{option.value}
+	</label>
+</f:for>
+
+</html>

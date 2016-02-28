@@ -35,7 +35,8 @@ class StageRepository extends AbstractRepository
             '
                 uid,
                 page,
-                parentid
+                parentid,
+                sorting
             ',
             'tx_pbsurvey_stage',
             '
@@ -59,6 +60,28 @@ class StageRepository extends AbstractRepository
         $this->getDatabaseConnection()->sql_free_result($databaseResource);
 
         return $stages;
+    }
+
+    /**
+     * Delete stages and answers who are behind the current stage
+     *
+     * @param int $parentId The id of the result
+     * @param int $sorting The current stage
+     */
+    public function deleteBySortingAndUp($parentId, $sorting)
+    {
+        $this->getDatabaseConnection()->exec_DELETEquery(
+            '
+                tx_pbsurvey_stage, tx_pbsurvey_answer
+                USING tx_pbsurvey_stage
+                INNER JOIN tx_pbsurvey_answer
+            ',
+            '
+                tx_pbsurvey_stage.parentid = ' . (int)$parentId . '
+                AND tx_pbsurvey_stage.uid = tx_pbsurvey_answer.parentid
+                AND tx_pbsurvey_stage.sorting >= ' . (int)$sorting . '
+            '
+        );
     }
 
     /**

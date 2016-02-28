@@ -1,0 +1,122 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<div class="type-23{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
+	<f:render section="label" arguments="{_all}" />
+	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+
+	<div id="error-container-{item.uid}"></div>
+	<select
+		name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+		id="pbsurvey-{configuration.uid}-{item.uid}"
+		multiple
+		{f:if(condition: item.selectboxHeight, then: 'size="{item.selectboxHeight}"')}
+		{f:render(section: 'optionsRequired', arguments: '{_all}')}
+		{f:render(section: 'optionsResponses', arguments: '{_all}')}
+	>
+		<f:for each="{item.randomizedOptions}" as="option" iteration="optionIterator">
+			<option
+				value="{option.uid}"
+				{f:if(condition: option.checked, then: 'selected')}
+			>
+				{option.value}
+			</option>
+		</f:for>
+	</select>
+</div>
+
+<f:section name="label">
+	<label for="pbsurvey-{configuration.uid}-{item.uid}">
+		{item.question}
+
+		<f:if condition="{item.optionsRequired}">
+			<f:then>
+				<em>
+					<f:if condition="{item.optionsResponsesMinimum}">
+						<f:then>
+							<f:if condition="{item.optionsResponsesMaximum}">
+								<f:then>
+									<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired.optionsResponsesMinimum.optionsResponsesMaximum', printf: {1: item.optionsResponsesMinimum, 2: item.optionsResponsesMaximum}}" />
+								</f:then>
+								<f:else>
+									<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired.optionsResponsesMinimum', printf: {1: item.optionsResponsesMinimum}}" />
+								</f:else>
+							</f:if>
+						</f:then>
+						<f:else>
+							<f:if condition="{item.optionsResponsesMaximum}">
+								<f:then>
+									<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired.optionsResponsesMaximum', printf: {1: item.optionsResponsesMaximum}}" />
+								</f:then>
+								<f:else>
+									<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired'}" />
+								</f:else>
+							</f:if>
+						</f:else>
+					</f:if>
+				</em>
+			</f:then>
+			<f:else>
+				<f:if condition="{item.optionsResponsesMinimum}">
+					<f:then>
+						<em>
+							<f:if condition="{item.optionsResponsesMaximum}">
+								<f:then>
+									<f:render partial="translate" arguments="{key: 'item.label.select.optionsResponsesMinimum.optionsResponsesMaximum', printf: {0: item.optionsResponsesMinimum, 1: item.optionsResponsesMaximum}}" />
+								</f:then>
+								<f:else>
+									<f:render partial="translate" arguments="{key: 'item.label.select.optionsResponsesMinimum', printf: {0: item.optionsResponsesMinimum}}" />
+								</f:else>
+							</f:if>
+						</em>
+					</f:then>
+					<f:else>
+						<f:if condition="{item.optionsResponsesMaximum}">
+							<em>
+								<f:render partial="translate" arguments="{key: 'item.label.select.optionsResponsesMaximum', printf: {0: item.optionsResponsesMaximum}}" />
+							</em>
+						</f:if>
+					</f:else>
+				</f:if>
+			</f:else>
+		</f:if>
+	</label>
+</f:section>
+
+<f:section name="optionsResponses">
+	<f:if condition="{item.optionsResponsesMinimum}">
+		<f:then>
+			<f:if condition="{item.optionsResponsesMaximum}">
+				<f:then>
+					data-parsley-check="[{item.optionsResponsesMinimum}, {item.optionsResponsesMaximum}]"
+					data-parsley-check-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsResponsesRange', printf: {1: item.optionsResponsesMinimum, 2: item.optionsResponsesMaximum}})}"
+					data-parsley-errors-container="#error-container-{item.uid}"
+				</f:then>
+				<f:else>
+					data-parsley-mincheck="{item.optionsResponsesMinimum}"
+					data-parsley-mincheck-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsResponsesMinimum', printf: {1: item.optionsResponsesMinimum}})}"
+					data-parsley-errors-container="#error-container-{item.uid}"
+				</f:else>
+			</f:if>
+		</f:then>
+		<f:else>
+			<f:if condition="{item.optionsResponsesMaximum}">
+				data-parsley-maxcheck="{item.optionsResponsesMaximum}"
+				data-parsley-maxcheck-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsResponsesMaximum', printf: {1: item.optionsResponsesMaximum}})}"
+				data-parsley-errors-container="#error-container-{item.uid}"
+			</f:if>
+		</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="optionsRequired">
+	<f:if condition="{item.optionsRequired}">
+		required
+		data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.multiple'})}"
+		data-parsley-errors-container="#error-container-{item.uid}"
+	</f:if>
+</f:section>
+
+</html>

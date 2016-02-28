@@ -32,19 +32,9 @@ trait OptionsAlignmentTrait
      *
      * @return bool
      */
-    public function isHorizontal()
+    public function getOptionsAlignment()
     {
         return $this->optionsAlignment;
-    }
-
-    /**
-     * Check if the options should be vertically aligned
-     *
-     * @return bool
-     */
-    public function isVertical()
-    {
-        return !$this->optionsAlignment;
     }
 
     /**

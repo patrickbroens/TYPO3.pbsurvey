@@ -14,10 +14,12 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Interfaces\QuestionInterface;
+
 /**
  * Question abstract
  */
-abstract class AbstractQuestion extends AbstractStyle
+abstract class AbstractQuestion extends AbstractStyle implements QuestionInterface
 {
     /**
      * The allowed condition operator groups
@@ -48,6 +50,13 @@ abstract class AbstractQuestion extends AbstractStyle
     protected $questionAlias;
 
     /**
+     * The question number
+     *
+     * @var int
+     */
+    protected $questionNumber;
+
+    /**
      * The question subtext
      *
      * @var string
@@ -59,7 +68,7 @@ abstract class AbstractQuestion extends AbstractStyle
      *
      * @return bool
      */
-    public function isQuestionRequired()
+    public function getOptionsRequired()
     {
         return $this->optionsRequired;
     }
@@ -69,7 +78,7 @@ abstract class AbstractQuestion extends AbstractStyle
      *
      * @param bool $optionsRequired true if mandatory
      */
-    public function setQuestionRequired($optionsRequired)
+    public function setOptionsRequired($optionsRequired)
     {
         $this->optionsRequired = (bool)$optionsRequired;
     }
@@ -112,6 +121,26 @@ abstract class AbstractQuestion extends AbstractStyle
     public function setQuestionAlias($questionAlias)
     {
         $this->questionAlias = (string)$questionAlias;
+    }
+
+    /**
+     * Get the question number
+     *
+     * @return int
+     */
+    public function getQuestionNumber()
+    {
+        return $this->questionNumber;
+    }
+
+    /**
+     * Set the question number
+     *
+     * @param int $questionNumber The question number
+     */
+    public function setQuestionNumber($questionNumber)
+    {
+        $this->questionNumber = (int)$questionNumber;
     }
 
     /**
@@ -163,7 +192,7 @@ abstract class AbstractQuestion extends AbstractStyle
 
         if (
             in_array('provision', $allowedConditionOperatorGroups)
-            && $this->isQuestionRequired()
+            && $this->getOptionsRequired()
         ) {
             $provisionKey = array_search('provision', $allowedConditionOperatorGroups);
             unset($allowedConditionOperatorGroups[$provisionKey]);

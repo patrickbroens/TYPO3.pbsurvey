@@ -13,6 +13,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use PatrickBroens\Pbsurvey\Domain\Repository\StageRepository;
+use PatrickBroens\Pbsurvey\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Result
@@ -149,6 +152,55 @@ class Result extends AbstractModel
     }
 
     /**
+     * Get a stage
+     *
+     * @param int $stageUid The stage uid
+     * @return null|Stage
+     */
+    public function getStage($stageUid)
+    {
+        $stage = null;
+
+        if (isset($this->stages[$stageUid])) {
+            $stage = $this->stages[$stageUid];
+        }
+
+        return $stage;
+    }
+
+    /**
+     * Get a stage by its number
+     *
+     * @param int $number The number
+     * @return null|Stage
+     */
+    public function getStageByNumber($number)
+    {
+        return $this->getStage(ArrayUtility::findKeyByPosition($this->stages, $number));
+    }
+
+    /**
+     * Get the previous stage
+     *
+     * @param int $number The number
+     * @return null|Stage
+     */
+    public function getPreviousStage($number)
+    {
+        $output = null;
+
+        reset($this->stages);
+        while ($stage = current($this->stages)) {
+            if ($stage->getNumber() === $number) {
+                $output = prev($this->stages);
+                break;
+            }
+        }
+
+        return $output;
+    }
+
+    /**
      * Get the stages
      *
      * @return Stage[]
@@ -178,6 +230,25 @@ class Result extends AbstractModel
         foreach ($stages as $stage) {
             if ($stage instanceof Stage) {
                 $this->addStage($stage);
+            }
+        }
+    }
+
+    /**
+     * Delete a stage and up
+     *
+     * @param int $stageNumber The stage number to search for
+     */
+    public function deleteStageAndUp($stageNumber)
+    {
+        $parentId = $this->getUid();
+
+        $stageRepository = GeneralUtility::makeInstance(StageRepository::class);
+        $stageRepository->deleteBySortingAndUp($parentId, $stageNumber);
+
+        foreach ($this->stages as $stage) {
+            if ($stage->getNumber() >= $stageNumber) {
+                unset($this->stages[$stage->getUid()]);
             }
         }
     }

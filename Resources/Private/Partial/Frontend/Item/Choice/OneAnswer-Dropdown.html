@@ -1,0 +1,51 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<div class="type-2{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
+	<f:render section="label" arguments="{_all}" />
+	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+
+	<div id="error-container-{item.uid}"></div>
+	<select
+		name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+		id="pbsurvey-{configuration.uid}-{item.uid}"
+		{f:render(section: 'optionsRequired', arguments: '{_all}')}
+	>
+		<f:if condition="{item.answersNone}">
+			<option value="">
+				<f:render partial="translate" arguments="{key: 'item.answersNone'}" />
+			</option>
+		</f:if>
+		<f:for each="{item.randomizedOptions}" as="option" iteration="optionIterator">
+			<option
+				value="{option.uid}"
+				{f:if(condition: option.checked, then: 'selected')}
+			>
+				{option.value}
+			</option>
+		</f:for>
+	</select>
+</div>
+
+<f:section name="label">
+	<label for="pbsurvey-{configuration.uid}-{item.uid}">
+		{item.question}
+		<f:if condition="{item.optionsRequired}">
+			<em>
+				<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
+			</em>
+		</f:if>
+	</label>
+</f:section>
+
+<f:section name="optionsRequired">
+	<f:if condition="{item.optionsRequired}">
+		required
+		data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.single'})}"
+		data-parsley-errors-container="#error-container-{item.uid}"
+	</f:if>
+</f:section>
+
+</html>

@@ -34,6 +34,28 @@ trait NumberTrait
     protected $numberStart;
 
     /**
+     * Get the range of numbers
+     *
+     * @param int $count Number taken when everything is empty
+     * @return array
+     */
+    public function getRange($count = 10)
+    {
+        $range = [];
+
+        if (
+            empty($this->numberStart)
+            && empty($this->numberEnd)
+        ) {
+            $range = range(1, $count);
+        } else {
+            $range = range($this->getNumberStart(), $this->getNumberEnd());
+        }
+
+        return $range;
+    }
+
+    /**
      * Get the ending number
      *
      * @return int

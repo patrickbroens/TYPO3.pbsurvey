@@ -16,6 +16,8 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractBoolean;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\DisplayTypeTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item type 4: Choice - True/False
@@ -38,18 +40,18 @@ class ChoiceTrueFalse extends AbstractBoolean
     protected static $languageLabel = 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.value_default_true_false.';
 
     /**
-     * Negative value (false/no) first in order
+     * The default value
      *
      * @var int
      */
     protected $valueDefaultTrueFalse;
 
     /**
-     * Get the default value
+     * Get the default boolean value
      *
      * @return int
      */
-    public function getValueDefaultTrueFalse()
+    public function getValueDefaultBoolean()
     {
         return $this->valueDefaultTrueFalse;
     }

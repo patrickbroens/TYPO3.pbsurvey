@@ -20,6 +20,13 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
 class Option extends AbstractModel
 {
     /**
+     * The answer
+     *
+     * @var string
+     */
+    protected $answer;
+
+    /**
      * Should the option be checked by default
      *
      * @var bool
@@ -39,6 +46,26 @@ class Option extends AbstractModel
      * @var string
      */
     protected $value;
+
+    /**
+     * Get the answer
+     *
+     * @return string
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
+    }
+
+    /**
+     * Set the answer
+     *
+     * @param string $answer The answer
+     */
+    public function setAnswer($answer)
+    {
+        $this->answer = (string)$answer;
+    }
 
     /**
      * Check if the option should be checked

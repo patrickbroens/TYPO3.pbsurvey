@@ -17,8 +17,10 @@ namespace PatrickBroens\Pbsurvey\Domain\Repository;
 use PatrickBroens\Pbsurvey\Domain\Model\Item;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
 use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use PatrickBroens\Pbsurvey\Utility\QuestionCounter;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -92,6 +94,11 @@ class ItemRepository extends AbstractRepository
         $item = GeneralUtility::makeInstance($itemClassName);
         $item->populate($record);
 
+        if ($item instanceof AbstractQuestion) {
+            $questionCounter = GeneralUtility::makeInstance(QuestionCounter::class);
+            $item->setQuestionNumber($questionCounter->getAndRaise());
+        }
+
         if ($item instanceof AbstractChoice) {
             $item->addOptions($this->getOptions($item));
         }
@@ -100,9 +107,11 @@ class ItemRepository extends AbstractRepository
             $item->addFileReferences($this->getFileReferences($item));
         }
 
-        if (is_callable([$itemClassName, 'addRows'])) {
-            $item->addRows($this->getOptionRows($item));
+        if (is_callable([$itemClassName, 'addOptionRows'])) {
+            $item->addOptionRows($this->getOptionRows($item));
         }
+
+        $item->initialize();
 
         return $item;
     }
@@ -125,6 +134,7 @@ class ItemRepository extends AbstractRepository
      * @return FileReference[] The item file references
      */
     protected function getFileReferences($item) {
+        /** @var FileRepository $fileRepository */
         $fileRepository = GeneralUtility::makeInstance(FileRepository::class);
         return $fileRepository->findByRelation('tx_pbsurvey_item', 'file_references', $item->getUid());
     }
@@ -136,7 +146,7 @@ class ItemRepository extends AbstractRepository
      * @return OptionRow[] The item rows
      */
     protected function getOptionRows($item) {
-        $rowRepository = GeneralUtility::makeInstance(OptionRowRepository::class);
-        return $rowRepository->findByParentId($item->getUid());
+        $optionRowRepository = GeneralUtility::makeInstance(OptionRowRepository::class);
+        return $optionRowRepository->findByParentId($item->getUid());
     }
 }

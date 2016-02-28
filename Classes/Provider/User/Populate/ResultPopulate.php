@@ -86,7 +86,10 @@ class ResultPopulate implements UserPopulateInterface
             $countResults = $resultRepository->countByIp($ipAddress, $storageFolder);
         }
 
-        $userProvider->setLastResult($result);
+        if ($result) {
+            $userProvider->setLastResult($result->getUid());
+        }
+
         $userProvider->setFinishedAmount($countFinished);
         $userProvider->setResultAmount($countResults);
     }

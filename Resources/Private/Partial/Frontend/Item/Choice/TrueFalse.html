@@ -1,0 +1,107 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<div class="type-4{f:if(condition: '{item.displayType} == 1', then: ' horizontal')}{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
+	<f:if condition="{item.displayType} == 0">
+		<f:then>
+			<f:render section="label" arguments="{_all}" />
+		</f:then>
+		<f:else>
+			<f:render section="labelHeader" arguments="{_all}" />
+		</f:else>
+	</f:if>
+
+	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+
+	<div id="error-container-{item.uid}"></div>
+	<f:if condition="{item.displayType} == 0">
+		<f:then>
+			<f:render section="select" arguments="{_all}" />
+		</f:then>
+		<f:else>
+			<f:render section="radio" arguments="{_all}" />
+		</f:else>
+	</f:if>
+</div>
+
+<f:section name="label">
+	<label for="pbsurvey-{configuration.uid}-{item.uid}">
+		{item.question}
+		<f:if condition="{item.optionsRequired}">
+			<em>
+				<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
+			</em>
+		</f:if>
+	</label>
+</f:section>
+
+<f:section name="labelHeader">
+	<h2 class="label">
+		{item.question}
+		<f:if condition="{item.optionsRequired}">
+			<em>
+				<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
+			</em>
+		</f:if>
+	</h2>
+</f:section>
+
+<f:section name="select">
+	<select
+		name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+		id="pbsurvey-{configuration.uid}-{item.uid}"
+		{f:render(section: 'optionsRequired', arguments: '{_all}')}
+	>
+		<f:for each="{item.options}" as="option">
+			<option
+				value="{f:if(condition: option.uid, then: option.uid)}"
+				{f:if(condition: option.checked, then: ' selected')}
+			>
+				{option.value}
+			</option>
+		</f:for>
+	</select>
+</f:section>
+
+<f:section name="radio">
+	<fieldset>
+		<f:for each="{item.options}" as="option" iteration="optionIterator">
+			<f:if condition="{optionIterator.index} == 0">
+				<f:then>
+					<input
+						type="radio"
+						name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+						id="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}"
+						value="{option.uid}"
+						{f:if(condition: option.checked, then: 'checked')}
+						{f:render(section: 'optionsRequired', arguments: '{_all}')}
+					/>
+				</f:then>
+				<f:else>
+					<input
+						type="radio"
+						name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+						id="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}"
+						value="{option.uid}"
+						{f:if(condition: option.checked, then: ' checked')}
+					>
+				</f:else>
+			</f:if>
+			<label for="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}">
+				{option.value}
+			</label>
+		</f:for>
+	</fieldset>
+</f:section>
+
+<f:section name="optionsRequired">
+	<f:if condition="{item.optionsRequired}">
+		required
+		data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.single'})}"
+		data-parsley-errors-container="#error-container-{item.uid}"
+	</f:if>
+</f:section>
+
+</html>

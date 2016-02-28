@@ -96,6 +96,26 @@ trait AnswersAdditionalTrait
     }
 
     /**
+     * Get the display type for the additional answer
+     *
+     * @return bool
+     */
+    public function getAnswersAdditionalType()
+    {
+        return $this->answersAdditionalType;
+    }
+
+    /**
+     * Set the display type for the additional answer
+     *
+     * @param bool $answersAdditionalType The additional type
+     */
+    public function setAnswersAdditionalType($answersAdditionalType)
+    {
+        $this->answersAdditionalType = (bool)$answersAdditionalType;
+    }
+
+    /**
      * Get the height of the textarea
      *
      * @return int

@@ -17,8 +17,11 @@ namespace PatrickBroens\Pbsurvey\Provider\Access\Check;
 use PatrickBroens\Pbsurvey\Provider\Access\AccessProvider;
 use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
+use PatrickBroens\Pbsurvey\Provider\Session\SessionProvider;
 use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Access check if the user has filled the maximum amount of finished results
@@ -50,18 +53,24 @@ class MaximumAmountOfUserResponsesCheck implements AccessCheckInterface
             $respondentAccessLevel = $configurationProvider->getAccessLevel();
 
             if (
-                (
-                    $respondentAccessLevel === 0
-                    && $userProvider->getFinishedAmount() >= $configurationProvider->getMaximumResponses()
-                )
-                || (
-                    $respondentAccessLevel === 2
-                    && $userProvider->getResultAmount() >= 1
-                    && $userProvider->getFinishedAmount() === 0
-                )
-                || (
-                    $respondentAccessLevel === 2
-                    && $userProvider->getFinishedAmount() >= 1
+                // Only do a check when there is no session
+                !$userProvider->hasSession()
+                && (
+                    (
+                        // Multiple Response
+                        $respondentAccessLevel === 0
+                        && $userProvider->getFinishedAmount() >= $configurationProvider->getMaximumResponses()
+                    )
+                    || (
+                        // Single Response (Not Updateable)
+                        $respondentAccessLevel === 2
+                        && $userProvider->getResultAmount() >= 1
+                    )
+                    || (
+                        // Single Response (Not Updateable after finish)
+                        $respondentAccessLevel === 3
+                        && $userProvider->getFinishedAmount() >= 1
+                    )
                 )
             ) {
                 $accessProvider->setError(true);
@@ -69,4 +78,6 @@ class MaximumAmountOfUserResponsesCheck implements AccessCheckInterface
             }
         }
     }
+
+
 }

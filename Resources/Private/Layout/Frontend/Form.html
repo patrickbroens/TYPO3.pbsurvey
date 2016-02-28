@@ -1,0 +1,50 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:pb="http://typo3.org/ns/PatrickBroens/Pbsurvey/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<pb:pageRenderer.addJsFooterLibrary
+	name="jQuery"
+	file="{f:uri.resource(path: 'Javascript/Vendor/jQuery/jquery-2.2.1.min.js', extensionName: 'pbsurvey')}"
+	forceOnTop="1"
+/>
+<pb:pageRenderer.addJsFooterLibrary
+	name="parsley"
+	file="{f:uri.resource(path: 'Javascript/Vendor/Parsley/parsley.js', extensionName: 'pbsurvey')}"
+/>
+<pb:pageRenderer.addJsFooterFile
+	file="{f:uri.resource(path: 'Javascript/Initialize.js', extensionName: 'pbsurvey')}"
+/>
+
+<div class="pbsurvey">
+
+	<f:if condition="{configuration.numberingPage}">
+		<f:render partial="NumberingPage" arguments="{numberingPage: configuration.numberingPage, pageNumber: user.pageNumber, pageCount: pages.pageCount}" />
+	</f:if>
+
+	<f:if condition="{page.title}">
+		<h1>{page.title}</h1>
+	</f:if>
+
+	<f:if condition="{page.introduction}">
+		{page.introduction -> f:format.html()}
+	</f:if>
+
+	<form id="pbsurvey-form">
+		<div class="page-error">
+			<h2>
+				<f:render partial="translate" arguments="{key: 'page.error.title'}" />
+			</h2>
+			<p>
+				<f:render partial="translate" arguments="{key: 'page.error.message'}" />
+			</p>
+		</div>
+
+		<f:render section="Items" />
+
+		<input type="submit" value="validate">
+	</form>
+</div>
+
+</html>

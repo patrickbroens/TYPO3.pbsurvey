@@ -14,7 +14,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Answer;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use PatrickBroens\Pbsurvey\Utility\ArrayUtility;
 
 /**
  * Choice question abstract

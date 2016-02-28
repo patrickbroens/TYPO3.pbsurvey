@@ -1,0 +1,83 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<div class="item">
+	<f:switch expression="{item.questionType}">
+		<f:case value="1">
+			<f:render partial="Item/Choice/MultipleAnswers-Checkboxes" arguments="{_all}" />
+		</f:case>
+		<f:case value="2">
+			<f:render partial="Item/Choice/OneAnswer-Dropdown" arguments="{_all}" />
+		</f:case>
+		<f:case value="3">
+			<f:render partial="Item/Choice/OneAnswer-OptionButtons" arguments="{_all}" />
+		</f:case>
+		<f:case value="4">
+			<f:render partial="Item/Choice/TrueFalse" arguments="{_all}" />
+		</f:case>
+		<f:case value="5">
+			<f:render partial="Item/Choice/YesNo" arguments="{_all}" />
+		</f:case>
+		<f:case value="6">
+			<f:render partial="Item/Matrix/MultipleAnswersPerRow-Checkboxes" arguments="{_all}" />
+		</f:case>
+		<f:case value="7">
+			<f:render partial="Item/Matrix/MultipleAnswersPerRow-Textboxes" arguments="{_all}" />
+		</f:case>
+		<f:case value="8">
+			<f:render partial="Item/Matrix/OneAnswerPerRow-OptionButtons" arguments="{_all}" />
+		</f:case>
+		<f:case value="9">
+			<f:render partial="Item/Matrix/RatingScale-Numeric" arguments="{_all}" />
+		</f:case>
+		<f:case value="10">
+			<f:render partial="Item/OpenEnded/CommentsBox" arguments="{_all}" />
+		</f:case>
+		<f:case value="11">
+			<f:render partial="Item/OpenEnded/ConstantSum" arguments="{_all}" />
+		</f:case>
+		<f:case value="12">
+			<f:render partial="Item/OpenEnded/Date" arguments="{_all}" />
+		</f:case>
+		<f:case value="13">
+			<f:render partial="Item/OpenEnded/Number" arguments="{_all}" />
+		</f:case>
+		<f:case value="14">
+			<f:render partial="Item/OpenEnded/OneLine" arguments="{_all}" />
+		</f:case>
+		<f:case value="15">
+			<f:render partial="Item/OpenEnded/OneOrMoreLines" arguments="{_all}" />
+		</f:case>
+		<f:case value="16">
+			<f:render partial="Item/OpenEnded/Ranking" arguments="{_all}" />
+		</f:case>
+		<f:case value="17">
+			<f:render partial="Item/Presentation/Heading" arguments="{_all}" />
+		</f:case>
+		<f:case value="18">
+			<f:render partial="Item/Presentation/HorizontalRule" arguments="{_all}" />
+		</f:case>
+		<f:case value="19">
+			<f:render partial="Item/Presentation/HTML" arguments="{_all}" />
+		</f:case>
+		<f:case value="20">
+			<f:render partial="Item/Presentation/Image" arguments="{_all}" />
+		</f:case>
+		<f:case value="21">
+			<f:render partial="Item/Presentation/Message" arguments="{_all}" />
+		</f:case>
+		<f:case value="23">
+			<f:render partial="Item/Choice/MultipleAnswers-Selectbox" arguments="{_all}" />
+		</f:case>
+		<f:case value="24">
+			<f:render partial="Item/Choice/ImageRating" arguments="{_all}" />
+		</f:case>
+		<f:case value="99">
+			<f:render partial="Item/Hook/UserDefined" arguments="{_all}" />
+		</f:case>
+	</f:switch>
+</div>
+
+</html>

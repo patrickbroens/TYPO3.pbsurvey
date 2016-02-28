@@ -125,6 +125,14 @@ if (TYPO3_MODE === 'BE') {
         'populate'
     );
 
+    // Populate the user with the session key
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Provider\User\UserInitializer::class,
+        'UserPopulate',
+        \PatrickBroens\Pbsurvey\Provider\User\Populate\SessionPopulate::class,
+        'populate'
+    );
+
     /**
      * Register slots for checking access
      */

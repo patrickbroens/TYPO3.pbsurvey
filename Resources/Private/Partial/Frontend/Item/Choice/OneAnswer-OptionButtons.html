@@ -1,0 +1,94 @@
+<html
+	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	data-namespace-typo3-fluid="true"
+>
+
+<div class="type-3{f:if(condition: '{item.optionsAlignment} == 1', then: ' horizontal')}{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
+	<f:render section="labelHeader" arguments="{_all}" />
+	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+
+	<div id="error-container-{item.uid}"></div>
+	<fieldset>
+		<f:for each="{item.randomizedOptions}" as="option" iteration="optionIterator">
+			<f:if condition="{optionIterator.index} == 0">
+				<f:then>
+					<input
+						type="radio"
+						name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+						id="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}"
+						value="{option.uid}"
+						{f:if(condition: option.checked, then: 'checked')}
+						{f:render(section: 'optionsRequired', arguments: '{_all}')}
+					/>
+				</f:then>
+				<f:else>
+					<input
+						type="radio"
+						name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+						id="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}"
+						value="{option.uid}"
+						{f:if(condition: option.checked, then: 'checked')}
+					/>
+				</f:else>
+			</f:if>
+			<label for="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}">
+				{option.value}
+			</label>
+		</f:for>
+
+		<f:if condition="{item.answersAdditionalAllow}">
+			<input
+				type="checkbox"
+				name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+				id="pbsurvey-{configuration.uid}-{item.uid}-additional"
+				value="-1"
+				{f:if(condition: option.checked, then: ' checked')}
+			/>
+			<label for="pbsurvey-{configuration.uid}-{item.uid}-additional">
+				{item.answersAdditionalText}
+			</label>
+
+
+			<f:if condition="{item.answersAdditionalType}">
+				<f:then>
+					<textarea
+						name="pbsurvey_{configuration.uid}[{item.uid}][o][-1][a]"
+						rows="{item.textareaHeight}"
+						cols="{item.textareaWidth}"
+				>
+						FILL: VALUE
+					</textarea>
+				</f:then>
+				<f:else>
+					<input
+						name="pbsurvey_{configuration.uid}[{item.uid}][o][-1][a]"
+						type="text"
+						value=""
+						placeholder="{f:render(partial: 'translate', arguments: {key: 'item.answersAdditionalPlaceholder'})}"
+					/>
+				</f:else>
+			</f:if>
+		</f:if>
+	</fieldset>
+</div>
+
+<f:section name="labelHeader">
+	<h2 class="label">
+		{item.question}
+		<f:if condition="{item.optionsRequired}">
+			<em>
+				<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
+			</em>
+		</f:if>
+	</h2>
+</f:section>
+
+<f:section name="optionsRequired">
+	<f:if condition="{item.optionsRequired}">
+		required
+		data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.single'})}"
+		data-parsley-errors-container="#error-container-{item.uid}"
+	</f:if>
+</f:section>
+
+</html>

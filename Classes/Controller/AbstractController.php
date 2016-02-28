@@ -16,7 +16,9 @@ namespace PatrickBroens\Pbsurvey\Controller;
 
 use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Install\View\StandaloneView;
 
 /**
@@ -61,5 +63,25 @@ abstract class AbstractController
         $this->view->setTemplateRootPaths($this->configuration->getTemplateRootPaths());
         $this->view->setLayoutRootPaths($this->configuration->getLayoutRootPaths());
         $this->view->setPartialRootPaths($this->configuration->getPartialRootPaths());
+    }
+
+    /**
+     * Get the frontend user authentication
+     *
+     * @return FrontendUserAuthentication
+     */
+    protected function getFrontendUserAuthentication()
+    {
+        return $this->getTypoScriptFrontendController()->fe_user;
+    }
+
+    /**
+     * Get the TypoScript frontend controller
+     *
+     * @return TypoScriptFrontendController
+     */
+    protected function getTypoScriptFrontendController()
+    {
+        return $GLOBALS['TSFE'];
     }
 }

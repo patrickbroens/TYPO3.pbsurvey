@@ -16,6 +16,7 @@ namespace PatrickBroens\Pbsurvey\Provider\Access;
 
 use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
+use PatrickBroens\Pbsurvey\Provider\Session\SessionProvider;
 use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;

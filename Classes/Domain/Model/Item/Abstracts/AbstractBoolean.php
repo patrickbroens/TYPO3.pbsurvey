@@ -41,11 +41,25 @@ abstract class AbstractBoolean extends AbstractChoice
     protected static $languageLabel = '';
 
     /**
-     * The predefined options
+     * The predefined options with the positive value first
      *
      * @var array
      */
-    protected static $predefinedOptions = [0, 1, 2];
+    protected static $predefinedOptionsPositiveFirst = [0, 2, 1];
+
+    /**
+     * The predefined options with the negative value first
+     *
+     * @var array
+     */
+    protected static $predefinedOptionsNegativeFirst = [0, 1, 2];
+
+    /**
+     * The options
+     *
+     * @var Option[]
+     */
+    protected $options = [];
 
     /**
      * TRAIT: AnswersNoneTrait
@@ -61,6 +75,51 @@ abstract class AbstractBoolean extends AbstractChoice
      * @var bool
      */
     protected $negativeFirst;
+
+    /**
+     * Default boolean value
+     *
+     * Not in use here but in question types using this abstract
+     *
+     * @var int
+     */
+    protected $valueDefaultBoolean;
+
+    /**
+     * Initialize this item
+     */
+    public function initialize()
+    {
+        $this->options = [];
+
+        $predefinedOptions = $this->isNegativeFirst()
+            ? static::$predefinedOptionsNegativeFirst
+            : static::$predefinedOptionsPositiveFirst;
+
+
+        foreach ($predefinedOptions as $predefinedOptionUid) {
+            if (
+                (
+                    $predefinedOptionUid === 0
+                    && $this->getAnswersNone()
+                )
+                || $predefinedOptionUid !== 0
+            ) {
+                /** @var Option $option */
+                $option = GeneralUtility::makeInstance(Option::class);
+                $option->setUid($predefinedOptionUid);
+                $option->setValue($this->getLanguageService()->sL(
+                    static::$languageLabel . $predefinedOptionUid
+                ));
+
+                if ($predefinedOptionUid === $this->getValueDefaultBoolean()) {
+                    $option->setChecked(true);
+                }
+
+                $this->addOption($option);
+            }
+        }
+    }
 
     /**
      * Check if the negative option should be displayed first
@@ -93,6 +152,33 @@ abstract class AbstractBoolean extends AbstractChoice
     }
 
     /**
+     * Add an option
+     *
+     * @param Option $option The option
+     */
+    public function addOption(Option $option)
+    {
+        $this->options[$option->getUid()] = $option;
+    }
+
+    /**
+     * Get an option by its uid
+     *
+     * @param int $optionUid The option uid
+     * @return null|Option
+     */
+    public function getOption($optionUid)
+    {
+        $option = null;
+
+        if ($this->hasOption($optionUid)) {
+            $option = $this->options[$optionUid];
+        }
+
+        return $option;
+    }
+
+    /**
      * Check if option exists
      *
      * @param int $optionUid The option uid
@@ -100,7 +186,7 @@ abstract class AbstractBoolean extends AbstractChoice
      */
     public function hasOption($optionUid)
     {
-        return isset(static::$predefinedOptions[$optionUid]);
+        return isset($this->options[$optionUid]);
     }
 
     /**
@@ -112,30 +198,7 @@ abstract class AbstractBoolean extends AbstractChoice
      */
     public function hasOptions()
     {
-        return true;
-    }
-
-    /**
-     * Get an option by its uid
-     *
-     * Since the type has predefined options, we construct it here
-     *
-     * @param int $optionUid The option uid
-     * @return null|Option The option
-     */
-    public function getOption($optionUid)
-    {
-        $option = null;
-
-        if ($this->hasOption($optionUid)) {
-            $option = GeneralUtility::makeInstance(Option::class);
-            $option->setUid($optionUid);
-            $option->setValue($this->getLanguageService()->sL(
-                static::$languageLabel . $optionUid
-            ));
-        }
-
-        return $option;
+        return !empty($this->options);
     }
 
     /**
@@ -147,20 +210,16 @@ abstract class AbstractBoolean extends AbstractChoice
      */
     public function getOptions()
     {
-        $options = [];
+        return $this->options;
+    }
 
-        foreach (static::$predefinedOptions as $predefinedOptionUid) {
-            if (
-                (
-                    $predefinedOptionUid === 0
-                    && $this->addNone()
-                )
-                || $predefinedOptionUid !== 0
-            ) {
-                $options[] = $this->getOption($predefinedOptionUid);
-            }
-        }
-
-        return $options;
+    /**
+     * Get the default boolean value
+     *
+     * @return int
+     */
+    public function getValueDefaultBoolean()
+    {
+        return $this->valueDefaultBoolean;
     }
 }

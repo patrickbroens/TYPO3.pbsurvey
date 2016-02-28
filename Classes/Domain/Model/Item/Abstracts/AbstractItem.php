@@ -29,6 +29,13 @@ abstract class AbstractItem extends AbstractModel
     protected $questionType;
 
     /**
+     * Initialize the item
+     */
+    public function initialize()
+    {
+    }
+
+    /**
      * Get the question type
      *
      * @return int

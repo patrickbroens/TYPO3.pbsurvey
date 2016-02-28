@@ -3,6 +3,12 @@
 	data-namespace-typo3-fluid="true"
 >
 
-And we've got a survey!
+<f:layout name="Form"/>
+
+<f:section name="Items">
+	<f:for each="{page.items}" as="item" iteration="itemIterator">
+		<f:render partial="Item" arguments="{_all}" />
+	</f:for>
+</f:section>
 
 </html>

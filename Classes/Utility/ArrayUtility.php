@@ -20,6 +20,26 @@ namespace PatrickBroens\Pbsurvey\Utility;
 class ArrayUtility
 {
     /**
+     * Count the keyword in an array
+     *
+     * @param array $array The haystack
+     * @param mixed $keyword The needle
+     * @return int
+     */
+    public static function countByKeyword(array $array, $keyword)
+    {
+        return count(
+            array_filter(
+                $array,
+                function($value) use ($keyword)
+                {
+                    return $value === $keyword;
+                }
+            )
+        );
+    }
+
+    /**
      * Filter array where keys start with keyword
      *
      * @param array $array The array to filter
@@ -40,6 +60,36 @@ class ArrayUtility
                     }
                 )
             )
+        );
+    }
+
+    /**
+     * Find a key by its position within an array
+     *
+     * @param array $array The haystack
+     * @param int $key The needle
+     * @return mixed
+     */
+    public static function findKeyByPosition(array $array, $key)
+    {
+        return array_keys($array)[$key];
+    }
+
+    /**
+     * Find objects within an array of objects by a property value
+     *
+     * @param array $array The haystack
+     * @param string $property The property to look in
+     * @param mixed $value The needle
+     * @return array
+     */
+    public static function findObjectByPropertyValue(array $array, $property, $value)
+    {
+        return array_filter(
+            $array,
+            function ($object) use (&$value) {
+                return $object->{$property} === $value;
+            }
         );
     }
 
@@ -79,23 +129,44 @@ class ArrayUtility
     }
 
     /**
-     * Count the keyword in an array
+     * Set a property within an array of objects
      *
-     * @param array $array The haystack
-     * @param mixed $keyword The needle
-     * @return int
+     * @param array $array The array
+     * @param string $propertyName The property to change
+     * @param mixed $newValue The new value
      */
-    public static function countByKeyword(array $array, $keyword)
+    public static function setProperty(array $array, $propertyName, $newValue)
     {
-        return count(
-            array_filter(
-                $array,
-                function($value) use ($keyword)
-                {
-                    return $value === $keyword;
+        array_walk(
+            $array,
+            function (&$value, $key) use ($propertyName, $newValue)
+            {
+                $method = 'set' . ucfirst($propertyName);
+
+                if (is_callable([$value, $method])) {
+                    $value->$method($newValue);
                 }
-            )
+            }
         );
+    }
+
+    /**
+     * Shuffle an array preserving its keys
+     *
+     * @param array $array The array
+     * @return array The shuffled array
+     */
+    public static function shuffleArrayPreserveKeys(array $array)
+    {
+        $shuffledArray = [];
+        $shuffledKeys = array_keys($array);
+        shuffle($shuffledKeys);
+
+        foreach ($shuffledKeys AS $shuffledKey) {
+            $shuffledArray[$shuffledKey] = $array[$shuffledKey];
+        }
+
+        return $shuffledArray;
     }
 }
 

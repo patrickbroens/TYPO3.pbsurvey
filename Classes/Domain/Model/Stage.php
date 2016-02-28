@@ -13,6 +13,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use PatrickBroens\Pbsurvey\Utility\ArrayUtility;
 
 /**
  * Stage
@@ -24,7 +25,7 @@ class Stage extends AbstractModel
      *
      * @var Answer[]
      */
-    protected $answers;
+    protected $answers = [];
 
     /**
      * The page
@@ -32,6 +33,48 @@ class Stage extends AbstractModel
      * @var Page
      */
     protected $page;
+
+    /**
+     * The sorting order
+     *
+     * This value is equal to the stage number
+     *
+     * @var int
+     */
+    protected $sorting;
+
+
+    /**
+     * Check if there are answers for a certain item
+     *
+     * @param int $itemUid The item uid
+     * @return bool
+     */
+    public function hasAnswersByItemUid($itemUid)
+    {
+        return !empty($this->getAnswersByItemUid($itemUid));
+    }
+
+    /**
+     * Get answers for a certain item
+     *
+     * @param int $itemUid The item uid
+     * @return array
+     */
+    public function getAnswersByItemUid($itemUid)
+    {
+        return ArrayUtility::findObjectByPropertyValue($this->answers, 'item', $itemUid);
+    }
+
+    /**
+     * Check if there are answers
+     *
+     * @return bool
+     */
+    public function hasAnswers()
+    {
+        return !empty($this->answers);
+    }
 
     /**
      * Get the answers
@@ -70,7 +113,7 @@ class Stage extends AbstractModel
     /**
      * Get the page
      *
-     * @return Page
+     * @return int
      */
     public function getPage()
     {
@@ -80,10 +123,30 @@ class Stage extends AbstractModel
     /**
      * Set the page
      *
-     * @param Page $page The page
+     * @param int $page The page
      */
-    public function setPage(Page $page)
+    public function setPage($page)
     {
-        $this->page = $page;
+        $this->page = (int)$page;
+    }
+
+    /**
+     * Get the number of the stage
+     *
+     * @return int
+     */
+    public function getNumber()
+    {
+        return $this->sorting;
+    }
+
+    /**
+     * Set the number of the stage
+     *
+     * @param int $number The number
+     */
+    public function setNumber($number)
+    {
+        $this->sorting = (int)$number;
     }
 }

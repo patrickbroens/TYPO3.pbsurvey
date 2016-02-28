@@ -33,13 +33,22 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 class ProviderFactory
 {
     /**
-     * Get the server request
+     * Get the access
      *
-     * @return ServerRequest
+     * @param ConfigurationProvider $configurationProvider The configuration provider
+     * @param PageProvider $pageProvider The page provider
+     * @param UserProvider $userProvider The user provider
+     * @return AccessProvider
      */
-    public static function getServerRequest()
+    public static function getAccess(
+        ConfigurationProvider $configurationProvider,
+        PageProvider $pageProvider,
+        UserProvider $userProvider
+    )
     {
-        return ServerRequestFactory::fromGlobals();
+        /** @var AccessFactory $accessFactory */
+        $accessFactory = GeneralUtility::makeInstance(AccessFactory::class);
+        return $accessFactory->initialize($configurationProvider, $pageProvider, $userProvider);
     }
 
     /**
@@ -78,6 +87,16 @@ class ProviderFactory
     }
 
     /**
+     * Get the server request
+     *
+     * @return ServerRequest
+     */
+    public static function getServerRequest()
+    {
+        return ServerRequestFactory::fromGlobals();
+    }
+
+    /**
      * Get the user
      *
      * @param ConfigurationProvider $configurationProvider The configuration provider
@@ -92,24 +111,5 @@ class ProviderFactory
         /** @var UserInitializer $userInitializer */
         $userInitializer = GeneralUtility::makeInstance(UserInitializer::class);
         return $userInitializer->initialize($configurationProvider, $serverRequest);
-    }
-
-    /**
-     * Get the access
-     *
-     * @param ConfigurationProvider $configurationProvider The configuration provider
-     * @param PageProvider $pageProvider The page provider
-     * @param UserProvider $userProvider The user provider
-     * @return AccessProvider
-     */
-    public static function getAccess(
-        ConfigurationProvider $configurationProvider,
-        PageProvider $pageProvider,
-        UserProvider $userProvider
-    )
-    {
-        /** @var AccessFactory $accessFactory */
-        $accessFactory = GeneralUtility::makeInstance(AccessFactory::class);
-        return $accessFactory->initialize($configurationProvider, $pageProvider, $userProvider);
     }
 }

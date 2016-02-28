@@ -195,9 +195,6 @@
 			<trans-unit id="field.question_type" xml:space="preserve">
 				<source>Question Type</source>
 			</trans-unit>
-			<trans-unit id="field.question_type.0" xml:space="preserve">
-				<source>Choice - Database Dropdown</source>
-			</trans-unit>
 			<trans-unit id="field.question_type.1" xml:space="preserve">
 				<source>Choice - Multiple Answers (Checkboxes)</source>
 			</trans-unit>

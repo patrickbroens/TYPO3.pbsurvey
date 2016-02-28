@@ -35,7 +35,7 @@ class PageProvider
      *
      * @param Page $page The page
      */
-    public function addSingle(Page $page)
+    public function addPage(Page $page)
     {
         $this->pages[$page->getUid()] = $page;
     }
@@ -49,9 +49,31 @@ class PageProvider
     {
         foreach ($pages as $page) {
             if ($page instanceof Page) {
-                $this->addSingle($page);
+                $this->addPage($page);
             }
         }
+    }
+
+    /**
+     * Get a page
+     *
+     * @param int $uid The page uid
+     * @return Page
+     */
+    public function getPage($uid)
+    {
+        return $this->pages[$uid];
+    }
+
+    /**
+     * Get a page by its stage number
+     *
+     * @param int $stageNumber The stage number
+     * @return Page
+     */
+    public function getPageByStageNumber($stageNumber)
+    {
+        return $this->getPage(ArrayUtility::findKeyByPosition($this->pages, $stageNumber));
     }
 
     /**
