@@ -1,7 +1,7 @@
 window.Parsley.addValidator('matrixMincheck', {
 	requirementType: 'integer',
-	validateNumber: function (value, requirement, validator) {
-		var container = jQuery(validator.$element).closest('[data-pbsurvey-matrix]');
+	validateNumber: function (value, requirement, parsleyInstance) {
+		var container = jQuery(parsleyInstance.$element).closest('[data-pbsurvey-matrix]');
 		var amount = container.find('input[type=radio]:checked').length;
 		return 0 === amount || amount >= requirement;
 	},
@@ -12,8 +12,8 @@ window.Parsley.addValidator('matrixMincheck', {
 
 window.Parsley.addValidator('matrixTextRequired', {
 	requirementType: 'integer',
-	validateString: function (value, requirement, validator) {
-		var container = jQuery(validator.$element).closest('[data-pbsurvey-matrix]');
+	validateString: function (value, requirement, parsleyInstance) {
+		var container = jQuery(parsleyInstance.$element).closest('[data-pbsurvey-matrix]');
 		var amount = container.find('input[type=text]').filter(function () {
 			return $(this).val() != ''
 		}).length;
