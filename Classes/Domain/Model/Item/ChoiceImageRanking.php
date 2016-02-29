@@ -24,9 +24,9 @@ use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Item type 24: Choice - Image rating
+ * Item type 24: Choice - Image ranking
  */
-class ChoiceImageRating extends AbstractChoice
+class ChoiceImageRanking extends AbstractChoice
 {
     /**
      * TRAIT: FileReferenceTrait
@@ -86,7 +86,7 @@ class ChoiceImageRating extends AbstractChoice
             $optionRow = GeneralUtility::makeInstance(OptionRow::class);
             $optionRow->setUid($fileReference->getUid());
 
-            foreach ($this->getRange(count($this->fileReferences)) as $optionUid) {
+            foreach ($this->getRange(count($this->fileReferences), true) as $optionUid) {
                 /** @var Option $option */
                 $option = GeneralUtility::makeInstance(Option::class);
                 $option->setUid($optionUid);
