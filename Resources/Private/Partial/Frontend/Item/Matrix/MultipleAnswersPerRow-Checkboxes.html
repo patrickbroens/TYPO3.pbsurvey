@@ -19,44 +19,18 @@
 		</thead>
 		<tbody>
 			<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
-				<tr>
+				<tr class="{f:if(condition: optionRowIterator.isEven, then: 'even', else: 'odd')}">
 					<th>{optionRow.name}</th>
 					<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
 						<td>
-							<f:if condition="{optionRowIterator.index} == 0">
-								<f:then>
-									<f:if condition="{optionIterator.index} == 0">
-										<f:then>
-											<input
-												type="checkbox"
-												name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][{option.uid}]"
-												value="1"
-												data-parsley-multiple="pbsurvey_{configuration.uid}_{item.uid}"
-												{f:if(condition: option.checked, then: ' checked')}
-												{f:render(section: 'optionsRequired', arguments: '{_all}')}
-											/>
-										</f:then>
-										<f:else>
-											<input
-												type="checkbox"
-												name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][{option.uid}]"
-												value="1"
-												data-parsley-multiple="pbsurvey_{configuration.uid}_{item.uid}"
-												{f:if(condition: option.checked, then: ' checked')}
-											/>
-										</f:else>
-									</f:if>
-								</f:then>
-								<f:else>
-									<input
-										type="checkbox"
-										name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][{option.uid}]"
-										value="1"
-										data-parsley-multiple="pbsurvey_{configuration.uid}_{item.uid}"
-										{f:if(condition: option.checked, then: ' checked')}
-									/>
-								</f:else>
-							</f:if>
+							<input
+								type="checkbox"
+								name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][{option.uid}]"
+								value="1"
+								data-parsley-multiple="pbsurvey_{configuration.uid}_{item.uid}"
+								{f:if(condition: option.checked, then: ' checked')}
+								{f:render(section: 'optionsRequired', arguments: '{_all}')}
+							/>
 						</td>
 					</f:for>
 				</tr>
@@ -78,9 +52,13 @@
 
 <f:section name="optionsRequired">
 	<f:if condition="{item.optionsRequired}">
-		data-parsley-required
-		data-parsley-errors-container="#error-container-{item.uid}"
-		data-parsley-class-handler="#error-class-{item.uid}"
+		<f:if condition="{optionRowIterator.index} == 0">
+			<f:if condition="{optionIterator.index} == 0">
+				data-parsley-required
+				data-parsley-errors-container="#error-container-{item.uid}"
+				data-parsley-class-handler="#error-class-{item.uid}"
+			</f:if>
+		</f:if>
 	</f:if>
 </f:section>
 

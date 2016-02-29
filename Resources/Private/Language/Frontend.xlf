@@ -9,11 +9,17 @@
 			<trans-unit id="item.answersNone" xml:space="preserve">
 				<source>-- None --</source>
 			</trans-unit>
+			<trans-unit id="item.error.optionsRequired.enter" xml:space="preserve">
+				<source>Enter a value</source>
+			</trans-unit>
 			<trans-unit id="item.error.optionsRequired.select.multiple" xml:space="preserve">
 				<source>Select at least one value</source>
 			</trans-unit>
 			<trans-unit id="item.error.optionsRequired.select.ranking" xml:space="preserve">
 				<source>Ranking %1$d is missing</source>
+			</trans-unit>
+			<trans-unit id="item.error.optionsRequired.select.row" xml:space="preserve">
+				<source>Select a value for row '%1$s'</source>
 			</trans-unit>
 			<trans-unit id="item.error.optionsRequired.select.single" xml:space="preserve">
 				<source>Select a value</source>
@@ -71,6 +77,9 @@
 			</trans-unit>
 			<trans-unit id="item.label.select.optionsRequired" xml:space="preserve">
 				<source>Select at least 1 value</source>
+			</trans-unit>
+			<trans-unit id="item.label.select.row.optionsRequired" xml:space="preserve">
+				<source>Select 1 value per row</source>
 			</trans-unit>
 			<trans-unit id="page.error.title" xml:space="preserve">
 				<source>Please check the form!</source>

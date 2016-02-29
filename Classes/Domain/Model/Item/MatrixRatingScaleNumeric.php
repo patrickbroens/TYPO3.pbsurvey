@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
@@ -34,60 +35,35 @@ class MatrixRatingScaleNumeric extends AbstractMatrix
     use NumberTrait;
 
     /**
-     * Check if option exists
+     * TRAIT: OptionRowsTrait
      *
-     * @param int $optionUid The option uid
-     * @return bool true if option exists
+     * FIELDS:
+     * $optionRows
      */
-    public function hasOption($optionUid)
-    {
-        return in_array($optionUid, range($this->numberStart, $this->numberEnd));
-    }
+    use OptionRowsTrait;
 
     /**
-     * Check if the item contains options (answers)
-     *
-     * @return bool true when options are available
+     * Initialize this item
      */
-    public function hasOptions()
+    public function initialize()
     {
-        return $this->numberStart !== $this->numberEnd;
-    }
+        $this->options = [];
 
-    /**
-     * Get an option by its uid
-     *
-     * @param int $optionUid The option uid
-     * @return null|Option The option
-     */
-    public function getOption($optionUid)
-    {
-        $option = null;
+        $range = $this->getRange(count($this->optionRows));
 
-        if ($this->hasOption($optionUid)) {
+        foreach ($range as $optionUid) {
+            /** @var Option $option */
             $option = GeneralUtility::makeInstance(Option::class);
             $option->setUid($optionUid);
             $option->setValue($optionUid);
+
+            $this->addOption($option);
         }
 
-        return $option;
-    }
-
-    /**
-     * Get the options
-     *
-     * @return Option[]
-     */
-    public function getOptions()
-    {
-        $options = [];
-
-        if ($this->hasOptions()) {
-            foreach (range($this->numberStart, $this->numberEnd) as $number) {
-                $options[] = $this->getOption($number);
+        foreach ($this->getOptionRows() as $optionRow) {
+            foreach ($this->getOptions() as $option) {
+                $optionRow->addOption($option);
             }
         }
-
-        return $options;
     }
 }

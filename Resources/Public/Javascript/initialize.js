@@ -14,7 +14,9 @@ window.Parsley.addValidator('matrixTextRequired', {
 	requirementType: 'integer',
 	validateString: function (value, requirement, validator) {
 		var container = jQuery(validator.$element).closest('[data-pbsurvey-matrix]');
-		var amount = container.find('input[type=text]').filter(function(){return $(this).val() != ''}).length;
+		var amount = container.find('input[type=text]').filter(function () {
+			return $(this).val() != ''
+		}).length;
 		return amount >= requirement;
 	},
 	messages: {

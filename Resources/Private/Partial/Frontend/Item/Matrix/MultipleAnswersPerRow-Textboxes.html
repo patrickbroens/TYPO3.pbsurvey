@@ -19,38 +19,16 @@
 		</thead>
 		<tbody>
 			<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
-				<tr>
+				<tr class="{f:if(condition: optionRowIterator.isEven, then: 'even', else: 'odd')}">
 					<th>{optionRow.name}</th>
 					<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
 						<td>
-							<f:if condition="{optionRowIterator.index} == 0">
-								<f:then>
-									<f:if condition="{optionIterator.index} == 0">
-										<f:then>
-											<input
-												type="text"
-												name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][o][{option.uid}]"
-												value="{option.answer}"
-												{f:render(section: 'optionsRequired', arguments: '{_all}')}
-											/>
-										</f:then>
-										<f:else>
-											<input
-												type="text"
-												name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][o][{option.uid}]"
-												value="{option.answer}"
-											/>
-										</f:else>
-									</f:if>
-								</f:then>
-								<f:else>
-									<input
-										type="text"
-										name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][o][{option.uid}]"
-										value="{option.answer}"
-									/>
-								</f:else>
-							</f:if>
+							<input
+								type="text"
+								name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][o][{option.uid}]"
+								value="{option.answer}"
+								{f:render(section: 'optionsRequired', arguments: '{_all}')}
+							/>
 						</td>
 					</f:for>
 				</tr>
@@ -72,11 +50,16 @@
 
 <f:section name="optionsRequired">
 	<f:if condition="{item.optionsRequired}">
-		data-parsley-validate-if-empty
-		data-parsley-matrix-text-required="1"
-		data-parsley-matrix-text-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.matrix.text.required', printf: {0: '1'}})}"
-		data-parsley-errors-container="#error-container-{item.uid}"
-		data-parsley-class-handler="#error-class-{item.uid}"
+		<f:if condition="{optionRowIterator.index} == 0">
+			<f:if condition="{optionIterator.index} == 0">
+				data-parsley-validate-if-empty
+				data-parsley-trigger-after-failure="null"
+				data-parsley-matrix-text-required="1"
+				data-parsley-matrix-text-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.matrix.text.required', printf: {0: '1'}})}"
+				data-parsley-errors-container="#error-container-{item.uid}"
+				data-parsley-class-handler="#error-class-{item.uid}"
+			</f:if>
+		</f:if>
 	</f:if>
 </f:section>
 

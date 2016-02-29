@@ -3,6 +3,61 @@
 	data-namespace-typo3-fluid="true"
 >
 
+<div class="type-9{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
+	<f:render section="labelHeader" arguments="{_all}" />
+	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
+	<div id="error-container-{item.uid}"></div>
+	<table>
+		<thead>
+			<tr>
+				<td>&nbsp;</td>
+				<f:for each="{item.options}" as="option">
+					<td>{option.value}</td>
+				</f:for>
+			</tr>
+		</thead>
+		<tbody>
+			<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
+				<tr id="error-class-{item.uid}-{optionRow.uid}" class="{f:if(condition: optionRowIterator.isEven, then: 'even', else: 'odd')}">
+					<th>{optionRow.name}</th>
+					<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
+						<td>
+							<input
+								type="radio"
+								name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][o]"
+								value="{option.uid}"
+								{f:if(condition: option.checked, then: ' checked')}
+								{f:render(section: 'optionsRequired', arguments: '{_all}')}
+							/>
+						</td>
+					</f:for>
+				</tr>
+			</f:for>
+		</tbody>
+	</table>
+</div>
+
+<f:section name="labelHeader">
+	<h2 class="label">
+		{item.question}
+		<f:if condition="{item.optionsRequired}">
+			<em>
+				<f:render partial="translate" arguments="{key: 'item.label.select.row.optionsRequired'}" />
+			</em>
+		</f:if>
+	</h2>
+</f:section>
+
+<f:section name="optionsRequired">
+	<f:if condition="{item.optionsRequired}">
+		<f:if condition="{optionIterator.index} == 0">
+			data-parsley-required
+			data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.row', printf: {0: optionRow.name}})}"
+			data-parsley-errors-container="#error-container-{item.uid}"
+			data-parsley-class-handler="#error-class-{item.uid}-{optionRow.uid}"
+		</f:if>
+	</f:if>
+</f:section>
 
 </html>

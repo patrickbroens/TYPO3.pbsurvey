@@ -262,7 +262,7 @@
 				<source>Choice - Multiple Answers (Selectbox)</source>
 			</trans-unit>
 			<trans-unit id="field.question_type.24" xml:space="preserve">
-				<source>Choice - Image rating</source>
+				<source>Choice - Image ranking</source>
 			</trans-unit>
 			<trans-unit id="field.question_type.99" xml:space="preserve">
 				<source>Call User Defined Hook</source>

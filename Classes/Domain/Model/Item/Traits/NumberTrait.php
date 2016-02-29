@@ -36,10 +36,14 @@ trait NumberTrait
     /**
      * Get the range of numbers
      *
+     * This is depending on the amount of options
+     * The range will be limited to the amount of options
+     *
      * @param int $count Number taken when everything is empty
+     * @param bool $limitOnCount Limit the range to the count
      * @return array
      */
-    public function getRange($count = 10)
+    public function getRange($count = 10, $limitOnCount = false)
     {
         $range = [];
 
@@ -48,6 +52,22 @@ trait NumberTrait
             && empty($this->numberEnd)
         ) {
             $range = range(1, $count);
+        } elseif ($limitOnCount) {
+            $minimum = min($this->getNumberStart(), $this->getNumberEnd());
+            $maximum = max($this->getNumberStart(), $this->getNumberEnd());
+
+            $difference = $maximum - $minimum;
+
+            if ($difference > $count) {
+                $maximum = $minimum + $count - 1;
+                if ($minimum === $this->getNumberStart()) {
+                    $range = range($minimum, $maximum);
+                } else {
+                    $range = range($maximum, $minimum);
+                }
+            } else {
+                $range = range($this->getNumberStart(), $this->getNumberEnd());
+            }
         } else {
             $range = range($this->getNumberStart(), $this->getNumberEnd());
         }
