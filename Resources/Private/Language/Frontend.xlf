@@ -9,8 +9,20 @@
 			<trans-unit id="item.answersNone" xml:space="preserve">
 				<source>-- None --</source>
 			</trans-unit>
+			<trans-unit id="item.error.date.maximum" xml:space="preserve">
+				<source>Enter a date that is less than or equal to %1$s</source>
+			</trans-unit>
+			<trans-unit id="item.error.date.minimum" xml:space="preserve">
+				<source>Enter a date that is greater than or equal to %1$s</source>
+			</trans-unit>
+			<trans-unit id="item.error.number.equals" xml:space="preserve">
+				<source>The sum of all answers must add up to %1$d</source>
+			</trans-unit>
 			<trans-unit id="item.error.optionsRequired.enter" xml:space="preserve">
 				<source>Enter a value</source>
+			</trans-unit>
+			<trans-unit id="item.error.optionsRequired.number" xml:space="preserve">
+				<source>The total sum is empty</source>
 			</trans-unit>
 			<trans-unit id="item.error.optionsRequired.select.multiple" xml:space="preserve">
 				<source>Select at least one value</source>
@@ -33,6 +45,9 @@
 			<trans-unit id="item.error.matrix.text.required" xml:space="preserve">
 				<source>Enter at least %1$d value</source>
 			</trans-unit>
+			<trans-unit id="item.error.number" xml:space="preserve">
+				<source>'%1$s' is not a numeric value</source>
+			</trans-unit>
 			<trans-unit id="item.error.optionsResponsesMaximum" xml:space="preserve">
 				<source>Please select no more than %1$d value(s)</source>
 			</trans-unit>
@@ -41,6 +56,18 @@
 			</trans-unit>
 			<trans-unit id="item.error.optionsResponsesRange" xml:space="preserve">
 				<source>Please select at least %1$d and no more than %2$d values</source>
+			</trans-unit>
+			<trans-unit id="item.label.date.both" xml:space="preserve">
+				<source>The date must be between %1$s and %2$s, inclusive</source>
+			</trans-unit>
+			<trans-unit id="item.label.date.maximum" xml:space="preserve">
+				<source>The date must be less than or equal to %1$s</source>
+			</trans-unit>
+			<trans-unit id="item.label.date.minimum" xml:space="preserve">
+				<source>The date must be greater than or equal to %1$s</source>
+			</trans-unit>
+			<trans-unit id="item.label.date.optionsRequired" xml:space="preserve">
+				<source>Enter a date</source>
 			</trans-unit>
 			<trans-unit id="item.label.enter.optionsRequired" xml:space="preserve">
 				<source>Enter at least 1 value</source>
@@ -54,8 +81,20 @@
 			<trans-unit id="item.label.imageRating.optionsRequired" xml:space="preserve">
 				<source>Rank the items below. An option can only be used once</source>
 			</trans-unit>
+			<trans-unit id="item.label.constantSum" xml:space="preserve">
+				<source>Total points</source>
+			</trans-unit>
+			<trans-unit id="item.label.optional" xml:space="preserve">
+				<source>Optional.</source>
+			</trans-unit>
 			<trans-unit id="item.label.optionsRequired" xml:space="preserve">
 				<source>Mandatory</source>
+			</trans-unit>
+			<trans-unit id="item.label.number" xml:space="preserve">
+				<source>Optional, the sum of the numbers entered must equal %1$d</source>
+			</trans-unit>
+			<trans-unit id="item.label.number.optionsRequired" xml:space="preserve">
+				<source>The sum of the numbers entered must equal %1$d</source>
 			</trans-unit>
 			<trans-unit id="item.label.select.optionsResponsesMinimum.optionsResponsesMaximum" xml:space="preserve">
 				<source>Optional, but at least %1$d and no more than %2$d values</source>

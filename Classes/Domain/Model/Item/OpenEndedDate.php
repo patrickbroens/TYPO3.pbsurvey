@@ -57,11 +57,17 @@ class OpenEndedDate extends AbstractOpenEnded
     /**
      * Get the default date
      *
-     * @return int
+     * @return string
      */
     public function getDateDefault()
     {
-        return $this->dateDefault;
+        $dateDefault = '';
+
+        if ($this->dateDefault) {
+            $dateDefault = date('d-m-Y', $this->dateDefault);
+        }
+
+        return $dateDefault;
     }
 
     /**
@@ -77,11 +83,17 @@ class OpenEndedDate extends AbstractOpenEnded
     /**
      * Get the maximum date
      *
-     * @return int
+     * @return string
      */
     public function getDateMaximum()
     {
-        return $this->dateMaximum;
+        $dateMaximum = '';
+
+        if ($this->dateMaximum) {
+            $dateMaximum = date('d-m-Y', $this->dateMaximum);
+        }
+
+        return $dateMaximum;
     }
 
     /**
@@ -97,11 +109,16 @@ class OpenEndedDate extends AbstractOpenEnded
     /**
      * Get the minimum date
      *
-     * @return int
+     * @return string
      */
     public function getDateMinimum()
     {
-        return $this->dateMinimum;
+        $dateMinimum = '';
+
+        if ($this->dateMinimum) {
+            $dateMinimum = date('d-m-Y', $this->dateMinimum);
+        }
+        return $dateMinimum;
     }
 
     /**

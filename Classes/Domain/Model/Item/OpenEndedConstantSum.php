@@ -14,14 +14,16 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsRandomTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item type 11: Open Ended - Constant Sum
  */
-class OpenEndedConstantSum extends AbstractOpenEnded
+class OpenEndedConstantSum extends AbstractChoice
 {
     /**
      * TRAIT: OptionsRandomTrait
@@ -76,5 +78,22 @@ class OpenEndedConstantSum extends AbstractOpenEnded
     public function setNumberTotal($numberTotal)
     {
         $this->numberTotal = (int)$numberTotal;
+    }
+
+    /**
+     * Initialize this item
+     */
+    public function initialize()
+    {
+        $this->options = [];
+
+        foreach ($this->getOptionRows() as $optionRow) {
+            /** @var Option $option */
+            $option = GeneralUtility::makeInstance(Option::class);
+            $option->setUid($optionRow->getUid());
+            $option->setValue($optionRow->getName());
+
+            $this->addOption($option);
+        }
     }
 }
