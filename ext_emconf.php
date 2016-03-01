@@ -13,8 +13,5 @@ $EM_CONF['pbsurvey'] = [
         ],
         'conflicts' => [],
         'suggests' => []
-    ],
-    'autoload' => [
-        'psr-4' => ['PatrickBroens\\Pbsurvey\\' => 'Classes']
     ]
 ];
