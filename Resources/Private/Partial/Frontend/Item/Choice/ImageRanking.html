@@ -56,7 +56,7 @@
 				required
 				data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.ranking', printf: {0: option.uid}})}"
 				data-parsley-errors-container="#error-container-{item.uid}"
-				data-parsley-class-handler="#error-container-{item.uid}"
+				data-parsley-class-handler="#error-class-{item.uid}"
 			</f:then>
 			<f:else>
 				<f:if condition="{optionIterator.index} == 0">
