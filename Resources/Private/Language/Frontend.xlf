@@ -15,6 +15,18 @@
 			<trans-unit id="item.error.date.minimum" xml:space="preserve">
 				<source>Enter a date that is greater than or equal to %1$s</source>
 			</trans-unit>
+			<trans-unit id="item.error.date.optionsRequired" xml:space="preserve">
+				<source>Enter a date</source>
+			</trans-unit>
+			<trans-unit id="item.error.date.maximum" xml:space="preserve">
+				<source>Enter a number that is less than or equal to %1$s</source>
+			</trans-unit>
+			<trans-unit id="item.error.date.minimum" xml:space="preserve">
+				<source>Enter a number that is greater than or equal to %1$s</source>
+			</trans-unit>
+			<trans-unit id="item.error.number.optionsRequired" xml:space="preserve">
+				<source>Enter a number</source>
+			</trans-unit>
 			<trans-unit id="item.error.number.equals" xml:space="preserve">
 				<source>The sum of all answers must add up to %1$d</source>
 			</trans-unit>
@@ -46,6 +58,9 @@
 				<source>Enter at least %1$d value</source>
 			</trans-unit>
 			<trans-unit id="item.error.number" xml:space="preserve">
+				<source>The value is not numeric</source>
+			</trans-unit>
+			<trans-unit id="item.error.number.label" xml:space="preserve">
 				<source>'%1$s' is not a numeric value</source>
 			</trans-unit>
 			<trans-unit id="item.error.optionsResponsesMaximum" xml:space="preserve">
@@ -66,8 +81,14 @@
 			<trans-unit id="item.label.date.minimum" xml:space="preserve">
 				<source>The date must be greater than or equal to %1$s</source>
 			</trans-unit>
-			<trans-unit id="item.label.date.optionsRequired" xml:space="preserve">
-				<source>Enter a date</source>
+			<trans-unit id="item.label.number.both" xml:space="preserve">
+				<source>The value must be between %1$s and %2$s, inclusive</source>
+			</trans-unit>
+			<trans-unit id="item.label.number.maximum" xml:space="preserve">
+				<source>The value must be less than or equal to %1$s</source>
+			</trans-unit>
+			<trans-unit id="item.label.number.minimum" xml:space="preserve">
+				<source>The value must be greater than or equal to %1$s</source>
 			</trans-unit>
 			<trans-unit id="item.label.enter.optionsRequired" xml:space="preserve">
 				<source>Enter at least 1 value</source>

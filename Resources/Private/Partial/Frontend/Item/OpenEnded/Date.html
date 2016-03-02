@@ -58,7 +58,7 @@
 <f:section name="optionsRequired">
 	<f:if condition="{item.optionsRequired}">
 		required
-		data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.label.date.optionsRequired'})}"
+		data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.date.optionsRequired'})}"
 	</f:if>
 	<f:if condition="{item.dateMinimum}">
 		data-parsley-date-minimum="{item.dateMinimum}"
