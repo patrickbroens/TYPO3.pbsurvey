@@ -41,7 +41,7 @@ trait LengthMaximumTrait
      *
      * @param int $lengthMaximum The value
      */
-    public function setLangthMaximum($lengthMaximum)
+    public function setLengthMaximum($lengthMaximum)
     {
         $this->lengthMaximum = (int)$lengthMaximum;
     }
