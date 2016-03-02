@@ -18,10 +18,22 @@
 			<trans-unit id="item.error.date.optionsRequired" xml:space="preserve">
 				<source>Enter a date</source>
 			</trans-unit>
-			<trans-unit id="item.error.date.maximum" xml:space="preserve">
+			<trans-unit id="item.error.email" xml:space="preserve">
+				<source>The value is not an email address</source>
+			</trans-unit>
+			<trans-unit id="item.error.length" xml:space="preserve">
+				<source>The length may not exceed %1$s characters</source>
+			</trans-unit>
+			<trans-unit id="item.error.number.both" xml:space="preserve">
+				<source>Enter a number between %1$s and %2$s, inclusive</source>
+			</trans-unit>
+			<trans-unit id="item.error.number.length" xml:space="preserve">
+				<source>The length may not exceed %1$s figures</source>
+			</trans-unit>
+			<trans-unit id="item.error.number.maximum" xml:space="preserve">
 				<source>Enter a number that is less than or equal to %1$s</source>
 			</trans-unit>
-			<trans-unit id="item.error.date.minimum" xml:space="preserve">
+			<trans-unit id="item.error.number.minimum" xml:space="preserve">
 				<source>Enter a number that is greater than or equal to %1$s</source>
 			</trans-unit>
 			<trans-unit id="item.error.number.optionsRequired" xml:space="preserve">

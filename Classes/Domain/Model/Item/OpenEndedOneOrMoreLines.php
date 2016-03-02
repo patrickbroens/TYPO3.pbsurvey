@@ -14,15 +14,17 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\LengthMaximumTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsResponsesTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item type 15: Open Ended - One or More Lines
  */
-class OpenEndedOneOrMoreLines extends AbstractOpenEnded
+class OpenEndedOneOrMoreLines extends AbstractChoice
 {
     /**
      * TRAIT: LengthMaximumTrait
@@ -48,4 +50,21 @@ class OpenEndedOneOrMoreLines extends AbstractOpenEnded
      * $optionRows
      */
     use OptionRowsTrait;
+
+    /**
+     * Initialize this item
+     */
+    public function initialize()
+    {
+        $this->options = [];
+
+        foreach ($this->getOptionRows() as $optionRow) {
+            /** @var Option $option */
+            $option = GeneralUtility::makeInstance(Option::class);
+            $option->setUid($optionRow->getUid());
+            $option->setValue($optionRow->getName());
+
+            $this->addOption($option);
+        }
+    }
 }

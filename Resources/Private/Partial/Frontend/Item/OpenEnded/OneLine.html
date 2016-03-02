@@ -3,6 +3,44 @@
 	data-namespace-typo3-fluid="true"
 >
 
+<div class="type-14{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
+	<f:render section="label" arguments="{_all}" />
+	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
+	<div id="error-container-{item.uid}"></div>
+	<input
+		type="{f:if(condition: item.email, then: 'email', else: 'text')}"
+		name="pbsurvey_{configuration.uid}[{item.uid}][v]"
+		id="pbsurvey-{configuration.uid}-{item.uid}"
+		value=""
+		data-parsley-errors-container="#error-container-{item.uid}"
+		{f:render(section: 'optionsRequired', arguments: '{_all}')}
+	/>
+</div>
+
+<f:section name="label">
+	<label for="pbsurvey-{configuration.uid}-{item.uid}">
+		{item.question}
+		<f:if condition="{item.optionsRequired}">
+			<em>
+				<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
+			</em>
+		</f:if>
+	</label>
+</f:section>
+
+<f:section name="optionsRequired">
+	<f:if condition="{item.optionsRequired}">
+		required
+		data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.enter'})}"
+	</f:if>
+	<f:if condition="{item.email}">
+		data-parsley-type-message="{f:render(partial: 'translate', arguments: {key: 'item.error.email'})}"
+	</f:if>
+	<f:if condition="{item.lengthMaximum}">
+		maxlength="{item.lengthMaximum}"
+		data-parsley-maxlength-message="{f:render(partial: 'translate', arguments: {key: 'item.error.length', printf: '{0: item.lengthMaximum}'})}"
+	</f:if>
+</f:section>
 
 </html>
