@@ -11,7 +11,12 @@
 	<fieldset id="error-class-{item.uid}" data-pbsurvey-matrix="{item.uid}">
 		<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
 			<fieldset class="{f:if(condition: optionRowIterator.isEven, then: 'even', else: 'odd')}">
-				<f:image src="{optionRow.uid}" treatIdAsReference="1" maxWidth="{f:if(condition: item.imageWidth, then: item.imageWidth, else: 100)}" maxHeight="{f:if(condition: item.imageHeight, then: item.imageHeight)}" />
+				<f:image
+					src="{optionRow.uid}"
+					treatIdAsReference="1"
+					maxWidth="{f:if(condition: item.imageWidth, then: item.imageWidth)}"
+					maxHeight="{f:if(condition: item.imageHeight, then: item.imageHeight)}"
+				/>
 				<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
 					<input
 						type="radio"

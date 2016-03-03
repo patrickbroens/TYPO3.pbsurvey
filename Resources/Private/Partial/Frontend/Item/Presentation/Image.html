@@ -3,6 +3,17 @@
 	data-namespace-typo3-fluid="true"
 >
 
-
+<div class="type-20{f:if(condition: item.imageAlignment, then: ' image-alignment-{item.imageAlignment}')}{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
+	<f:for each="{item.fileReferences}" as="fileReference" iteration="fileReferenceIterator">
+		<f:if condition="{fileReferenceIterator.isFirst}">
+			<f:image
+				src="{fileReference.uid}"
+				treatIdAsReference="1"
+				maxWidth="{f:if(condition: item.imageWidth, then: item.imageWidth)}"
+				maxHeight="{f:if(condition: item.imageHeight, then: item.imageHeight)}"
+			/>
+		</f:if>
+	</f:for>
+</div>
 
 </html>

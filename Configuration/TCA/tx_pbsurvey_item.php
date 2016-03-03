@@ -369,7 +369,8 @@ return [
                 'type' => 'input',
                 'size' => 3,
                 'eval' => 'int',
-                'checkbox' => 0
+                'checkbox' => 0,
+                'default' => 100
             ]
         ],
         'length_maximum' => [

@@ -15,11 +15,12 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Interfaces\CallUserDefinedHookInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item type 99: Call User Defined Hook
  */
 class CallUserDefinedHook extends AbstractItem
 {
-
 }

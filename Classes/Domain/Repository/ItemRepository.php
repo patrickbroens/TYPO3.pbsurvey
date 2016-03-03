@@ -136,7 +136,10 @@ class ItemRepository extends AbstractRepository
     protected function getFileReferences($item) {
         /** @var FileRepository $fileRepository */
         $fileRepository = GeneralUtility::makeInstance(FileRepository::class);
-        return $fileRepository->findByRelation('tx_pbsurvey_item', 'file_references', $item->getUid());
+        return array_merge(
+            $fileRepository->findByRelation('tx_pbsurvey_item', 'file_references', $item->getUid()),
+            $fileRepository->findByRelation('tx_pbsurvey_item', 'file_reference', $item->getUid())
+        );
     }
 
     /**
