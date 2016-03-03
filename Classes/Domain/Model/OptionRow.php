@@ -20,11 +20,11 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
 class OptionRow extends AbstractModel
 {
     /**
-     * The name
+     * The label
      *
      * @var string
      */
-    protected $name;
+    protected $label;
 
     /**
      * The options
@@ -34,23 +34,23 @@ class OptionRow extends AbstractModel
     protected $options = [];
 
     /**
-     * Get the name
+     * Get the label
      *
-     * @return string The name
+     * @return string The label
      */
-    public function getName()
+    public function getLabel()
     {
-        return $this->name;
+        return $this->label;
     }
 
     /**
-     * Set the name
+     * Set the label
      *
-     * @param string $name The name
+     * @param string $label The label
      */
-    public function setName($name)
+    public function setLabel($label)
     {
-        $this->name = (string)$name;
+        $this->label = (string)$label;
     }
 
     /**

@@ -33,7 +33,7 @@ class OptionRowRepository extends AbstractRepository
         $databaseResource = $this->getDatabaseConnection()->exec_SELECTquery(
             '
                 uid,
-                name
+                label
             ',
             'tx_pbsurvey_option_row',
             '

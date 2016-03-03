@@ -4,7 +4,7 @@ return [
         'crdate' => 'crdate',
         'delete' => 'deleted',
         'hideTable' => true,
-        'label' => 'name',
+        'label' => 'label',
         'sortby' => 'sorting',
         'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/OptionRow.xlf:title',
         'tstamp' => 'tstamp',
@@ -14,13 +14,13 @@ return [
     ],
     'interface' => [
         'showRecordFieldList' => '
-            name
+            label
         '
     ],
     'columns' => [
-        'name' => [
+        'label' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/OptionRow.xlf:field.name',
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/OptionRow.xlf:field.label',
             'config' => [
                 'type' => 'input',
                 'size' => 40,
@@ -31,7 +31,7 @@ return [
     'types' => [
         1 => [
             'showitem' => '
-                name
+                label
             '
         ]
     ]

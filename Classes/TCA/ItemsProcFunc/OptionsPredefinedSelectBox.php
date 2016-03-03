@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\TCA\ItemsProcFunc;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\OptionPredefinedGroup;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Repository\OptionPredefinedGroupRepository;
 
@@ -35,7 +36,7 @@ class OptionsPredefinedSelectBox
         $groups = $optionPredefinedGroupRepository->findAll();
 
         if (count($groups)) {
-            /** @var \PatrickBroens\Pbsurvey\Domain\Model\OptionPredefinedGroup $group */
+            /** @var OptionPredefinedGroup $group */
             foreach ($groups as $group) {
                 $parameters['items'][] = [$group->getName(), $group->getUid()];
             }

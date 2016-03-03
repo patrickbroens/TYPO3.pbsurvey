@@ -443,7 +443,7 @@ return [
                 'type' => 'inline',
                 'foreign_table' => 'tx_pbsurvey_option_row',
                 'foreign_field' => 'parentid',
-                'foreign_label' => 'name',
+                'foreign_label' => 'label',
                 'maxitems' => 99,
                 'minitems' => 1,
                 'appearance' => [

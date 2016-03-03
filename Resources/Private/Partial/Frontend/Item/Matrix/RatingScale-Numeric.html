@@ -20,7 +20,7 @@
 		<tbody>
 			<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
 				<tr id="error-class-{item.uid}-{optionRow.uid}" class="{f:if(condition: optionRowIterator.isEven, then: 'even', else: 'odd')}">
-					<th>{optionRow.name}</th>
+					<th>{optionRow.label}</th>
 					<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
 						<td>
 							<input
@@ -53,7 +53,7 @@
 	<f:if condition="{item.optionsRequired}">
 		<f:if condition="{optionIterator.index} == 0">
 			data-parsley-required
-			data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.row', printf: {0: optionRow.name}})}"
+			data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.row', printf: {0: optionRow.label}})}"
 			data-parsley-errors-container="#error-container-{item.uid}"
 			data-parsley-class-handler="#error-class-{item.uid}-{optionRow.uid}"
 		</f:if>

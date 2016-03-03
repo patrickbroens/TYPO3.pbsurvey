@@ -62,7 +62,7 @@ class OpenEndedOneOrMoreLines extends AbstractChoice
             /** @var Option $option */
             $option = GeneralUtility::makeInstance(Option::class);
             $option->setUid($optionRow->getUid());
-            $option->setLabel($optionRow->getName());
+            $option->setLabel($optionRow->getLabel());
 
             $this->addOption($option);
         }

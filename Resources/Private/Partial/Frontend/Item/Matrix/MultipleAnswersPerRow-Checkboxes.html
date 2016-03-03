@@ -20,7 +20,7 @@
 		<tbody>
 			<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
 				<tr class="{f:if(condition: optionRowIterator.isEven, then: 'even', else: 'odd')}">
-					<th>{optionRow.name}</th>
+					<th>{optionRow.label}</th>
 					<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
 						<td>
 							<input

@@ -16,7 +16,7 @@ return [
         'showRecordFieldList' => '
             checked,
             points,
-            value
+            label
         '
     ],
     'columns' => [
