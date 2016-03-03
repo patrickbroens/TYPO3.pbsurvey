@@ -12,7 +12,7 @@
 		</f:if>
 		<f:for each="{options}" as="option">
 			<option value="{option.uid}"{f:if(condition: '{option.uid} == {selectedValue}', then: ' selected')}>
-				<f:format.crop maxCharacters="50">{option.value}</f:format.crop>
+				<f:format.crop maxCharacters="50">{option.label}</f:format.crop>
 			</option>
 		</f:for>
 	</select>

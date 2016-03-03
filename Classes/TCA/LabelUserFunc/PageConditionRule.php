@@ -61,7 +61,7 @@ class PageConditionRule extends Control
      */
     public function render(&$parameters, $null)
     {
-        $question = $operator = $optionValue = $additionalValue = '';
+        $question = $operator = $optionLabel = $additionalValue = '';
 
         $itemUid = $parameters['row']['item'];
         $operatorId = reset($parameters['row']['operator']);
@@ -81,7 +81,7 @@ class PageConditionRule extends Control
                 if (!in_array($operatorId, ['set', 'notset'])) {
                     if (($item instanceof AbstractChoice) && $item->hasOption($optionUid)) {
                         $option = $item->getOption($optionUid);
-                        $optionValue = $option->getValue();
+                        $optionLabel = $option->getLabel();
 
                     } elseif (empty($item->isAdditionalAllowed())) {
                         $additionalValue = $additionalText;
@@ -90,7 +90,7 @@ class PageConditionRule extends Control
             }
         }
 
-        $optionSelected = !empty($optionValue) || !empty($additionalValue);
+        $optionSelected = !empty($optionLabel) || !empty($additionalValue);
         $optionNeeded = !in_array($operatorId, ['set', 'notset']);
 
         $isFilled = (
@@ -105,7 +105,7 @@ class PageConditionRule extends Control
             )
         );
 
-        $parameters['title'] = $this->renderLabel($isFilled, $question, $operator, $optionNeeded, $optionValue, $additionalValue);
+        $parameters['title'] = $this->renderLabel($isFilled, $question, $operator, $optionNeeded, $optionLabel, $additionalValue);
     }
 
     /**

@@ -4,7 +4,7 @@ return [
         'crdate' => 'crdate',
         'delete' => 'deleted',
         'hideTable' => true,
-        'label' => 'value',
+        'label' => 'label',
         'sortby' => 'sorting',
         'title' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Option.xlf:title',
         'tstamp' => 'tstamp',
@@ -27,6 +27,15 @@ return [
                   'type' => 'check'
               ]
         ],
+        'label' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Option.xlf:field.label',
+            'config' => [
+                'type' => 'input',
+                'size' => 40,
+                'eval' => 'required'
+            ]
+        ],
         'points' => [
             'exclude' => true,
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Option.xlf:field.points',
@@ -42,8 +51,7 @@ return [
             'label' => 'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Option.xlf:field.value',
             'config' => [
                 'type' => 'input',
-                'size' => 40,
-                'eval' => 'required'
+                'size' => 40
             ]
         ]
     ],
@@ -57,7 +65,7 @@ return [
     'palettes' => [
         1 => [
             'showitem' => '
-                value,
+                label,
                 points,
                 checked
             '

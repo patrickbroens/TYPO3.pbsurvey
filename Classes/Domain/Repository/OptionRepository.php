@@ -36,6 +36,7 @@ class OptionRepository extends AbstractRepository
             '
                 uid,
                 checked,
+                label,
                 points,
                 value
             ',
@@ -82,15 +83,15 @@ class OptionRepository extends AbstractRepository
      * Insert an option
      *
      * @param int $parentId The parent ID
-     * @param string $value The value of the option
+     * @param string $label The label of the option
      * @param int $sorting The sorting order
      */
-    public function insert($parentId, $value, $sorting) {
+    public function insert($parentId, $label, $sorting) {
         $databaseResource = $this->getDatabaseConnection()->exec_INSERTquery(
             'tx_pbsurvey_option',
             [
                 'parentid' => (int)$parentId,
-                'value' => (string)$value,
+                'label' => (string)$label,
                 'sorting' => (int)$sorting
             ]
         );

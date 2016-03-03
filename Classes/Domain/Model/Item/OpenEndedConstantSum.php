@@ -91,7 +91,7 @@ class OpenEndedConstantSum extends AbstractChoice
             /** @var Option $option */
             $option = GeneralUtility::makeInstance(Option::class);
             $option->setUid($optionRow->getUid());
-            $option->setValue($optionRow->getName());
+            $option->setLabel($optionRow->getName());
 
             $this->addOption($option);
         }

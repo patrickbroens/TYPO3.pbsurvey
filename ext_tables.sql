@@ -171,6 +171,7 @@ CREATE TABLE tx_pbsurvey_option (
 	parentid int(11) unsigned DEFAULT '0' NOT NULL,
 
 	checked tinyint(1) DEFAULT '0' NOT NULL,
+	label tinytext NOT NULL,
 	points int(11) unsigned DEFAULT '0' NOT NULL,
 	value tinytext NOT NULL,
 

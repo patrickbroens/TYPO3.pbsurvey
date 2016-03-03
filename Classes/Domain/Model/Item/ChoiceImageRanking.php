@@ -85,7 +85,7 @@ class ChoiceImageRanking extends AbstractChoice
             /** @var Option $option */
             $option = GeneralUtility::makeInstance(Option::class);
             $option->setUid($optionUid);
-            $option->setValue($optionUid);
+            $option->setLabel($optionUid);
 
             $this->addOption($option);
         }

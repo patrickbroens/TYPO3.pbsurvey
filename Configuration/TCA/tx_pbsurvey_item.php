@@ -461,7 +461,7 @@ return [
                 'type' => 'inline',
                 'foreign_table' => 'tx_pbsurvey_option',
                 'foreign_field' => 'parentid',
-                'foreign_label' => 'value',
+                'foreign_label' => 'label',
                 'maxitems' => 999,
                 'minitems' => 1,
                 'appearance' => [

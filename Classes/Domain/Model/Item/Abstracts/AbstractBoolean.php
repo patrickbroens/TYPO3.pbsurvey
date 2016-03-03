@@ -96,7 +96,6 @@ abstract class AbstractBoolean extends AbstractChoice
             ? static::$predefinedOptionsNegativeFirst
             : static::$predefinedOptionsPositiveFirst;
 
-
         foreach ($predefinedOptions as $predefinedOptionUid) {
             if (
                 (
@@ -108,7 +107,7 @@ abstract class AbstractBoolean extends AbstractChoice
                 /** @var Option $option */
                 $option = GeneralUtility::makeInstance(Option::class);
                 $option->setUid($predefinedOptionUid);
-                $option->setValue($this->getLanguageService()->sL(
+                $option->setLabel($this->getLanguageService()->sL(
                     static::$languageLabel . $predefinedOptionUid
                 ));
 

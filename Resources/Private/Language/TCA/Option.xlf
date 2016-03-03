@@ -10,6 +10,9 @@
 			<trans-unit id="field.checked" xml:space="preserve">
 				<source>Checked</source>
 			</trans-unit>
+			<trans-unit id="field.label" xml:space="preserve">
+				<source>Label</source>
+			</trans-unit>
 			<trans-unit id="field.points" xml:space="preserve">
 				<source>Points</source>
 			</trans-unit>

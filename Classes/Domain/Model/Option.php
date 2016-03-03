@@ -20,18 +20,18 @@ namespace PatrickBroens\Pbsurvey\Domain\Model;
 class Option extends AbstractModel
 {
     /**
-     * The answer
-     *
-     * @var string
-     */
-    protected $answer;
-
-    /**
      * Should the option be checked by default
      *
      * @var bool
      */
     protected $checked;
+
+    /**
+     * The label
+     *
+     * @var string
+     */
+    protected $label;
 
     /**
      * The scoring points
@@ -46,26 +46,6 @@ class Option extends AbstractModel
      * @var string
      */
     protected $value;
-
-    /**
-     * Get the answer
-     *
-     * @return string
-     */
-    public function getAnswer()
-    {
-        return $this->answer;
-    }
-
-    /**
-     * Set the answer
-     *
-     * @param string $answer The answer
-     */
-    public function setAnswer($answer)
-    {
-        $this->answer = (string)$answer;
-    }
 
     /**
      * Check if the option should be checked
@@ -85,6 +65,26 @@ class Option extends AbstractModel
     public function setChecked($checked)
     {
         $this->checked = (bool)$checked;
+    }
+
+    /**
+     * Get the label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * Set the label
+     *
+     * @param string $label The label
+     */
+    public function setLabel($label)
+    {
+        $this->label = (string)$label;
     }
 
     /**

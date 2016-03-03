@@ -7,10 +7,10 @@
 	<f:for each="{item.options}" as="option">
 		<f:if condition="{item.answers}">
 			<f:then>
-				<option value="{option.uid}"{f:if(condition: item.answers.{option.uid}, then: ' selected')}>{option.value}</option>
+				<option value="{option.uid}"{f:if(condition: item.answers.{option.uid}, then: ' selected')}>{option.label}</option>
 			</f:then>
 			<f:else>
-				<option value="{option.uid}"{f:if(condition: '{valueDefault} == {option.uid}', then: ' selected')}>{option.value}</option>
+				<option value="{option.uid}"{f:if(condition: '{valueDefault} == {option.uid}', then: ' selected')}>{option.label}</option>
 			</f:else>
 		</f:if>
 	</f:for>
