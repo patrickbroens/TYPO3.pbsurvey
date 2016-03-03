@@ -686,6 +686,10 @@ return [
                         5,
                         'mimetypes-x-pbsurvey-item-5'
                     ], [
+                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.question_type.16',
+                        16,
+                        'mimetypes-x-pbsurvey-item-16'
+                    ], [
                         'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.question_type.24',
                         24,
                         'mimetypes-x-pbsurvey-item-24'
@@ -729,10 +733,6 @@ return [
                         'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.question_type.15',
                         15,
                         'mimetypes-x-pbsurvey-item-15'
-                    ], [
-                        'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.question_type.16',
-                        16,
-                        'mimetypes-x-pbsurvey-item-16'
                     ], [
                         'LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:field.question_type.17',
                         17,
@@ -1151,6 +1151,8 @@ return [
                     question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];,
                 --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.options,
                     option_rows,
+                    number_start,
+                    number_end,
                 --div--;LLL:EXT:pbsurvey/Resources/Private/Language/TCA/Item.xlf:tab.styles,
                     styleclass
             '

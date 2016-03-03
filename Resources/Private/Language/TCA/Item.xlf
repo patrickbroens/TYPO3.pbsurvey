@@ -244,7 +244,7 @@
 				<source>Open Ended - One or More Lines</source>
 			</trans-unit>
 			<trans-unit id="field.question_type.16" xml:space="preserve">
-				<source>Open Ended - Ranking</source>
+				<source>Choice - Ranking</source>
 			</trans-unit>
 			<trans-unit id="field.question_type.17" xml:space="preserve">
 				<source>Presentation - Heading</source>

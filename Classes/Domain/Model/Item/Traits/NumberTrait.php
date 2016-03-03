@@ -53,8 +53,16 @@ trait NumberTrait
         ) {
             $range = range(1, $count);
         } elseif ($limitOnCount) {
-            $minimum = min($this->getNumberStart(), $this->getNumberEnd());
-            $maximum = max($this->getNumberStart(), $this->getNumberEnd());
+            if (empty($this->numberEnd)) {
+                $minimum = $this->numberStart;
+                $maximum = $minimum + $count - 1;
+            } elseif (empty($this->numberStart)) {
+                $maximum = $this->numberEnd;
+                $minimum = $maximum - $count + 1;
+            } else {
+                $minimum = min($this->getNumberStart(), $this->getNumberEnd());
+                $maximum = max($this->getNumberStart(), $this->getNumberEnd());
+            }
 
             $difference = $maximum - $minimum;
 
@@ -66,7 +74,7 @@ trait NumberTrait
                     $range = range($maximum, $minimum);
                 }
             } else {
-                $range = range($this->getNumberStart(), $this->getNumberEnd());
+                $range = range($minimum, $maximum);
             }
         } else {
             $range = range($this->getNumberStart(), $this->getNumberEnd());

@@ -15,8 +15,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\FileReferenceTrait;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\ImageConfigurationTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\NumberTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
@@ -24,28 +22,10 @@ use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Item type 24: Choice - Image ranking
+ * Item type 16: Choice - Ranking
  */
-class ChoiceImageRanking extends AbstractChoice
+class ChoiceRanking extends AbstractChoice
 {
-    /**
-     * TRAIT: FileReferenceTrait
-     *
-     * FIELDS:
-     * $fileReferences
-     */
-    use FileReferenceTrait;
-
-    /**
-     * TRAIT: ImageConfigurationTrait
-     *
-     * FIELDS:
-     * $imageAlignment
-     * $imageHeight
-     * $imageWidth
-     */
-    use ImageConfigurationTrait;
-
     /**
      * TRAIT: NumberTrait
      *
@@ -64,24 +44,15 @@ class ChoiceImageRanking extends AbstractChoice
     use OptionRowsTrait;
 
     /**
-     * The allowed condition operator groups
-     *
-     * @var array
-     */
-    protected static $allowedConditionOperatorGroups = [
-        'equality',
-        'containment',
-        'provision'
-    ];
-
-    /**
      * Initialize this item
      */
     public function initialize()
     {
-        $this->options = $this->optionRows = [];
+        $this->options = [];
 
-        foreach ($this->getRange(count($this->fileReferences), true) as $optionUid) {
+        $range = $this->getRange(count($this->optionRows), true);
+
+        foreach ($range as $optionUid) {
             /** @var Option $option */
             $option = GeneralUtility::makeInstance(Option::class);
             $option->setUid($optionUid);
@@ -90,16 +61,11 @@ class ChoiceImageRanking extends AbstractChoice
             $this->addOption($option);
         }
 
-        foreach ($this->fileReferences as $fileReference) {
-            /** @var OptionRow $optionRow */
-            $optionRow = GeneralUtility::makeInstance(OptionRow::class);
-            $optionRow->setUid($fileReference->getUid());
-
+        /** @var OptionRow $optionRow */
+        foreach ($this->optionRows as $optionRow) {
             foreach ($this->options as $option) {
                 $optionRow->addOption($option);
             }
-
-            $this->addOptionRow($optionRow);
         }
     }
 }
