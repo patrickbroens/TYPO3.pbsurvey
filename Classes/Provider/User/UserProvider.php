@@ -218,6 +218,16 @@ class UserProvider
     }
 
     /**
+     * Get the session key
+     *
+     * @return string
+     */
+    public function getSessionKey()
+    {
+        return $this->sessionKey;
+    }
+
+    /**
      * Set the session key
      *
      * @param string $sessionKey The session key
