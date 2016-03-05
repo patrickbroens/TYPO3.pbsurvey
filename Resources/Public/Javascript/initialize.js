@@ -100,11 +100,22 @@ window.Parsley
 	});
 
 jQuery('#pbsurvey-form')
-	// Skip validation on back or cancel and submit the form
-	.find('[pbsurvey-button-back], [pbsurvey-button-cancel]').click(function () {
+	// Skip validation on back and submit the form
+	.find('[data-pbsurvey-button-back]').click(function () {
 		var form = jQuery(this).parents('form:first');
 		form.parsley().destroy();
 		form.submit();
+	})
+	.end()
+	// Skip validation on cancel and close the window or submit form based on setting
+	.find('[data-pbsurvey-button-cancel]').click(function () {
+		var form = jQuery(this).parents('form:first');
+		form.parsley().destroy();
+		if (parseInt(jQuery(this).attr('data-pbsurvey-button-cancel')) === 1) {
+			window.close();
+		} else {
+			form.submit();
+		}
 	})
 	.end()
 	// Uncheck radio button in the same row of a matrix
@@ -119,11 +130,11 @@ jQuery('#pbsurvey-form')
 	.find('input[data-pbsurvey-reveal]').change(function () {
 		var checked = jQuery(this).is(':checked');
 		var value = jQuery(this).val();
-		var additional = jQuery(this).attr('data-pbsurvey-reveal');
-		if (checked && value === '-1') {
-			jQuery('.' + additional).show();
+		var additional = jQuery('.' + jQuery(this).attr('data-pbsurvey-reveal'));
+		if (checked && value === '1') {
+			additional.show();
 		} else {
-			jQuery('.' + additional).hide();
+			additional.val('').hide();
 		}
 	})
 	.end()
