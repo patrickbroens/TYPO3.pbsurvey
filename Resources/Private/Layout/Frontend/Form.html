@@ -16,6 +16,9 @@
 <pb:pageRenderer.addJsFooterFile
 	file="{f:uri.resource(path: 'Javascript/Initialize.js', extensionName: 'pbsurvey')}"
 />
+<pb:pageRenderer.addCss
+	file="{f:uri.resource(path: 'CSS/Style.min.css', extensionName: 'pbsurvey')}"
+/>
 
 <div class="pbsurvey">
 
@@ -32,7 +35,7 @@
 	</f:if>
 
 	<form id="pbsurvey-form">
-		<div class="page-error">
+		<div class="page-error hidden">
 			<h2>
 				<f:render partial="translate" arguments="{key: 'page.error.title'}" />
 			</h2>

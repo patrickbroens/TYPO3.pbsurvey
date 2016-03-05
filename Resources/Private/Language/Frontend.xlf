@@ -9,6 +9,9 @@
 			<trans-unit id="item.answersNone" xml:space="preserve">
 				<source>-- None --</source>
 			</trans-unit>
+			<trans-unit id="item.error.additional" xml:space="preserve">
+				<source>Enter the additional value</source>
+			</trans-unit>
 			<trans-unit id="item.error.date.maximum" xml:space="preserve">
 				<source>Enter a date that is less than or equal to %1$s</source>
 			</trans-unit>
@@ -105,6 +108,24 @@
 			<trans-unit id="item.label.enter.optionsRequired" xml:space="preserve">
 				<source>Enter at least 1 value</source>
 			</trans-unit>
+			<trans-unit id="item.label.enter.range.optionsRequired" xml:space="preserve">
+				<source>Enter at least %1$s value and no more than %2$d values</source>
+			</trans-unit>
+			<trans-unit id="item.label.enter.minimum.optionsRequired" xml:space="preserve">
+				<source>Enter at least %1$s values</source>
+			</trans-unit>
+			<trans-unit id="item.label.enter.maximum.optionsRequired" xml:space="preserve">
+				<source>Enter no more than %1$s value</source>
+			</trans-unit>
+			<trans-unit id="item.label.enter.range" xml:space="preserve">
+				<source>Optional, but at least %1$d and no more than %2$d values</source>
+			</trans-unit>
+			<trans-unit id="item.label.enter.minimum" xml:space="preserve">
+				<source>Optional, but at least %1$d values</source>
+			</trans-unit>
+			<trans-unit id="item.label.enter.maximum" xml:space="preserve">
+				<source>Optional, but no more than %1$d values</source>
+			</trans-unit>
 			<trans-unit id="item.label.imageRating" xml:space="preserve">
 				<source>Optional, but you can rank the items below. An option can only be used once</source>
 			</trans-unit>
@@ -149,6 +170,9 @@
 			</trans-unit>
 			<trans-unit id="item.label.select.optionsRequired" xml:space="preserve">
 				<source>Select at least 1 value</source>
+			</trans-unit>
+			<trans-unit id="item.label.select.row" xml:space="preserve">
+				<source>Optional, select 1 value per row</source>
 			</trans-unit>
 			<trans-unit id="item.label.select.row.optionsRequired" xml:space="preserve">
 				<source>Select 1 value per row</source>

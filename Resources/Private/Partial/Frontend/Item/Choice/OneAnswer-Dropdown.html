@@ -4,14 +4,14 @@
 >
 
 <div class="type-2{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
-	<f:render section="label" arguments="{_all}" />
+	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
-	<div id="error-container-{item.uid}"></div>
+	<div id="error-container-{item.uid}" class="error-container"></div>
 	<select
 		name="pbsurvey_{configuration.uid}[{item.uid}][o]"
 		id="pbsurvey-{configuration.uid}-{item.uid}"
-		{f:render(section: 'optionsRequired', arguments: '{_all}')}
+		{f:render(section: 'errorHandling', arguments: '{_all}')}
 	>
 		<f:if condition="{item.answersNone}">
 			<option value="">
@@ -29,22 +29,28 @@
 	</select>
 </div>
 
-<f:section name="label">
-	<label for="pbsurvey-{configuration.uid}-{item.uid}">
+<f:section name="question">
+	<label class="question" for="pbsurvey-{configuration.uid}-{item.uid}">
+		<f:render partial="numberingQuestion" arguments="{_all}" />
 		{item.question}
-		<f:if condition="{item.optionsRequired}">
-			<em>
-				<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
-			</em>
-		</f:if>
+		{f:render(section: 'questionConditions', arguments: '{_all}')}
 	</label>
 </f:section>
 
-<f:section name="optionsRequired">
+<f:section name="questionConditions">
+	<f:if condition="{item.optionsRequired}">
+		<em>
+			<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
+		</em>
+	</f:if>
+</f:section>
+
+<f:section name="errorHandling">
+	data-parsley-errors-container="#error-container-{item.uid}"
+
 	<f:if condition="{item.optionsRequired}">
 		required
 		data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.single'})}"
-		data-parsley-errors-container="#error-container-{item.uid}"
 	</f:if>
 </f:section>
 

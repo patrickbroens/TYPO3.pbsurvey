@@ -14,3 +14,9 @@ tt_content.pbsurvey {
 		0 = {$configuration.pbsurvey.layoutRootPath}
 	}
 }
+
+pbsurvey.progress = TEXT
+pbsurvey.progress {
+	current = 1
+	prioriCalc = intval
+}

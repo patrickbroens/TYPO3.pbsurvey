@@ -82,6 +82,8 @@ class SurveyController extends AbstractController
         $stage = $this->user->getStageNumber();
         $page = $this->pages->getPageByStageNumber($stage);
 
+
+
         // Collect the answers
         //$this->addAnswersToPageItems($page);
 

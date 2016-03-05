@@ -4,11 +4,11 @@
 >
 
 <div class="type-7{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
-	<f:render section="labelHeader" arguments="{_all}" />
+	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
-	<div id="error-container-{item.uid}"></div>
-	<div id="error-class-{item.uid}" data-pbsurvey-matrix="{item.uid}">
+	<div id="error-container-{item.uid}" class="error-container"></div>
+	<fieldset id="error-class-{item.uid}" data-pbsurvey-matrix="{item.uid}">
 		<f:for each="{item.options}" as="option" iteration="optionIterator">
 			<label>
 				<span>
@@ -18,36 +18,136 @@
 					type="text"
 					name="pbsurvey_{configuration.uid}[{item.uid}][r][{optionRow.uid}][o][{option.uid}]"
 					value="{option.answer}"
-					{f:render(section: 'optionsRequired', arguments: '{_all}')}
+					{f:render(section: 'errorHandling', arguments: '{_all}')}
 				/>
 			</label>
 		</f:for>
-	</div>
+	</fieldset>
 </div>
 
-<f:section name="labelHeader">
-	<h2 class="label">
+<f:section name="question">
+	<h2 class="question">
+		<f:render partial="numberingQuestion" arguments="{_all}" />
 		{item.question}
-		<f:if condition="{item.optionsRequired}">
-			<em>
-				<f:render partial="translate" arguments="{key: 'item.label.enter.optionsRequired'}" />
-			</em>
-		</f:if>
+		{f:render(section: 'questionConditions', arguments: '{_all}')}
 	</h2>
 </f:section>
 
-<f:section name="optionsRequired">
+<f:section name="questionConditions">
 	<f:if condition="{item.optionsRequired}">
-		<f:if condition="{optionRowIterator.index} == 0">
-			<f:if condition="{optionIterator.index} == 0">
-				data-parsley-validate-if-empty
-				data-parsley-trigger-after-failure="null"
-				data-parsley-matrix-text-required="1"
-				data-parsley-matrix-text-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.matrix.text.required', printf: {0: '1'}})}"
-				data-parsley-errors-container="#error-container-{item.uid}"
-				data-parsley-class-handler="#error-class-{item.uid}"
+		<f:then>
+			<em>
+				<f:if condition="{item.optionsResponsesMinimum} > 1">
+					<f:then>
+						<f:if condition="{item.optionsResponsesMaximum}">
+							<f:then>
+								<f:render partial="translate" arguments="{key: 'item.label.enter.range.optionsRequired', printf: '{0: item.optionsResponsesMinimum, 1: item.optionsResponsesMaximum}'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="translate" arguments="{key: 'item.label.enter.minimum.optionsRequired', printf: '{0: item.optionsResponsesMinimum}'}" />
+							</f:else>
+						</f:if>
+					</f:then>
+					<f:else>
+						<f:if condition="{item.optionsResponsesMaximum}">
+							<f:then>
+								<f:render partial="translate" arguments="{key: 'item.label.enter.maximum.optionsRequired', printf: '{0: item.optionsResponsesMaximum}'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="translate" arguments="{key: 'item.label.enter.minimum.optionsRequired', printf: '{0: 1}'}" />
+							</f:else>
+						</f:if>
+					</f:else>
+				</f:if>
+			</em>
+		</f:then>
+		<f:else>
+			<f:if condition="{item.optionsResponsesMinimum}">
+				<f:then>
+					<em>
+						<f:if condition="{item.optionsResponsesMaximum}">
+							<f:then>
+								<f:render partial="translate" arguments="{key: 'item.label.enter.range', printf: '{0: item.optionsResponsesMinimum, 1: item.optionsResponsesMaximum}'}" />
+							</f:then>
+							<f:else>
+								<f:render partial="translate" arguments="{key: 'item.label.enter.minimum', printf: '{0: item.optionsResponsesMinimum}'}" />
+							</f:else>
+						</f:if>
+					</em>
+				</f:then>
+				<f:else>
+					<em>
+						<f:if condition="{item.optionsResponsesMaximum}">
+							<f:then>
+								<f:render partial="translate" arguments="{key: 'item.label.enter.maximum', printf: '{0: item.optionsResponsesMaximum}'}" />
+							</f:then>`
+						</f:if>
+					</em>
+				</f:else>
+			</f:if>
+		</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="errorHandling">
+	<f:if condition="{optionRowIterator.index} == 0">
+		<f:if condition="{optionIterator.index} == 0">
+			data-parsley-validate-if-empty
+			data-parsley-trigger-after-failure="null"
+			data-parsley-errors-container="#error-container-{item.uid}"
+			data-parsley-class-handler="#error-class-{item.uid}"
+			<f:if condition="{item.optionsRequired}">
+				<f:then>
+					<f:if condition="{item.optionsResponsesMinimum} > 1">
+						<f:then>
+							<f:if condition="{item.optionsResponsesMaximum}">
+								<f:then>
+									data-parsley-text-range="[{item.optionsResponsesMinimum}, {item.optionsResponsesMaximum}, true]"
+								</f:then>
+								<f:else>
+									data-parsley-text-minimum="[{item.optionsResponsesMinimum}, true]"
+								</f:else>
+							</f:if>
+						</f:then>
+						<f:else>
+							<f:if condition="{item.optionsResponsesMaximum}">
+								<f:then>
+									data-parsley-text-range="[1, {item.optionsResponsesMaximum}, true]"
+								</f:then>
+								<f:else>
+									data-parsley-text-minimum="[1, true]"
+								</f:else>
+							</f:if>
+						</f:else>
+					</f:if>
+				</f:then>
+				<f:else>
+					<f:if condition="{item.optionsResponsesMinimum}">
+						<f:then>
+							<f:if condition="{item.optionsResponsesMaximum}">
+								<f:then>
+									data-parsley-text-range="[{item.optionsResponsesMinimum}, {item.optionsResponsesMaximum}, false]"
+								</f:then>
+								<f:else>
+									data-parsley-text-minimum="[{item.optionsResponsesMinimum}, false]"
+								</f:else>
+							</f:if>
+						</f:then>
+						<f:else>
+								<f:if condition="{item.optionsResponsesMaximum}">
+									<f:then>
+										data-parsley-text-maximum="{item.optionsResponsesMaximum}"
+									</f:then>`
+								</f:if>
+						</f:else>
+					</f:if>
+				</f:else>
 			</f:if>
 		</f:if>
+	</f:if>
+	<f:if condition="{item.lengthMaximum}">
+		maxlength="{item.lengthMaximum}"
+		data-parsley-maxlength-message="{f:render(partial: 'translate', arguments: {key: 'item.error.length', printf: '{0: item.lengthMaximum}'})}"
 	</f:if>
 </f:section>
 

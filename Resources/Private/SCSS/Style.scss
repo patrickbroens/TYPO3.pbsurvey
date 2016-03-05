@@ -1,0 +1,176 @@
+$green: #060;
+$grey-light: #ddd;
+$grey-dark: #777;
+$orange: #f0ad4e;
+$orange-light: #fcf8f2;
+$red: #B94A48;
+$red-light: #F2DEDE; // District
+
+.pbsurvey {
+	.numbering-page {
+		color: $grey-dark;
+		overflow: auto;
+		text-align: right;
+
+		.progress-bar {
+			background-color: $grey-light;
+			float: right;
+			line-height: inherit;
+			position: relative;
+			width: 200px;
+
+			div {
+				&:first-child {
+					background-color: $orange;
+					bottom: 0;
+					position: absolute;
+					top: 0;
+					width: 25%;
+				}
+
+				&:last-child {
+					position: relative;
+					text-align: center;
+					z-index: 1;
+				}
+			}
+		}
+	}
+
+	.page-error {
+		background-color: $orange-light;
+		border-left: 3px solid $orange;
+		padding: 1rem;
+
+		&.hidden {
+			display: none;
+		}
+
+		h2 {
+			margin-top: 0;
+		}
+
+		p {
+			margin-bottom: 0;
+		}
+	}
+
+	.question {
+		display: table;
+		font-size: 120%;
+		font-weight: bold;
+		margin: 1rem 0;
+
+		.numbering-question {
+			color: $grey-dark;
+			display: table-cell;
+			padding-right: 0.5rem;
+		}
+
+		em {
+			color: $green;
+			display: block;
+			font-size: 75%;
+			font-style: normal;
+			margin-top: 0.5rem;
+			text-transform: uppercase;
+		}
+	}
+
+	.item {
+		border-bottom: 1px solid $grey-light;
+		padding: 1rem 0;
+		margin: 1rem 0;
+
+		.error-container {
+
+			.parsley-errors-list {
+				background-color: $red-light; // District
+				border-left: 3px solid $red;
+				display: none;
+				list-style: none;
+				padding: 1rem;
+
+				&.filled {
+					display: block;
+				}
+			}
+		}
+
+		fieldset {
+			border: 0;
+			display: table;
+			margin: 0;
+			padding: 0;
+
+			label {
+				display: table-row;
+
+				span {
+					display: table-cell;
+					padding-right: 1rem;
+				}
+
+				&.additional {
+					display: inline-block;
+					vertical-align: top;
+
+					& + input,
+					& + textarea {
+						display: none;
+					}
+				}
+
+				input {
+					display: table-cell;
+
+					& + input {
+						display: none;
+					}
+
+					&:checked + input {
+						display: inline-block;
+					}
+				}
+			}
+		}
+
+		.horizontal {
+			fieldset {
+				label {
+					display: inline-block;
+					margin-right: 1rem;
+				}
+			}
+		}
+
+		.parsley-error {
+			color: $red;
+		}
+
+		input.parsley-error,
+		select.parsley-error,
+		textarea.parsley-error,
+		.parsley-error .remaining input{
+			background-color: $red-light; // District
+		}
+
+		td {
+			padding: 0 .5rem;
+			text-align: center;
+		}
+
+		th {
+			font-weight: normal;
+		}
+
+		.remaining {
+			font-weight: bold;
+
+			span {
+				padding-top: 1rem;
+			}
+
+		}
+	}
+}

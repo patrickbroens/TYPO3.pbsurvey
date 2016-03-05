@@ -4,47 +4,43 @@
 >
 
 <div class="type-1{f:if(condition: '{item.optionsAlignment} == 1', then: ' horizontal')}{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
-	<f:render section="labelHeader" arguments="{_all}" />
+	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
-	<div id="error-container-{item.uid}"></div>
-	<fieldset>
+	<div id="error-container-{item.uid}" class="error-container"></div>
+	<fieldset id="error-class-{item.uid}">
 		<f:for each="{item.randomizedOptions}" as="option" iteration="optionIterator">
-			<input
-				type="checkbox"
-				name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-				id="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}"
-				value="{option.uid}"
-				{f:render(section: 'optionsResponses', arguments: '{_all}')}
-				{f:render(section: 'optionsRequired', arguments: '{_all}')}
-				{f:if(condition: option.checked, then: 'checked')}
-			/>
-			<label for="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}">
+			<label>
+				<input
+					type="checkbox"
+					name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+					value="{option.uid}"
+					{f:render(section: 'errorHandling', arguments: '{_all}')}
+					{f:if(condition: option.checked, then: 'checked')}
+				/>
 				{option.label}
 			</label>
 		</f:for>
 
 		<f:if condition="{item.answersAdditionalAllow}">
-			<input
-				type="checkbox"
-				name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-				id="pbsurvey-{configuration.uid}-{item.uid}-additional"
-				value="-1"
-				{f:if(condition: option.checked, then: ' checked')}
-			/>
-			<label for="pbsurvey-{configuration.uid}-{item.uid}-additional">
+			<label class="additional">
+				<input
+					type="checkbox"
+					name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+					data-pbsurvey-reveal="pbsurvey-{configuration.uid}-{item.uid}-additional"
+					value="-1"
+					{f:if(condition: option.checked, then: ' checked')}
+				/>
 				{item.answersAdditionalText}
 			</label>
-
-
 			<f:if condition="{item.answersAdditionalType}">
 				<f:then>
 					<textarea
 						name="pbsurvey_{configuration.uid}[{item.uid}][o][-1][a]"
 						rows="{item.textareaHeight}"
 						cols="{item.textareaWidth}"
-				>
-						FILL: VALUE
+						class="pbsurvey-{configuration.uid}-{item.uid}-additional"
+					>
 					</textarea>
 				</f:then>
 				<f:else>
@@ -53,6 +49,7 @@
 						type="text"
 						value=""
 						placeholder="{f:render(partial: 'translate', arguments: {key: 'item.answersAdditionalPlaceholder'})}"
+						class="pbsurvey-{configuration.uid}-{item.uid}-additional"
 					/>
 				</f:else>
 			</f:if>
@@ -60,77 +57,85 @@
 	</fieldset>
 </div>
 
-<f:section name="labelHeader">
-	<h2 class="label">
+<f:section name="question">
+	<h2 class="question">
+		<f:render partial="numberingQuestion" arguments="{_all}" />
 		{item.question}
-		<f:if condition="{item.optionsRequired}">
-			<f:then>
-				<em>
-					<f:if condition="{item.optionsResponsesMinimum}">
-						<f:then>
-							<f:if condition="{item.optionsResponsesMaximum}">
-								<f:then>
-									<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired.optionsResponsesMinimum.optionsResponsesMaximum', printf: {1: item.optionsResponsesMinimum, 2: item.optionsResponsesMaximum}}" />
-								</f:then>
-								<f:else>
-									<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired.optionsResponsesMinimum', printf: {1: item.optionsResponsesMinimum}}" />
-								</f:else>
-							</f:if>
-						</f:then>
-						<f:else>
-							<f:if condition="{item.optionsResponsesMaximum}">
-								<f:then>
-									<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired.optionsResponsesMaximum', printf: {1: item.optionsResponsesMaximum}}" />
-								</f:then>
-								<f:else>
-									<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired'}" />
-								</f:else>
-							</f:if>
-						</f:else>
-					</f:if>
-				</em>
-			</f:then>
-			<f:else>
-				<f:if condition="{item.optionsResponsesMinimum}">
-					<f:then>
-						<em>
-							<f:if condition="{item.optionsResponsesMaximum}">
-								<f:then>
-									<f:render partial="translate" arguments="{key: 'item.label.select.optionsResponsesMinimum.optionsResponsesMaximum', printf: {0: item.optionsResponsesMinimum, 1: item.optionsResponsesMaximum}}" />
-								</f:then>
-								<f:else>
-									<f:render partial="translate" arguments="{key: 'item.label.select.optionsResponsesMinimum', printf: {0: item.optionsResponsesMinimum}}" />
-								</f:else>
-							</f:if>
-						</em>
-					</f:then>
-					<f:else>
-						<f:if condition="{item.optionsResponsesMaximum}">
-							<em>
-								<f:render partial="translate" arguments="{key: 'item.label.select.optionsResponsesMaximum', printf: {0: item.optionsResponsesMaximum}}" />
-							</em>
-						</f:if>
-					</f:else>
-				</f:if>
-			</f:else>
-		</f:if>
+		{f:render(section: 'questionConditions', arguments: '{_all}')}
 	</h2>
 </f:section>
 
-<f:section name="optionsResponses">
+<f:section name="questionConditions">
+	<f:if condition="{item.optionsRequired}">
+		<f:then>
+			<em>
+				<f:if condition="{item.optionsResponsesMinimum}">
+					<f:then>
+						<f:if condition="{item.optionsResponsesMaximum}">
+							<f:then>
+								<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired.optionsResponsesMinimum.optionsResponsesMaximum', printf: {1: item.optionsResponsesMinimum, 2: item.optionsResponsesMaximum}}" />
+							</f:then>
+							<f:else>
+								<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired.optionsResponsesMinimum', printf: {1: item.optionsResponsesMinimum}}" />
+							</f:else>
+						</f:if>
+					</f:then>
+					<f:else>
+						<f:if condition="{item.optionsResponsesMaximum}">
+							<f:then>
+								<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired.optionsResponsesMaximum', printf: {1: item.optionsResponsesMaximum}}" />
+							</f:then>
+							<f:else>
+								<f:render partial="translate" arguments="{key: 'item.label.select.optionsRequired'}" />
+							</f:else>
+						</f:if>
+					</f:else>
+				</f:if>
+			</em>
+		</f:then>
+		<f:else>
+			<f:if condition="{item.optionsResponsesMinimum}">
+				<f:then>
+					<em>
+						<f:if condition="{item.optionsResponsesMaximum}">
+							<f:then>
+								<f:render partial="translate" arguments="{key: 'item.label.select.optionsResponsesMinimum.optionsResponsesMaximum', printf: {0: item.optionsResponsesMinimum, 1: item.optionsResponsesMaximum}}" />
+							</f:then>
+							<f:else>
+								<f:render partial="translate" arguments="{key: 'item.label.select.optionsResponsesMinimum', printf: {0: item.optionsResponsesMinimum}}" />
+							</f:else>
+						</f:if>
+					</em>
+				</f:then>
+				<f:else>
+					<f:if condition="{item.optionsResponsesMaximum}">
+						<em>
+							<f:render partial="translate" arguments="{key: 'item.label.select.optionsResponsesMaximum', printf: {0: item.optionsResponsesMaximum}}" />
+						</em>
+					</f:if>
+				</f:else>
+			</f:if>
+		</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="errorHandling">
 	<f:if condition="{optionIterator.index} == 0">
+		data-parsley-errors-container="#error-container-{item.uid}"
+		data-parsley-class-handler="#error-class-{item.uid}"
+
 		<f:if condition="{item.optionsResponsesMinimum}">
 			<f:then>
 				<f:if condition="{item.optionsResponsesMaximum}">
 					<f:then>
 						data-parsley-check="[{item.optionsResponsesMinimum}, {item.optionsResponsesMaximum}]"
 						data-parsley-check-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsResponsesRange', printf: {1: item.optionsResponsesMinimum, 2: item.optionsResponsesMaximum}})}"
-						data-parsley-errors-container="#error-container-{item.uid}"
+
 					</f:then>
 					<f:else>
 						data-parsley-mincheck="{item.optionsResponsesMinimum}"
 						data-parsley-mincheck-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsResponsesMinimum', printf: {1: item.optionsResponsesMinimum}})}"
-						data-parsley-errors-container="#error-container-{item.uid}"
+
 					</f:else>
 				</f:if>
 			</f:then>
@@ -138,19 +143,20 @@
 				<f:if condition="{item.optionsResponsesMaximum}">
 					data-parsley-maxcheck="{item.optionsResponsesMaximum}"
 					data-parsley-maxcheck-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsResponsesMaximum', printf: {1: item.optionsResponsesMaximum}})}"
-					data-parsley-errors-container="#error-container-{item.uid}"
 				</f:if>
 			</f:else>
 		</f:if>
-	</f:if>
-</f:section>
 
-<f:section name="optionsRequired">
-	<f:if condition="{item.optionsRequired}">
-		<f:if condition="{optionIterator.index} == 0">
-			data-parsley-required
-			data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.multiple'})}"
-			data-parsley-errors-container="#error-container-{item.uid}"
+		<f:if condition="{item.optionsRequired}">
+			<f:if condition="{optionIterator.index} == 0">
+				data-parsley-required
+				data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.multiple'})}"
+			</f:if>
+		</f:if>
+
+		<f:if condition="{item.answersAdditionalAllow}">
+			data-parsley-additional="pbsurvey-{configuration.uid}-{item.uid}-additional"
+			data-parsley-additional-message="{f:render(partial: 'translate', arguments: {key: 'item.error.additional'})}"
 		</f:if>
 	</f:if>
 </f:section>

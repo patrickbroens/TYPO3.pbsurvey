@@ -4,44 +4,43 @@
 >
 
 <div class="type-3{f:if(condition: '{item.optionsAlignment} == 1', then: ' horizontal')}{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
-	<f:render section="labelHeader" arguments="{_all}" />
+	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
-	<div id="error-container-{item.uid}"></div>
-	<fieldset>
+	<div id="error-container-{item.uid}" class="error-container"></div>
+	<fieldset id="error-class-{item.uid}">
 		<f:for each="{item.randomizedOptions}" as="option" iteration="optionIterator">
-			<input
-				type="radio"
-				name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-				id="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}"
-				value="{option.uid}"
-				{f:if(condition: option.checked, then: 'checked')}
-				{f:render(section: 'optionsRequired', arguments: '{_all}')}
-			/>
-			<label for="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}">
+			<label>
+				<input
+					type="radio"
+					name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+					value="{option.uid}"
+					{f:render(section: 'revealAdditional', arguments: '{_all}')}
+					{f:render(section: 'errorHandling', arguments: '{_all}')}
+					{f:if(condition: option.checked, then: 'checked')}
+				/>
 				{option.label}
 			</label>
 		</f:for>
 
 		<f:if condition="{item.answersAdditionalAllow}">
-			<input
-				type="checkbox"
-				name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-				id="pbsurvey-{configuration.uid}-{item.uid}-additional"
-				value="-1"
-				{f:if(condition: option.checked, then: ' checked')}
-			/>
-			<label for="pbsurvey-{configuration.uid}-{item.uid}-additional">
+			<label class="additional">
+				<input
+					type="radio"
+					name="pbsurvey_{configuration.uid}[{item.uid}][o]"
+					value="-1"
+					{f:render(section: 'revealAdditional', arguments: '{_all}')}
+					{f:if(condition: option.checked, then: ' checked')}
+				/>
 				{item.answersAdditionalText}
 			</label>
-
-
 			<f:if condition="{item.answersAdditionalType}">
 				<f:then>
 					<textarea
 						name="pbsurvey_{configuration.uid}[{item.uid}][o][-1][a]"
 						rows="{item.textareaHeight}"
 						cols="{item.textareaWidth}"
+						class="pbsurvey-{configuration.uid}-{item.uid}-additional"
 				>
 						FILL: VALUE
 					</textarea>
@@ -52,6 +51,7 @@
 						type="text"
 						value=""
 						placeholder="{f:render(partial: 'translate', arguments: {key: 'item.answersAdditionalPlaceholder'})}"
+						class="pbsurvey-{configuration.uid}-{item.uid}-additional"
 					/>
 				</f:else>
 			</f:if>
@@ -59,24 +59,42 @@
 	</fieldset>
 </div>
 
-<f:section name="labelHeader">
-	<h2 class="label">
+<f:section name="question">
+	<h2 class="question">
+		<f:render partial="numberingQuestion" arguments="{_all}" />
 		{item.question}
-		<f:if condition="{item.optionsRequired}">
-			<em>
-				<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
-			</em>
-		</f:if>
+		{f:render(section: 'questionConditions', arguments: '{_all}')}
 	</h2>
 </f:section>
 
-<f:section name="optionsRequired">
+<f:section name="questionConditions">
 	<f:if condition="{item.optionsRequired}">
-		<f:if condition="{optionIterator.index} == 0">
+		<em>
+			<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
+		</em>
+	</f:if>
+</f:section>
+
+<f:section name="errorHandling">
+	<f:if condition="{optionIterator.index} == 0">
+		data-parsley-errors-container="#error-container-{item.uid}"
+		data-parsley-class-handler="#error-class-{item.uid}"
+
+		<f:if condition="{item.optionsRequired}">
 			required
 			data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.single'})}"
-			data-parsley-errors-container="#error-container-{item.uid}"
 		</f:if>
+
+		<f:if condition="{item.answersAdditionalAllow}">
+			data-parsley-additional="pbsurvey-{configuration.uid}-{item.uid}-additional"
+			data-parsley-additional-message="{f:render(partial: 'translate', arguments: {key: 'item.error.additional'})}"
+		</f:if>
+	</f:if>
+</f:section>
+
+<f:section name="revealAdditional">
+	<f:if condition="{item.answersAdditionalAllow}">
+		data-pbsurvey-reveal="pbsurvey-{configuration.uid}-{item.uid}-additional"
 	</f:if>
 </f:section>
 

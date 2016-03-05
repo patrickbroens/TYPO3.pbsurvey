@@ -4,58 +4,60 @@
 >
 
 <div class="type-12{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
-	<f:render section="labelHeader" arguments="{_all}" />
+	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
-	<div id="error-container-{item.uid}"></div>
+	<div id="error-container-{item.uid}" class="error-container"></div>
 	<label>
 		<input
 			type="text"
 			name="pbsurvey_{configuration.uid}[{item.uid}][v]"
 			value=""
-			data-parsley-errors-container="#error-container-{item.uid}"
-			{f:render(section: 'optionsRequired', arguments: '{_all}')}
+			{f:render(section: 'errorHandling', arguments: '{_all}')}
 		/>
-		<span>
 			dd-mm-yyyy
-		</span>
 	</label>
 </div>
 
-<f:section name="labelHeader">
-	<h2 class="label">
+<f:section name="question">
+	<h2 class="question">
+		<f:render partial="numberingQuestion" arguments="{_all}" />
 		{item.question}
-			<f:if condition="{item.optionsRequired}">
-				<em>
-					<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
-				</em>
-			</f:if>
-			<f:if condition="{item.dateMinimum}">
-				<f:then>
-					<em>
-						<f:if condition="{item.dateMaximum}">
-							<f:then>
-								<f:render partial="translate" arguments="{key: 'item.label.date.both', printf: '{0: item.dateMinimum, 1: item.dateMaximum}'}" />
-							</f:then>
-							<f:else>
-								<f:render partial="translate" arguments="{key: 'item.label.date.minimum', printf: '{0: item.dateMinimum}'}" />
-							</f:else>
-						</f:if>
-					</em>
-				</f:then>
-				<f:else>
-					<em>
-						<f:if condition="{item.dateMaximum}">
-							<f:render partial="translate" arguments="{key: 'item.label.date.maximum', printf: '{0: item.dateMaximum}'}" />
-						</f:if>
-					</em>
-				</f:else>
-			</f:if>
-		</em>
+		{f:render(section: 'questionConditions', arguments: '{_all}')}
 	</h2>
 </f:section>
 
-<f:section name="optionsRequired">
+<f:section name="questionConditions">
+	<f:if condition="{item.optionsRequired}">
+		<em>
+			<f:render partial="translate" arguments="{key: 'item.label.optionsRequired'}" />
+		</em>
+	</f:if>
+	<f:if condition="{item.dateMinimum}">
+		<f:then>
+			<em>
+				<f:if condition="{item.dateMaximum}">
+					<f:then>
+						<f:render partial="translate" arguments="{key: 'item.label.date.both', printf: '{0: item.dateMinimum, 1: item.dateMaximum}'}" />
+					</f:then>
+					<f:else>
+						<f:render partial="translate" arguments="{key: 'item.label.date.minimum', printf: '{0: item.dateMinimum}'}" />
+					</f:else>
+				</f:if>
+			</em>
+		</f:then>
+		<f:else>
+			<em>
+				<f:if condition="{item.dateMaximum}">
+					<f:render partial="translate" arguments="{key: 'item.label.date.maximum', printf: '{0: item.dateMaximum}'}" />
+				</f:if>
+			</em>
+		</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="errorHandling">
+	data-parsley-errors-container="#error-container-{item.uid}"
 	<f:if condition="{item.optionsRequired}">
 		required
 		data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.date.optionsRequired'})}"

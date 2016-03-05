@@ -10,17 +10,45 @@ window.Parsley.addValidator('matrixMincheck', {
 	}
 });
 
-window.Parsley.addValidator('matrixTextRequired', {
-	requirementType: 'integer',
-	validateString: function (value, requirement, parsleyInstance) {
+window.Parsley.addValidator('textMinimum', {
+	requirementType: ['integer', 'boolean'],
+	validateString: function (value, minimum, mandatory, parsleyInstance) {
 		var container = jQuery(parsleyInstance.$element).closest('[data-pbsurvey-matrix]');
 		var amount = container.find('input[type=text]').filter(function () {
 			return $(this).val() != ''
 		}).length;
-		return amount >= requirement;
+		return (!mandatory && amount === 0) || amount >= minimum;
 	},
 	messages: {
 		en: 'Enter at least %s value'
+	}
+});
+
+window.Parsley.addValidator('textMaximum', {
+	requirementType: 'integer',
+	validateString: function (value, maximum, parsleyInstance) {
+		var container = jQuery(parsleyInstance.$element).closest('[data-pbsurvey-matrix]');
+		var amount = container.find('input[type=text]').filter(function () {
+			return $(this).val() != ''
+		}).length;
+		return amount <= maximum;
+	},
+	messages: {
+		en: 'Enter no more than %s values'
+	}
+});
+
+window.Parsley.addValidator('textRange', {
+	requirementType: ['number', 'number', 'boolean'],
+	validateString: function (value, minimum, maximum, mandatory, parsleyInstance) {
+		var container = jQuery(parsleyInstance.$element).closest('[data-pbsurvey-matrix]');
+		var amount = container.find('input[type=text]').filter(function () {
+			return $(this).val() != ''
+		}).length;
+		return (!mandatory && amount === 0) || (amount >= minimum && amount <= maximum);
+	},
+	messages: {
+		en: 'Enter at least %s and no more than %s values'
 	}
 });
 
@@ -46,6 +74,25 @@ window.Parsley.addValidator('dateMinimum', {
 	}
 });
 
+window.Parsley.addValidator('additional', {
+	requirementType: 'string',
+	validateMultiple: function (value, requirement, parsleyInstance) {
+		var checked = jQuery.inArray('-1', value) > -1;
+		var additional = jQuery(parsleyInstance.$element).attr('data-parsley-additional');
+		var additionalValue = jQuery('.' + additional).val();
+		return !checked || additionalValue != '';
+	},
+	validateString: function (value, requirement, parsleyInstance) {
+		var checked = value === '-1';
+		var additional = jQuery(parsleyInstance.$element).attr('data-parsley-additional');
+		var additionalValue = jQuery('.' + additional).val();
+		return !checked || additionalValue != '';
+	},
+	messages: {
+		en: 'Enter the additional value'
+	}
+});
+
 window.Parsley.addValidator('dateMaximum', {
 	requirementType: 'string',
 	validateString: function (value, requirement) {
@@ -58,16 +105,17 @@ window.Parsley.addValidator('dateMaximum', {
 	}
 });
 
+
+
 var pbsurveyForm = jQuery('#pbsurvey-form');
 
 pbsurveyForm.parsley()
 	.on('field:validated', function () {
 		var ok = $('.parsley-error').length === 0;
-		$('.bs-callout-info').toggleClass('hidden', !ok);
-		$('.bs-callout-warning').toggleClass('hidden', ok);
-	})
-	.on('form:submit', function () {
-		return false; // Don't submit form for this demo
+		$('.page-error').toggleClass('hidden', ok);
+	//})
+	//.on('form:submit', function () {
+	//	return false; // Don't submit form for this demo
 	});
 
 // Uncheck radio button in the same row of a matrix
@@ -76,6 +124,18 @@ pbsurveyForm.find('input[data-pbsurvey-row]').click(function () {
 	jQuery('input[data-pbsurvey-row="' + row + '"]').not(jQuery(this)).each(function () {
 		this.checked = false;
 	});
+});
+
+// Reveal additional input
+pbsurveyForm.find('input[data-pbsurvey-reveal]').change(function () {
+	var checked = jQuery(this).is(':checked');
+	var value = jQuery(this).val();
+	var additional = jQuery(this).attr('data-pbsurvey-reveal');
+	if (checked && value === '-1') {
+		jQuery('.' + additional).show();
+	} else {
+		jQuery('.' + additional).hide();
+	}
 });
 
 // Calculate total sum

@@ -274,7 +274,6 @@ class UserProvider
      * Continue an existing session
      *
      * If the "back" button has been pushed, we go back in stage
-     * Following stages have to be removed and the stage must be lowered
      */
     public function continueSession(ServerRequest $serverRequest)
     {
@@ -288,8 +287,6 @@ class UserProvider
         ) {
             $newStage = $this->result->getPreviousStage($this->getStageNumber());
             $this->setStageNumber($newStage->getNumber());
-
-            $this->result->deleteStageAndUp($this->getStageNumber());
         }
     }
 

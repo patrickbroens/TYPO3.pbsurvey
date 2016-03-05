@@ -4,7 +4,7 @@
 >
 
 <div class="progress-bar">
-	<div style=""></div>
+	<div style="width: {f:cObject(typoscriptObjectPath: 'pbsurvey.progress', data: '{pageNumber} / {pageCount} * 100')}%;"></div>
 	<div>
 		<f:render partial="translate" arguments="{key: 'page.numbering.progressBar', printf: {0: pageNumber, 1: pageCount}}" />
 	</div>
