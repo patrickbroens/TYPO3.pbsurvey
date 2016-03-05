@@ -3,6 +3,18 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-05T10:11:32Z" product-name="pbsurvey">
 		<header/>
 		<body>
+			<trans-unit id="button.back" xml:space="preserve">
+				<source>&lt; Previous</source>
+			</trans-unit>
+			<trans-unit id="button.cancel" xml:space="preserve">
+				<source>Cancel</source>
+			</trans-unit>
+			<trans-unit id="button.submit.finish" xml:space="preserve">
+				<source>Submit</source>
+			</trans-unit>
+			<trans-unit id="button.submit.next" xml:space="preserve">
+				<source>Next &gt;</source>
+			</trans-unit>
 			<trans-unit id="item.answersAdditionalPlaceholder" xml:space="preserve">
 				<source>Additional answer</source>
 			</trans-unit>

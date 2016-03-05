@@ -34,7 +34,7 @@
 		{page.introduction -> f:format.html()}
 	</f:if>
 
-	<form id="pbsurvey-form">
+	<form id="pbsurvey-form" method="post">
 		<div class="page-error hidden">
 			<h2>
 				<f:render partial="translate" arguments="{key: 'page.error.title'}" />
@@ -46,7 +46,42 @@
 
 		<f:render section="Items" />
 
-		<input type="submit" value="validate">
+		<f:if condition="{configuration.navigationBack}">
+			<f:if condition="{user.stageNumber} != 0">
+				<input
+					type="button"
+					name="pbsurvey_{configuration.uid}[back]"
+					data-pbsurvey-button-back=""
+					value="{f:render(partial: 'translate', arguments: {key: 'button.back'})}" />
+				/>
+			</f:if>
+		</f:if>
+
+		<f:if condition="{user.pageNumber} < {pages.pageCount}">
+			<f:then>
+				<input
+					type="submit"
+					name="pbsurvey_{configuration.uid}[submit]"
+					value="{f:render(partial: 'translate', arguments: {key: 'button.submit.next'})}"
+				/>
+			</f:then>
+			<f:else>
+				<input
+					type="submit"
+					name="pbsurvey_{configuration.uid}[submit]"
+					value="{f:render(partial: 'translate', arguments: {key: 'button.submit.finish'})}"
+				/>
+			</f:else>
+		</f:if>
+
+		<f:if condition="{configuration.navigationCancel}">
+			<input
+				type="button"
+				name="pbsurvey_{configuration.uid}[cancel]"
+				data-pbsurvey-button-cancel="{configuration.navigationCancel}"
+				value="{f:render(partial: 'translate', arguments: {key: 'button.cancel'})}"
+			/>
+		</f:if>
 	</form>
 </div>
 
