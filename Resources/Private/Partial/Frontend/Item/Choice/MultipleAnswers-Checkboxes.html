@@ -1,5 +1,6 @@
 <html
 	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:pb="http://typo3.org/ns/PatrickBroens/Pbsurvey/ViewHelpers"
 	data-namespace-typo3-fluid="true"
 >
 
@@ -9,51 +10,56 @@
 
 	<div id="error-container-{item.uid}" class="error-container"></div>
 	<fieldset id="error-class-{item.uid}">
-		<f:for each="{item.randomizedOptions}" as="option" iteration="optionIterator">
-			<label>
-				<input
-					type="checkbox"
-					name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-					value="{option.uid}"
-					{f:render(section: 'errorHandling', arguments: '{_all}')}
-					{f:if(condition: option.checked, then: 'checked')}
-				/>
-				{option.label}
-			</label>
+		<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
+			<pb:for each="{optionRow.options}" as="option" iteration="optionIterator" random="{item.random}">
+				<f:if condition="{option.uid} != -1">
+					<f:then>
+						<label>
+							<input
+								type="checkbox"
+								name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][]"
+								value="{option.uid}"
+								{f:render(section: 'errorHandling', arguments: '{_all}')}
+								{f:if(condition: option.checked, then: 'checked')}
+							/>
+							{option.label}
+						</label>
+					</f:then>
+					<f:else>
+						<label class="additional">
+							<input
+								type="checkbox"
+								name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][]"
+								{f:if(condition: item.answersAdditional, then: '', else: 'class="hidden"')}
+								data-pbsurvey-reveal="pbsurvey-{configuration.uid}-{item.uid}-additional"
+								value="{option.uid}"
+								{f:if(condition: option.checked, then: 'checked')}
+							/>
+							{item.answersAdditionalText}
+						</label>
+						<f:if condition="{item.answersAdditionalType}">
+							<f:then>
+								<textarea
+									name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][-1]"
+									rows="{item.textareaHeight}"
+									cols="{item.textareaWidth}"
+									class="pbsurvey-{configuration.uid}-{item.uid}-additional{f:if(condition: option.value, then: '', else: ' hidden')}"
+								>{option.value}</textarea>
+							</f:then>
+							<f:else>
+								<input
+									name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][-1]"
+									type="text"
+									value="{option.value}"
+									placeholder="{f:render(partial: 'translate', arguments: {key: 'item.answersAdditionalPlaceholder'})}"
+									class="pbsurvey-{configuration.uid}-{item.uid}-additional{f:if(condition: option.value, then: '', else: ' hidden')}"
+								/>
+							</f:else>
+						</f:if>
+					</f:else>
+				</f:if>
+			</pb:for>
 		</f:for>
-
-		<f:if condition="{item.answersAdditionalAllow}">
-			<label class="additional">
-				<input
-					type="checkbox"
-					name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-					data-pbsurvey-reveal="pbsurvey-{configuration.uid}-{item.uid}-additional"
-					value="-1"
-					{f:if(condition: option.checked, then: ' checked')}
-				/>
-				{item.answersAdditionalText}
-			</label>
-			<f:if condition="{item.answersAdditionalType}">
-				<f:then>
-					<textarea
-						name="pbsurvey_{configuration.uid}[{item.uid}][o][-1][a]"
-						rows="{item.textareaHeight}"
-						cols="{item.textareaWidth}"
-						class="pbsurvey-{configuration.uid}-{item.uid}-additional"
-					>
-					</textarea>
-				</f:then>
-				<f:else>
-					<input
-						name="pbsurvey_{configuration.uid}[{item.uid}][o][-1][a]"
-						type="text"
-						value=""
-						placeholder="{f:render(partial: 'translate', arguments: {key: 'item.answersAdditionalPlaceholder'})}"
-						class="pbsurvey-{configuration.uid}-{item.uid}-additional"
-					/>
-				</f:else>
-			</f:if>
-		</f:if>
 	</fieldset>
 </div>
 

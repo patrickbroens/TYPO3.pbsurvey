@@ -39,7 +39,7 @@ class OptionPredefinedGroupRepository extends AbstractRepository
             ',
             'tx_pbsurvey_option_predefined_group',
             '
-                AND hidden = 0
+                hidden = 0
                 AND deleted = 0
             ',
             '',

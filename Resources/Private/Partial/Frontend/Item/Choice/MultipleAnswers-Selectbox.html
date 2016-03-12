@@ -1,5 +1,6 @@
 <html
 	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:pb="http://typo3.org/ns/PatrickBroens/Pbsurvey/ViewHelpers"
 	data-namespace-typo3-fluid="true"
 >
 
@@ -8,22 +9,24 @@
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
 	<div id="error-container-{item.uid}" class="error-container"></div>
-	<select
-		name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-		id="pbsurvey-{configuration.uid}-{item.uid}"
-		multiple
-		{f:if(condition: item.selectboxHeight, then: 'size="{item.selectboxHeight}"')}
-		{f:render(section: 'errorHandling', arguments: '{_all}')}
-	>
-		<f:for each="{item.randomizedOptions}" as="option" iteration="optionIterator">
-			<option
-				value="{option.uid}"
-				{f:if(condition: option.checked, then: 'selected')}
-			>
-				{option.label}
-			</option>
-		</f:for>
-	</select>
+	<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
+		<select
+			name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][]"
+			id="pbsurvey-{configuration.uid}-{item.uid}"
+			multiple
+			{f:if(condition: item.selectboxHeight, then: 'size="{item.selectboxHeight}"')}
+			{f:render(section: 'errorHandling', arguments: '{_all}')}
+		>
+			<pb:for each="{optionRow.options}" as="option" iteration="optionIterator" random="{item.random}">
+				<option
+					value="{option.uid}"
+					{f:if(condition: option.checked, then: 'selected')}
+				>
+					{option.label}
+				</option>
+			</pb:for>
+		</select>
+	</f:for>
 </div>
 
 <f:section name="question">

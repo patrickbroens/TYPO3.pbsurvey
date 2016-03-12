@@ -16,6 +16,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\ValueDefaultTextTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item type 10: Open Ended - Comments Box
@@ -40,4 +43,30 @@ class OpenEndedCommentsBox extends AbstractOpenEnded
         'containment',
         'provision'
     ];
+
+    /**
+     * Initialize this item
+     *
+     * Make the item 2 dimensional
+     */
+    public function initialize()
+    {
+        $this->options = $this->optionRows = [];
+
+        /** @var Option $option */
+        $option = GeneralUtility::makeInstance(Option::class);
+        $option->setUid(0);
+
+        if ($this->valueDefaultText) {
+            $option->setChecked(true);
+            $option->setValue($this->getValueDefaultText());
+        }
+
+        /** @var OptionRow $optionRow */
+        $optionRow = GeneralUtility::makeInstance(OptionRow::class);
+        $optionRow->setUid(0);
+        $optionRow->addOption($option);
+
+        $this->addOptionRow($optionRow);
+    }
 }

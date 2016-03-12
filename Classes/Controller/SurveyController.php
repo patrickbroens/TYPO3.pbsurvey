@@ -17,11 +17,12 @@ namespace PatrickBroens\Pbsurvey\Controller;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractItem;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 use PatrickBroens\Pbsurvey\Domain\Model\Page;
+use PatrickBroens\Pbsurvey\Http\RequestData;
 use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
 use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
-use PatrickBroens\Pbsurvey\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Survey controller
@@ -34,6 +35,13 @@ class SurveyController extends AbstractController
      * @var PageProvider
      */
     protected $pages;
+
+    /**
+     * The request data
+     *
+     * @var RequestData
+     */
+    protected $requestData;
 
     /**
      * The server request
@@ -80,8 +88,29 @@ class SurveyController extends AbstractController
         $this->setSession();
 
         $stage = $this->user->getStageNumber();
+        /** @var Page $page */
         $page = $this->pages->getPageByStageNumber($stage);
 
+        // Validation
+        // @TODO: Request data should be validated by item, item type, rows and options, so we can remove invalid request data
+        // @TODO: Move instantiating RequestData to here to get this done
+
+        /** @var RequestData $requestData */
+        $requestData = GeneralUtility::makeInstance(
+            RequestData::class,
+            $this->user->getSessionKey(),
+            $this->serverRequest->getParsedBody()
+        );
+
+        if ($requestData->isSubmit()) {
+            $requestData->addAnswersToPageItems($page);
+
+
+            //$this->addSubmittedRequestDataToPageItems($page);
+            //$validation = $this->validateItems();
+        }
+
+        // Storage
 
 
         // Collect the answers
@@ -129,28 +158,21 @@ class SurveyController extends AbstractController
     }
 
     /**
-     * Add answers to the page items
+     * Add the submitted request data to the page items
      *
      * @param Page $page The page
      */
-    protected function addAnswersToPageItems($page)
+    protected function addSubmittedRequestDataToPageItems($page)
     {
+        /** @var AbstractItem[] $items */
         $items = $page->getItems();
 
-        if ($this->user->hasResult()) {
-            $stage = $this->user->getResult()->getStageByNumber($this->user->getStageNumber());
-
+        foreach ($items as $item) {
             if (
-                $stage
-                && $stage->hasAnswers()
+                $item instanceof AbstractQuestion
+                && $this->requestData->hasAnswersByItemUid($item->getUid())
             ) {
-                foreach ($items as $item) {
-                    if (
-                        $item instanceof AbstractQuestion
-                    ) {
-                        $item->setAnswers($stage->getAnswersByItemUid($item->getUid()));
-                    }
-                }
+                $item->addAnswers($this->requestData->getAnswersByItemUid($item->getUid()));
             }
         }
     }

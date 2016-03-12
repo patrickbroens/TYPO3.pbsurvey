@@ -14,6 +14,7 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersNoneTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
@@ -55,13 +56,6 @@ abstract class AbstractBoolean extends AbstractChoice
     protected static $predefinedOptionsNegativeFirst = [0, 1, 2];
 
     /**
-     * The options
-     *
-     * @var Option[]
-     */
-    protected $options = [];
-
-    /**
      * TRAIT: AnswersNoneTrait
      *
      * FIELDS:
@@ -87,10 +81,12 @@ abstract class AbstractBoolean extends AbstractChoice
 
     /**
      * Initialize this item
+     *
+     * Make the item 2 dimensional
      */
     public function initialize()
     {
-        $this->options = [];
+        $this->options = $this->optionRows = [];
 
         $predefinedOptions = $this->isNegativeFirst()
             ? static::$predefinedOptionsNegativeFirst
@@ -118,6 +114,14 @@ abstract class AbstractBoolean extends AbstractChoice
                 $this->addOption($option);
             }
         }
+
+        /** @var OptionRow $optionRow */
+        $optionRow = GeneralUtility::makeInstance(OptionRow::class);
+        $optionRow->setUid(0);
+
+        $optionRow->addOptions($this->getOptions());
+
+        $this->addOptionRow($optionRow);
     }
 
     /**
@@ -148,68 +152,6 @@ abstract class AbstractBoolean extends AbstractChoice
     public function setNegativeFirst($negativeFirst)
     {
         $this->negativeFirst = (bool)$negativeFirst;
-    }
-
-    /**
-     * Add an option
-     *
-     * @param Option $option The option
-     */
-    public function addOption(Option $option)
-    {
-        $this->options[$option->getUid()] = $option;
-    }
-
-    /**
-     * Get an option by its uid
-     *
-     * @param int $optionUid The option uid
-     * @return null|Option
-     */
-    public function getOption($optionUid)
-    {
-        $option = null;
-
-        if ($this->hasOption($optionUid)) {
-            $option = $this->options[$optionUid];
-        }
-
-        return $option;
-    }
-
-    /**
-     * Check if option exists
-     *
-     * @param int $optionUid The option uid
-     * @return bool true if option exists
-     */
-    public function hasOption($optionUid)
-    {
-        return isset($this->options[$optionUid]);
-    }
-
-    /**
-     * Check if the item contains options (answers)
-     *
-     * This type has predefined options, so this is always true
-     *
-     * @return bool true when options are available
-     */
-    public function hasOptions()
-    {
-        return !empty($this->options);
-    }
-
-    /**
-     * Get the options
-     *
-     * Since the type has predefined options, we collect them here
-     *
-     * @return Option[]
-     */
-    public function getOptions()
-    {
-        return $this->options;
     }
 
     /**

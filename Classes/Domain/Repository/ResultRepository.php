@@ -38,7 +38,6 @@ class ResultRepository extends AbstractRepository
             '
                 pid = ' . (int)$storageFolderUid . '
                 AND finished = 1
-                AND hidden = 0
                 AND deleted = 0
             '
         );
@@ -62,7 +61,6 @@ class ResultRepository extends AbstractRepository
                 pid = ' . (int)$storageFolderUid . '
                 AND fe_user = ' . (int)$frontendUser->getUid() . '
                 AND finished = 1
-                AND hidden = 0
                 AND deleted = 0
             '
         );
@@ -85,7 +83,6 @@ class ResultRepository extends AbstractRepository
             '
                 pid = ' . (int)$storageFolderUid . '
                 AND fe_user = ' . (int)$frontendUser->getUid() . '
-                AND hidden = 0
                 AND deleted = 0
             '
         );
@@ -107,9 +104,8 @@ class ResultRepository extends AbstractRepository
             'tx_pbsurvey_result',
             '
                 pid = ' . (int)$storageFolderUid . '
-                AND ip = ' . $this->getDatabaseConnection()->quoteStr((string)$ipAddress, 'tx_pbsurvey_result') . '
+                AND ip = "' . $this->getDatabaseConnection()->quoteStr((string)$ipAddress, 'tx_pbsurvey_result') . '"
                 AND finished = 1
-                AND hidden = 0
                 AND deleted = 0
             '
         );
@@ -131,8 +127,7 @@ class ResultRepository extends AbstractRepository
             'tx_pbsurvey_result',
             '
                 pid = ' . (int)$storageFolderUid . '
-                AND ip = ' . $this->getDatabaseConnection()->quoteStr((string)$ipAddress, 'tx_pbsurvey_result') . '
-                AND hidden = 0
+                AND ip = "' . $this->getDatabaseConnection()->quoteStr((string)$ipAddress, 'tx_pbsurvey_result') . '"
                 AND deleted = 0
             '
         );
@@ -153,7 +148,7 @@ class ResultRepository extends AbstractRepository
         $record = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
             '
                 uid,
-                answers,
+                stages,
                 fe_user,
                 finished,
                 ip,
@@ -164,7 +159,6 @@ class ResultRepository extends AbstractRepository
             'tx_pbsurvey_result',
             '
                 uid = ' . (int)$resultUid . '
-                AND hidden = 0
                 AND deleted = 0
             '
         );
@@ -194,7 +188,7 @@ class ResultRepository extends AbstractRepository
         $record = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
             '
                 uid,
-                answers,
+                stages,
                 fe_user,
                 finished,
                 ip,
@@ -205,8 +199,7 @@ class ResultRepository extends AbstractRepository
             'tx_pbsurvey_result',
             '
                 pid = ' .(int)$storageFolderUid . '
-                AND ip = ' . $this->getDatabaseConnection()->quoteStr((string)$ipAddress, 'tx_pbsurvey_result') . '
-                AND hidden = 0
+                AND ip = "' . $this->getDatabaseConnection()->quoteStr((string)$ipAddress, 'tx_pbsurvey_result') . '"
                 AND deleted = 0
             ',
             '',

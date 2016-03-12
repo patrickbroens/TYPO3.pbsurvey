@@ -15,6 +15,9 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractOpenEnded;
+use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item type 12: Open Ended - Date
@@ -129,5 +132,31 @@ class OpenEndedDate extends AbstractOpenEnded
     public function setDateMinimum($dateMinimum)
     {
         $this->dateMinimum = (int)$dateMinimum;
+    }
+
+    /**
+     * Initialize this item
+     *
+     * Make the item 2 dimensional
+     */
+    public function initialize()
+    {
+        $this->options = $this->optionRows = [];
+
+        /** @var Option $option */
+        $option = GeneralUtility::makeInstance(Option::class);
+        $option->setUid(0);
+
+        if ($this->dateDefault) {
+            $option->setChecked(true);
+            $option->setValue($this->getDateDefault());
+        }
+
+        /** @var OptionRow $optionRow */
+        $optionRow = GeneralUtility::makeInstance(OptionRow::class);
+        $optionRow->setUid(0);
+        $optionRow->addOption($option);
+
+        $this->addOptionRow($optionRow);
     }
 }

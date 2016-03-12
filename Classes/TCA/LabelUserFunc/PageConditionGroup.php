@@ -31,14 +31,6 @@ class PageConditionGroup extends Control
     ];
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Get the label for a page condition group
      *
      * Depending on the settings it will show an error if conditions are not met

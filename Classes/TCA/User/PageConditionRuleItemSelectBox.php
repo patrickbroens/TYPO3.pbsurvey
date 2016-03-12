@@ -67,10 +67,11 @@ class PageConditionRuleItemSelectBox extends Control
                 }
             }
 
-            if ($pagesBeforeCurrentPage) {
-                if ($this->hasQuestions($pagesBeforeCurrentPage)) {
-                    $content = $this->renderSelectBox($pagesBeforeCurrentPage, $parameters);
-                }
+            if (
+                $pagesBeforeCurrentPage
+                && $this->hasQuestions($pagesBeforeCurrentPage)
+            ) {
+                $content = $this->renderSelectBox($pagesBeforeCurrentPage, $parameters);
             }
         }
 

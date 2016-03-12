@@ -14,7 +14,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
@@ -33,14 +32,6 @@ class MatrixRatingScaleNumeric extends AbstractMatrix
      * $numberStart
      */
     use NumberTrait;
-
-    /**
-     * TRAIT: OptionRowsTrait
-     *
-     * FIELDS:
-     * $optionRows
-     */
-    use OptionRowsTrait;
 
     /**
      * Initialize this item

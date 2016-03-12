@@ -17,6 +17,8 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractChoice;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersNoneTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionsRandomTrait;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Item type 2: Choice - One Answer (Dropdown)
@@ -49,4 +51,22 @@ class ChoiceOneAnswerDropdown extends AbstractChoice
         'containment',
         'provision'
     ];
+
+    /**
+     * Initialize this item
+     *
+     * Make the item 2 dimensional
+     */
+    public function initialize()
+    {
+        $this->optionRows = [];
+
+        /** @var OptionRow $optionRow */
+        $optionRow = GeneralUtility::makeInstance(OptionRow::class);
+        $optionRow->setUid(0);
+
+        $optionRow->addOptions($this->getOptions());
+
+        $this->addOptionRow($optionRow);
+    }
 }

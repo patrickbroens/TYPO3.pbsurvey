@@ -15,7 +15,6 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
  */
 
 use PatrickBroens\Pbsurvey\Domain\Model\Answer;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
 
 /**
  * Matrix question abstract
@@ -23,15 +22,9 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\OptionRowsTrait;
 abstract class AbstractMatrix extends AbstractChoice
 {
     /**
-     * TRAIT: OptionRowsTrait
-     *
-     * FIELDS:
-     * $optionRows
-     */
-    use OptionRowsTrait;
-
-    /**
      * Initialize this item
+     *
+     * Make the item 2 dimensional
      */
     public function initialize()
     {

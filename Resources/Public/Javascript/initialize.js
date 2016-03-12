@@ -118,24 +118,33 @@ jQuery('#pbsurvey-form')
 		}
 	})
 	.end()
-	// Uncheck radio button in the same row of a matrix
-	.find('input[data-pbsurvey-row]').click(function () {
-		var row = jQuery(this).attr('data-pbsurvey-row');
-		jQuery('input[data-pbsurvey-row="' + row + '"]').not(jQuery(this)).each(function () {
+	// Uncheck radio button in the same column of a matrix
+	.find('input[data-pbsurvey-column]').click(function () {
+		var column = jQuery(this).attr('data-pbsurvey-column');
+		jQuery('input[data-pbsurvey-column="' + column + '"]').not(jQuery(this)).each(function () {
 			this.checked = false;
 		});
 	})
 	.end()
-	// Reveal additional input
+	// Reveal additional input on change
 	.find('input[data-pbsurvey-reveal]').change(function () {
-		var checked = jQuery(this).is(':checked');
-		var value = jQuery(this).val();
 		var additional = jQuery('.' + jQuery(this).attr('data-pbsurvey-reveal'));
-		if (checked && value === '1') {
+		if (jQuery(this).is(':checked') && parseInt(jQuery(this).val()) === -1) {
 			additional.show();
 		} else {
 			additional.val('').hide();
 		}
+	})
+	.end()
+	.find('[data-pbsurvey-sum] input').each(function () {
+		total = 0;
+		var container = jQuery(this).closest('[data-pbsurvey-sum]');
+		var sumField = jQuery('#' + container.attr('data-pbsurvey-sum'));
+		container.find('input').not(sumField).each(function () {
+			var value = parseInt(jQuery(this).val());
+			total += isNaN(value) ? 0 : value;
+		});
+		sumField.val(total === 0 ? '' : total);
 	})
 	.end()
 	// Calculate total sum

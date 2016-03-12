@@ -25,9 +25,9 @@
 							<label>
 								<input
 									type="radio"
-									name="pbsurvey_{configuration.uid}[{item.uid}][o][{option.uid}][r]"
-									value="{optionRow.uid}"
-									data-pbsurvey-row="pbsurvey-{configuration.uid}-{item.uid}-{optionRow.uid}"
+									name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}]"
+									value="{option.uid}"
+									data-pbsurvey-column="pbsurvey-{configuration.uid}-{item.uid}-{option.uid}"
 									{f:if(condition: option.checked, then: ' checked')}
 									{f:render(section: 'errorHandling', arguments: '{_all}')}
 								/>

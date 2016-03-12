@@ -172,13 +172,35 @@ class Page extends AbstractModel
     }
 
     /**
+     * Check if an item is available
+     *
+     * @param int $uid The uid of the item
+     * @return bool true if available
+     */
+    public function hasItem($uid)
+    {
+        return isset($this->items[$uid]);
+    }
+
+    /**
+     * Get an item by its uid
+     *
+     * @param int $itemUid The item uid
+     * @return AbstractItem
+     */
+    public function getItem($itemUid)
+    {
+        return $this->items[(int)$itemUid];
+    }
+
+    /**
      * Add an item
      *
      * @param AbstractItem $item The item
      */
     public function addItem(AbstractItem $item)
     {
-        $this->items[] = $item;
+        $this->items[$item->getUid()] = $item;
     }
 
     /**

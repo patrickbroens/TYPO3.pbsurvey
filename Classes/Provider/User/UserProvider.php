@@ -284,6 +284,8 @@ class UserProvider
      * Continue an existing session
      *
      * If the "back" button has been pushed, we go back in stage
+     *
+     * @param ServerRequest $serverRequest The server request
      */
     public function continueSession(ServerRequest $serverRequest)
     {

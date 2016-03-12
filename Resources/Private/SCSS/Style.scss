@@ -7,6 +7,10 @@ $red: #B94A48;
 $red-light: #F2DEDE; // District
 
 .pbsurvey {
+	.hidden {
+		display: none;
+	}
+
 	.numbering-page {
 		color: $grey-dark;
 		overflow: auto;
@@ -41,10 +45,6 @@ $red-light: #F2DEDE; // District
 		background-color: $orange-light;
 		border-left: 3px solid $orange;
 		padding: 1rem;
-
-		&.hidden {
-			display: none;
-		}
 
 		h2 {
 			margin-top: 0;
@@ -114,11 +114,6 @@ $red-light: #F2DEDE; // District
 				&.additional {
 					display: inline-block;
 					vertical-align: top;
-
-					& + input,
-					& + textarea {
-						display: none;
-					}
 				}
 
 				input {

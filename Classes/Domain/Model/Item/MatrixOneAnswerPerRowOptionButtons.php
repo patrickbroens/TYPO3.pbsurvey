@@ -21,5 +21,4 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
  */
 class MatrixOneAnswerPerRowOptionButtons extends AbstractMatrix
 {
-
 }

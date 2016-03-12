@@ -35,7 +35,7 @@ class ProcessDataMap
      * @param DataHandler $dataHandler TYPO3 main data handler class
      * @return void
      */
-    public function processDatamap_afterDatabaseOperations($status, $table, $uid, &$fields, DataHandler &$dataHandler)
+    public function processDatamap_afterDatabaseOperations($status, $table, $uid, &$fields, DataHandler $dataHandler)
     {
         if (
             $table === 'tx_pbsurvey_item'

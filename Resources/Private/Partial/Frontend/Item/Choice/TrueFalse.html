@@ -8,52 +8,54 @@
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
 	<div id="error-container-{item.uid}" class="error-container"></div>
-	<f:if condition="{item.displayType} == 0">
-		<f:then>
-			<select
-				name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-				id="pbsurvey-{configuration.uid}-{item.uid}"
-				{f:render(section: 'errorHandling', arguments: '{_all}')}
-			>
-				<f:for each="{item.options}" as="option">
-					<option
-						value="{f:if(condition: option.uid, then: option.uid)}"
-						{f:if(condition: option.checked, then: ' selected')}
-					>
-						{option.label}
-					</option>
-				</f:for>
-			</select>
-		</f:then>
-		<f:else>
-			<fieldset id="error-class-{item.uid}">
-				<f:for each="{item.options}" as="option" iteration="optionIterator">
-					<label>
-						<f:if condition="{optionIterator.index} == 0">
-							<f:then>
-								<input
-									type="radio"
-									name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-									value="{option.uid}"
-									{f:if(condition: option.checked, then: 'checked')}
-									{f:render(section: 'errorHandling', arguments: '{_all}')}
-								/>
-							</f:then>
-							<f:else>
-								<input
-									type="radio"
-									name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-									value="{option.uid}"
-									{f:if(condition: option.checked, then: ' checked')}
-								>
-							</f:else>
-						</f:if>
-						{option.label}
-					</label>
-				</f:for>
-			</fieldset>
-		</f:else>
-	</f:if>
+	<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
+		<f:if condition="{item.displayType} == 0">
+			<f:then>
+				<select
+					name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}]"
+					id="pbsurvey-{configuration.uid}-{item.uid}"
+					{f:render(section: 'errorHandling', arguments: '{_all}')}
+				>
+					<f:for each="{optionRow.options}" as="option">
+						<option
+							value="{f:if(condition: option.uid, then: option.uid)}"
+							{f:if(condition: option.checked, then: ' selected')}
+						>
+							{option.label}
+						</option>
+					</f:for>
+				</select>
+			</f:then>
+			<f:else>
+				<fieldset id="error-class-{item.uid}">
+					<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
+						<label>
+							<f:if condition="{optionIterator.index} == 0">
+								<f:then>
+									<input
+										type="radio"
+										name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}]"
+										value="{option.uid}"
+										{f:if(condition: option.checked, then: 'checked')}
+										{f:render(section: 'errorHandling', arguments: '{_all}')}
+									/>
+								</f:then>
+								<f:else>
+									<input
+										type="radio"
+										name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}]"
+										value="{option.uid}"
+										{f:if(condition: option.checked, then: ' checked')}
+									>
+								</f:else>
+							</f:if>
+							{option.label}
+						</label>
+					</f:for>
+				</fieldset>
+			</f:else>
+		</f:if>
+	</f:for>
 </div>
 
 <f:section name="question">

@@ -115,4 +115,17 @@ class OptionRow extends AbstractModel
     {
         return !empty($this->options[$optionUid]);
     }
+
+    /**
+     * Reset the options
+     *
+     * Clears the checkbox and value of each option
+     */
+    public function resetOptions()
+    {
+        foreach ($this->options as $option) {
+            $option->setChecked(false);
+            $option->setValue('');
+        }
+    }
 }

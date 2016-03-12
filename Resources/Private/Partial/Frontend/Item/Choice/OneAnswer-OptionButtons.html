@@ -1,5 +1,6 @@
 <html
 	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:pb="http://typo3.org/ns/PatrickBroens/Pbsurvey/ViewHelpers"
 	data-namespace-typo3-fluid="true"
 >
 
@@ -9,53 +10,49 @@
 
 	<div id="error-container-{item.uid}" class="error-container"></div>
 	<fieldset id="error-class-{item.uid}">
-		<f:for each="{item.randomizedOptions}" as="option" iteration="optionIterator">
-			<label>
-				<input
-					type="radio"
-					name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-					value="{option.uid}"
-					{f:render(section: 'revealAdditional', arguments: '{_all}')}
-					{f:render(section: 'errorHandling', arguments: '{_all}')}
-					{f:if(condition: option.checked, then: 'checked')}
-				/>
-				{option.label}
-			</label>
-		</f:for>
-
-		<f:if condition="{item.answersAdditionalAllow}">
-			<label class="additional">
-				<input
-					type="radio"
-					name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-					value="-1"
-					{f:render(section: 'revealAdditional', arguments: '{_all}')}
-					{f:if(condition: option.checked, then: ' checked')}
-				/>
-				{item.answersAdditionalText}
-			</label>
-			<f:if condition="{item.answersAdditionalType}">
-				<f:then>
-					<textarea
-						name="pbsurvey_{configuration.uid}[{item.uid}][o][-1][a]"
-						rows="{item.textareaHeight}"
-						cols="{item.textareaWidth}"
-						class="pbsurvey-{configuration.uid}-{item.uid}-additional"
-				>
-						FILL: VALUE
-					</textarea>
-				</f:then>
-				<f:else>
+		<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
+			<pb:for each="{optionRow.options}" as="option" iteration="optionIterator" random="{item.random}">
+				<label{f:if(condition: '{option.uid} == -1', then: ' class="additional"')}>
 					<input
-						name="pbsurvey_{configuration.uid}[{item.uid}][o][-1][a]"
-						type="text"
-						value=""
-						placeholder="{f:render(partial: 'translate', arguments: {key: 'item.answersAdditionalPlaceholder'})}"
-						class="pbsurvey-{configuration.uid}-{item.uid}-additional"
+						type="radio"
+						name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][o]"
+						value="{option.uid}"
+						{f:render(section: 'revealAdditional', arguments: '{_all}')}
+						{f:render(section: 'errorHandling', arguments: '{_all}')}
+						{f:if(condition: option.checked, then: 'checked')}
 					/>
-				</f:else>
-			</f:if>
-		</f:if>
+					<f:if condition="{option.uid} != -1">
+						<f:then>
+							{option.label}
+						</f:then>
+						<f:else>
+							{item.answersAdditionalText}
+						</f:else>
+					</f:if>
+				</label>
+				<f:if condition="{option.uid} == -1">
+					<f:if condition="{item.answersAdditionalType}">
+						<f:then>
+							<textarea
+								name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][a]"
+								rows="{item.textareaHeight}"
+								cols="{item.textareaWidth}"
+								class="pbsurvey-{configuration.uid}-{item.uid}-additional{f:if(condition: option.value, then: '', else: ' hidden')}"
+							>{option.value}</textarea>
+						</f:then>
+						<f:else>
+							<input
+								name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][a]"
+								type="text"
+								value="{option.value}"
+								placeholder="{f:render(partial: 'translate', arguments: {key: 'item.answersAdditionalPlaceholder'})}"
+								class="pbsurvey-{configuration.uid}-{item.uid}-additional{f:if(condition: option.value, then: '', else: ' hidden')}"
+							/>
+						</f:else>
+					</f:if>
+				</f:if>
+			</pb:for>
+		</f:for>
 	</fieldset>
 </div>
 

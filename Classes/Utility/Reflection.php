@@ -76,7 +76,7 @@ class Reflection extends \ReflectionClass
     {
         $out = [];
 
-        $data = explode(" ", $string, 3);
+        $data = explode(' ', $string, 3);
 
         if (count($data) == 2) {
             $out['type'] = $data[0];
@@ -102,7 +102,7 @@ class Reflection extends \ReflectionClass
     {
         $out = [];
 
-        $data = explode(" ", $string, 2);
+        $data = explode(' ', $string, 2);
 
         if (count($data) == 1) {
             $out['type'] = $data[0];

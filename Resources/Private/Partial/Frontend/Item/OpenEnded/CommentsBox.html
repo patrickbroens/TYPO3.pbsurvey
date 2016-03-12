@@ -8,13 +8,17 @@
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
 	<div id="error-container-{item.uid}" class="error-container"></div>
-	<textarea
-		cols="40"
-		id="pbsurvey-{configuration.uid}-{item.uid}"
-		name="pbsurvey_{configuration.uid}[{item.uid}][v]"
-		rows="5"
-		{f:render(section: 'errorHandling', arguments: '{_all}')}
-	>FILL: VALUE</textarea>
+	<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
+		<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
+			<textarea
+				cols="40"
+				id="pbsurvey-{configuration.uid}-{item.uid}"
+				name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][{option.uid}]"
+				rows="5"
+				{f:render(section: 'errorHandling', arguments: '{_all}')}
+			>{option.value}</textarea>
+		</f:for>
+	</f:for>
 </div>
 
 <f:section name="question">

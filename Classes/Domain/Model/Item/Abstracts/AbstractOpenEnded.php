@@ -21,56 +21,55 @@ use PatrickBroens\Pbsurvey\Domain\Model\Answer;
 abstract class AbstractOpenEnded extends AbstractQuestion
 {
     /**
-     * Open ended question
+     * Set the answers from the request data
      *
-     * @var bool
-     */
-    protected static $openEnded = true;
-
-    /**
-     * The answer
+     * Checks if option rows and options are available.
+     * If so, fills the values in the options
+     * Secondly it will construct an answer for storage
      *
-     * @var Answer
+     * @param array $answers The answers from the request data
+     * @return Answer[] The answers for storage
      */
-    protected $answer;
-
-    /**
-     * Check if the answer exists
-     *
-     * @return bool
-     */
-    public function hasAnswer()
+    public function convertRequestDataToAnswers(array $answers)
     {
-        return !empty($this->answer);
-    }
+        // Iterate the answers for this item
+        foreach ($answers as $optionRowUid => $options) {
+            $optionRowUid = (int)$optionRowUid;
 
-    /**
-     * Get the answer
-     *
-     * @return Answer
-     */
-    public function getAnswer()
-    {
-        return $this->answer;
-    }
+            // Check if option row is available and we got an array as input
+            if (
+                $this->hasOptionRow($optionRowUid)
+                && is_array($options)
+            ) {
+                // Get the option row
+                $optionRow = $this->getOptionRow($optionRowUid);
 
-    /**
-     * Set the answer
-     *
-     * @param Answer $answer
-     */
-    public function setAnswer($answer)
-    {
-        $this->answer = (string)$answer->getOpen();
-    }
+                // Iterate the options
+                foreach ($options as $optionUid => $value) {
+                    $optionUid = (int)$optionUid;
 
-    /**
-     * Set the answers
-     *
-     * @param Answer[] $answers
-     */
-    public function setAnswers(array $answers)
-    {
-        $this->setAnswer(reset($answers));
+                    // Check if option is available in the option row
+                    if (
+                        $optionRow->hasOption($optionUid)
+                        && is_string($value)
+                    ) {
+
+                        // Get the option
+                        $option = $optionRow->getOption($optionUid);
+
+                        $option->setChecked(true);
+                        $option->setValue($value);
+
+                        $this->setAnswer(
+                            $optionRowUid,
+                            $optionUid,
+                            $value
+                        );
+                    }
+                }
+            }
+        }
+
+        return $this->getAnswers();
     }
 }

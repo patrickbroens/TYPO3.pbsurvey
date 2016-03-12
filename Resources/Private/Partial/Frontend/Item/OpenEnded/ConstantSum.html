@@ -1,5 +1,6 @@
 <html
 	xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:pb="http://typo3.org/ns/PatrickBroens/Pbsurvey/ViewHelpers"
 	data-namespace-typo3-fluid="true"
 >
 
@@ -9,18 +10,20 @@
 
 	<div id="error-container-{item.uid}" class="error-container"></div>
 	<fieldset id="error-class-{item.uid}" data-pbsurvey-sum="pbsurvey-{configuration.uid}-{item.uid}-remaining">
-		<f:for each="{item.randomizedOptions}" as="option" iteration="optionIterator">
-			<label>
-				<span>
-					{option.label}
-				</span>
-				<input
-					type="text"
-					name="pbsurvey_{configuration.uid}[{item.uid}][o]"
-					value=""
-					{f:render(section: 'errorHandling', arguments: '{_all}')}
-				/>
-			</label>
+		<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
+			<pb:for each="{optionRow.options}" as="option" iteration="optionIterator" random="{item.random}">
+				<label>
+					<span>
+						{option.label}
+					</span>
+					<input
+						type="text"
+						name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][{option.uid}]"
+						value="{option.value}"
+						{f:render(section: 'errorHandling', arguments: '{_all}')}
+					/>
+				</label>
+			</pb:for>
 		</f:for>
 		<label class="remaining">
 			<span>

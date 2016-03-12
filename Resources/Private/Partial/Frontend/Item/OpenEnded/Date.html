@@ -8,15 +8,19 @@
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
 
 	<div id="error-container-{item.uid}" class="error-container"></div>
-	<label>
-		<input
-			type="text"
-			name="pbsurvey_{configuration.uid}[{item.uid}][v]"
-			value=""
-			{f:render(section: 'errorHandling', arguments: '{_all}')}
-		/>
-			dd-mm-yyyy
-	</label>
+	<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
+		<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
+			<label>
+				<input
+					type="text"
+					name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][{option.uid}]"
+					value="{option.value}"
+					{f:render(section: 'errorHandling', arguments: '{_all}')}
+				/>
+					dd-mm-yyyy
+			</label>
+		</f:for>
+	</f:for>
 </div>
 
 <f:section name="question">

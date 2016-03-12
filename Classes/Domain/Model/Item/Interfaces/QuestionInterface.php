@@ -19,4 +19,5 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Interfaces;
  */
 interface QuestionInterface
 {
+    public function convertRequestDataToAnswers(array $answers);
 }
