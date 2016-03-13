@@ -21,6 +21,7 @@ use PatrickBroens\Pbsurvey\Http\RequestData;
 use PatrickBroens\Pbsurvey\Provider\Configuration\ConfigurationProvider;
 use PatrickBroens\Pbsurvey\Provider\Element\PageProvider;
 use PatrickBroens\Pbsurvey\Provider\User\UserProvider;
+use PatrickBroens\Pbsurvey\Validation\Validator;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -75,6 +76,12 @@ class SurveyController extends AbstractController
         $this->pages = $pages;
         $this->user = $user;
 
+        $this->requestData = GeneralUtility::makeInstance(
+            RequestData::class,
+            $this->user->getSessionKey(),
+            $this->serverRequest->getParsedBody()
+        );
+
         parent::__construct($configuration);
     }
 
@@ -88,26 +95,12 @@ class SurveyController extends AbstractController
         $this->setSession();
 
         $stage = $this->user->getStageNumber();
-        /** @var Page $page */
+
         $page = $this->pages->getPageByStageNumber($stage);
 
-        // Validation
-        // @TODO: Request data should be validated by item, item type, rows and options, so we can remove invalid request data
-        // @TODO: Move instantiating RequestData to here to get this done
-
-        /** @var RequestData $requestData */
-        $requestData = GeneralUtility::makeInstance(
-            RequestData::class,
-            $this->user->getSessionKey(),
-            $this->serverRequest->getParsedBody()
-        );
-
-        if ($requestData->isSubmit()) {
-            $requestData->addAnswersToPageItems($page);
-
-
-            //$this->addSubmittedRequestDataToPageItems($page);
-            //$validation = $this->validateItems();
+        if ($this->requestData->isSubmit()) {
+            $this->requestData->addAnswersToPageItems($page);
+            $isValid = $this->validatePage($page);
         }
 
         // Storage
@@ -157,26 +150,6 @@ class SurveyController extends AbstractController
         return $this->view->render();
     }
 
-    /**
-     * Add the submitted request data to the page items
-     *
-     * @param Page $page The page
-     */
-    protected function addSubmittedRequestDataToPageItems($page)
-    {
-        /** @var AbstractItem[] $items */
-        $items = $page->getItems();
-
-        foreach ($items as $item) {
-            if (
-                $item instanceof AbstractQuestion
-                && $this->requestData->hasAnswersByItemUid($item->getUid())
-            ) {
-                $item->addAnswers($this->requestData->getAnswersByItemUid($item->getUid()));
-            }
-        }
-    }
-
 
     /**
      * Start a new session if it not available yet
@@ -189,5 +162,17 @@ class SurveyController extends AbstractController
         } else {
             $this->user->continueSession($this->serverRequest);
         }
+    }
+
+    /**
+     * Validate the page and its items
+     *
+     * @param Page $page The page
+     * @return bool
+     */
+    protected function validatePage(Page $page)
+    {
+        $validator = GeneralUtility::makeInstance(Validator::class);
+        return $validator->validate($page);
     }
 }

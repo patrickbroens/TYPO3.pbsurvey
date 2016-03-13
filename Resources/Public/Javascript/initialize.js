@@ -160,6 +160,10 @@ jQuery('#pbsurvey-form')
 	})
 	.end()
 	.parsley()
+		// Remove the server errors on Parsley validation
+		.on('field:validate', function () {
+			jQuery('.server-errors').remove();
+		})
 		// Hide the page errors if validated
 		.on('field:validated', function () {
 			var ok = $('.parsley-error').length === 0;

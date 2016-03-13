@@ -35,7 +35,7 @@
 	</f:if>
 
 	<form id="pbsurvey-form" method="post">
-		<div class="page-error hidden">
+		<div class="page-error{f:if(condition: page.valid, then: ' hidden')}">
 			<h2>
 				<f:render partial="translate" arguments="{key: 'page.error.title'}" />
 			</h2>

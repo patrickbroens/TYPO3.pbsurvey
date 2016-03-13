@@ -33,11 +33,25 @@ abstract class AbstractQuestion extends AbstractStyle implements QuestionInterfa
     protected static $allowedConditionOperatorGroups = [];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [];
+
+    /**
      * The answers
      *
      * @var Answer[]
      */
     protected $answers = [];
+
+    /**
+     * The errors
+     *
+     * @var array
+     */
+    protected $errors = [];
 
     /**
      * The options
@@ -147,6 +161,26 @@ abstract class AbstractQuestion extends AbstractStyle implements QuestionInterfa
     protected function getAnswers()
     {
         return $this->answers;
+    }
+
+    /**
+     * Add an error
+     *
+     * @param string $error The error message
+     */
+    public function addError($error)
+    {
+        $this->errors[] = (string)$error;
+    }
+
+    /**
+     * Get the error messages
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 
     /**
@@ -429,6 +463,16 @@ abstract class AbstractQuestion extends AbstractStyle implements QuestionInterfa
         }
 
         return $allowedConditionOperatorGroups;
+    }
+
+    public function needsValidator($validatorName)
+    {
+        return isset(static::$validators[$validatorName]);
+    }
+
+    public function getValidatorConfiguration($validatorName)
+    {
+        return static::$validators[$validatorName];
     }
 
     /**

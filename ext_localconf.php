@@ -158,6 +158,16 @@ if (TYPO3_MODE === 'BE') {
         \PatrickBroens\Pbsurvey\Provider\Access\Check\MaximumAmountOfUserResponsesCheck::class,
         'check'
     );
+
+    /**
+     * Register slots for validation
+     */
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\Required::class,
+        'check'
+    );
 }
 
 // Register the item classes

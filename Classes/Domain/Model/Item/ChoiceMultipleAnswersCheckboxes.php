@@ -78,6 +78,21 @@ class ChoiceMultipleAnswersCheckboxes extends AbstractChoice
     ];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'required' => 'item.error.optionsRequired.select.multiple',
+        'responses' => [
+            'minimum' => 'item.error.optionsResponsesMinimum',
+            'maximum' => 'item.error.optionsResponsesMaximum',
+            'range' => 'item.error.optionsResponsesRange'
+        ],
+        'additional' => 'item.error.additional'
+    ];
+
+    /**
      * Initialize this item
      *
      * Make the item 2 dimensional

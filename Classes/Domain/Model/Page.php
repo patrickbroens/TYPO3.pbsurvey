@@ -50,6 +50,13 @@ class Page extends AbstractModel
     protected $title;
 
     /**
+     * Is the request valid?
+     *
+     * @var bool
+     */
+    protected $valid = true;
+
+    /**
      * Check if a condition group is available
      *
      * @param int $uid The uid of the condition group
@@ -235,5 +242,25 @@ class Page extends AbstractModel
     public function setTitle($title)
     {
         $this->title = (string)$title;
+    }
+
+    /**
+     * Check if the page and items are valid
+     *
+     * @return bool
+     */
+    public function getValid()
+    {
+        return $this->valid;
+    }
+
+    /**
+     * Set the result of the validation
+     *
+     * @param bool $isValid true if valid
+     */
+    public function setValidationResult($isValid)
+    {
+        $this->valid = (bool)$isValid;
     }
 }
