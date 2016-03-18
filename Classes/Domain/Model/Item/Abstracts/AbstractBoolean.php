@@ -14,10 +14,11 @@ namespace PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersNoneTrait;
 use PatrickBroens\Pbsurvey\Domain\Model\Option;
+use PatrickBroens\Pbsurvey\Domain\Model\OptionRow;
+use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\AnswersNoneTrait;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Boolean question abstract
@@ -103,8 +104,9 @@ abstract class AbstractBoolean extends AbstractChoice
                 /** @var Option $option */
                 $option = GeneralUtility::makeInstance(Option::class);
                 $option->setUid($predefinedOptionUid);
-                $option->setLabel($this->getLanguageService()->sL(
-                    static::$languageLabel . $predefinedOptionUid
+                $option->setLabel(LocalizationUtility::translate(
+                    static::$languageLabel . $predefinedOptionUid,
+                    'pbsurvey'
                 ));
 
                 if ($predefinedOptionUid === $this->getValueDefaultBoolean()) {

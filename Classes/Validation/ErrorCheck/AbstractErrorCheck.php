@@ -14,7 +14,7 @@ namespace PatrickBroens\Pbsurvey\Validation\ErrorCheck;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Abstract error check
@@ -33,8 +33,9 @@ abstract class AbstractErrorCheck
     {
         $arguments = array_shift(func_get_args());
 
-        $errorMessage = $this->getLanguageService()->sL(
-            'LLL:EXT:pbsurvey/Resources/Private/Language/Frontend.xlf:' . $label
+        $errorMessage = LocalizationUtility::translate(
+            'LLL:EXT:pbsurvey/Resources/Private/Language/Frontend.xlf:' . $label,
+            'pbsurvey'
         );
 
         if (0 !== count($arguments)) {
@@ -42,15 +43,5 @@ abstract class AbstractErrorCheck
         }
 
         return $errorMessage;
-    }
-
-    /**
-     * Get language service, instantiate if not there, yet
-     *
-     * @return LanguageService
-     */
-    protected function getLanguageService()
-    {
-        return $GLOBALS['LANG'];
     }
 }
