@@ -27,24 +27,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ChoiceMultipleAnswersSelectbox extends AbstractChoice
 {
     /**
-     * The allowed condition operator groups
-     *
-     * @var array
-     */
-    protected static $allowedConditionOperatorGroups = [
-        'equality',
-        'containment',
-        'provision'
-    ];
-
-    /**
-     * The height of the selectbox
-     *
-     * @var int
-     */
-    protected $selectboxHeight;
-
-    /**
      * TRAIT: OptionsRandomTrait
      *
      * FIELDS:
@@ -60,6 +42,37 @@ class ChoiceMultipleAnswersSelectbox extends AbstractChoice
      * $optionsResponsesMinimum
      */
     use OptionsResponsesTrait;
+
+    /**
+     * The allowed condition operator groups
+     *
+     * @var array
+     */
+    protected static $allowedConditionOperatorGroups = [
+        'equality',
+        'containment',
+        'provision'
+    ];
+
+    /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredChecked' => 'item.error.optionsRequired.select.multiple',
+        'responsesCheckedMaximum' => 'item.error.optionsResponsesMaximum',
+        'responsesCheckedMinimum' => 'item.error.optionsResponsesMinimum',
+        'responsesCheckedRange' => 'item.error.optionsResponsesRange',
+
+    ];
+
+    /**
+     * The height of the selectbox
+     *
+     * @var int
+     */
+    protected $selectboxHeight;
 
     /**
      * Get the height of the selectbox

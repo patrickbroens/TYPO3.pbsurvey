@@ -6,8 +6,8 @@
 <div class="type-24{f:if(condition: item.imageAlignment, then: ' image-alignment-{item.imageAlignment}')}{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
 	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+	<f:render partial="errorContainer" arguments="{_all}" />
 
-	<div id="error-container-{item.uid}" class="error-container"></div>
 	<table id="error-class-{item.uid}" data-pbsurvey-matrix="{item.uid}">
 		<tbody>
 			<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
@@ -64,22 +64,12 @@
 
 <f:section name="errorHandling">
 	<f:if condition="{optionRowIterator.index} == 0">
-		<f:if condition="{item.optionsRequired}">
-			<f:then>
-				required
-				data-parsley-required-message="{f:render(partial: 'translate', arguments: {key: 'item.error.optionsRequired.select.ranking', printf: {0: option.uid}})}"
-				data-parsley-errors-container="#error-container-{item.uid}"
-				data-parsley-class-handler="#error-class-{item.uid}"
-			</f:then>
-			<f:else>
-				<f:if condition="{optionIterator.index} == 0">
-					data-parsley-validate-if-empty
-					data-parsley-matrix-mincheck="{optionRow.options -> f:count()}"
-					data-parsley-matrix-mincheck-message="{f:render(partial: 'translate', arguments: {key: 'item.error.matrix.mincheck', printf: {0: '{optionRow.options -> f:count()}'}})}"
-					data-parsley-errors-container="#error-container-{item.uid}"
-					data-parsley-class-handler="#error-class-{item.uid}"
-				</f:if>
-			</f:else>
+		<f:if condition="{optionIterator.index} == 0">
+			data-parsley-validate-if-empty
+			data-parsley-matrix-mincheck="[{optionRow.options -> f:count()}, {f:if(condition: item.optionsRequired, then: 'true', else: 'false')}]"
+			data-parsley-matrix-mincheck-message="{f:render(partial: 'translate', arguments: {key: 'item.error.matrix.mincheck', printf: {0: '{optionRow.options -> f:count()}'}})}"
+			data-parsley-errors-container="#error-container-{item.uid}"
+			data-parsley-class-handler="#error-class-{item.uid}"
 		</f:if>
 	</f:if>
 </f:section>

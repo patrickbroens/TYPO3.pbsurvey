@@ -54,6 +54,17 @@ class OpenEndedOneLine extends AbstractOpenEnded
     ];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredValue' => 'item.error.optionsRequired.enter',
+        'email' => 'item.error.email',
+        'length' => 'item.error.length'
+    ];
+
+    /**
      * The email address
      *
      * @var string
@@ -63,7 +74,7 @@ class OpenEndedOneLine extends AbstractOpenEnded
     /**
      * Get the email address
      *
-     * @return string
+     * @return bool
      */
     public function getEmail()
     {
@@ -73,11 +84,11 @@ class OpenEndedOneLine extends AbstractOpenEnded
     /**
      * Set the email address
      *
-     * @param string $email The email address
+     * @param bool $email Is email address
      */
     public function setEmail($email)
     {
-        $this->email = (string)$email;
+        $this->email = (bool)$email;
     }
 
     /**

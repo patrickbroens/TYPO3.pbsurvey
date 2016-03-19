@@ -6,8 +6,8 @@
 <div class="type-12{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
 	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+	<f:render partial="errorContainer" arguments="{_all}" />
 
-	<div id="error-container-{item.uid}" class="error-container"></div>
 	<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
 		<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
 			<label>

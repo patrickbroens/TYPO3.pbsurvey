@@ -21,4 +21,12 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
  */
 class MatrixOneAnswerPerRowOptionButtons extends AbstractMatrix
 {
+    /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredCheckedRow' => 'item.error.optionsRequired.select.row'
+    ];
 }

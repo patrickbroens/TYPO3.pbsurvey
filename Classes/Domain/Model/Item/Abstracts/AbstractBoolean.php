@@ -36,6 +36,15 @@ abstract class AbstractBoolean extends AbstractChoice
     ];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredChecked' => 'item.error.optionsRequired.select.single'
+    ];
+
+    /**
      * The language label
      *
      * @var string

@@ -23,6 +23,15 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractMatrix;
 class MatrixMultipleAnswersPerRowTextboxes extends AbstractMatrix
 {
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredValue' => 'item.error.matrix.text.required'
+    ];
+
+    /**
      * Set the answers from the request data
      *
      * Checks if option rows and options are available.

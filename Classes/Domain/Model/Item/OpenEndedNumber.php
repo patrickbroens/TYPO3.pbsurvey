@@ -47,6 +47,20 @@ class OpenEndedNumber extends AbstractOpenEnded
     ];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredValue' => 'item.error.number.optionsRequired',
+        'integer' => 'item.error.number.label',
+        'integerMaximum' => 'item.error.number.maximum',
+        'integerMinimum' => 'item.error.number.minimum',
+        'integerRange' => 'item.error.number.both',
+        'length' => 'item.error.number.length'
+    ];
+
+    /**
      * The default numeric value
      *
      * @var int
@@ -139,6 +153,7 @@ class OpenEndedNumber extends AbstractOpenEnded
         /** @var Option $option */
         $option = GeneralUtility::makeInstance(Option::class);
         $option->setUid(0);
+        $option->setLabel($this->getQuestion());
 
         if ($this->valueDefaultNumeric) {
             $option->setChecked(true);
@@ -184,7 +199,6 @@ class OpenEndedNumber extends AbstractOpenEnded
                     // Check if option is available in the option row
                     if (
                         $optionRow->hasOption($optionUid)
-                        && is_numeric($value)
                     ) {
 
                         // Get the option

@@ -7,16 +7,8 @@
 <div class="type-1{f:if(condition: '{item.optionsAlignment} == 1', then: ' horizontal')}{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
 	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+	<f:render partial="errorContainer" arguments="{_all}" />
 
-	<div id="error-container-{item.uid}" class="error-container">
-		<f:if condition="{item.errors -> f:count()}">
-			<ul class="parsley-errors-list filled server-errors">
-				<f:for each="{item.errors}" as="error">
-					<li>{error}</li>
-				</f:for>
-			</ul>
-		</f:if>
-	</div>
 	<fieldset id="error-class-{item.uid}">
 		<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
 			<pb:for each="{optionRow.options}" as="option" iteration="optionIterator" random="{item.random}">

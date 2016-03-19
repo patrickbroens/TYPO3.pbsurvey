@@ -6,8 +6,8 @@
 <div class="type-7{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
 	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+	<f:render partial="errorContainer" arguments="{_all}" />
 
-	<div id="error-container-{item.uid}" class="error-container"></div>
 	<table id="error-class-{item.uid}" data-pbsurvey-matrix="{item.uid}">
 		<thead>
 			<tr>

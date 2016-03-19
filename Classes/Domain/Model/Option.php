@@ -124,6 +124,6 @@ class Option extends AbstractModel
      */
     public function setValue($value)
     {
-        $this->value = (string)$value;
+        $this->value = trim((string)$value);
     }
 }

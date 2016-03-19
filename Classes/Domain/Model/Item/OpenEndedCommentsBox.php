@@ -45,6 +45,15 @@ class OpenEndedCommentsBox extends AbstractOpenEnded
     ];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredValue' => 'item.error.optionsRequired.enter'
+    ];
+
+    /**
      * Initialize this item
      *
      * Make the item 2 dimensional

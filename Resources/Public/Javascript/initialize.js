@@ -1,10 +1,10 @@
 window.Parsley
 	.addValidator('matrixMincheck', {
-		requirementType: 'integer',
-		validateNumber: function (value, requirement, parsleyInstance) {
+		requirementType: ['integer', 'boolean'],
+		validateNumber: function (value, requirement, mandatory, parsleyInstance) {
 			var container = jQuery(parsleyInstance.$element).closest('[data-pbsurvey-matrix]');
 			var amount = container.find('input[type=radio]:checked').length;
-			return 0 === amount || amount >= requirement;
+			return (!mandatory && amount === 0) || amount >= requirement;
 		},
 		messages: {
 			en: 'Not all of %s options have been selected'
@@ -20,7 +20,7 @@ window.Parsley
 			return (!mandatory && amount === 0) || amount >= minimum;
 		},
 		messages: {
-			en: 'Enter at least %s value'
+			en: 'Enter at least %s value(s)'
 		}
 	})
 	.addValidator('textMaximum', {
@@ -49,7 +49,7 @@ window.Parsley
 			en: 'Enter at least %s and no more than %s values'
 		}
 	})
-	.addValidator('equals', {
+	.addValidator('sum', {
 		requirementType: 'integer',
 		validateNumber: function (value, requirement) {
 			return 0 === value || value === requirement;

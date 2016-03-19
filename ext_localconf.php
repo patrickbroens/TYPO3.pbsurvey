@@ -165,7 +165,161 @@ if (TYPO3_MODE === 'BE') {
     $signalSlotDispatcher->connect(
         \PatrickBroens\Pbsurvey\Validation\Validator::class,
         'ErrorCheck',
-        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\Required::class,
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\AdditionalValue::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\Date::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\DateMaximum::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\DateMinimum::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\Email::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\Integer::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\IntegerMaximum::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\IntegerMinimum::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\IntegerRange::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\Length::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\Ranking::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\RequiredChecked::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\RequiredCheckedColumn::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\RequiredCheckedRow::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\RequiredSum::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\RequiredValue::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\ResponsesCheckedMaximum::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\ResponsesCheckedMinimum::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\ResponsesCheckedRange::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\ResponsesValueMaximum::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\ResponsesValueMinimum::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\ResponsesValueRange::class,
+        'check'
+    );
+
+    $signalSlotDispatcher->connect(
+        \PatrickBroens\Pbsurvey\Validation\Validator::class,
+        'ErrorCheck',
+        \PatrickBroens\Pbsurvey\Validation\ErrorCheck\Sum::class,
         'check'
     );
 }

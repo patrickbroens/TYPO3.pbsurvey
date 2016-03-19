@@ -68,6 +68,16 @@ class ChoiceOneAnswerOptionButtons extends AbstractChoice
     ];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredChecked' => 'item.error.optionsRequired.select.single',
+        'additionalValue' => 'item.error.additional'
+    ];
+
+    /**
      * Initialize this item
      *
      * Make the item 2 dimensional

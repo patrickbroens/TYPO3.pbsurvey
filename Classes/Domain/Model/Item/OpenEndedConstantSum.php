@@ -55,6 +55,17 @@ class OpenEndedConstantSum extends AbstractChoice
     ];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredSum' => 'item.error.optionsRequired.number',
+        'integer' => 'item.error.number.label',
+        'sum' => 'item.error.number.equals'
+    ];
+
+    /**
      * Answer total
      *
      * @var int
@@ -130,7 +141,6 @@ class OpenEndedConstantSum extends AbstractChoice
                     if (
                         $optionRowUid === $optionUid
                         && $optionRow->hasOption($optionUid)
-                        && is_numeric($value)
                     ) {
 
                         // Get the option

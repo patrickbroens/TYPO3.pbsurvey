@@ -44,6 +44,16 @@ class ChoiceRanking extends AbstractChoice
     use OptionRowsTrait;
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredCheckedColumn' => 'item.error.matrix.mincheck',
+        'ranking' => 'item.error.matrix.mincheck'
+    ];
+
+    /**
      * Initialize this item
      */
     public function initialize()

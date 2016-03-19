@@ -28,6 +28,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class OpenEndedOneOrMoreLines extends AbstractChoice
 {
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'length' => 'item.error.length',
+        'requiredValue' => 'item.error.optionsRequired.enter',
+        'responsesValueMaximum' => 'item.error.enter.maximum',
+        'responsesValueMinimum' => 'item.error.enter.minimum',
+        'responsesValueRange' => 'item.error.enter.range'
+    ];
+
+    /**
      * TRAIT: LengthMaximumTrait
      *
      * FIELDS:

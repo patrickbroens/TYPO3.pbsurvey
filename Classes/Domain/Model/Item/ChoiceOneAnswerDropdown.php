@@ -53,6 +53,15 @@ class ChoiceOneAnswerDropdown extends AbstractChoice
     ];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredChecked' => 'item.error.optionsRequired.select.single'
+    ];
+
+    /**
      * Initialize this item
      *
      * Make the item 2 dimensional

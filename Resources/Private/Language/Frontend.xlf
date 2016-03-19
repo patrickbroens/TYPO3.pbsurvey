@@ -24,6 +24,9 @@
 			<trans-unit id="item.error.additional" xml:space="preserve">
 				<source>Enter the additional value</source>
 			</trans-unit>
+			<trans-unit id="item.error.date" xml:space="preserve">
+				<source>Enter a date as dd-mm-yyyy</source>
+			</trans-unit>
 			<trans-unit id="item.error.date.maximum" xml:space="preserve">
 				<source>Enter a date that is less than or equal to %1$s</source>
 			</trans-unit>
@@ -32,6 +35,15 @@
 			</trans-unit>
 			<trans-unit id="item.error.date.optionsRequired" xml:space="preserve">
 				<source>Enter a date</source>
+			</trans-unit>
+			<trans-unit id="item.error.enter.maximum" xml:space="preserve">
+				<source>Enter no more than %1$s value</source>
+			</trans-unit>
+			<trans-unit id="item.error.enter.minimum" xml:space="preserve">
+				<source>Enter at least %1$s values</source>
+			</trans-unit>
+			<trans-unit id="item.error.enter.range" xml:space="preserve">
+				<source>Enter at least %1$s value and no more than %2$d values</source>
 			</trans-unit>
 			<trans-unit id="item.error.email" xml:space="preserve">
 				<source>The value is not an email address</source>
@@ -67,7 +79,7 @@
 				<source>Select at least one value</source>
 			</trans-unit>
 			<trans-unit id="item.error.optionsRequired.select.ranking" xml:space="preserve">
-				<source>Ranking %1$d is missing</source>
+				<source>Not all of %1$d options have been selected</source>
 			</trans-unit>
 			<trans-unit id="item.error.optionsRequired.select.row" xml:space="preserve">
 				<source>Select a value for row '%1$s'</source>

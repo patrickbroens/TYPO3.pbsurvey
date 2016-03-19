@@ -6,8 +6,8 @@
 <div class="type-7{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
 	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+	<f:render partial="errorContainer" arguments="{_all}" />
 
-	<div id="error-container-{item.uid}" class="error-container"></div>
 	<fieldset id="error-class-{item.uid}" data-pbsurvey-matrix="{item.uid}">
 		<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
 			<f:for each="{optionRow.options}" as="option" iteration="optionIterator">
@@ -105,9 +105,11 @@
 							<f:if condition="{item.optionsResponsesMaximum}">
 								<f:then>
 									data-parsley-text-range="[{item.optionsResponsesMinimum}, {item.optionsResponsesMaximum}, true]"
+									data-parsley-text-range-message="{f:render(partial: 'translate', arguments: {key: 'item.error.enter.range', printf: '{0: item.optionsResponsesMinimum, 1: item.optionsResponsesMaximum}'})}"
 								</f:then>
 								<f:else>
 									data-parsley-text-minimum="[{item.optionsResponsesMinimum}, true]"
+									data-parsley-text-minimum-message="{f:render(partial: 'translate', arguments: {key: 'item.error.enter.minimum', printf: '{0: item.optionsResponsesMinimum}'})}"
 								</f:else>
 							</f:if>
 						</f:then>
@@ -115,9 +117,11 @@
 							<f:if condition="{item.optionsResponsesMaximum}">
 								<f:then>
 									data-parsley-text-range="[1, {item.optionsResponsesMaximum}, true]"
+									data-parsley-text-range-message="{f:render(partial: 'translate', arguments: {key: 'item.error.enter.range', printf: '{0: 1, 1: item.optionsResponsesMaximum}'})}"
 								</f:then>
 								<f:else>
 									data-parsley-text-minimum="[1, true]"
+									data-parsley-text-minimum-message="{f:render(partial: 'translate', arguments: {key: 'item.error.enter.minimum', printf: '{0: 1}'})}"
 								</f:else>
 							</f:if>
 						</f:else>
@@ -129,9 +133,11 @@
 							<f:if condition="{item.optionsResponsesMaximum}">
 								<f:then>
 									data-parsley-text-range="[{item.optionsResponsesMinimum}, {item.optionsResponsesMaximum}, false]"
+									data-parsley-text-range-message="{f:render(partial: 'translate', arguments: {key: 'item.error.enter.range', printf: '{0: item.optionsResponsesMinimum, 1: item.optionsResponsesMaximum}'})}"
 								</f:then>
 								<f:else>
 									data-parsley-text-minimum="[{item.optionsResponsesMinimum}, false]"
+									data-parsley-text-minimum-message="{f:render(partial: 'translate', arguments: {key: 'item.error.enter.minimum', printf: '{0: item.optionsResponsesMinimum}'})}"
 								</f:else>
 							</f:if>
 						</f:then>
@@ -139,6 +145,7 @@
 								<f:if condition="{item.optionsResponsesMaximum}">
 									<f:then>
 										data-parsley-text-maximum="{item.optionsResponsesMaximum}"
+										data-parsley-text-maximum-message="{f:render(partial: 'translate', arguments: {key: 'item.error.enter.maximum', printf: '{0: item.optionsResponsesMaximum}'})}"
 									</f:then>`
 								</f:if>
 						</f:else>

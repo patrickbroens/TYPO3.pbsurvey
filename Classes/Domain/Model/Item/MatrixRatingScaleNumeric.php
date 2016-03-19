@@ -25,6 +25,15 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Traits\NumberTrait;
 class MatrixRatingScaleNumeric extends AbstractMatrix
 {
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredCheckedRow' => 'item.error.optionsRequired.select.row'
+    ];
+
+    /**
      * TRAIT: NumberTrait
      *
      * FIELDS:

@@ -7,8 +7,8 @@
 <div class="type-23{f:if(condition: item.styleclass, then: ' {item.styleclass}')}">
 	<f:render section="question" arguments="{_all}" />
 	<f:render partial="questionSubtext" arguments="{questionSubtext: item.questionSubtext}" />
+	<f:render partial="errorContainer" arguments="{_all}" />
 
-	<div id="error-container-{item.uid}" class="error-container"></div>
 	<f:for each="{item.optionRows}" as="optionRow" iteration="optionRowIterator">
 		<select
 			name="pbsurvey_{configuration.uid}[{item.uid}][{optionRow.uid}][]"

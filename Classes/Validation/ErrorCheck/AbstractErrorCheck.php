@@ -15,6 +15,7 @@ namespace PatrickBroens\Pbsurvey\Validation\ErrorCheck;
  */
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Abstract error check
@@ -31,7 +32,8 @@ abstract class AbstractErrorCheck
      */
     protected function getErrorMessage($label)
     {
-        $arguments = array_shift(func_get_args());
+        $arguments = func_get_args();
+        array_shift($arguments);
 
         $errorMessage = LocalizationUtility::translate(
             'LLL:EXT:pbsurvey/Resources/Private/Language/Frontend.xlf:' . $label,
@@ -43,5 +45,15 @@ abstract class AbstractErrorCheck
         }
 
         return $errorMessage;
+    }
+
+    /**
+     * Get the TypoScript frontend controller
+     *
+     * @return TypoScriptFrontendController
+     */
+    protected function getTypoScriptFrontendController()
+    {
+        return $GLOBALS['TSFE'];
     }
 }

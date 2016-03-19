@@ -83,13 +83,12 @@ class ChoiceMultipleAnswersCheckboxes extends AbstractChoice
      * @var array
      */
     protected static $validators = [
-        'required' => 'item.error.optionsRequired.select.multiple',
-        'responses' => [
-            'minimum' => 'item.error.optionsResponsesMinimum',
-            'maximum' => 'item.error.optionsResponsesMaximum',
-            'range' => 'item.error.optionsResponsesRange'
-        ],
-        'additional' => 'item.error.additional'
+        'additionalValue' => 'item.error.additional',
+        'requiredChecked' => 'item.error.optionsRequired.select.multiple',
+        'responsesCheckedMaximum' => 'item.error.optionsResponsesMaximum',
+        'responsesCheckedMinimum' => 'item.error.optionsResponsesMinimum',
+        'responsesCheckedRange' => 'item.error.optionsResponsesRange',
+
     ];
 
     /**
@@ -160,13 +159,17 @@ class ChoiceMultipleAnswersCheckboxes extends AbstractChoice
                         if (
                             $optionUid === -1
                             && $this->getAnswersAdditionalAllow()
-                            && isset($options[-1])
-                            && is_string($options[-1])
                         ) {
-                            $value = $options[-1];
-
                             $option->setChecked(true);
-                            $option->setValue($value);
+                            $value = '';
+
+                            if (
+                                isset($options[-1])
+                                && is_string($options[-1])
+                            ) {
+                                $value = $options[-1];
+                                $option->setValue($value);
+                            }
 
                             $this->setAnswer(
                                 $optionRowUid,

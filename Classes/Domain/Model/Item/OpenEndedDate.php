@@ -37,6 +37,18 @@ class OpenEndedDate extends AbstractOpenEnded
     ];
 
     /**
+     * The validators to be used
+     *
+     * @var array
+     */
+    protected static $validators = [
+        'requiredValue' => 'item.error.date.optionsRequired',
+        'date' => 'item.error.date',
+        'dateMaximum' => 'item.error.date.maximum',
+        'dateMinimum' => 'item.error.date.minimum'
+    ];
+
+    /**
      * Default date
      *
      * @var int

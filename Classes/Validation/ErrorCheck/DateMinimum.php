@@ -18,12 +18,12 @@ use PatrickBroens\Pbsurvey\Domain\Model\Item\Abstracts\AbstractQuestion;
 use PatrickBroens\Pbsurvey\Validation\Validator;
 
 /**
- * Required validation
+ * Minimum date validation
  */
-class Required extends AbstractErrorCheck
+class DateMinimum extends AbstractErrorCheck
 {
     /**
-     * Check if the item is valid
+     * Check if values are a above minimum date
      *
      * @param Validator $validator The validator
      * @param AbstractQuestion $item The item
@@ -33,27 +33,32 @@ class Required extends AbstractErrorCheck
         AbstractQuestion $item
     ) {
         if (
-            $item->needsValidator('required')
-            && $item->getOptionsRequired()
+            $item->needsValidator('dateMinimum')
+            && is_callable([$item, 'getDateMaximum'])
+            && is_callable([$item, 'getDateMinimum'])
+            && $item->getDateMinimum() > 0
         ) {
-            $isValid = false;
-            $validatorConfiguration = $item->getValidatorConfiguration('required');
+            $validatorConfiguration = $item->getValidatorConfiguration('dateMinimum');
 
             foreach ($item->getOptionRows() as $optionRow) {
                 foreach ($optionRow->getOptions() as $option) {
+                    $value = $option->getValue();
+                    $date = \DateTime::createFromFormat('d-m-Y', $value);
+                    $dateMinimum = \DateTime::createFromFormat('d-m-Y', $item->getDateMinimum());
+
                     if (
-                        $option->getChecked() === true
-                        || $option->getValue() !== ''
+                        $value !== ''
+                        && $date
+                        && $date < $dateMinimum
+
                     ) {
-                        $isValid = true;
-                        break 2;
+                        $validator->didNotValidate();
+                        $item->addError($this->getErrorMessage(
+                            $validatorConfiguration,
+                            $item->getDateMinimum()
+                        ));
                     }
                 }
-            }
-
-            if (!$isValid) {
-                $validator->didNotValidate();
-                $item->addError($this->getErrorMessage($validatorConfiguration));
             }
         }
     }
